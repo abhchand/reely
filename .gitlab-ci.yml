@@ -1,0 +1,46 @@
+services:
+  - postgres:9.6
+
+variables:
+  RUNNING_ON_CI_SERVER: 1
+  POSTGRES_DB: reely_test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - /cache
+
+before_script:
+  # System
+  - apt-get update -qq
+
+  # Qt
+  - apt-get install -qq qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+  - which qmake
+
+  # Xvfb
+  - apt-get install -y xvfb
+
+  # Ruby
+  - ruby -v
+  - which ruby
+
+  # Ruby Gems
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - gem install bundler
+  - bundle install --path=/cache --without production --jobs $(nproc) "${FLAGS[@]}"
+
+  # App
+  - RAILS_ENV=test bundle exec rake db:create
+  - RAILS_ENV=test bundle exec rake db:migrate
+
+rspec:
+  script:
+    # See: https://github.com/thoughtbot/capybara-webkit#ci
+    - xvfb-run -a bundle exec rspec
+
+rubocop:
+  script:
+    - bundle exec rubocop

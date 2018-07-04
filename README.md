@@ -1,4 +1,3 @@
 # reely
-reely.co
 
-[![Build Status](https://secure.travis-ci.org/abhchand/reely.png)](http://travis-ci.org/abhchand/reely)
+[![Build Status](https://gitlab.com/reely/reely/badges/master/build.svg)](https://gitlab.com/reely/reely/pipelines)
