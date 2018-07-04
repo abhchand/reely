@@ -27,6 +27,7 @@ gem "puma", "~> 3.4"
 group :development, :test do
   gem "pry-rails"
   gem "rspec-rails", "~> 3.4"
+  gem "rubocop", "~> 0.57.2"
   gem "factory_girl_rails", "~> 4.5"
 end
 
