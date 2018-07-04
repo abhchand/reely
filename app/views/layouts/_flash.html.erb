@@ -1,0 +1,14 @@
+<%
+  flash_hash = flash.to_hash
+  classes = [
+    flash.empty? ? "inactive" : "active",
+    flash.empty? ? "" : flash_hash.keys.first,
+    "col-xs-12"
+  ].join(" ")
+%>
+
+<div class="flash <%= classes %>">
+  <div class="flash__message col-xs-10 col-xs-push-1 no-gutter">
+    <%= flash_hash.values.first unless flash.empty? %>
+  </div>
+</div>

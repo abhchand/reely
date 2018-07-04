@@ -1,0 +1,35 @@
+$white: #FFFFFF;
+$black: #000000;
+
+// Light
+$light-blue: #008BF8;
+$light-gray: #EEEEEE;
+$light-green: #04E762;
+
+// Medium
+$medium-gray: #CCCCCC;
+
+// Dark
+$dark-blue: #0D3F82;
+$dark-gray: #666666;
+$dark-green: #1C8C50;
+$deep-navy: #00335D;
+$dark-purple: #4F14C8;
+
+// Custom
+$canary-yellow: #FCF0AD;
+$leaf-green: #21BB61;
+$mustard: #EABB12;
+$orange-red: #DC0073;
+$slate-green: #37505E;
+
+// With Opacity
+$black-opacity: rgba(0, 0, 0, 0.35);
+$black-opacity-heavy: rgba(0, 0, 0, 0.85);
+$white-opactiy: rgba(255, 255, 255, 0.10);
+
+// Tags
+$location-tag-color: $dark-green;
+$person-tag-color: $light-blue;
+$favorite-tag-color: $mustard;
+$custom-tag-color: $dark-purple;

@@ -1,0 +1,35 @@
+.responsive-navigation-view-container {
+  &.responsive-navigation-view-container--mobile {
+  }
+
+  &.responsive-navigation-view-container--desktop {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100%;
+  }
+}
+
+.desktop_navigation__content {
+  width: 100%;
+}
+
+.desktop-navigation__header {
+  display: none;
+
+  @include breakpoint($screen-xs) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+    height: 95px;
+    // .photo-grid is 90% width, leaving 5% margins. Ensure the header matches
+    // that with padding so content is vertically aligned
+    padding: 0 5%;
+  }
+}

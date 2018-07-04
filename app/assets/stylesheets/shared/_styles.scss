@@ -1,0 +1,16 @@
+//
+// Containers
+//
+
+.bordered-container {
+  display: inline-block;
+
+  margin: 50px auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  border-color: $dark-gray;
+}

@@ -1,0 +1,11 @@
+<div class="photo-grid-container">
+  <%=
+    react_component(
+      "PhotoGrid",
+      {
+        photoData: @photos.map { |photo| to_react_props(photo) }
+      },
+      { prerender: true }
+    )
+  %>
+</div>

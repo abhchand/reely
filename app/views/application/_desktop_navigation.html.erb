@@ -1,0 +1,36 @@
+<nav class="desktop-navigation">
+  <div class="desktop-navigation__profile">
+    <%= link_to(image_tag("test-profile.jpg"), root_path) %>
+    <span><%= current_user.first_name.downcase %></span>
+  </div>
+
+  <ul class="desktop-navigation__links">
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+      <%= link_to(t(".links.my_photos"), home_index_path) %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--minor">
+      <%= link_to(t(".links.locations"), "#") %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--minor">
+      <%= link_to(t(".links.people"), "#") %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--minor">
+      <%= link_to(t(".links.favorites"), "#") %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+      <%= link_to(t(".links.collections"), collections_path) %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+      <%= link_to(t(".links.settings"), "#") %>
+    </li>
+
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+      <%= link_to(t(".links.log_out"), log_out_path) %>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  min_messages: warning
+  pool: 5
+  timeout: 5000
+
+test:
+  <<: *default
+  database: reely_test
+
+development:
+  <<: *default
+  database: reely_development
+
+staging:
+  <<: *default
+  database: reely_staging
+  username: deploy
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+
+production:
+  <<: *default
+  database: reely_production
+  username: deploy
+  password: <%= ENV["DATABASE_PASSWORD"] %>

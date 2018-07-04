@@ -1,0 +1,39 @@
+input {
+  height: 60px;
+  width: 100%;
+  margin: 7px 0;
+  padding: 10px 15px;
+  font-size: 18px;
+  line-height: 48px;
+  border: 1px solid $dark-gray;
+  box-sizing: border-box;
+
+  @include breakpoint($screen-xs) {
+    width: 300px;
+    height: 48px;
+  }
+}
+
+input[type="submit"] {
+  -webkit-appearance: button;
+  // Same as h2
+  font-size: 2.25rem;
+  cursor: pointer;
+
+  @include breakpoint($screen-xs) {
+    // Same as h2
+    font-size: 0.8 * 2.25rem;
+    // Give it some breathing room at the bottom
+    margin-bottom: 20px;
+  }
+}
+
+::-webkit-input-placeholder { text-transform: lowercase; }
+::-moz-placeholder { text-transform: lowercase; }
+
+.cta,
+.cta-purple {
+  background: $dark-purple;
+  color: $white;
+  font-weight: 600;
+}

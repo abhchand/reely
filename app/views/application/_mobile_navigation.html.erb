@@ -1,0 +1,58 @@
+<nav class="mobile-navigation">
+
+  <div class="mobile-navigation__header">
+    <div class="mobile-navigation__logo">
+      <%= link_to(root_path) do %>
+        <%= inline_svg("logo.svg", height: "40px", width: "40px" ) %>
+      <% end %>
+    </div>
+
+    <div class="mobile-navigation__menu-icon">
+      <%= inline_svg("icons/menu.svg", height: "28px", width: "28px" ) %>
+    </div>
+  </div>
+
+  <div class="mobile-navigation__links-container inactive">
+
+    <div class="mobile-navigation__profile">
+      <%= link_to(image_tag("test-profile.jpg"), root_path) %>
+      <span><%= current_user.first_name.downcase %></span>
+    </div>
+
+    <ul class="mobile-navigation__links">
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--major">
+        <%= link_to(t(".links.my_photos"), home_index_path) %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--minor">
+        <%= link_to(t(".links.locations"), "#") %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--minor">
+        <%= link_to(t(".links.people"), "#") %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--minor">
+        <%= link_to(t(".links.favorites"), "#") %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--major">
+        <%= link_to(t(".links.collections"), collections_path) %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--major">
+        <%= link_to(t(".links.settings"), "#") %>
+      </li>
+
+      <li class="mobile-navigation__link-element mobile-navigation__link-element--major">
+        <%= link_to(t(".links.log_out"), log_out_path) %>
+      </li>
+    </ul>
+
+    <div class="mobile-navigation__footer">
+      <%= inline_svg("icons/chevron-top.svg") %>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-navigation__overlay inactive"></div>

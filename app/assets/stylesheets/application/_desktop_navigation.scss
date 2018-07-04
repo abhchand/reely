@@ -1,0 +1,107 @@
+.desktop-navigation {
+  display: none;
+
+  @include breakpoint($screen-xs) {
+    display: initial;
+
+    min-width: 140px;
+    max-width: 140px;
+    top: 0;
+
+    color: $white;
+
+    -moz-box-shadow:    3px 0 7px 2px $medium-gray;
+    -webkit-box-shadow: 3px 0 7px 2px $medium-gray;
+    box-shadow:         3px 0 7px 2px $medium-gray;
+  }
+}
+
+.desktop-navigation__profile {
+  @include breakpoint($screen-xs) {
+    width: 80px;
+    padding: 10px 0;
+    margin: auto;
+
+    // Unlike other <li>, setting line-height on image breaks alignment
+    line-height: normal;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      margin-bottom: 15px;
+
+      border-width: 3px;
+      border-style: solid;
+      border-color: $dark-purple;
+      border-radius: 50%;
+    }
+
+    span {
+      font-size: 16px;
+      color: $black;
+    }
+  }
+}
+
+.desktop-navigation__links {
+  @include breakpoint($screen-xs) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-top: 30px;
+  }
+}
+
+.desktop-navigation__link-element {
+  @include breakpoint($screen-xs) {
+    color: $black;
+    text-align: left;
+
+    a {
+      // Display as block and set height so anchor fills up the whole
+      // parent <li>
+      display: block;
+
+      // Boostrap tries to set the anchor color, override it
+      color: $black;
+    }
+
+    &:hover {
+      background-color: $dark-purple;
+
+      a {
+        color: $light-gray;
+      }
+    }
+  }
+}
+
+.desktop-navigation__link-element--major {
+  @include breakpoint($screen-xs) {
+    height: 40px;
+    // Vertically center the text
+    line-height: 40px;
+    padding-left: 20px;
+    font-size: 18px;
+
+    a {
+      line-height: 40px;
+    }
+  }
+}
+
+.desktop-navigation__link-element--minor {
+  @include breakpoint($screen-xs) {
+    height: 28px;
+    // Vertically center the text
+    line-height: 28px;
+    padding-left: 40px;
+    font-size: 14px;
+
+    a {
+      line-height: 28px;
+    }
+  }
+}

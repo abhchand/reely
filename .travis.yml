@@ -1,0 +1,15 @@
+language: ruby
+sudo: false
+rvm:
+  - 2.2.2
+bundler_args: --without production --without development
+before_install:
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - 'mkdir -p /tmp/test'
+before_script:
+  - 'rake db:setup'
+script: bundle exec rspec
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"

@@ -1,0 +1,33 @@
+.site-index-container {
+  padding: 0;
+  margin-top: 60px;
+}
+
+.site-index-logo {
+  margin: 30px 0;
+}
+
+.site-index-auth-form__container {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include breakpoint($screen-xs) {
+    border-radius: 3px;
+  }
+
+  input {
+    border-left-width: 0;
+    border-right-width: 0;
+
+    @include breakpoint($screen-xs) {
+      border-left-width: 1px;
+      border-right-width: 1px;
+    }
+  }
+}
+
+.site-index-auth-form__submit {
+  // CSS magic: 1px keeps the text vertically aligned in the button
+  line-height: 1px;
+}

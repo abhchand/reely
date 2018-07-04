@@ -1,0 +1,26 @@
+// Flash messages
+.flash {
+  position: absolute;
+  top: 0;
+  padding: 12px 0;
+  font-weight: 700;
+  z-index: 99;
+
+  &.active {
+    visibility: visible;
+  }
+
+  &.inactive {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.25s, opacity 0.25s linear;
+  }
+
+  &.error {
+    background: $mustard;
+  }
+
+  &.notice {
+    background: $light-green;
+  }
+}

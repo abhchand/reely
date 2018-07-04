@@ -1,0 +1,20 @@
+<%= render_inside(parent_layout: "application") do %>
+  <section class="responsive-navigation-view-container responsive-navigation-view-container--mobile">
+    <%= render "mobile_navigation" %>
+  </section>
+
+  <section class="responsive-navigation-view-container responsive-navigation-view-container--desktop">
+    <%= render "desktop_navigation" %>
+
+    <div class="desktop_navigation__content">
+      <div class="desktop-navigation__header">
+        <div class="desktop-navigation__logo">
+          <%= link_to(root_path) do %>
+            <%= inline_svg("logo.svg", height: "65px", width: "65px" ) %>
+          <% end %>
+        </div>
+      </div>
+      <%= yield %>
+    </div>
+  </section>
+<% end %>

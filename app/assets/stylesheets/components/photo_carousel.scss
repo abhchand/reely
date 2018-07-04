@@ -1,0 +1,106 @@
+.photo-carousel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.photo-carousel__content {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: $black;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  transition: background-image 0.15s ease-in-out;
+}
+
+.photo-carousel__navigation-container {
+  position: absolute;
+  width: 35%;
+  height: 70%;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .photo-carousel__navigation {
+    background-color: $white-opactiy;
+
+    @include breakpoint($screen-xs) {
+      // display: none;
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &:hover .photo-carousel__navigation {
+    @include breakpoint($screen-xs) {
+      // display: initial;
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 0s, opacity 0.4s linear
+    }
+  }
+
+  // Previous/Next specific alignment
+
+  &.prev {
+    left: 0;
+
+    .photo-carousel__navigation {
+      left: 25px;
+    }
+  }
+
+  &.next {
+    right: 0;
+
+    .photo-carousel__navigation {
+      right: 25px;
+    }
+  }
+}
+
+.photo-carousel__navigation {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 50%;
+  border-radius: 50%;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.photo-carousel__close {
+  position: absolute;
+  color: $white;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.photo-carousel__close:hover,
+.photo-carousel__close:focus {
+  text-decoration: none;
+}
