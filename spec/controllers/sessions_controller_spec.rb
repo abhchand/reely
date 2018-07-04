@@ -46,8 +46,8 @@ RSpec.describe SessionsController, type: :controller do
 
       it "sets the flash message" do
         post :create, params
-        expect(flash[:error])
-          .to eq(t("sessions.create.authenticate.invalid_login"))
+        expect(flash[:error]).
+          to eq(t("sessions.create.authenticate.invalid_login"))
       end
 
       it "redirects to the root path" do

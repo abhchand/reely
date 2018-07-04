@@ -34,7 +34,7 @@ RSpec.describe "site/index.html.erb", type: :view do
   it "displays the submit button" do
     render
 
-    is_expected
-      .to have_selector(".site-index-auth-form__container input[name='log-in']")
+    is_expected.
+      to have_selector(".site-index-auth-form__container input[name='log-in']")
   end
 end

@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     )
   end
 
-  def set_session(user)
+  def set_session(user) # rubocop:disable AccessorMethodName
     session[:user_id] = user.id
   end
 

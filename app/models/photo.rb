@@ -7,7 +7,7 @@ class Photo < ActiveRecord::Base
   validates_attachment(
     :source,
     presence: true,
-    content_type: { :content_type => /\Aimage\/.*\Z/ },
+    content_type: { content_type: %r{\Aimage\/.*\Z} }
   )
 
   def taken_at_display_label

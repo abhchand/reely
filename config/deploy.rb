@@ -4,12 +4,12 @@ lock "3.5.0"
 set :application, "reely"
 
 # User Setup
-REELY_USER = "deploy"
+REELY_USER = "deploy".freeze
 set :user, REELY_USER
 
 # Deploy configuration
-DEPLOY_ROOT = "/home/deploy/reely"
-set :ssh_options, { user: REELY_USER }
+DEPLOY_ROOT = "/home/deploy/reely".freeze
+set :ssh_options, user: REELY_USER
 set :deploy_user, REELY_USER
 set :deploy_to, DEPLOY_ROOT
 
@@ -28,7 +28,7 @@ set :keep_releases, 3
 # Set files and directories we want to symlink into the shared folder
 set(
   :linked_dirs,
-  %w{
+  %w[
     log
     tmp/pids
     tmp/cache
@@ -36,7 +36,7 @@ set(
     vendor/bundle
     public/system
     public/assets
-  }
+  ]
 )
 
 # Use cloned cache instead of re-cloning for each release

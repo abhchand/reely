@@ -5,7 +5,7 @@ module FeatureHelpers
       parse_query(URI.parse(url_to_parse).query).
       with_indifferent_access
 
-    params.each { |k,v| params[k] = CGI.unescape(v) }
+    params.each { |k, v| params[k] = CGI.unescape(v) }
     params
   end
 

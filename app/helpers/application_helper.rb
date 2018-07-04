@@ -10,7 +10,7 @@ module ApplicationHelper
   def render_inside(opts = {}, &block)
     layout = opts.fetch(:parent_layout)
 
-    layout = "layouts/#{layout}" unless layout =~ /\Alayouts/
+    layout = "layouts/#{layout}" unless layout.start_with?("layout")
     content_for(:nested_layout_content, capture(&block))
     render template: layout
   end

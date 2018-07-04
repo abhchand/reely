@@ -1,6 +1,9 @@
 AllCops:
   Exclude:
     - 'db/migrate/**'
+    - 'db/schema.rb'
+    # Auto-generated binstubs have all sorts of errors
+    - 'bin/**'
 Documentation:
   Enabled: false
 Style/EmptyMethod:

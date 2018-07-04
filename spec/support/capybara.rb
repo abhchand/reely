@@ -10,6 +10,6 @@ end
 
 Capybara::Screenshot.autosave_on_failure = false
 
-Capybara::Webkit.configure do |config|
+Capybara::Webkit.configure do |config| # rubocop:disable Style/SymbolProc
   config.block_unknown_urls
 end

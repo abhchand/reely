@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_authentication
-    if current_user.nil?
-      requested_path = URI.parse(request.original_fullpath).path
-      redirect_to root_path(dest: ERB::Util.url_encode(requested_path))
-    end
+    return unless current_user.nil?
+
+    requested_path = URI.parse(request.original_fullpath).path
+    redirect_to root_path(dest: ERB::Util.url_encode(requested_path))
   end
 
   def append_view_paths

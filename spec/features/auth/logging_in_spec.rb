@@ -6,7 +6,7 @@ RSpec.feature "Logging In", type: :feature do
 
   before { user }
 
-  it "user can log in"do
+  it "user can log in" do
     visit root_path
 
     fill_in "session[email]", with: user.email

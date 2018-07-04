@@ -9,14 +9,14 @@ rails_env = ENV["RAILS_ENV"] || "development"
 environment(rails_env)
 
 # Set directories
-app_root = File.expand_path("../..", __FILE__)
+app_root = File.expand_path("..", __dir__)
 tmp_dir = "#{app_root}/tmp"
 log_dir = "#{app_root}/log"
 # Locally the shared directory is under the app root, but on remote servers
 # Capistrano symlinks each release to a shared/ directory
-shared_dir =
-  if ["staging", "production"].include?(rails_env)
-     "/home/deploy/reely/shared"
+shared_dir = # rubocop:disable Lint/UselessAssignment
+  if %w[staging production].include?(rails_env)
+    "/home/deploy/reely/shared"
   else
     "#{app_root}/shared"
   end
@@ -25,8 +25,12 @@ shared_dir =
 bind "unix://#{tmp_dir}/sockets/puma.sock"
 
 # Logging
-if %w(production).include?(rails_env)
-  stdout_redirect "#{log_dir}/puma.stdout.log", "#{log_dir}/puma.stderr.log", true
+if %w[production].include?(rails_env)
+  stdout_redirect(
+    "#{log_dir}/puma.stdout.log",
+    "#{log_dir}/puma.stderr.log",
+    true
+  )
 end
 
 # Set master PID and state locations
@@ -36,6 +40,10 @@ activate_control_app
 
 on_worker_boot do
   require "active_record"
+  # rubocop:disable LineLength, RescueModifier
   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
-  ActiveRecord::Base.establish_connection(YAML.load_file("#{app_root}/config/database.yml")[rails_env])
+  # rubocop:enable LineLength, RescueModifier
+  ActiveRecord::Base.establish_connection(
+    YAML.load_file("#{app_root}/config/database.yml")[rails_env]
+  )
 end
