@@ -40,6 +40,8 @@ en:
           log_out: log out
     desktop_navigation:
       <<: *shared_navigation
+      collapser:
+        collapse_nav: Collapse sidebar
     mobile_navigation:
       <<: *shared_navigation
 

@@ -4,15 +4,48 @@
   @include breakpoint($screen-xs) {
     display: initial;
 
-    min-width: 140px;
-    max-width: 140px;
+    min-width: 200px;
+    max-width: 200px;
     top: 0;
 
-    color: $white;
+    color: $black;
 
     -moz-box-shadow:    3px 0 7px 2px $medium-gray;
     -webkit-box-shadow: 3px 0 7px 2px $medium-gray;
     box-shadow:         3px 0 7px 2px $medium-gray;
+
+    //
+    // Collapser
+    //
+
+    // Visible by default
+
+    visibility: visible;
+    opacity: 1;
+
+    // Add transition animation
+
+    -webkit-transition: min-width 0.4s ease;
+    -moz-transition: min-width 0.4s ease;
+    -o-transition: min-width 0.4s ease;
+    transition: min-width 0.4s ease;
+
+    // Minimize navigation bar and hide child divs
+    &.collapsed {
+      min-width: 48px;
+      max-width: 48px;
+
+      .desktop-navigation__profile,
+      .desktop-navigation__links {
+        visibility: hidden;
+        opacity: 0;
+
+        -webkit-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+        -moz-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+        -o-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+        transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+      }
+    }
   }
 }
 
@@ -39,7 +72,6 @@
 
     span {
       font-size: 16px;
-      color: $black;
     }
   }
 }
@@ -56,7 +88,6 @@
 
 .desktop-navigation__link-element {
   @include breakpoint($screen-xs) {
-    color: $black;
     text-align: left;
 
     a {
@@ -103,5 +134,46 @@
     a {
       line-height: 28px;
     }
+  }
+}
+
+
+//
+// Navigation Collapser
+//
+
+.desktop-navigation__collapser {
+  display: block;
+  margin-top: 100px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.desktop-navigation__collapser--expanded {
+  &.active {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 32px;
+
+    svg {
+      margin: auto 5px;
+    }
+  }
+
+  &.inactive {
+    display: none;
+  }
+}
+.desktop-navigation__collapser--collapsed {
+  &.active {
+    display: block;
+    height: 32px;
+  }
+
+  &.inactive {
+    display: none;
   }
 }
