@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Navbar", type: :feature do
+RSpec.feature "Mobile Navigation", type: :feature do
   let(:user) { create(:user) }
 
   before { @t_prefix = "application.mobile_navigation" }
