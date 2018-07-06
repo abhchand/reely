@@ -3,6 +3,18 @@ require "rails_helper"
 RSpec.feature "Desktop Navigation", type: :feature do
   let(:user) { create(:user) }
 
+  describe "navigation header" do
+    it "renders the profile picture" do
+      log_in(user)
+
+      profile = page.find(".desktop-navigation__profile-pic")
+
+      # Profile Picture
+      expect(profile.find("a")["href"]).to eq(root_path)
+      expect(profile.find("img")["src"]).to match(/test-profile.*jpg/)
+    end
+  end
+
   it "user can collapse and uncollapse the navbar", js: true do
     log_in(user)
     expect_navigation_is_expanded
@@ -38,7 +50,7 @@ RSpec.feature "Desktop Navigation", type: :feature do
     expect(expanded_classes).to include("inactive")
     expect(expanded_classes).to_not include("active")
 
-    %w[.desktop-navigation__profile .desktop-navigation__links].each do |c|
+    %w[.desktop-navigation__logo .desktop-navigation__links].each do |c|
       expect(page).to have_selector(c, visible: false)
     end
   end
@@ -59,7 +71,7 @@ RSpec.feature "Desktop Navigation", type: :feature do
     expect(collapsed_classes).to include("inactive")
     expect(collapsed_classes).to_not include("active")
 
-    %w[.desktop-navigation__profile .desktop-navigation__links].each do |c|
+    %w[.desktop-navigation__logo .desktop-navigation__links].each do |c|
       expect(page).to have_selector(c, visible: true)
     end
   end

@@ -8,17 +8,13 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
     @t_prefix = "application.desktop_navigation"
   end
 
-  it "displays the user's profile" do
+  it "displays the logo" do
     render
 
-    profile = page.find(".desktop-navigation__profile")
+    logo = page.find(".desktop-navigation__logo")
 
-    # Profile Picture
-    expect(profile.find("a")["href"]).to eq(root_path)
-    expect(profile.find("img")["src"]).to match(/test-profile.*jpg/)
-
-    # User Name
-    expect(profile.find("span")).to have_content(user.first_name.downcase)
+    expect(logo.find("a")["href"]).to eq(root_path)
+    expect(logo).to have_selector("svg")
   end
 
   it "renders the navigation links" do
