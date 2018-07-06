@@ -11,7 +11,7 @@ RSpec.feature "Desktop Navigation", type: :feature do
 
       # Profile Picture
       expect(profile.find("a")["href"]).to eq(root_path)
-      expect(profile.find("img")["src"]).to match(/test-profile.*jpg/)
+      expect(profile.find("img")["src"]).to eq(user.avatar_url(:thumb))
     end
   end
 

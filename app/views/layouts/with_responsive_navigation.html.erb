@@ -10,7 +10,7 @@
       <div class="desktop-navigation__header">
         <div class="desktop-navigation__profile-pic">
           <%= link_to(root_path) do %>
-            <%= image_tag("test-profile.jpg") %>
+            <%= image_tag(current_user.avatar_url) %>
           <% end %>
         </div>
       </div>

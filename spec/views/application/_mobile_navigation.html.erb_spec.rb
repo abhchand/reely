@@ -28,7 +28,7 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
 
     # Profile Picture
     expect(profile.find("a")["href"]).to eq(root_path)
-    expect(profile.find("img")["src"]).to match(/test-profile.*jpg/)
+    expect(profile.find("img")["src"]).to eq(user.avatar_url(:thumb))
 
     # User Name
     expect(profile.find("span")).to have_content(user.first_name.downcase)
