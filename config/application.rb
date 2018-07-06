@@ -41,7 +41,8 @@ module Reely
       g.test_framework :rspec
     end
 
-    # Regex formats
+    # Custom Configs
     config.x.email_format = /\A.*@.+\..+\z/
+    config.x.allowed_photo_types = %w[image/bmp image/jpeg image/png image/tiff]
   end
 end
