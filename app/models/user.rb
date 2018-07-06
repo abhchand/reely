@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_attached_file(
     :avatar,
-    styles: { medium: "200x200>", thumb: "75x75>" }
+    styles: { medium: "200x200#", thumb: "75x75#" }
   )
 
   validates :first_name, presence: true
