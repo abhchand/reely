@@ -7,7 +7,7 @@ FactoryGirl.define do
 
     trait :with_avatar do
       avatar do
-        File.new(Rails.root.join("spec", "fixtures", "images", "atlanta.jpg"))
+        File.new(Rails.root.join("spec", "fixtures", "images", "avatar.png"))
       end
     end
   end

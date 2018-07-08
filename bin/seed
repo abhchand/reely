@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+#
+# Don't run if any rails processes are running
+#
+
+if [ $(ps aux | grep rails | grep -v "grep" | wc -l) -ne 0 ]; then
+  echo -e "\033[1;31m[FATAL] Your rails console or server is running.\033[0m"
+  exit
+fi
+
+
+#
+# Don't run if psql shell is running
+#
+
+if [ $(psql -c "SELECT sum(numbackends) FROM pg_stat_database;" -At) -ne 1 ]; then
+  echo -e "\033[1;31m[FATAL] Detected active database connections. Is psql in use?\033[0m"
+  exit
+fi
+
+echo "RUNNING rake db:drop"
+rake db:drop
+echo "RUNNING rake db:create"
+rake db:create
+echo "RUNNING rake db:migrate"
+rake db:migrate
+echo "RUNNING rake db:seed"
+rake db:seed
