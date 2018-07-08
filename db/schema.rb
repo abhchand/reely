@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160425013204) do
   create_table "photos", force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "owner_id",                null: false
     t.string   "source_file_name",        null: false
     t.string   "source_content_type",     null: false
     t.integer  "source_file_size",        null: false
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160425013204) do
     t.decimal  "longitude"
   end
 
+  add_index "photos", ["owner_id"], name: "index_photos_on_owner_id", using: :btree
   add_index "photos", ["source_file_fingerprint"], name: "index_photos_on_source_file_fingerprint", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -49,4 +51,5 @@ ActiveRecord::Schema.define(version: 20160425013204) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "photos", "users", column: "owner_id"
 end

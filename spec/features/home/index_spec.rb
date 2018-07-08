@@ -4,18 +4,14 @@ RSpec.feature "home index page", type: :feature do
   let(:user) { create(:user) }
 
   describe "photo carousel", :js do
-    let(:photos) do
-      create_list(:photo, 3).each_with_index do |photo, i|
+    let!(:photos) do
+      create_list(:photo, 3, owner: user).each_with_index do |photo, i|
         photo.update!(taken_at: i.days.ago)
       end
     end
 
-    before do
-      photos
-      log_in(user)
-    end
-
     it "user can navigate forwards and backwards through all photos" do
+      log_in(user)
       visit home_index_path
 
       # Clicking next
@@ -62,6 +58,7 @@ RSpec.feature "home index page", type: :feature do
     end
 
     it "user can close the photo carousel" do
+      log_in(user)
       visit home_index_path
 
       # Clicking Close button
@@ -79,6 +76,30 @@ RSpec.feature "home index page", type: :feature do
 
       find(".photo-carousel").send_keys(:escape)
       expect_photo_carousel_is_closed
+    end
+
+    it "only considers photos owned by this user" do
+      # Create photo owned by another user
+      create(:photo)
+
+      log_in(user)
+      visit home_index_path
+
+      # Clicking next
+
+      click_photo(photos[0])
+      expect_displayed_photo_to_be(photos[0])
+
+      click_next
+      expect_displayed_photo_to_be(photos[1])
+
+      click_next
+      expect_displayed_photo_to_be(photos[2])
+
+      # Looping back to first photo
+
+      click_next
+      expect_displayed_photo_to_be(photos[0])
     end
 
     def click_photo(photo)

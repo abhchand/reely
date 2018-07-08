@@ -5,9 +5,10 @@ RSpec.describe HomeController, type: :controller do
   before { session[:user_id] = user.id }
 
   describe "GET index" do
-    it "assigns @photos" do
-      photo1 = create(:photo, taken_at: 2.days.ago)
-      photo2 = create(:photo, taken_at: 1.days.ago)
+    it "assigns @photos owned by this user" do
+      photo1 = create(:photo, owner: user, taken_at: 2.days.ago)
+      photo2 = create(:photo, owner: user, taken_at: 1.days.ago)
+      create(:photo)
 
       get :index
 

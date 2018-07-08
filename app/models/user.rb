@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  # rubocop:disable LineLength
+  has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
+
   has_attached_file(
     :avatar,
     styles: { medium: "200x200#", thumb: "75x75#" }
@@ -17,6 +20,7 @@ class User < ActiveRecord::Base
   before_validation :encrypt_password_with_salt
   before_save :lower_email_case
   before_save :strip_email
+  # rubocop:enable LineLength
 
   def name
     [first_name, last_name].join(" ")

@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     # rubocop:disable MemoizedInstanceVariableName
-    @photos ||= Photo.all.order(taken_at: :desc)
+    @photos ||= Photo.where(owner: current_user).order(taken_at: :desc)
     # rubocop:enable MemoizedInstanceVariableName
   end
 end

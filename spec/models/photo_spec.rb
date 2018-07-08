@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Photo, type: :model do
+  describe "Associations" do
+    it { should belong_to(:owner) }
+  end
+
   describe "Validations" do
     it { should have_attached_file(:source) }
     it { should validate_attachment_presence(:source) }
