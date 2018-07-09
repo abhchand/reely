@@ -48,7 +48,7 @@
   position: absolute;
   width: 100%;
   z-index: 99;
-  background-color: $leaf-green;
+  background-color: $dark-gray;
 
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -87,7 +87,7 @@
 
     border-width: 3px;
     border-style: solid;
-    border-color: $mustard;
+    border-color: $leaf-green;
     border-radius: 50%;
   }
 
@@ -130,8 +130,8 @@
 .mobile-navigation__footer {
   text-align: center;
   cursor: pointer;
-  border-top: 2px solid $mustard;
-  background-color: $dark-purple;
+  // border-top: 2px solid $leaf-green;
+  background-color: $leaf-green;
 
   svg {
     width: 25px;
