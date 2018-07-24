@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get "/log-out", to: "sessions#destroy"
 
   resources :collections, only: :index
-  resources :home, only: :index
+  resources :photos, only: :index
 end

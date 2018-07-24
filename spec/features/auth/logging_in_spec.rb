@@ -13,7 +13,7 @@ RSpec.feature "Logging In", type: :feature do
     fill_in "session[password]", with: password
     click_submit
 
-    expect(page).to have_current_path(home_index_path)
+    expect(page).to have_current_path(photos_path)
   end
 
   it "preserves user destination for deep-linking" do

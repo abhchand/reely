@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class PhotosController < ApplicationController
   layout "with_responsive_navigation"
 
   def index

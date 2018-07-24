@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "home index page", type: :feature do
+RSpec.feature "photos index page", type: :feature do
   let(:user) { create(:user) }
 
   describe "photo carousel", :js do
@@ -12,7 +12,7 @@ RSpec.feature "home index page", type: :feature do
 
     it "user can navigate forwards and backwards through all photos" do
       log_in(user)
-      visit home_index_path
+      visit photos_path
 
       # Clicking next
 
@@ -59,7 +59,7 @@ RSpec.feature "home index page", type: :feature do
 
     it "user can close the photo carousel" do
       log_in(user)
-      visit home_index_path
+      visit photos_path
 
       # Clicking Close button
 
@@ -83,7 +83,7 @@ RSpec.feature "home index page", type: :feature do
       create(:photo)
 
       log_in(user)
-      visit home_index_path
+      visit photos_path
 
       # Clicking next
 

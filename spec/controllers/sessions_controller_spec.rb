@@ -26,9 +26,9 @@ RSpec.describe SessionsController, type: :controller do
         expect(session[:user_id]).to eq(user.id)
       end
 
-      it "redirects to the home_index_path" do
+      it "redirects to the photos_path" do
         post :create, params
-        expect(response).to redirect_to(home_index_path)
+        expect(response).to redirect_to(photos_path)
       end
 
       context "a dest param is set" do

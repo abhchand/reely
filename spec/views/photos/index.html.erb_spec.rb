@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "home/index.html.erb", type: :view do
+RSpec.describe "photos/index.html.erb", type: :view do
   let(:user) { create(:user) }
   let(:photos) { create_list(:photo, 2) }
 

@@ -10,8 +10,8 @@ RSpec.describe SiteController, type: :controller do
         get :index
       end
 
-      it "redirects to the home_index_path" do
-        expect(response).to redirect_to(home_index_path)
+      it "redirects to the photos_path" do
+        expect(response).to redirect_to(photos_path)
       end
     end
 

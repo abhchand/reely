@@ -1,4 +1,4 @@
-module HomeHelper
+module PhotosHelper
   def to_react_props(photo)
     {
       id: photo.synthetic_id,

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe HomeController, type: :controller do
+RSpec.describe PhotosController, type: :controller do
   let(:user) { create(:user) }
   before { session[:user_id] = user.id }
 

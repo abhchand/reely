@@ -39,7 +39,7 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
 
     actual_links = []
     expected_links = [
-      [t("#{@t_prefix}.links.my_photos"), home_index_path],
+      [t("#{@t_prefix}.links.my_photos"), photos_path],
       [t("#{@t_prefix}.links.locations"), "#"],
       [t("#{@t_prefix}.links.people"), "#"],
       [t("#{@t_prefix}.links.favorites"), "#"],

@@ -34,6 +34,6 @@ class SessionsController < ApplicationController
   end
 
   def new_session_destination
-    params[:dest].present? ? CGI.unescape(params[:dest]) : home_index_path
+    params[:dest].present? ? CGI.unescape(params[:dest]) : photos_path
   end
 end
