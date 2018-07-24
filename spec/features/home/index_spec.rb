@@ -103,7 +103,7 @@ RSpec.feature "home index page", type: :feature do
     end
 
     def click_photo(photo)
-      find(".photo-grid__aspect-ratio[data-id='#{photo.id}']").click
+      find(".photo-grid__aspect-ratio[data-id='#{photo.synthetic_id}']").click
     end
 
     def click_next
@@ -122,7 +122,7 @@ RSpec.feature "home index page", type: :feature do
       photo_el = find(".photo-carousel__content")
       photo_url = prepend_host(photo.source.url)
 
-      expect(photo_el["data-id"]).to eq(photo.id.to_s)
+      expect(photo_el["data-id"]).to eq(photo.synthetic_id)
       expect(photo_el["style"]).to eq("background-image: url(#{photo_url});")
     end
 
