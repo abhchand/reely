@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe User do
   describe "Associations" do
     it { should have_many(:photos) }
+    it { should have_many(:collections) }
   end
 
   describe "validations" do

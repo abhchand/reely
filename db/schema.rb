@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425013204) do
+ActiveRecord::Schema.define(version: 20180724022211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collections", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "synthetic_id", null: false
+    t.integer  "owner_id",     null: false
+    t.string   "name",         null: false
+  end
+
+  add_index "collections", ["owner_id"], name: "index_collections_on_owner_id", using: :btree
+  add_index "collections", ["synthetic_id"], name: "index_collections_on_synthetic_id", unique: true, using: :btree
+
+  create_table "photo_collections", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "photo_id",      null: false
+    t.integer  "collection_id", null: false
+  end
+
+  add_index "photo_collections", ["collection_id", "photo_id"], name: "index_photo_collections_on_collection_id_and_photo_id", using: :btree
+  add_index "photo_collections", ["photo_id", "collection_id"], name: "index_photo_collections_on_photo_id_and_collection_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -53,5 +74,8 @@ ActiveRecord::Schema.define(version: 20160425013204) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "collections", "users", column: "owner_id"
+  add_foreign_key "photo_collections", "collections"
+  add_foreign_key "photo_collections", "photos"
   add_foreign_key "photos", "users", column: "owner_id"
 end

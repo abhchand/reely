@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # rubocop:disable LineLength
   has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
+  has_many :collections, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
 
   has_attached_file(
     :avatar,

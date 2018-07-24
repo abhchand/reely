@@ -6,6 +6,8 @@ RSpec.describe Photo, type: :model do
 
   describe "Associations" do
     it { should belong_to(:owner) }
+    it { should have_many(:photo_collections).inverse_of(:photo) }
+    it { should have_many(:collections).through(:photo_collections) }
   end
 
   describe "Validations" do

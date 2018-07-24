@@ -3,6 +3,9 @@ class Photo < ActiveRecord::Base
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
 
+  has_many :photo_collections, inverse_of: :photo, dependent: :destroy
+  has_many :collections, through: :photo_collections
+
   has_attached_file(
     :source,
     styles: { medium: "200x200>", thumb: "75x75>" }
