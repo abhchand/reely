@@ -1,6 +1,9 @@
 require "rails_helper"
+require "models/concerns/has_synthetic_id_spec"
 
 RSpec.describe Photo, type: :model do
+  it_behaves_like "has synthetic id"
+
   describe "Associations" do
     it { should belong_to(:owner) }
   end

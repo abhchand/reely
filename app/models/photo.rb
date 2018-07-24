@@ -1,4 +1,6 @@
 class Photo < ActiveRecord::Base
+  include HasSyntheticId
+
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
 
   has_attached_file(

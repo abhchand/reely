@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160425013204) do
   create_table "photos", force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "synthetic_id",            null: false
     t.integer  "owner_id",                null: false
     t.string   "source_file_name",        null: false
     t.string   "source_content_type",     null: false
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160425013204) do
 
   add_index "photos", ["owner_id"], name: "index_photos_on_owner_id", using: :btree
   add_index "photos", ["source_file_fingerprint"], name: "index_photos_on_source_file_fingerprint", using: :btree
+  add_index "photos", ["synthetic_id"], name: "index_photos_on_synthetic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",          null: false
