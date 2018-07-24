@@ -82,7 +82,7 @@ var PhotoGrid = React.createClass({
 
             return (
               <div
-                key={photo.id}
+                key={`photo_${photo.id}`}
                 data-id={photo.id}
                 className="photo-grid__aspect-ratio"
                 onClick={self.enableCarousel}>
