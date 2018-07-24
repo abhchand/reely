@@ -4,7 +4,16 @@ RSpec.describe "photos/index.html.erb", type: :view do
   let(:user) { create(:user) }
   let(:photos) { create_list(:photo, 2) }
 
-  before { assign(:photos, photos) }
+  before do
+    stub_template "shared/_photo_count.html.erb" => "_stubbed_photo_count"
+
+    assign(:photos, photos)
+  end
+
+  it "renders the photo count" do
+    render
+    expect(rendered).to have_content("_stubbed_photo_count")
+  end
 
   describe "photo grid" do
     it "displays the photos" do

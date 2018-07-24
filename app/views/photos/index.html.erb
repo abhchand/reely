@@ -1,4 +1,6 @@
-<div class="photo-grid-container">
+<%= render "shared/photo_count", photo_count: @photo_count %>
+
+<div class="photos-index__photo-grid-container photo-grid-container">
   <%=
     react_component(
       "PhotoGrid",

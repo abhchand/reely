@@ -45,7 +45,6 @@ en:
     mobile_navigation:
       <<: *shared_navigation
 
-
   sessions:
     create:
       authenticate:
@@ -53,6 +52,11 @@ en:
         blank_password: Please enter a password
         invalid_login: Invalid email or password
 
+  shared:
+    photo_count:
+      label:
+        one: <span>1</span> photo
+        other: <span>%{count}</span> photos
   site:
     index:
       form:

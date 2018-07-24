@@ -5,7 +5,7 @@ RSpec.describe PhotosController, type: :controller do
   before { session[:user_id] = user.id }
 
   describe "GET index" do
-    it "assigns @photos owned by this user" do
+    it "assigns @photos owned by this user and @photo_count" do
       photo1 = create(:photo, owner: user, taken_at: 2.days.ago)
       photo2 = create(:photo, owner: user, taken_at: 1.days.ago)
       create(:photo)
@@ -13,6 +13,7 @@ RSpec.describe PhotosController, type: :controller do
       get :index
 
       expect(assigns(:photos)).to eq([photo2, photo1])
+      expect(assigns(:photo_count)).to eq(2)
     end
   end
 end
