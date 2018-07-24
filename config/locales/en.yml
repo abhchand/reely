@@ -45,6 +45,10 @@ en:
     mobile_navigation:
       <<: *shared_navigation
 
+  photos:
+    index:
+      empty: You have no photos
+
   sessions:
     create:
       authenticate:

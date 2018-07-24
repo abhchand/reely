@@ -1,3 +1,8 @@
+<% if @photo_count.zero? %>
+<div class="photos-index__emtpy-state">
+  <%= t(".empty") %>
+</div>
+<% else %>
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
 <div class="photos-index__photo-grid-container photo-grid-container">
@@ -11,3 +16,4 @@
     )
   %>
 </div>
+<% end %>
