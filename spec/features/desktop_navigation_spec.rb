@@ -19,36 +19,19 @@ RSpec.feature "Desktop Navigation", type: :feature do
     log_in(user)
     expect_navigation_is_expanded
 
-    click_to_collapse
+    toggle_collapse
     expect_navigation_is_collapsed
 
-    click_to_expand
+    toggle_collapse
     expect_navigation_is_expanded
   end
 
-  def click_to_collapse
-    page.find(".desktop-navigation__collapser--expanded").click
-  end
-
-  def click_to_expand
-    page.find(".desktop-navigation__collapser--collapsed").click
+  def toggle_collapse
+    page.find(".desktop-navigation__toggle").click
   end
 
   def expect_navigation_is_collapsed
-    collapsed = page.find(".desktop-navigation__collapser--collapsed")
-    expanded = page.find(
-      ".desktop-navigation__collapser--expanded",
-      visible: false
-    )
-
-    expanded_classes = expanded["class"].split(" ")
-    collapsed_classes = collapsed["class"].split(" ")
-
-    expect(collapsed_classes).to include("active")
-    expect(collapsed_classes).to_not include("inactive")
-
-    expect(expanded_classes).to include("inactive")
-    expect(expanded_classes).to_not include("active")
+    expect(page).to have_selector(".desktop-navigation--collapsed")
 
     %w[.desktop-navigation__logo .desktop-navigation__links].each do |c|
       expect(page).to have_selector(c, visible: false)
@@ -56,20 +39,7 @@ RSpec.feature "Desktop Navigation", type: :feature do
   end
 
   def expect_navigation_is_expanded
-    expanded = page.find(".desktop-navigation__collapser--expanded")
-    collapsed = page.find(
-      ".desktop-navigation__collapser--collapsed",
-      visible: false
-    )
-
-    expanded_classes = expanded["class"].split(" ")
-    collapsed_classes = collapsed["class"].split(" ")
-
-    expect(expanded_classes).to include("active")
-    expect(expanded_classes).to_not include("inactive")
-
-    expect(collapsed_classes).to include("inactive")
-    expect(collapsed_classes).to_not include("active")
+    expect(page).to_not have_selector(".desktop-navigation--collapsed")
 
     %w[.desktop-navigation__logo .desktop-navigation__links].each do |c|
       expect(page).to have_selector(c, visible: true)

@@ -33,14 +33,8 @@
     </li>
   </ul>
 
-  <div class="desktop-navigation__collapser">
-    <div class="desktop-navigation__collapser--expanded active">
-      <%= inline_svg("icons/double-chevron-left.svg", height: "32px", width: "32px") %>
-      <span><%= t(".collapser.collapse_nav") %></span>
-    </div>
-
-    <div class="desktop-navigation__collapser--collapsed inactive">
-      <%= inline_svg("icons/double-chevron-right.svg", height: "32px", width: "32px") %>
-    </div>
+  <div class="desktop-navigation__toggle">
+    <%= inline_svg("icons/double-chevron-left.svg", height: "32px", width: "32px") %>
+    <span><%= t(".collapser.collapse_nav") %></span>
   </div>
 </nav>

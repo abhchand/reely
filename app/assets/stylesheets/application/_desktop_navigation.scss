@@ -3,49 +3,15 @@
 
   @include breakpoint($screen-xs) {
     display: initial;
-
-    min-width: 200px;
-    max-width: 200px;
+    width: 200px;
     top: 0;
-
     color: $black;
+    box-shadow: 3px 0 7px 2px $medium-gray;
+    transition: width 0.4s ease;
 
-    -moz-box-shadow:    3px 0 7px 2px $medium-gray;
-    -webkit-box-shadow: 3px 0 7px 2px $medium-gray;
-    box-shadow:         3px 0 7px 2px $medium-gray;
-
-    //
-    // Collapser
-    //
-
-    // Visible by default
-
-    visibility: visible;
-    opacity: 1;
-
-    // Add transition animation
-
-    -webkit-transition: min-width 0.4s ease;
-    -moz-transition: min-width 0.4s ease;
-    -o-transition: min-width 0.4s ease;
-    transition: min-width 0.4s ease;
-
-    // Minimize navigation bar and hide child divs
-    &.collapsed {
-      min-width: 48px;
-      max-width: 48px;
-
-      .desktop-navigation__logo,
-      .desktop-navigation__links {
-        visibility: hidden;
-        opacity: 0;
-
-        -webkit-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
-        -moz-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
-        -o-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
-        transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
-      }
-    }
+    // Default (expanded state) should clip overflowed content to make for
+    // a smoother transition
+    overflow: hidden;
   }
 }
 
@@ -70,6 +36,10 @@
 .desktop-navigation__link-element {
   @include breakpoint($screen-xs) {
     text-align: left;
+
+    // Default (expanded state) should clip overflowed content to make for
+    // a smoother transition
+    overflow: hidden;
 
     a {
       // Display as block and set height so anchor fills up the whole
@@ -118,43 +88,48 @@
   }
 }
 
-
-//
-// Navigation Collapser
-//
-
-.desktop-navigation__collapser {
-  display: block;
-  margin-top: 100px;
+.desktop-navigation__toggle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
   height: 32px;
+  margin-top: 100px;
   cursor: pointer;
-}
 
-.desktop-navigation__collapser--expanded {
-  &.active {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    height: 32px;
-
-    svg {
-      margin: auto 5px;
-    }
-  }
-
-  &.inactive {
-    display: none;
+  svg {
+    margin: auto 5px;
+    transition: all 0.4s;
   }
 }
-.desktop-navigation__collapser--collapsed {
-  &.active {
+
+// Collapsed State
+
+.desktop-navigation--collapsed {
+  width: 48px;
+
+  .desktop-navigation__logo,
+  .desktop-navigation__links {
+    visibility: hidden;
+    opacity: 0;
+
+    -webkit-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+    -moz-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+    -o-transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+    transition: visibility 0.1s ease-out, opacity 0.1s ease-out;
+  }
+
+  .desktop-navigation__toggle {
     display: block;
     height: 32px;
-  }
 
-  &.inactive {
-    display: none;
+    span {
+      display: none;
+    }
+
+    svg {
+      transform: rotate(180deg);
+    }
   }
 }
