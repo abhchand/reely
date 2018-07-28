@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path(dest: ERB::Util.url_encode(requested_path))
   end
 
+  def ensure_xhr_only
+    return if (defined? request) && request.xhr?
+    redirect_to(root_path)
+  end
+
   def append_view_paths
     append_view_path "app/views/application"
   end
