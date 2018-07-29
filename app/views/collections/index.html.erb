@@ -2,7 +2,7 @@
   <%= t(".heading").downcase %>
 </h1>
 
-<div class="collections-index-container">
+<div class="collections-index-container page-content">
   <% @collections.each do |collection| %>
     <%= render("collections/card", collection: collection) %>
   <% end %>

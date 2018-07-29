@@ -3,9 +3,12 @@
   <%= t(".empty") %>
 </div>
 <% else %>
+<h1 class="page-heading">
+  <%= t(".heading").downcase %>
+</h1>
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
-<div class="photos-index__photo-grid-container photo-grid-container">
+<div class="photos-index__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
       "PhotoGrid",

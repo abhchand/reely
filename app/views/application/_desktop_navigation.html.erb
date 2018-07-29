@@ -1,8 +1,4 @@
 <nav class="desktop-navigation">
-  <div class="desktop-navigation__logo">
-    <%= link_to(inline_svg("logo.svg", height: "80px", width: "80px"), root_path) %>
-  </div>
-
   <ul class="desktop-navigation__links">
     <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
       <%= link_to(t(".links.my_photos"), photos_path) %>
@@ -35,6 +31,5 @@
 
   <div class="desktop-navigation__toggle">
     <%= inline_svg("icons/double-chevron-left.svg", height: "32px", width: "32px") %>
-    <span><%= t(".collapser.collapse_nav") %></span>
   </div>
 </nav>

@@ -1,15 +1,2 @@
 .photo-count {
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 15px;
-  font-size: 18px;
-  text-align: left;
-
-  @include breakpoint($screen-xs) {
-    margin-top: 0;
-  }
-
-  span {
-    font-weight: 700;
-  }
 }

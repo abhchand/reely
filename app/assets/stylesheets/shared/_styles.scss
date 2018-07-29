@@ -2,10 +2,27 @@
 // Containers
 //
 
-h1.page-heading {
+.page-content {
+  @include breakpoint($screen-xs) {
+    width: 100%;
+    padding: 0 40px;
+  }
+}
+.page-heading {
+  width: 100%;
+  padding-left: 40px;
   margin-top: 15px;
-  margin-left: 5%;
   text-align: left;
   color: $dark-gray;
   font-weight: 500;
+  font-size: 48px;
+}
+.page-subheading {
+  width: 100%;
+  padding-left: 40px;
+  margin-top: 15px;
+  text-align: left;
+  color: $black;
+  font-weight: 500;
+  font-size: 22px;
 }

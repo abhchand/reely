@@ -7,7 +7,7 @@ $collection_card_photo_grid_size: ($collection_card_photo_padding + $collection_
 .collections-card {
   position: relative;
   padding: $collection_card_padding;
-  margin: 10px 14px;
+  margin: 10px 28px 10px 0;
   box-shadow: 1px 0 12px 1px $light-gray;
 
   &:hover {

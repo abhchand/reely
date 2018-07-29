@@ -4,17 +4,13 @@
   </section>
 
   <section class="responsive-navigation-view-container responsive-navigation-view-container--desktop">
-    <%= render "desktop_navigation" %>
+    <%= render "desktop_header" %>
 
-    <div class="desktop_navigation__content">
-      <div class="desktop-navigation__header">
-        <div class="desktop-navigation__profile-pic">
-          <%= link_to(root_path) do %>
-            <%= image_tag(current_user.avatar_url) %>
-          <% end %>
-        </div>
+    <div class="responsive-navigation-content-container responsive-navigation-content-container--desktop">
+      <%= render "desktop_navigation" %>
+      <div class="responsive-navigation-content responsive-navigation-content--desktop">
+        <%= yield %>
       </div>
-      <%= yield %>
     </div>
   </section>
 <% end %>
