@@ -7,4 +7,8 @@ class Collection < ActiveRecord::Base
   has_many :photos, through: :photo_collections
 
   validates :name, presence: true
+
+  def cover_photos
+    @cover_photos ||= photos.order(:created_at).first(4)
+  end
 end

@@ -21,3 +21,12 @@ photos.each_with_index do |photo, i|
     taken_at: i.months.from_now
   )
 end
+
+# Create Collections
+5.times do
+  collection = FactoryGirl.create(:collection, owner: user)
+
+  Photo.all.sample(5).each do |photo|
+    FactoryGirl.create(:photo_collection, photo: photo, collection: collection)
+  end
+end

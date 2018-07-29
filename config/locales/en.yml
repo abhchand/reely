@@ -45,6 +45,13 @@ en:
     mobile_navigation:
       <<: *shared_navigation
 
+  collections:
+    index:
+      heading: Collections
+    card:
+      delete: Delete
+      share: Share
+
   photos:
     index:
       empty: You have no photos

@@ -1,0 +1,133 @@
+$collection_card_padding: 3px;
+
+$collection_card_photo_size: 105px;
+$collection_card_photo_padding: 1px;
+$collection_card_photo_grid_size: ($collection_card_photo_padding + $collection_card_photo_size + $collection_card_photo_padding) * 2;
+
+.collections-card {
+  position: relative;
+  padding: $collection_card_padding;
+  margin: 10px 14px;
+  box-shadow: 1px 0 12px 1px $light-gray;
+
+  &:hover {
+    box-shadow: 1px 0 12px 1px $medium-gray;
+    border-radius: 2px;
+  }
+}
+.collections-card__cover-photos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  max-width: $collection_card_photo_grid_size;
+  margin: 0 auto;
+}
+.collections-card__cover-photo {
+  width: $collection_card_photo_size;
+  height: $collection_card_photo_size;
+  margin: $collection_card_photo_padding;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.collections-card__cover-photo--blank {
+  background-color: $medium-gray;
+}
+
+.collections-card__info {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+.collections-card__name {
+  display: inline-block;
+  padding-left: 3px;
+  max-width: 150px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 600;
+  margin: 0;
+  cursor: pointer;
+  line-height: 20px;
+
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  a {
+    color: $dark-gray;
+  }
+}
+.collections-card__menu-toggle {
+  display: inline-block;
+  margin-left: auto;
+  padding-right: 3px;
+  cursor: pointer;
+
+  .show-when-menu-open {
+    display: none;
+  }
+  .show-when-menu-closed {
+    display: block;
+  }
+}
+.collections-card__menu {
+  display: none;
+  position: absolute;
+  background-color: $black-opacity-heavy;
+  top: $collection_card_padding;
+  left: $collection_card_padding;
+  width: 100%;
+  max-width: $collection_card_photo_grid_size;
+  height: $collection_card_photo_grid_size;
+  padding: 8px 20px;
+}
+.collections-card__menu-item {
+  font-weight: 500;
+  font-size: 22px;
+  margin: 2px 0;
+  font-weight: 500;
+
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: $medium-gray;
+
+    svg {
+      margin-right: 10px;
+
+      & g, path, ellipse {
+        stroke: $white;
+      }
+    }
+
+    span {
+      width: 50px;
+    }
+  }
+}
+
+// Open state for the menu
+.collections-card--menu-open {
+  .collections-card__menu-toggle {
+    .show-when-menu-open {
+      display: block;
+    }
+    .show-when-menu-closed {
+      display: none;
+    }
+  }
+
+  .collections-card__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
