@@ -1,9 +1,37 @@
 require "rails_helper"
 
 RSpec.describe ApplicationController, type: :controller do
-  describe "#ensure_xhr_only" do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe "#ensure_authentication" do
+    controller(ApplicationController) do
+      before_action :ensure_authentication
+
+      def index
+        render plain: "test"
+      end
+    end
+
+    context "user is authenticated" do
+      before { session[:user_id] = user.id }
+
+      it "renders the action" do
+        get :index
+        expect(response.body).to eq("test")
+      end
+    end
+
+    context "user is not authenticated" do
+      it "redirects to root_path with a :dest parameter" do
+        get :index
+
+        requested_path = ERB::Util.url_encode("/anonymous")
+        expect(response).to redirect_to(root_path(dest: requested_path))
+      end
+    end
+  end
+
+  describe "#ensure_xhr_only" do
     controller(ApplicationController) do
       before_action :ensure_xhr_only
 
