@@ -7,6 +7,7 @@
   margin: auto;
   margin-top: 15px;
   background-color: $white;
+  width: 100%;
 
   @include breakpoint($screen-xs) {
     justify-content: flex-start;

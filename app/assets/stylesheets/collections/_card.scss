@@ -1,14 +1,27 @@
 $collection_card_padding: 3px;
 
-$collection_card_photo_size: 105px;
-$collection_card_photo_padding: 1px;
-$collection_card_photo_grid_size: ($collection_card_photo_padding + $collection_card_photo_size + $collection_card_photo_padding) * 2;
-
 .collections-card {
   position: relative;
   padding: $collection_card_padding;
-  margin: 10px 28px 10px 0;
+  margin: 10px 0;
   box-shadow: 1px 0 12px 1px $light-gray;
+  width: 51%;
+
+  // Introduce a midway point between screen-xs and screen-sm to make
+  // the responsive transitions work a bit better
+  @media screen and (min-width: 680px) {
+    width: 40%;
+    margin: 10px 15px 10px 0;
+  }
+  @include breakpoint($screen-sm) {
+    width: 30%;
+  }
+  @include breakpoint($screen-md) {
+    width: 25%;
+  }
+  @include breakpoint($screen-lg) {
+    width: 20%;
+  }
 
   &:hover {
     box-shadow: 1px 0 12px 1px $medium-gray;
@@ -20,13 +33,13 @@ $collection_card_photo_grid_size: ($collection_card_photo_padding + $collection_
   flex-wrap: wrap;
   justify-content: flex-start;
 
-  max-width: $collection_card_photo_grid_size;
+  width: 100%;
   margin: 0 auto;
 }
 .collections-card__cover-photo {
-  width: $collection_card_photo_size;
-  height: $collection_card_photo_size;
-  margin: $collection_card_photo_padding;
+  width: 48%;
+  padding-top: 48%;
+  margin: 1px;
 
   background-size: cover;
   background-repeat: no-repeat;
@@ -83,8 +96,8 @@ $collection_card_photo_grid_size: ($collection_card_photo_padding + $collection_
   top: $collection_card_padding;
   left: $collection_card_padding;
   width: 100%;
-  max-width: $collection_card_photo_grid_size;
-  height: $collection_card_photo_grid_size;
+  // max-width: $collection_card_photo_grid_size;
+  // height: $collection_card_photo_grid_size;
   padding: 8px 20px;
 }
 .collections-card__menu-item {

@@ -10,19 +10,28 @@
 }
 .page-heading {
   width: 100%;
-  padding-left: 40px;
-  margin-top: 15px;
+  padding-left: 20px;
+  margin: 20px 0;
   text-align: left;
   color: $dark-gray;
   font-weight: 500;
-  font-size: 48px;
+  font-size: 36px;
+
+  @include breakpoint($screen-xs) {
+    font-size: 48px;
+    padding-left: 40px;
+  }
 }
 .page-subheading {
   width: 100%;
-  padding-left: 40px;
-  margin-top: 15px;
+  padding-left: 20px;
+  margin: 20px 0;
   text-align: left;
   color: $black;
   font-weight: 500;
   font-size: 22px;
+
+  @include breakpoint($screen-xs) {
+    padding-left: 40px;
+  }
 }
