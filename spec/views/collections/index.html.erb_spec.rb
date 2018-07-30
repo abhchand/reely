@@ -12,6 +12,13 @@ RSpec.describe "collections/index.html.erb", type: :view do
     stub_template("collections/_card.html.erb" => "_stubbed_collections_card")
   end
 
+  it "renders the create link" do
+    render
+
+    link = page.find(".collections-index-create")
+    expect(link["href"]).to eq(root_path)
+  end
+
   it "renders each collection card" do
     render
 

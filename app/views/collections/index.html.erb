@@ -3,6 +3,10 @@
 </h1>
 
 <div class="collections-index-container page-content">
+  <%= link_to(root_path, class: "collections-index-create") do %>
+    <%= inline_svg("icons/plus.svg", height: "32px", width: "32px") %>
+  <% end %>
+
   <% @collections.each do |collection| %>
     <%= render("collections/card", collection: collection) %>
   <% end %>
