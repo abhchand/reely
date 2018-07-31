@@ -25,24 +25,23 @@
       %>
     </div>
 
-    <div class="collections-card__menu-toggle">
-      <%= inline_svg("icons/menu-dots.svg", height: "20px", width: "20px", class: "show-when-menu-closed") %>
-      <%= inline_svg("icons/x.svg", height: "20px", width: "20px", class: "show-when-menu-open") %>
+    <div class="collections-card__menu-btn">
+      <%= inline_svg("icons/menu-dots.svg", height: "20px", width: "20px") %>
+
+      <ul class="collections-card__menu">
+        <li class="collections-card__menu-item collections-card__menu-item--delete">
+          <%= link_to("#") do %>
+            <%= inline_svg("icons/trash.svg", height: "20px", width: "20px") %>
+            <span><%= t(".delete") %></span>
+          <% end %>
+        </li>
+        <li class="collections-card__menu-item collections-card__menu-item--share">
+          <%= link_to("#") do %>
+            <%= inline_svg("icons/share.svg", height: "20px", width: "20px") %>
+            <span><%= t(".share") %></span>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
-
-  <ul class="collections-card__menu">
-    <li class="collections-card__menu-item collections-card__menu-item--delete">
-      <%= link_to("#") do %>
-        <%= inline_svg("icons/trash.svg", height: "22px", width: "22px") %>
-        <span><%= t(".delete").downcase %></span>
-      <% end %>
-    </li>
-    <li class="collections-card__menu-item collections-card__menu-item--share">
-      <%= link_to("#") do %>
-        <%= inline_svg("icons/share.svg", height: "22px", width: "22px") %>
-        <span><%= t(".share").downcase %></span>
-      <% end %>
-    </li>
-  </ul>
 </div>

@@ -72,10 +72,10 @@ RSpec.describe "collections/_card.html.erb", type: :view do
       menu = page.find(".collections-card__menu")
 
       delete_el = menu.find(".collections-card__menu-item--delete")
-      expect(delete_el).to have_content(t("#{@t_prefix}.delete").downcase)
+      expect(delete_el).to have_content(t("#{@t_prefix}.delete"))
 
       share_el = menu.find(".collections-card__menu-item--share")
-      expect(share_el).to have_content(t("#{@t_prefix}.share").downcase)
+      expect(share_el).to have_content(t("#{@t_prefix}.share"))
     end
   end
 
