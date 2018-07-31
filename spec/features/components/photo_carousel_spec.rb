@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photos index page", type: :feature do
+RSpec.feature "photos carousel", type: :feature do
   let(:user) { create(:user) }
 
   describe "photo carousel", :js do
