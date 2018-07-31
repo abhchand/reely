@@ -1,5 +1,5 @@
 <div class="collections-card" data-id="<%= collection.synthetic_id %>">
-  <%= link_to(root_path, class: "collections-card__cover-photos-link") do %>
+  <%= link_to(collection_path(collection), class: "collections-card__cover-photos-link") do %>
   <div class="collections-card__cover-photos">
     <% (0..3).each do |photo_idx| %>
       <% photo = collection.cover_photos[photo_idx] %>
@@ -20,7 +20,7 @@
       <%=
         link_to(
           truncate(collection.name, length: 35, separator: " ", escape: false),
-          root_path
+          collection_path(collection)
         )
       %>
     </div>

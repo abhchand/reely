@@ -24,4 +24,13 @@ class Photo < ActiveRecord::Base
       I18n.t("activerecord.attributes.photo.unknown_taken_at")
     end
   end
+
+  def to_photo_grid_react_props
+    {
+      id: synthetic_id,
+      mediumUrl: source.url(:medium),
+      url: source.url,
+      takenAtLabel: taken_at_display_label
+    }
+  end
 end

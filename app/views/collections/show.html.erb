@@ -1,0 +1,35 @@
+<div class="collections-show__back-btn">
+  <%= link_to(collections_path) do %>
+    <%= inline_svg("icons/arrow-thick-left.svg", height: "20px", width: "20px") %>
+  <% end %>
+</div>
+
+<h1 class="collections-show__heading page-heading">
+  <%= text_area_tag "collections[name]", @collection.name, class: "collections-show__heading-textarea" %>
+  <%= inline_svg("icons/pencil.svg", height: "28px", width: "28px", class: "collections-show__heading-icon", spellcheck: true) %>
+</h1>
+
+<%= render "shared/photo_count", photo_count: @photo_count %>
+<% if @date_range_label %>
+<div class="collections-index__date-range">
+  <%= @date_range_label %>
+</div>
+<% end %>
+
+<% if @photo_count.zero? %>
+<div class="collections-show__emtpy-state">
+  <%= t(".empty") %>
+</div>
+<% else %>
+<div class="collections-index__photo-grid-container photo-grid-container page-content">
+  <%=
+    react_component(
+      "PhotoGrid",
+      {
+        photoData: @photos.map(&:to_photo_grid_react_props)
+      },
+      { prerender: true }
+    )
+  %>
+</div>
+<% end %>

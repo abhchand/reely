@@ -13,7 +13,7 @@
     react_component(
       "PhotoGrid",
       {
-        photoData: @photos.map { |photo| to_react_props(photo) }
+        photoData: @photos.map(&:to_photo_grid_react_props)
       },
       { prerender: true }
     )

@@ -14,7 +14,7 @@ RSpec.describe "collections/_card.html.erb", type: :view do
       # All photos should be linked to the collection
       expect(
         page.find(".collections-card__cover-photos-link")["href"]
-      ).to eq(root_path)
+      ).to eq(collection_path(collection))
 
       (0..3).each do |photo_idx|
         photo_el = page.find(
@@ -48,7 +48,7 @@ RSpec.describe "collections/_card.html.erb", type: :view do
       render_partial
 
       expect(page.find(".collections-card__name")).
-        to have_link(collection.name, href: root_path)
+        to have_link(collection.name, href: collection_path(collection))
     end
 
     context "collection name is too long" do
@@ -60,7 +60,7 @@ RSpec.describe "collections/_card.html.erb", type: :view do
         truncated_name = "a" * 32 + "..."
 
         expect(page.find(".collections-card__name")).
-          to have_link(truncated_name, href: root_path)
+          to have_link(truncated_name, href: collection_path(collection))
       end
     end
   end
