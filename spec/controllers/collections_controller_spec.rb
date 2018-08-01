@@ -88,4 +88,42 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    let(:collection) { create_collection_with_photos(owner: user) }
+
+    context "request is not xhr" do
+      it "redirects to root_path" do
+        delete :destroy, id: collection.synthetic_id
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not found" do
+      it "redirects to the root path" do
+        xhr :delete, :destroy, id: "abcde"
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    it "destroys the collection and responds as success" do
+      xhr :delete, :destroy, id: collection.synthetic_id
+
+      expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(response.status).to eq(200)
+      expect(response.body).to eq("{}")
+    end
+
+    context "there is an error while updating collection" do
+      it "does not destroy the collection and responds as failure" do
+        allow_any_instance_of(Collection).to receive(:destroy) { false }
+
+        xhr :delete, :destroy, id: collection.synthetic_id
+
+        expect { collection.reload }.to_not raise_error
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
+      end
+    end
+  end
 end

@@ -21,6 +21,22 @@ $(document).ready(function() {
     }
   });
 
+  $(".collections-card").on("click", ".collections-card__menu-item--delete", function(e) {
+    var card = $(this).parents(".collections-card");
+
+    $.ajax({
+      type: "DELETE",
+      url: "/collections/" + $(card).attr("data-id"),
+      dataType: "json",
+      contentType: "application/json"
+    })
+      .done(function() {
+        // Remove card from DOM
+        $(card).remove();
+      })
+    ;
+  });
+
   function closeAllMenus() {
     $(".collections-card--menu-open").each(function() {
       $(this).removeClass("collections-card--menu-open");
@@ -31,3 +47,4 @@ $(document).ready(function() {
     return $(e.target).closest(".collections-card__menu").length === 0;
   }
 });
+

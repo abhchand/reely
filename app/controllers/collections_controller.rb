@@ -1,8 +1,8 @@
 class CollectionsController < ApplicationController
   layout "with_responsive_navigation"
 
-  before_action :ensure_xhr_only, only: :update
-  before_action :collection, only: %i[show update]
+  before_action :ensure_xhr_only, only: %i[update destroy]
+  before_action :collection, only: %i[show update destroy]
 
   def index
     @collections = current_user.collections.order(created_at: :desc)
@@ -18,6 +18,14 @@ class CollectionsController < ApplicationController
   def update
     @collection.attributes = collections_params
     status = @collection.save ? 200 : 400
+
+    respond_to do |format|
+      format.json { render json: {}, status: status }
+    end
+  end
+
+  def destroy
+    status = @collection.destroy ? 200 : 400
 
     respond_to do |format|
       format.json { render json: {}, status: status }

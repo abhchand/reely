@@ -51,8 +51,7 @@ $(document).ready(function() {
     //
     // This is a race condition, but acceptable for now
     disableConfirmation();
-    console.log("newCollectionName: " + newCollectionName);
-    console.log(JSON.stringify({collection:{name: newCollectionName}}));
+
     $.ajax({
       type: "PUT",
       url: "/collections/" + textArea.attr("data-id"),
