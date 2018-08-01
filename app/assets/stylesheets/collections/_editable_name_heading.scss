@@ -1,0 +1,36 @@
+.collections-editable-name-heading {
+}
+.collections-editable-name-heading__textarea {
+  resize: none;
+  height: 55px;
+  width: 80%;
+  border: none;
+  overflow: hidden;
+
+  &:hover {
+    border-bottom: 1px solid $medium-gray;
+  }
+
+  &:focus {
+    border-bottom: 2px solid $dark-purple;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}
+.collections-editable-name-heading__confirm {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+
+  path, g {
+    fill: $leaf-green;
+    stroke: $leaf-green;
+  }
+
+  &.active {
+    opacity: 1;
+    transition: opacity 0.4s ease-in;
+  }
+}

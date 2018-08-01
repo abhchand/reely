@@ -4,12 +4,9 @@
   <% end %>
 </div>
 
-<h1 class="collections-show__heading page-heading">
-  <%= text_area_tag "collections[name]", @collection.name, class: "collections-show__heading-textarea" %>
-  <%= inline_svg("icons/pencil.svg", height: "28px", width: "28px", class: "collections-show__heading-icon", spellcheck: true) %>
-</h1>
-
+<%= render "editable_name_heading", collection: @collection %>
 <%= render "shared/photo_count", photo_count: @photo_count %>
+
 <% if @date_range_label %>
 <div class="collections-index__date-range">
   <%= @date_range_label %>

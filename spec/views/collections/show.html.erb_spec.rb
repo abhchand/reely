@@ -15,6 +15,9 @@ RSpec.describe "collections/show.html.erb", type: :view do
     assign(:photo_count, @photo_count)
     assign(:date_range_label, @date_range_label)
 
+    stub_template(
+      "_editable_name_heading.html.erb" => "_stubbed_editable_name_heading"
+    )
     stub_template("shared/_photo_count.html.erb" => "_stubbed_photo_count")
 
     @t_prefix = "collections.show"
@@ -30,8 +33,7 @@ RSpec.describe "collections/show.html.erb", type: :view do
   it "renders the editable heading" do
     render
 
-    heading = page.find(".collections-show__heading")
-    expect(heading).to have_selector("textarea")
+    expect(page).to have_content("_stubbed_editable_name_heading")
   end
 
   it "renders the photo count and date range label" do

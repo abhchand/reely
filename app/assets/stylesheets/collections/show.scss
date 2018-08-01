@@ -22,11 +22,11 @@
   }
 
   &:hover {
-    background-color: $dark-gray;
+    background-color: $leaf-green;
 
     svg {
       path {
-        fill: $light-gray;
+        fill: $white;
       }
     }
   }
@@ -43,45 +43,6 @@
     path {
       fill: $dark-gray;
     }
-  }
-}
-.collections-show__heading {
-}
-.collections-show__heading-textarea {
-  resize: none;
-  height: 55px;
-  width: 80%;
-  border: none;
-
-  &:hover {
-    border-bottom: 1px solid $medium-gray;
-
-    &+.collections-show__heading-icon {
-      opacity: 1;
-    }
-  }
-
-  &:focus {
-    border-bottom: 2px solid $dark-purple;
-    overflow: auto;
-    outline: none;
-
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-
-    &+.collections-show__heading-icon {
-      display: inline-block;
-    }
-  }
-}
-.collections-show__heading-icon {
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-
-  path, g {
-    fill: $dark-gray;
-    stroke: $dark-gray;
   }
 }
 .collections-index__date-range {
