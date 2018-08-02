@@ -31,7 +31,7 @@
   }
 
   .photo-carousel__navigation {
-    background-color: $white-opactiy;
+    background-color: $white-opacity;
 
     @include breakpoint($screen-xs) {
       // display: none;

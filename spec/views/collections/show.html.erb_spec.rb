@@ -15,12 +15,18 @@ RSpec.describe "collections/show.html.erb", type: :view do
     assign(:photo_count, @photo_count)
     assign(:date_range_label, @date_range_label)
 
+    stub_template("_delete_modal.html.erb" => "_stubbed_delete_modal")
     stub_template(
       "_editable_name_heading.html.erb" => "_stubbed_editable_name_heading"
     )
     stub_template("shared/_photo_count.html.erb" => "_stubbed_photo_count")
 
     @t_prefix = "collections.show"
+  end
+
+  it "renders the delete modal" do
+    render
+    expect(page).to have_content("_stubbed_delete_modal")
   end
 
   it "renders the back button" do

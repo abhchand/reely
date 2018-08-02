@@ -31,9 +31,23 @@ input[type="submit"] {
 ::-webkit-input-placeholder { text-transform: lowercase; }
 ::-moz-placeholder { text-transform: lowercase; }
 
-.cta,
+.cta {
+  font-weight: 600;
+  border: none;
+
+  // CSS magic: 1px keeps the text vertically aligned in the button
+  line-height: 1px;
+
+  &:disabled {
+    opacity: 0.2;
+  }
+}
 .cta-purple {
   background: $dark-purple;
   color: $white;
-  font-weight: 600;
+}
+.cta-white {
+  background: $white;
+  color: $dark-purple;
+  border: 1px solid $dark-purple;
 }

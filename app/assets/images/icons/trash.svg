@@ -3,18 +3,18 @@
     <title>Trash Icon</title>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="Artboard-3" stroke="#000000" stroke-width="1.04741379">
-            <g id="Group" transform="translate(7.500000, 2.500000)">
-                <path d="M6.38888889,7.15732759 L6.38888889,24.9633621" id="Line"></path>
-                <path d="M2.16277778,6.57543103 L2.16277778,24.3814655" id="Line"></path>
-                <path d="M2.16666667,24.9633621 L14.8333333,24.9633621" id="Line"></path>
-                <path d="M10.6111111,7.15732759 L10.6111111,24.9633621" id="Line"></path>
-                <path d="M14.8372222,6.57543103 L14.8372222,24.3814655" id="Line"></path>
-                <path d="M0.0555555556,6.10991379 L16.9444444,6.10991379" id="Line"></path>
-                <path d="M0.0566666667,5.23706897 L16.9433333,5.23706897" id="Line"></path>
-                <path d="M5.33333333,4.13146552 L5.33333333,3.08405172" id="Line"></path>
-                <path d="M11.6666667,4.13146552 L11.6666667,3.08405172" id="Line"></path>
-                <path d="M6.38888889,2.03663793 L10.6111111,2.03663793" id="Line"></path>
+        <g id="Artboard-3" stroke="#000000" stroke-width="1.39655172">
+            <g id="Group" transform="translate(4.500000, -2.000000)">
+                <path d="M8.64379085,9.54310345 L8.64379085,33.2844828" id="Line"></path>
+                <path d="M2.92611111,8.76724138 L2.92611111,32.5086207" id="Line"></path>
+                <path d="M2.93137255,33.2844828 L20.0686275,33.2844828" id="Line"></path>
+                <path d="M14.3562092,9.54310345 L14.3562092,33.2844828" id="Line"></path>
+                <path d="M20.0738889,8.76724138 L20.0738889,32.5086207" id="Line"></path>
+                <path d="M0.0751633987,8.14655172 L22.9248366,8.14655172" id="Line"></path>
+                <path d="M0.0766666667,6.98275862 L22.9233333,6.98275862" id="Line"></path>
+                <path d="M7.21568627,5.50862069 L7.21568627,4.11206897" id="Line"></path>
+                <path d="M15.7843137,5.50862069 L15.7843137,4.11206897" id="Line"></path>
+                <path d="M8.64379085,2.71551724 L14.3562092,2.71551724" id="Line"></path>
             </g>
         </g>
     </g>

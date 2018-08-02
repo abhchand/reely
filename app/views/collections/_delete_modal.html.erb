@@ -1,0 +1,15 @@
+<div class="collections-delete-modal modal">
+  <div class="modal-content">
+    <h1 class="modal-content__heading">
+      <%= raw t(".heading", collection_name: collection.name) %>
+    </h1>
+    <p class="modal-content__body">
+      <%= t(".body") %>
+    </p>
+
+    <div class="modal-content__button-container">
+      <input value="<%= t(".cancel").downcase %>" class="modal-content__button modal-content__button--cancel cta cta-white" type="button" />
+      <input value="<%= t(".delete").downcase %>" class="modal-content__button modal-content__button--submit cta cta-purple" type="button" />
+    </div>
+  </div>
+</div>

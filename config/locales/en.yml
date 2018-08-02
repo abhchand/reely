@@ -52,6 +52,11 @@ en:
     card:
       delete: Delete
       share: Share
+    delete_modal:
+      heading: Delete collection <b>%{collection_name}</b>?
+      body: This collection will be permanently deleted
+      cancel: Cancel
+      delete: Delete
     show:
       empty: You have no photos (yet!) in this collection
 

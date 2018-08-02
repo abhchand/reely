@@ -1,11 +1,10 @@
 require "rails_helper"
 
 RSpec.feature "collections show page", type: :feature do
+  let(:user) { create(:user) }
+  let(:collection) { create_collection_with_photos(owner: user) }
+
   describe "editable name heading", :js do
-    let(:user) { create(:user) }
-
-    let(:collection) { create_collection_with_photos(owner: user) }
-
     let(:textarea) { page.find(".collections-editable-name-heading__textarea") }
 
     before do
@@ -69,6 +68,50 @@ RSpec.feature "collections show page", type: :feature do
     def click_outside_textarea
       # Pick an arbitrary element somewhere else on the page
       page.find(".collections-index__date-range").click
+    end
+  end
+
+  describe "deleting collection", :js do
+    before do
+      log_in(user)
+      visit collection_path(collection)
+    end
+
+    it "user can delete a collection" do
+      click_delete_icon
+      expect(page).to have_selector(".modal", visible: true)
+
+      expect do
+        click_delete_button
+      end.to change { Collection.count }.by(-1)
+
+      expect(page).to have_current_path(collections_path)
+      expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "user can cancel the deletion" do
+      click_delete_icon
+      expect(page).to have_selector(".modal", visible: true)
+
+      expect do
+        click_cancel_button
+      end.to change { Collection.count }.by(0)
+
+      expect(page).to have_current_path(collection_path(collection))
+      expect(page).to have_selector(".modal", visible: false)
+    end
+
+    def click_delete_icon
+      page.find(".collections-show__action-bar-item--delete").click
+    end
+
+    def click_delete_button
+      page.find(".modal-content__button--submit").click
+      wait_for_ajax
+    end
+
+    def click_cancel_button
+      page.find(".modal-content__button--cancel").click
     end
   end
 end
