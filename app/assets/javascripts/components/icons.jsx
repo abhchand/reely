@@ -59,9 +59,17 @@ var IconX = React.createClass({
 
   render: function() {
     return (
-      // icons/arrow-thick-right.svg
-      <svg width={this.props.size} height={this.props.size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
-        <path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" fill={this.props.fillColor}></path>
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>Close Icon</title>
+        <defs></defs>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+          <g id="Artboard-2" stroke={this.props.fillColor} stroke-width="2">
+            <g id="Group" transform="translate(3.000000, 2.000000)">
+                <path d="M0.5,26.5 L25.5,0.5" id="Line"></path>
+                <path d="M0.5,26.5 L25.5,0.5" id="Line" transform="translate(13.000000, 13.500000) scale(1, -1) translate(-13.000000, -13.500000) "></path>
+            </g>
+          </g>
+        </g>
       </svg>
     );
   }
