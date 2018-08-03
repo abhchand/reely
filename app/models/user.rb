@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def owns_collection?(collection)
+    collection.owner_id == self[:id]
+  end
+
   private
 
   def encrypt_password_with_salt

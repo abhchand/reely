@@ -3,6 +3,7 @@ class CollectionsController < ApplicationController
 
   before_action :ensure_xhr_only, only: %i[update destroy]
   before_action :collection, only: %i[show update destroy]
+  before_action :only_my_collection, only: %i[show update destroy]
 
   def index
     @collections = current_user.collections.order(created_at: :desc)
@@ -41,6 +42,11 @@ class CollectionsController < ApplicationController
       end
   end
 
+  def only_my_collection
+    return if current_user.owns_collection?(@collection)
+    handle_not_my_collection
+  end
+
   def collections_params
     params.require(:collection).permit(
       :name
@@ -48,6 +54,13 @@ class CollectionsController < ApplicationController
   end
 
   def handle_collection_not_found
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { render json: {}, status: 400 }
+    end
+  end
+
+  def handle_not_my_collection
     respond_to do |format|
       format.html { redirect_to root_path }
       format.json { render json: {}, status: 400 }

@@ -27,6 +27,15 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
 
+    context "collection is not owned by current_user" do
+      before { collection.update!(owner: create(:user)) }
+
+      it "redirects to the root path" do
+        get :show, id: collection.synthetic_id
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     it "assigns the collection, photo, and date range label" do
       expect(DateRangeLabelService).to receive(:call) { "some label" }
 
@@ -61,6 +70,15 @@ RSpec.describe CollectionsController, type: :controller do
     context "collection is not found" do
       it "redirects to the root path" do
         xhr :put, :update, params.merge(id: "abcde")
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not owned by current_user" do
+      before { collection.update!(owner: create(:user)) }
+
+      it "redirects to the root path" do
+        xhr :put, :update, params
         expect(response).to redirect_to(root_path)
       end
     end
@@ -102,6 +120,15 @@ RSpec.describe CollectionsController, type: :controller do
     context "collection is not found" do
       it "redirects to the root path" do
         xhr :delete, :destroy, id: "abcde"
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not owned by current_user" do
+      before { collection.update!(owner: create(:user)) }
+
+      it "redirects to the root path" do
+        xhr :delete, :destroy, id: collection.synthetic_id
         expect(response).to redirect_to(root_path)
       end
     end
