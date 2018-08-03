@@ -18,8 +18,6 @@ en:
         last_name: Last name
         email: Email
         password: Password
-      photo:
-        unknown_taken_at: Unknown date
     errors:
       models:
         user:

@@ -6,9 +6,9 @@ class CreatePhotos < ActiveRecord::Migration
       t.references :owner, references: :users, index: true, null: false
       t.attachment :source, null: false
       t.string :source_file_fingerprint
-      t.datetime :taken_at
-      t.integer :width
-      t.integer :height
+      t.datetime :taken_at, null: false
+      t.integer :width, null: false
+      t.integer :height, null: false
       t.decimal :latitude
       t.decimal :longitude
     end

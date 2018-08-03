@@ -11,6 +11,10 @@ class Photo < ActiveRecord::Base
     styles: { medium: "200x200>", thumb: "75x75>" }
   )
 
+  validates :taken_at, presence: true
+  validates :width, presence: true
+  validates :height, presence: true
+
   validates_attachment(
     :source,
     presence: true,
@@ -18,11 +22,7 @@ class Photo < ActiveRecord::Base
   )
 
   def taken_at_display_label
-    if taken_at.present?
-      I18n.l(taken_at, format: :month_and_year)
-    else
-      I18n.t("activerecord.attributes.photo.unknown_taken_at")
-    end
+    I18n.l(taken_at, format: :month_and_year)
   end
 
   def to_photo_grid_react_props

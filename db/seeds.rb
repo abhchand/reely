@@ -18,7 +18,7 @@ photos.each_with_index do |photo, i|
     :photo,
     owner: user,
     source: File.new(photo),
-    taken_at: i.months.from_now
+    taken_at: (10 * i).days.from_now
   )
 end
 

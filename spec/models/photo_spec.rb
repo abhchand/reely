@@ -11,6 +11,9 @@ RSpec.describe Photo, type: :model do
   end
 
   describe "Validations" do
+    it { should validate_presence_of(:taken_at) }
+    it { should validate_presence_of(:width) }
+    it { should validate_presence_of(:height) }
     it { should have_attached_file(:source) }
     it { should validate_attachment_presence(:source) }
     it do
@@ -20,17 +23,10 @@ RSpec.describe Photo, type: :model do
   end
 
   describe "#taken_at_display_label" do
-    it "returns the formatted taken_at if present" do
+    it "returns the formatted taken_at" do
       photo = create(:photo, taken_at: Time.zone.now)
 
       label = l(photo.taken_at, format: :month_and_year)
-      expect(photo.taken_at_display_label).to eq(label)
-    end
-
-    it "returns the placeholder label if taken_at is not present" do
-      photo = create(:photo, taken_at: nil)
-
-      label = t("activerecord.attributes.photo.unknown_taken_at")
       expect(photo.taken_at_display_label).to eq(label)
     end
   end

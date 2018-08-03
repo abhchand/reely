@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(version: 20180724022211) do
     t.integer  "source_file_size",        null: false
     t.datetime "source_updated_at",       null: false
     t.string   "source_file_fingerprint"
-    t.datetime "taken_at"
-    t.integer  "width"
-    t.integer  "height"
+    t.datetime "taken_at",                null: false
+    t.integer  "width",                   null: false
+    t.integer  "height",                  null: false
     t.decimal  "latitude"
     t.decimal  "longitude"
   end
