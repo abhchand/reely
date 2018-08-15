@@ -9,11 +9,6 @@ default: &default
 test:
   <<: *default
   database: reely_test
-  <% if ENV.key?("RUNNING_ON_CI_SERVER") %>
-  host: postgres
-  user: runner
-  password: ""
-  <% end %>
 
 development:
   <<: *default

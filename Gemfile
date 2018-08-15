@@ -41,9 +41,9 @@ group :development do
 end
 
 group :test do
-  gem "capybara", "~> 2.6", ">= 2.6.2"
+  gem "capybara", "~> 2.1", ">= 2.13.0"
   gem "capybara-screenshot"
-  gem "capybara-webkit", ">= 1.10.0"
+  gem "capybara-webkit", ">= 1.14.0"
   gem "database_cleaner", "~> 1.5", ">= 1.5.1"
   gem "rake", "~> 10.5"
   gem "shoulda-matchers", "~> 2.8", require: false

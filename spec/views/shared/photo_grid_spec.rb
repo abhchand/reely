@@ -8,13 +8,13 @@ RSpec.shared_examples "photo grid" do
   it "displays the photos" do
     render
 
-    page.all(".photo-grid__aspect-ratio").each_with_index do |photo_el, i|
+    page.all(".photo-grid__photo-container").each_with_index do |photo_el, i|
       photo = @photos[i]
       url = photo.source.url(:medium)
 
       expect(photo_el["data-id"]).to eq(photo.synthetic_id)
       expect(
-        photo_el.find(".photo-grid__grid-element")["style"]
+        photo_el.find(".photo-grid__photo")["style"]
       ).to eq("background-image:url(#{url});")
     end
   end
@@ -27,7 +27,7 @@ RSpec.shared_examples "photo grid" do
     label = l(photo.taken_at, format: :month_and_year)
     label_css = ".photo-grid__taken-at-label"
     photo_el =
-      page.find(".photo-grid__aspect-ratio[data-id='#{photo.synthetic_id}']")
+      page.find(".photo-grid__photo-container[data-id='#{photo.synthetic_id}']")
 
     expect(photo_el.find(label_css)).to have_content(label)
   end

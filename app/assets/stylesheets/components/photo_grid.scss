@@ -4,23 +4,45 @@
 }
 
 .photo-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex-flow: flex-start;
-  align-content: flex-start;
   margin: auto;
   margin-top: 35px;
-  background-color: $white;
-  font-size: 0;
-  width: 90%;
 
   @include breakpoint($screen-xs) {
     margin: 35px 0 0 0;
   }
 }
 
-.photo-grid__aspect-ratio {
+.photo-grid__edit-toggle {
+  position: relative;
+  height: 30px;
+  cursor: pointer;
+  background-color: $white;
+  width: 30px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease-in;
+
+  svg {
+    @extend .vertical-align;
+  }
+
+  .photo-grid--edit-mode-enabled & {
+    background-color: $leaf-green;
+  }
+}
+
+.photo-grid__content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  background-color: $white;
+  font-size: 0;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.photo-grid__photo-container {
   flex: auto;
   position: relative;
 
@@ -33,7 +55,7 @@
 
   border-style: solid;
   border-width: 1px;
-  border-color: $light-gray;
+  border-color: $white;
 
   @include breakpoint($screen-xs) {
     width: calc(100% / 3);
@@ -68,7 +90,7 @@
   }
 }
 
-.photo-grid__grid-element {
+.photo-grid__photo {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -80,27 +102,69 @@
   background-repeat: no-repeat;
   background-position: center center;
 
-  @include breakpoint($screen-xs) {
-    &:hover .photo-grid__overlay { opacity: 1; }
+  transition: all 0.10s linear;
+
+  .photo-grid--edit-mode-enabled & {
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
   }
 }
 
-.photo-grid__overlay {
+.photo-grid__photo-overlay {
+  height: 100%;
+  width: 100%;
+
+  padding-left: 5%;
+  padding-bottom: 3%;
+  padding-top: 3%;
+
+  text-align: left;
+
+  opacity: 0;
+
+  background: $black-opacity;
+  -webkit-transition: opacity 0.25s ease;
+  -moz-transition: opacity 0.25s ease;
+
   @include breakpoint($screen-xs) {
-    height: 100%;
-    width: 100%;
+    &:hover {
+      opacity: 1;
+    }
+  }
 
-    padding-left: 5%;
-    padding-bottom: 3%;
-    padding-top: 3%;
-    text-align: left;
+  // Somewhat of an animation hack. When photos are selected but edit mode
+  // is disabled, the photo overlay renders the taken at lable, which shows
+  // up for a brief second before dissappearing. This is because both overlays
+  // use the same class rules.
+  // To solve this, the the above opacity / hover rules should also apply to
+  // the taken-at label child element as well.
+  .photo-grid__taken-at-label { opacity: 0; }
+  @include breakpoint($screen-xs) {
+    &:hover .photo-grid__taken-at-label { opacity: 1; }
+  }
+}
 
-    // Hide until hovered over
-    opacity: 0;
+.photo-grid__photo-selected-overlay {
+  @extend .photo-grid__photo-overlay;
 
-    background: $black-opacity;
-    -webkit-transition: opacity 0.25s ease;
-    -moz-transition: opacity 0.25s ease;
+  opacity: 1;
+  text-align: center;
+  padding: 0;
+  border: 2px solid $leaf-green;
+
+  svg {
+    @extend .vertical-align;
+    height: 36px;
+    width: 36px;
+  }
+
+  @include breakpoint($screen-xs) {
+    svg {
+      height: 48px;
+      width: 48px;
+    }
   }
 }
 

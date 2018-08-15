@@ -6,54 +6,74 @@ var PhotoGrid = React.createClass({
   getInitialState: function() {
     return {
       showCarousel: false,
-      currentPhotoIndex: null
+      editModeEnabled: false,
+      currentPhotoIndex: null,
+      selectedPhotoIds: []
     }
   },
 
-  enableCarousel: function(e) {
-    var photoGridEl = e.currentTarget;
+  toggleEditMode: function() {
+    console.log("Toggle Edit Mode");
 
-    if (!!photoGridEl) {
-      // Find index of the photo that was clicked
-      var currentPhotoIndex = null;
-      for (var i = 0; i < this.props.photoData.length; i++) {
-        if (String(this.props.photoData[i].id) == $(photoGridEl).attr("data-id")) {
-          currentPhotoIndex = i;
-        }
-      }
+    this.setState({
+      editModeEnabled: !this.state.editModeEnabled,
+      selectedPhotoIds: []
+    });
+  },
 
-      if (currentPhotoIndex !== null) {
-        this.setState({
-          showCarousel: true,
-          currentPhotoIndex: currentPhotoIndex
-        });
-      }
+  togglePhotoSelection: function(photoIndex) {
+    var selectedPhotoIds = this.state.selectedPhotoIds;
+    var photoId = this.props.photoData[photoIndex].id;
+
+    if (selectedPhotoIds.includes(photoId)) {
+      // Unselect photo by removing it from array
+      var index = selectedPhotoIds.indexOf(photoId);
+      if (index !== -1) selectedPhotoIds.splice(index, 1);
+    } else {
+      // Select photo by adding it to array
+      selectedPhotoIds.push(photoId);
+    }
+
+    this.setState({
+      selectedPhotoIds: selectedPhotoIds
+    });
+  },
+
+  enableCarousel: function(photoIndex) {
+    if (photoIndex !== null) {
+      this.setState({
+        showCarousel: true,
+        clickedPhotoIndex: photoIndex
+      });
     }
   },
 
   disableCarousel: function(e) {
     this.setState({
       showCarousel: false,
-      currentPhotoIndex: null
+      clickedPhotoIndex: null
     });
   },
 
-  nextCarouselPhoto: function() {
-    newIndex = this.state.currentPhotoIndex + 1;
-    if (newIndex >= this.props.photoData.length) {
-      newIndex = 0;
-    }
-
-    this.setState({currentPhotoIndex: newIndex});
+  renderEditToggle: function() {
+    return (
+      <PhotoGridEditToggle
+        editModeEnabled={this.state.editModeEnabled}
+        toggleEditMode={this.toggleEditMode} />
+    );
   },
 
-  prevCarouselPhoto: function() {
-    newIndex = this.state.currentPhotoIndex - 1;
-    if (newIndex < 0) {
-      newIndex = this.props.photoData.length - 1;
-    }
-
-    this.setState({currentPhotoIndex: newIndex});
+  renderPhoto: function(photo, photoIndex) {
+    return (
+      <Photo
+        key={`photo_${photo.id}`}
+        photo={photo}
+        photoIndex={photoIndex}
+        editModeEnabled={this.state.editModeEnabled}
+        isSelected={this.state.selectedPhotoIds.includes(photo.id)}
+        handleClickWhenEditModeEnabled={this.togglePhotoSelection}
+        handleClickWhenEditModeDisabled={this.enableCarousel} />
+    );
   },
 
   renderCarousel: function() {
@@ -61,45 +81,27 @@ var PhotoGrid = React.createClass({
       return (
         <PhotoCarousel
           photoData={this.props.photoData}
-          currentPhotoIndex={this.state.currentPhotoIndex}
-          navigatePrev={this.prevCarouselPhoto}
-          navigateNext={this.nextCarouselPhoto}
+          clickedPhotoIndex={this.state.clickedPhotoIndex}
           closeCarousel={this.disableCarousel}/>
       );
-    } else {
-     return null;
     }
   },
 
   render: function() {
     var self = this;
+    var enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
 
     return (
-      <div className="photo-grid">
-        {
-          this.props.photoData.map(function(photo){
-            var divStyle = { backgroundImage: 'url(' + photo.mediumUrl + ')' };
+      <div className={"photo-grid" + enabledClass}>
+        {this.renderEditToggle()}
 
-            return (
-              <div
-                key={`photo_${photo.id}`}
-                data-id={photo.id}
-                className="photo-grid__aspect-ratio"
-                onClick={self.enableCarousel}>
-
-                <div
-                  className="photo-grid__grid-element covered-background"
-                  style={divStyle}>
-                  <div className="photo-grid__overlay">
-                    <span className="photo-grid__taken-at-label">
-                      {photo.takenAtLabel}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })
-        }
+        <div className="photo-grid__content">
+          {
+            this.props.photoData.map(function(photo, photoIndex){
+              return self.renderPhoto(photo, photoIndex);
+            })
+          }
+        </div>
 
         {this.renderCarousel()}
       </div>
