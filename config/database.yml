@@ -17,11 +17,11 @@ development:
 staging:
   <<: *default
   database: reely_staging
-  username: deploy
+  username: reely
   password: <%= ENV["DATABASE_PASSWORD"] %>
 
 production:
   <<: *default
   database: reely_production
-  username: deploy
+  username: reely
   password: <%= ENV["DATABASE_PASSWORD"] %>
