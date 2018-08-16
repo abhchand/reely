@@ -25,7 +25,7 @@ var PhotoGrid = React.createClass({
     var selectedPhotoIds = this.state.selectedPhotoIds;
     var photoId = this.props.photoData[photoIndex].id;
 
-    if (selectedPhotoIds.includes(photoId)) {
+    if (selectedPhotoIds.indexOf(photoId) >= 0) {
       // Unselect photo by removing it from array
       var index = selectedPhotoIds.indexOf(photoId);
       if (index !== -1) selectedPhotoIds.splice(index, 1);
@@ -70,7 +70,7 @@ var PhotoGrid = React.createClass({
         photo={photo}
         photoIndex={photoIndex}
         editModeEnabled={this.state.editModeEnabled}
-        isSelected={this.state.selectedPhotoIds.includes(photo.id)}
+        isSelected={this.state.selectedPhotoIds.indexOf(photo.id) >= 0}
         handleClickWhenEditModeEnabled={this.togglePhotoSelection}
         handleClickWhenEditModeDisabled={this.enableCarousel} />
     );
