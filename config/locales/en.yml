@@ -52,6 +52,7 @@ en:
       share: Share
     delete_modal:
       heading: Delete collection <b>%{collection_name}</b>?
+      heading_default: Delete collection?
       body: This collection will be permanently deleted
       cancel: Cancel
       delete: Delete

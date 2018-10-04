@@ -1,17 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "collections/_delete_modal.html.erb", type: :view do
-  let(:collection) { create_collection_with_photos(photo_count: 0) }
-
   before { @t_prefix = "collections.delete_modal" }
 
   it "renders the modal and modal content" do
     render_partial
 
     heading = page.find(".modal-content__heading")
-    expect(heading).to have_content(
-      strip_tags(t("#{@t_prefix}.heading", collection_name: collection.name))
-    )
+    expect(heading).to have_content(t("#{@t_prefix}.heading_default"))
 
     body = page.find(".modal-content__body")
     expect(body).to have_content(t("#{@t_prefix}.body"))
@@ -24,11 +20,6 @@ RSpec.describe "collections/_delete_modal.html.erb", type: :view do
   end
 
   def render_partial
-    render(
-      partial: "collections/delete_modal",
-      locals: {
-        collection: collection
-      }
-    )
+    render(partial: "collections/delete_modal")
   end
 end

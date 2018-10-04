@@ -1,7 +1,14 @@
 <div class="collections-delete-modal modal">
   <div class="modal-content">
     <h1 class="modal-content__heading">
-      <%= raw t(".heading", collection_name: collection.name) %>
+      <%#-
+        Heading will be dynamically updated by JS when the modal opens.
+        This is done so that we can include the name of the collection in the heading on pages
+        where multiple collections are present (e.g. Collections#index)
+
+        Pre-populate it with a sensible default in case JS is disabled or doesn't work
+      %>
+      <%= t(".heading_default") %>
     </h1>
     <p class="modal-content__body">
       <%= t(".body") %>
