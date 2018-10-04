@@ -42,25 +42,48 @@ RSpec.feature "collections card", type: :feature do
     expect_menu_is_open(collection2)
   end
 
-  it "user can delete a collection", :js do
-    collection1 = create_collection_with_photos(owner: user)
-    collection2 = create_collection_with_photos(owner: user)
+  describe "deleting collection", :js do
+    it "user can delete a collection" do
+      collection1 = create_collection_with_photos(owner: user)
+      collection2 = create_collection_with_photos(owner: user)
 
-    visit collections_path
+      visit collections_path
 
-    open_menu(collection1)
-    click_delete(collection1)
-    wait_for_ajax
+      open_menu(collection1)
+      click_delete_menu_option(collection1)
+      click_delete_modal_submit
 
-    expect(collection1.reload).
-      to raise_error(ActiveRecord::RecordNotFound)
-    expect(collection2.reload).
-      to_not raise_error(ActiveRecord::RecordNotFound)
+      expect(collection1.reload).
+        to raise_error(ActiveRecord::RecordNotFound)
+      expect(collection2.reload).
+        to_not raise_error(ActiveRecord::RecordNotFound)
 
-    expect(find_collection(collection1)).
-      to raise_error(Capybara::ElementNotFound)
-    expect(find_collection(collection2)).
-      to_not raise_error(Capybara::ElementNotFound)
+      expect(find_collection(collection1)).
+        to raise_error(Capybara::ElementNotFound)
+      expect(find_collection(collection2)).
+        to_not raise_error(Capybara::ElementNotFound)
+    end
+
+    it "user can cancel the deletion" do
+      collection1 = create_collection_with_photos(owner: user)
+      collection2 = create_collection_with_photos(owner: user)
+
+      visit collections_path
+
+      open_menu(collection1)
+      click_delete_menu_option(collection1)
+      click_delete_modal_cancel
+
+      expect(collection1.reload).
+        to_not raise_error(ActiveRecord::RecordNotFound)
+      expect(collection2.reload).
+        to_not raise_error(ActiveRecord::RecordNotFound)
+
+      expect(find_collection(collection1)).
+        to_not raise_error(Capybara::ElementNotFound)
+      expect(find_collection(collection2)).
+        to_not raise_error(Capybara::ElementNotFound)
+    end
   end
 
   def find_collection(collection)
@@ -72,9 +95,18 @@ RSpec.feature "collections card", type: :feature do
     collection_el.find(".collections-card__menu-btn").click
   end
 
-  def click_delete(collection)
+  def click_delete_menu_option(collection)
     collection_el = find_collection(collection)
     collection_el.find(".collections-card__menu-item--delete").click
+  end
+
+  def click_delete_modal_submit
+    page.find(".modal-content__button--submit").click
+    wait_for_ajax
+  end
+
+  def click_delete_modal_cancel
+    page.find(".modal-content__button--cancel").click
   end
 
   def expect_menu_is_closed(collection)

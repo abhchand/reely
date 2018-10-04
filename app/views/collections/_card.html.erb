@@ -1,4 +1,4 @@
-<div class="collections-card" data-id="<%= collection.synthetic_id %>">
+<div class="collections-card" data-id="<%= collection.synthetic_id %>" data-name="<%= collection.name %>">
   <%= link_to(collection_path(collection), class: "collections-card__cover-photos-link") do %>
   <div class="collections-card__cover-photos">
     <% (0..3).each do |photo_idx| %>

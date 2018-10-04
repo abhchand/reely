@@ -23,18 +23,22 @@ $(document).ready(function() {
 
   $(".collections-card").on("click", ".collections-card__menu-item--delete", function(e) {
     var card = $(this).parents(".collections-card");
+    var dataId = $(card).attr("data-id");
+    var dataName = $(card).attr("data-name");
 
-    $.ajax({
-      type: "DELETE",
-      url: "/collections/" + $(card).attr("data-id"),
-      dataType: "json",
-      contentType: "application/json"
-    })
-      .done(function() {
-        // Remove card from DOM
-        $(card).remove();
-      })
-    ;
+    //
+    // TODO: Move this to a common "open modal" function
+    //
+
+    // Add data-id to modal
+    $(".modal").attr("data-id", dataId);
+
+    // Set modal heading
+    var heading = I18n.t("collections.delete_modal.heading", { collection_name: dataName });
+    $(".modal .modal-content__heading").html(heading);
+
+    // Open modal
+    $(".modal").addClass("active");
   });
 
   function closeAllMenus() {

@@ -77,7 +77,7 @@ RSpec.feature "collections show page", type: :feature do
       expect(page).to have_selector(".modal", visible: true)
 
       expect do
-        click_delete_button
+        click_delete_modal_submit
       end.to change { Collection.count }.by(-1)
 
       expect(page).to have_current_path(collections_path)
@@ -89,7 +89,7 @@ RSpec.feature "collections show page", type: :feature do
       expect(page).to have_selector(".modal", visible: true)
 
       expect do
-        click_cancel_button
+        click_delete_modal_cancel
       end.to change { Collection.count }.by(0)
 
       expect(page).to have_current_path(collection_path(collection))
@@ -125,7 +125,7 @@ RSpec.feature "collections show page", type: :feature do
         )
 
         expect do
-          click_delete_button
+          click_delete_modal_submit
         end.to change { Collection.count }.by(-1)
 
         expect(page).to have_current_path(collections_path)
@@ -137,12 +137,12 @@ RSpec.feature "collections show page", type: :feature do
       page.find(".collections-show__action-bar-item--delete").click
     end
 
-    def click_delete_button
+    def click_delete_modal_submit
       page.find(".modal-content__button--submit").click
       wait_for_ajax
     end
 
-    def click_cancel_button
+    def click_delete_modal_cancel
       page.find(".modal-content__button--cancel").click
     end
   end
