@@ -71,7 +71,7 @@ var PhotoCarousel = React.createClass({
 
     return (
       <div className="photo-carousel">
-        <div className="photo-carousel__content" data-id={this.currentPhoto.id} style={divStyle}>
+        <div className="photo-carousel__content" data-id={this.currentPhoto().id} style={divStyle}>
 
           <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
             <IconX size="16"/>
