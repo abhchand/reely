@@ -129,7 +129,9 @@ RSpec.feature "collections show page", type: :feature do
         end.to change { Collection.count }.by(-1)
 
         expect(page).to have_current_path(collections_path)
-        expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
+        expect do
+          collection.reload
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
