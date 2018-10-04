@@ -134,23 +134,23 @@ RSpec.feature "collections show page", type: :feature do
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
-    def click_delete_icon
-      page.find(".collections-show__action-bar-item--delete").click
-    end
-
-    def click_delete_modal_submit
-      page.find(".modal-content__button--submit").click
-      wait_for_ajax
-    end
-
-    def click_delete_modal_cancel
-      page.find(".modal-content__button--cancel").click
-    end
   end
 
   def click_outside_textarea
     # Pick an arbitrary element somewhere else on the page
     page.find(".collections-index__date-range").click
+  end
+
+  def click_delete_icon
+    page.find(".collections-show__action-bar-item--delete").click
+  end
+
+  def click_delete_modal_submit
+    page.find(".modal-content__button--submit").click
+    wait_for_ajax
+  end
+
+  def click_delete_modal_cancel
+    page.find(".modal-content__button--cancel").click
   end
 end
