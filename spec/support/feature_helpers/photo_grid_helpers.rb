@@ -25,7 +25,7 @@ module FeatureHelpers
 
   def expect_photo_carousel_to_display(photo)
     photo_el = find(".photo-carousel__content")
-    photo_url = prepend_host(photo.source.url)
+    photo_url = prepend_host_to_path(photo.source.url)
 
     expect(photo_el["data-id"]).to eq(photo.synthetic_id)
     expect(photo_el["style"]).to eq("background-image: url(#{photo_url});")

@@ -9,7 +9,7 @@ module FeatureHelpers
     params
   end
 
-  def prepend_host(path)
+  def prepend_host_to_path(path)
     host = Capybara.current_session.server.host
     port = Capybara.current_session.server.port
     path = "/#{path}" unless path.first == "/"
