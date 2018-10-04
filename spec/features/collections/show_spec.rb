@@ -64,11 +64,6 @@ RSpec.feature "collections show page", type: :feature do
       expect(textarea.value).to eq(@original_name)
       expect(collection.reload.name).to eq(@original_name)
     end
-
-    def click_outside_textarea
-      # Pick an arbitrary element somewhere else on the page
-      page.find(".collections-index__date-range").click
-    end
   end
 
   describe "deleting collection", :js do
@@ -101,6 +96,43 @@ RSpec.feature "collections show page", type: :feature do
       expect(page).to have_selector(".modal", visible: false)
     end
 
+    context "collection name was updated" do
+      let(:textarea) do
+        page.find(".collections-editable-name-heading__textarea")
+      end
+
+      before do
+        @old_name = collection.name
+        @new_name = "new_" + @old_name
+
+        textarea.send_keys("new_")
+
+        click_outside_textarea
+        wait_for_ajax
+      end
+
+      it "delete modal heading reflects the updated collection name" do
+        # Verify name was changed
+        expect(textarea.value).to eq(@new_name)
+        expect(collection.reload.name).to eq(@new_name)
+
+        click_delete_icon
+
+        expect(page.find(".modal-content__heading")).to have_content(
+          strip_tags(
+            t("collections.delete_modal.heading", collection_name: @new_name)
+          )
+        )
+
+        expect do
+          click_delete_button
+        end.to change { Collection.count }.by(-1)
+
+        expect(page).to have_current_path(collections_path)
+        expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
     def click_delete_icon
       page.find(".collections-show__action-bar-item--delete").click
     end
@@ -113,5 +145,10 @@ RSpec.feature "collections show page", type: :feature do
     def click_cancel_button
       page.find(".modal-content__button--cancel").click
     end
+  end
+
+  def click_outside_textarea
+    # Pick an arbitrary element somewhere else on the page
+    page.find(".collections-index__date-range").click
   end
 end
