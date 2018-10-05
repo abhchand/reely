@@ -15,8 +15,8 @@ $(document).ready(function() {
 
     closeAllMenus();
 
-    if ($(this).hasClass("collections-card__menu-btn")) {
-      var card = $(this).parents(".collections-card");
+    if ($(e.currentTarget).hasClass("collections-card__menu-btn")) {
+      var card = $(e.currentTarget).parents(".collections-card");
       $(card).addClass("collections-card--menu-open");
     }
   });
