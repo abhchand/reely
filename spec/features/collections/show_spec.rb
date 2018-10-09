@@ -14,11 +14,11 @@ RSpec.feature "collections show page", type: :feature do
       # NOTE: `send_keys` adds characters at the beginning of the textarea
       # so the new name will be a prefix
       @original_name = collection.name
-      @new_name = "new_" + @original_name
+      @new_name = @original_name + "_new"
     end
 
     it "user can update collection name" do
-      textarea.send_keys("new_")
+      textarea.send_keys("_new")
 
       click_outside_textarea
       wait_for_ajax
@@ -45,7 +45,7 @@ RSpec.feature "collections show page", type: :feature do
     end
 
     it "user can also confirm input via the :enter key" do
-      textarea.send_keys("new_")
+      textarea.send_keys("_new")
 
       textarea.send_keys(:enter)
       wait_for_ajax
@@ -55,7 +55,7 @@ RSpec.feature "collections show page", type: :feature do
     end
 
     it "user can cancel any input via the :escape key" do
-      textarea.send_keys("new_")
+      textarea.send_keys("_new")
       expect(textarea.value).to eq(@new_name)
 
       textarea.send_keys(:escape)
@@ -103,9 +103,9 @@ RSpec.feature "collections show page", type: :feature do
 
       before do
         @old_name = collection.name
-        @new_name = "new_" + @old_name
+        @new_name = @old_name + "_new"
 
-        textarea.send_keys("new_")
+        textarea.send_keys("_new")
 
         click_outside_textarea
         wait_for_ajax

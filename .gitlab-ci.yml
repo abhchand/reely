@@ -1,3 +1,5 @@
+image: ruby:2.2.2
+
 services:
   - postgres:9.6
 
@@ -13,19 +15,52 @@ cache:
     - /cache
 
 before_script:
+
+  # Add Google Chrome's repo to sources list
+  - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list
+
+  # Install Google's public key used for signing packages (e.g. Chrome)
+  # (Source: http://www.google.com/linuxrepositories/)
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+
   # System
   - apt-get update -qq
 
-  # Qt
-  - apt-get install -qq qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
-  - which qmake
+  # Google Chrome
+  - apt-get -y -qq install libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4
+  - apt-get -y -qq install google-chrome-stable
+  - which google-chrome
+  - google-chrome --version
+
+  # Chromedriver (2.42)
+  # All versions can be found here: http://chromedriver.storage.googleapis.com/
+  - apt-get install unzip
+  - wget -N http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip -P /tmp
+  - unzip /tmp/chromedriver_linux64.zip -d /tmp
+  - chmod +x /tmp/chromedriver
+  - mv -f /tmp/chromedriver /usr/local/share/chromedriver
+  - ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  - ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+  - which chromedriver
+  - chromedriver --version
+
+  # Dependencies to make "headless" chrome/selenium work:
+  - apt-get -y -qq install xvfb gtk2-engines-pixbuf
+  - apt-get -y -qq install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+
+  # NodeJS (JavaScript runtime)
+  - apt-get -y -qq install nodejs
 
   # Xvfb
-  - apt-get install -y xvfb
+  - apt-get install -y -qq xvfb
 
   # Ruby
   - ruby -v
   - which ruby
+
+  # Required specifically for json v1.8.3
+  # See: https://stackoverflow.com/a/35384604/10252006
+  - apt-get install -y -qq libgmp3-dev
 
   # Ruby Gems
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'

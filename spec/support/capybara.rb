@@ -1,15 +1,11 @@
 require "capybara/rails"
 require "capybara/rspec"
-require "capybara-webkit"
+require "selenium/webdriver"
 require "capybara-screenshot/rspec"
 
 Capybara.configure do |config|
   config.ignore_hidden_elements = true
-  config.javascript_driver = :webkit
+  config.javascript_driver = :selenium_chrome_headless
 end
 
 Capybara::Screenshot.autosave_on_failure = false
-
-Capybara::Webkit.configure do |config| # rubocop:disable Style/SymbolProc
-  config.block_unknown_urls
-end

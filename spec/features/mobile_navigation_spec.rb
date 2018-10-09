@@ -44,7 +44,7 @@ RSpec.feature "Mobile Navigation", type: :feature do
   def expect_menu_is_closed
     # Menu
     css_prefix = ".mobile-navigation__links-container"
-    expect(page).to have_css("#{css_prefix}.inactive")
+    expect(page).to have_css("#{css_prefix}.inactive", visible: false)
     expect(page).to_not have_css("#{css_prefix}.active")
 
     # Overlay
@@ -56,12 +56,12 @@ RSpec.feature "Mobile Navigation", type: :feature do
   def expect_menu_is_open
     # Menu
     css_prefix = ".mobile-navigation__links-container"
-    expect(page).to have_css("#{css_prefix}.active")
+    expect(page).to have_css("#{css_prefix}.active", visible: true)
     expect(page).to_not have_css("#{css_prefix}.inactive")
 
     # Overlay
     css_prefix = ".mobile-navigation__overlay"
-    expect(page).to have_css("#{css_prefix}.active")
-    expect(page).to_not have_css("#{css_prefix}.inactive", visible: false)
+    expect(page).to have_css("#{css_prefix}.active", visible: true)
+    expect(page).to_not have_css("#{css_prefix}.inactive")
   end
 end

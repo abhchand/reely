@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "4.2.4"
+ruby "2.2.2"
 
 #
 # Front End
@@ -43,8 +44,8 @@ end
 group :test do
   gem "capybara", "~> 2.1", ">= 2.13.0"
   gem "capybara-screenshot"
-  gem "capybara-webkit", ">= 1.14.0"
   gem "database_cleaner", "~> 1.5", ">= 1.5.1"
   gem "rake", "~> 10.5"
+  gem "selenium-webdriver", "~> 3.14"
   gem "shoulda-matchers", "~> 2.8", require: false
 end

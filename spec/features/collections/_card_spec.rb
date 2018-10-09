@@ -53,15 +53,13 @@ RSpec.feature "collections card", type: :feature do
       click_delete_menu_option(collection1)
       click_delete_modal_submit
 
-      expect(collection1.reload).
+      expect { collection1.reload }.
         to raise_error(ActiveRecord::RecordNotFound)
-      expect(collection2.reload).
-        to_not raise_error(ActiveRecord::RecordNotFound)
+      expect { collection2.reload }.to_not raise_error
 
-      expect(find_collection(collection1)).
+      expect { find_collection(collection1) }.
         to raise_error(Capybara::ElementNotFound)
-      expect(find_collection(collection2)).
-        to_not raise_error(Capybara::ElementNotFound)
+      expect { find_collection(collection2) }.to_not raise_error
     end
 
     it "user can cancel the deletion" do
@@ -74,15 +72,11 @@ RSpec.feature "collections card", type: :feature do
       click_delete_menu_option(collection1)
       click_delete_modal_cancel
 
-      expect(collection1.reload).
-        to_not raise_error(ActiveRecord::RecordNotFound)
-      expect(collection2.reload).
-        to_not raise_error(ActiveRecord::RecordNotFound)
+      expect { collection1.reload }.to_not raise_error
+      expect { collection2.reload }.to_not raise_error
 
-      expect(find_collection(collection1)).
-        to_not raise_error(Capybara::ElementNotFound)
-      expect(find_collection(collection2)).
-        to_not raise_error(Capybara::ElementNotFound)
+      expect { find_collection(collection1) }.to_not raise_error
+      expect { find_collection(collection2) }.to_not raise_error
     end
   end
 

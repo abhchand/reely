@@ -40,19 +40,19 @@ RSpec.feature "photos carousel", type: :feature do
     expect_photo_carousel_to_display(photos[1])
 
     # Navigating next with Right Arrow
-    find(".photo-carousel").send_keys(:right)
+    find("body").send_keys(:right)
     expect_photo_carousel_to_display(photos[2])
 
     # Navigating previous with Left Arrow
-    find(".photo-carousel").send_keys(:left)
+    find("body").send_keys(:left)
     expect_photo_carousel_to_display(photos[1])
 
     # Navigating next with 'j'
-    find(".photo-carousel").send_keys("j")
+    find("body").send_keys("j")
     expect_photo_carousel_to_display(photos[2])
 
     # Navigating previous 'k'
-    find(".photo-carousel").send_keys("k")
+    find("body").send_keys("k")
     expect_photo_carousel_to_display(photos[1])
   end
 
@@ -73,7 +73,7 @@ RSpec.feature "photos carousel", type: :feature do
     click_photo(photos[1])
     expect_photo_carousel_to_display(photos[1])
 
-    find(".photo-carousel").send_keys(:escape)
+    find("body").send_keys(:escape)
     expect_photo_carousel_is_closed
   end
 
