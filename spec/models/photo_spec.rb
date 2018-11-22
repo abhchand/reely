@@ -1,5 +1,7 @@
 require "rails_helper"
-require "models/concerns/has_synthetic_id_spec"
+# rubocop:disable LineLength
+require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
+# rubocop:enable LineLength
 
 RSpec.describe Photo, type: :model do
   it_behaves_like "has synthetic id"

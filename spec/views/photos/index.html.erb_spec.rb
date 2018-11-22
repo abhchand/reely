@@ -1,5 +1,5 @@
 require "rails_helper"
-require_relative "../shared/photo_grid_spec"
+require Rails.root.join("spec/support/shared_examples/views/photo_grid")
 
 RSpec.describe "photos/index.html.erb", type: :view do
   let(:user) { create(:user) }

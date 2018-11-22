@@ -1,25 +1,8 @@
-require "spec_helper"
-
-RSpec.shared_examples "has synthetic id" do
-  subject { create(described_class.table_name.singularize) }
-
-  describe "Validations" do
-    it { should validate_presence_of(:synthetic_id) }
-    it { should validate_uniqueness_of(:synthetic_id) }
-  end
-
-  describe "callbacks" do
-    describe "before_validation" do
-      describe "#generate_synthetic_id" do
-        it "generates a synthetic id on creation" do
-          model = create(
-            described_class.table_name.singularize,
-            synthetic_id: nil
-          )
-
-          expect(model.synthetic_id).to_not be_nil
-        end
-      end
-    end
-  end
-end
+# Ideally the specs for the `has_synthetic_id` concern would go here, but since
+# it relies on a `shared_examples` block rspec complains about it. See:
+#
+#   https://github.com/rspec/rspec-core/issues/828
+#
+# To get around this, the shared examples can be found under
+# `spec/support/shared_examples/*` instead. This is just an informative
+# placeholder
