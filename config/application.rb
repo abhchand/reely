@@ -41,7 +41,7 @@ module Reely
       g.javascripts = false
       g.stylesheets = false
       g.helper = false
-      g.factory_girl = false
+      g.factory_bot = false
 
       g.test_framework :rspec
     end

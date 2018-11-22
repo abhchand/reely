@@ -1,5 +1,5 @@
 # Create a user
-user = FactoryGirl.create(
+user = FactoryBot.create(
   :user,
   :with_avatar,
   first_name: "Sindhu",
@@ -14,7 +14,7 @@ photos = Dir[Rails.root.join("public/images/test/**.jpg")]
 photos.each_with_index do |photo, i|
   puts "Creating photo #{i + 1} of #{photos.count}"
 
-  FactoryGirl.create(
+  FactoryBot.create(
     :photo,
     owner: user,
     source: File.new(photo),
@@ -24,9 +24,9 @@ end
 
 # Create Collections
 5.times do
-  collection = FactoryGirl.create(:collection, owner: user)
+  collection = FactoryBot.create(:collection, owner: user)
 
   Photo.all.sample(5).each do |photo|
-    FactoryGirl.create(:photo_collection, photo: photo, collection: collection)
+    FactoryBot.create(:photo_collection, photo: photo, collection: collection)
   end
 end

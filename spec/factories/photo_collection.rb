@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :photo_collection do
     photo
     collection

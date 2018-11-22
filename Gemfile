@@ -25,7 +25,7 @@ gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
 
 group :development, :test do
-  gem "factory_girl_rails", "~> 4.5"
+  gem "factory_bot_rails", "~> 4.5"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.8"
   gem "rubocop", "~> 0.57.2"
