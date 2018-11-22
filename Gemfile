@@ -1,17 +1,17 @@
 source "https://rubygems.org"
 
-gem "rails", "4.2.4"
-ruby "2.2.2"
+gem "rails", "~> 5.2", ">= 5.2.1"
+ruby "2.5.1"
 
 #
 # Front End
 #
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "inline_svg", "~> 0.6.1"
-gem "jbuilder", "~> 2.0"
+gem "jbuilder", "~> 2.7"
 gem "jquery-rails"
 gem "react-rails", "~> 1.8"
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 5.0", ">= 5.0.7"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "uglifier", ">= 1.3.0"
 
@@ -20,14 +20,14 @@ gem "uglifier", ">= 1.3.0"
 #
 gem "bcrypt", "~> 3.1", ">= 3.1.10"
 gem "interactor", "~> 3.0"
-gem "paperclip", "~> 4.3", ">= 4.3.6"
+gem "paperclip", "~> 6.1"
 gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
 
 group :development, :test do
   gem "factory_girl_rails", "~> 4.5"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.4"
+  gem "rspec-rails", "~> 3.8"
   gem "rubocop", "~> 0.57.2"
 end
 
@@ -42,10 +42,11 @@ group :development do
 end
 
 group :test do
-  gem "capybara", "~> 2.1", ">= 2.13.0"
+  gem "capybara", "~> 3.9"
   gem "capybara-screenshot"
   gem "database_cleaner", "~> 1.5", ">= 1.5.1"
-  gem "rake", "~> 10.5"
+  gem "rails-controller-testing"
+  gem "rake"
   gem "selenium-webdriver", "~> 3.14"
   gem "shoulda-matchers", "~> 2.8", require: false
 end

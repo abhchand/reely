@@ -22,19 +22,19 @@ RSpec.describe SessionsController, type: :controller do
 
     context "user authentication is successful" do
       it "sets the session id" do
-        post :create, params
+        post :create, params: params
         expect(session[:user_id]).to eq(user.id)
       end
 
       it "redirects to the photos_path" do
-        post :create, params
+        post :create, params: params
         expect(response).to redirect_to(photos_path)
       end
 
       context "a dest param is set" do
         it "redirects to the specified destionation" do
           raw_dest = CGI.escape(collections_path)
-          post :create, params.merge(dest: raw_dest)
+          post :create, params: params.merge(dest: raw_dest)
 
           expect(response).to redirect_to(collections_path)
         end
@@ -45,13 +45,13 @@ RSpec.describe SessionsController, type: :controller do
       before { params[:session][:password] = "foo" }
 
       it "sets the flash message" do
-        post :create, params
+        post :create, params: params
         expect(flash[:error]).
           to eq(t("sessions.create.authenticate.invalid_login"))
       end
 
       it "redirects to the root path" do
-        post :create, params
+        post :create, params: params
         expect(response).to redirect_to(root_path)
       end
     end

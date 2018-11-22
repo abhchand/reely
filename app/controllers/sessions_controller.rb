@@ -7,12 +7,14 @@ class SessionsController < ApplicationController
       redirect_to(new_session_destination)
     else
       flash[:error] = authenticate_user.error_message
-      redirect_to :back
+      # Redirect back to previous URL
+      redirect_to request.env["HTTP_REFERER"]
     end
   end
 
   def destroy
     session[:user_id] = nil
+    puts "DESTROYING SESSION"
     redirect_to root_path
   end
 

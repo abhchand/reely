@@ -30,7 +30,12 @@ RSpec.feature "Mobile Navigation", type: :feature do
       end
 
       it "user can close the menu by clicking the overlay" do
-        find(".mobile-navigation__overlay").click
+        # The overlay is 400x730 in size
+        # `click` by default clicks on the center of the element, but in this
+        # case the overlay is covered by the menu itself and is not clickable
+        # Manually specify a coordinate *offset* to click on
+
+        find(".mobile-navigation__overlay").click(x: 200, y: 600)
         expect_menu_is_closed
       end
     end
@@ -42,6 +47,8 @@ RSpec.feature "Mobile Navigation", type: :feature do
   end
 
   def expect_menu_is_closed
+    wait_for_ajax
+
     # Menu
     css_prefix = ".mobile-navigation__links-container"
     expect(page).to have_css("#{css_prefix}.inactive", visible: false)
@@ -54,6 +61,8 @@ RSpec.feature "Mobile Navigation", type: :feature do
   end
 
   def expect_menu_is_open
+    wait_for_ajax
+
     # Menu
     css_prefix = ".mobile-navigation__links-container"
     expect(page).to have_css("#{css_prefix}.active", visible: true)

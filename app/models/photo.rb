@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Photo < ApplicationRecord
   include HasSyntheticId
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false

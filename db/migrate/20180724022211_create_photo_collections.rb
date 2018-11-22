@@ -1,4 +1,4 @@
-class CreatePhotoCollections < ActiveRecord::Migration
+class CreatePhotoCollections < ActiveRecord::Migration[4.2]
   def change
     create_table :photo_collections do |t|
       t.timestamps null: false

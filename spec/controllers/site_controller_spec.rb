@@ -26,7 +26,7 @@ RSpec.describe SiteController, type: :controller do
 
     context "dest param is present" do
       it "assigns @dest" do
-        get :index, dest: "foo"
+        get :index, params: { dest: "foo" }
         expect(assigns(:dest)).to eq("foo")
       end
     end

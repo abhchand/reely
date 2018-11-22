@@ -1,4 +1,4 @@
-class PhotoCollection < ActiveRecord::Base
+class PhotoCollection < ApplicationRecord
   belongs_to :photo, inverse_of: :photo_collections
   belongs_to :collection, inverse_of: :photo_collections
 

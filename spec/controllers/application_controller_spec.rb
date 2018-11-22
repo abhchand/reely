@@ -43,19 +43,15 @@ RSpec.describe ApplicationController, type: :controller do
     before { session[:user_id] = user.id }
 
     context "request is xhr" do
-      before { allow(controller.request).to receive(:xhr?) { true } }
-
       it "renders the action" do
-        get :index
+        get :index, xhr: true
         expect(response.body).to eq("test")
       end
     end
 
     context "request is not xhr" do
-      before { allow(controller.request).to receive(:xhr?) { false } }
-
       it "redirects to root_path" do
-        get :index
+        get :index, xhr: false
         expect(response).to redirect_to(root_path)
       end
     end

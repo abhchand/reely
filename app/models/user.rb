@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # rubocop:disable LineLength
   has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
   has_many :collections, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
@@ -60,10 +60,10 @@ class User < ActiveRecord::Base
   end
 
   def lower_email_case
-    email.downcase! if email
+    email&.downcase!
   end
 
   def strip_email
-    email.strip! if email
+    email&.strip!
   end
 end

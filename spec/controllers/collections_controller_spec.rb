@@ -22,7 +22,7 @@ RSpec.describe CollectionsController, type: :controller do
 
     context "collection is not found" do
       it "redirects to the root path" do
-        get :show, id: "abcde"
+        get :show, params: { id: "abcde" }
         expect(response).to redirect_to(root_path)
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        get :show, id: collection.synthetic_id
+        get :show, params: { id: collection.synthetic_id }
         expect(response).to redirect_to(root_path)
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe CollectionsController, type: :controller do
     it "assigns the collection, photo, and date range label" do
       expect(DateRangeLabelService).to receive(:call) { "some label" }
 
-      get :show, id: collection.synthetic_id
+      get :show, params: { id: collection.synthetic_id }
 
       expect(assigns(:collection)).to eq(collection)
       expect(assigns(:photos)).to eq(collection.photos.order(:taken_at))
@@ -62,14 +62,14 @@ RSpec.describe CollectionsController, type: :controller do
 
     context "request is not xhr" do
       it "redirects to root_path" do
-        put :update, params
+        put :update, params: params, xhr: false
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "collection is not found" do
       it "redirects to the root path" do
-        xhr :put, :update, params.merge(id: "abcde")
+        put :update, params: params.merge(id: "abcde"), xhr: true
         expect(response).to redirect_to(root_path)
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        xhr :put, :update, params
+        put :update, params: params, xhr: true
         expect(response).to redirect_to(root_path)
       end
     end
@@ -86,7 +86,7 @@ RSpec.describe CollectionsController, type: :controller do
     it "updates the collection and responds as success" do
       params[:collection][:name] = "Some new name"
 
-      xhr :put, :update, params
+      put :update, params: params, xhr: true
 
       expect(collection.reload.name).to eq("Some new name")
       expect(response.status).to eq(200)
@@ -98,7 +98,7 @@ RSpec.describe CollectionsController, type: :controller do
         old_name = collection.name
         params[:collection][:name] = ""
 
-        xhr :put, :update, params
+        put :update, params: params, xhr: true
 
         expect(collection.reload.name).to eq(old_name)
         expect(response.status).to eq(400)
@@ -112,14 +112,14 @@ RSpec.describe CollectionsController, type: :controller do
 
     context "request is not xhr" do
       it "redirects to root_path" do
-        delete :destroy, id: collection.synthetic_id
+        delete :destroy, params: { id: collection.synthetic_id }, xhr: false
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "collection is not found" do
       it "redirects to the root path" do
-        xhr :delete, :destroy, id: "abcde"
+        delete :destroy, params: { id: "abcde" }, xhr: true
         expect(response).to redirect_to(root_path)
       end
     end
@@ -128,13 +128,13 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        xhr :delete, :destroy, id: collection.synthetic_id
+        delete :destroy, params: { id: collection.synthetic_id }, xhr: true
         expect(response).to redirect_to(root_path)
       end
     end
 
     it "destroys the collection and responds as success" do
-      xhr :delete, :destroy, id: collection.synthetic_id
+      delete :destroy, params: { id: collection.synthetic_id }, xhr: true
 
       expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect(response.status).to eq(200)
@@ -145,7 +145,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "does not destroy the collection and responds as failure" do
         allow_any_instance_of(Collection).to receive(:destroy) { false }
 
-        xhr :delete, :destroy, id: collection.synthetic_id
+        delete :destroy, params: { id: collection.synthetic_id }, xhr: true
 
         expect { collection.reload }.to_not raise_error
         expect(response.status).to eq(400)

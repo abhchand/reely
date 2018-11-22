@@ -22,8 +22,8 @@ RSpec.describe "collections/index.html.erb", type: :view do
   it "renders each collection card" do
     render
 
-    expect(page).to have_content(
-      "_stubbed_collections_card _stubbed_collections_card"
+    expect(page.text).to match(
+      "_stubbed_collections_card[\n\s]+_stubbed_collections_card"
     )
   end
 end

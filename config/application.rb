@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Reely
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.0
+
     # Settings in config/environments/* take precedence over those specified
     # here. Application configuration should go into files in
     # config/initializers
@@ -29,9 +32,6 @@ module Reely
     config.react.server_renderer_options = {
       files: ["server_rendering.js"], # files to load for prerendering
     }
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false
