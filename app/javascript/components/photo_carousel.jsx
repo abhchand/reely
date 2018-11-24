@@ -1,25 +1,38 @@
-var PhotoCarousel = React.createClass({
-  propTypes:{
-    photoData: React.PropTypes.array.isRequired,
-    clickedPhotoIndex: React.PropTypes.number.isRequired,
-    closeCarousel: React.PropTypes.func.isRequired
-  },
+import {IconArrowThickLeft, IconArrowThickRight, IconCheckMark, IconX} from "icons";
+import PropTypes from "prop-types";
+import React from "react";
 
-  getInitialState: function() {
-    return {
+class PhotoCarousel extends React.Component {
+  static propTypes = {
+    photoData: PropTypes.array.isRequired,
+    clickedPhotoIndex: PropTypes.number.isRequired,
+    closeCarousel: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentWillUnmount = this.componentWillUnmount.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.currentPhoto = this.currentPhoto.bind(this);
+    this.navigateNext = this.navigateNext.bind(this);
+    this.navigatePrev = this.navigatePrev.bind(this);
+
+    this.state = {
       currentPhotoIndex: this.props.clickedPhotoIndex
     }
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     $(document.body).on("keydown", this.handleKeyDown);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     $(document.body).off("keydown", this.handleKeyDown);
-  },
+  }
 
-  handleKeyDown: function(e) {
+  handleKeyDown(e) {
     switch(e.keyCode) {
       case 27:
         // Escape
@@ -42,31 +55,31 @@ var PhotoCarousel = React.createClass({
         this.navigateNext();
         break;
     }
-  },
+  }
 
-  currentPhoto: function() {
+  currentPhoto() {
     return this.props.photoData[this.state.currentPhotoIndex];
-  },
+  }
 
-  navigateNext: function() {
-    newIndex = this.state.currentPhotoIndex + 1;
+  navigateNext() {
+    let newIndex = this.state.currentPhotoIndex + 1;
     if (newIndex >= this.props.photoData.length) {
       newIndex = 0;
     }
 
     this.setState({currentPhotoIndex: newIndex});
-  },
+  }
 
-  navigatePrev: function() {
-    newIndex = this.state.currentPhotoIndex - 1;
+  navigatePrev() {
+    let newIndex = this.state.currentPhotoIndex - 1;
     if (newIndex < 0) {
       newIndex = this.props.photoData.length - 1;
     }
 
     this.setState({currentPhotoIndex: newIndex});
-  },
+  }
 
-  render: function() {
+  render() {
     var divStyle = { backgroundImage: 'url(' + this.currentPhoto().url + ')' };
 
     return (
@@ -92,4 +105,6 @@ var PhotoCarousel = React.createClass({
       </div>
     );
   }
-});
+}
+
+export default PhotoCarousel;

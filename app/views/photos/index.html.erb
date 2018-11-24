@@ -11,11 +11,11 @@
 <div class="photos-index__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
-      "PhotoGrid",
+      "photo_grid",
       {
         photoData: @photos.map(&:to_photo_grid_react_props)
       },
-      { prerender: true }
+      { prerender: Rails.env.test? }
     )
   %>
 </div>

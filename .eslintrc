@@ -1,0 +1,153 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "impliedStrict": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "settings": {
+    "react": {
+      // Default shipped with the gem version we are using, we should
+      // start being more explicit with it
+      version: "15.6.2"
+    }
+  },
+  "globals": {
+    "CKEDITOR": true,
+    "EventEmitter": true,
+    "fbq": true,
+    "gon": true,
+    "I18n": true,
+    "jstz": true,
+    "Swiper": true
+  },
+  "plugins": ["react", "jsx-a11y"],
+  "rules": {
+    // Syntax Errors
+    "for-direction": "error",
+    // Best Practices
+    "array-callback-return": "warn",
+    "curly": ["warn", "multi-line"],
+    "dot-location": ["warn", "property"],
+    "dot-notation": "warn",
+    "eqeqeq": ["error", "smart"],
+    "no-control-regex": "off",
+    "no-else-return": "warn",
+    "no-empty-function": "warn",
+    "no-eq-null": "error",
+    "no-eval": "error",
+    "no-extra-bind": "warn",
+    "no-floating-decimal": "warn",
+    "no-implicit-globals": "warn",
+    "no-implied-eval": "error",
+    // I would like to eventually turn this back on when we have more fixed
+    "no-magic-numbers": ["off", { "ignore": [0, 1] }],
+    // "no-multi-spaces": ["warn", { "ignoreEOLComments": true }],
+    "no-new": "warn",
+    "no-param-reassign": "warn",
+    "no-return-assign": "warn",
+    "no-return-await": "error",
+    "no-script-url": "error",
+    "no-throw-literal": "error",
+    "no-useless-call": "warn",
+    "no-useless-concat": "warn",
+    "no-useless-return": "warn",
+    "require-await": "warn",
+    // Variables
+    "no-shadow-restricted-names": "error",
+    // Stylistic Issues
+    "block-spacing": "warn",
+    "camelcase": "warn",
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "func-call-spacing": ["warn", "never"],
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+    "max-len": ["warn", 150, { "comments": 80, "ignoreTrailingComments": true, "ignoreUrls": true }],
+    "max-lines": ["warn", {"max": 500, "skipBlankLines": true, "skipComments": true}],
+    "no-bitwise": "error",
+    "no-lonely-if": "warn",
+    "no-mixed-operators": ["error", {"allowSamePrecedence": true}],
+    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+    "no-multiple-empty-lines": ["warn", {"max": 2, "maxEOF": 1}],
+    "no-nested-ternary": "error",
+    "no-trailing-spaces": "warn",
+    "no-unneeded-ternary": "error",
+    "no-whitespace-before-property": "error",
+    "operator-assignment": ["warn", "always"],
+    "semi": ["error", "always"],
+    "padding-line-between-statements": [
+      "warn",
+      { blankLine: "always", prev: ["const", "let", "var", "block-like"], next: "*"},
+      { blankLine: "any",    prev: ["const", "let", "var"], next: ["const", "let", "var"]},
+      { blankLine: "any",    prev: "function", next: "*" },
+      { blankLine: "always", prev: "directive", next: "*" },
+      { blankLine: "any",    prev: "directive", next: "directive" }
+    ],
+    "space-infix-ops": "warn",
+    "wrap-regex": "warn",
+    // EcmaScript 6
+    "arrow-spacing": "error",
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+    "no-duplicate-imports": "error",
+    "sort-imports": ["warn", { "ignoreCase": true }],
+    // Turn these on when we add ES6 transpiler
+    "no-var": "off",
+    "prefer-const": "off",
+    // React Rules
+    "react/boolean-prop-naming": "warn",
+    "react/button-has-type": "warn",
+    "react/default-props-match-prop-types": ["error", { "allowRequiredDefaults": true }],
+    "react/jsx-filename-extension": "warn",
+    "react/jsx-wrap-multilines": "warn",
+    "react/jsx-no-bind": "error",
+    "react/no-access-state-in-setstate": "warn",
+    "react/no-array-index-key": "warn",
+    "react/no-danger": "warn",
+    "react/no-did-mount-set-state": "error",
+    "react/no-did-update-set-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-redundant-should-component-update": "error",
+    "react/no-this-in-sfc": "error",
+    "react/no-typos": "error",
+    "react/no-unused-prop-types": "warn",
+    "react/no-unused-state": "warn",
+    "react/no-will-update-set-state": "error",
+    "react/jsx-pascal-case": "error",
+    "react/prefer-es6-class": ["warn"],
+    "react/sort-comp": ["warn"],
+    "react/void-dom-elements-no-children": "error",
+    // We should fix these and then turn rules back on
+    "react/jsx-no-undef": ["warn", { "allowGlobals": true }],
+    "react/display-name": ["off", { "ignoreTranspilerName": true }],
+    "react/no-deprecated": ["warn"],
+    // JSX A11y rules
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/app/javascript/**"
+      ],
+      "rules": {
+        "camelcase": "off",
+        "no-return-assign": "off",
+        "no-var": "error",
+        "padding-line-between-statements": "off",
+        "prefer-const": "warn",
+        "prefer-template": "warn"
+      }
+    }
+  ]
+}

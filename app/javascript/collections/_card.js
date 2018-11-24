@@ -1,3 +1,5 @@
+import {openCollectionsDeleteModal} from "common.js"
+
 $(document).ready(function() {
   $("body#collections-index").click(function(e) {
     if (isClickOutsideCollectionsCardMenu(e)) {

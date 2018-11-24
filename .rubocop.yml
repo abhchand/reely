@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'db/migrate/**'
     - 'db/schema.rb'
+    - 'node_modules/**/*'
     # Auto-generated binstubs have all sorts of errors
     - 'bin/**'
 Documentation:

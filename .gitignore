@@ -30,3 +30,8 @@ shared/*
 
 # Node / Yarn
 node_modules/*
+/public/packs
+/public/packs-test
+/node_modules
+yarn-error.log
+.yarn-integrity

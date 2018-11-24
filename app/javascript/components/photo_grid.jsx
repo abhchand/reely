@@ -1,33 +1,50 @@
-var PhotoGrid = React.createClass({
-  propTypes:{
-    photoData: React.PropTypes.array.isRequired
-  },
+import PropTypes from "prop-types";
+import React from "react";
 
-  getInitialState: function() {
-    return {
+import PhotoGridEditToggle from "photo_grid_edit_toggle";
+import PhotoCarousel from "photo_carousel";
+import Photo from "photo";
+
+class PhotoGrid extends React.Component {
+  static propTypes = {
+    photoData: PropTypes.array.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.togglePhotoSelection = this.togglePhotoSelection.bind(this);
+    this.enableCarousel = this.enableCarousel.bind(this);
+    this.disableCarousel = this.disableCarousel.bind(this);
+    this.renderEditToggle = this.renderEditToggle.bind(this);
+    this.renderPhoto = this.renderPhoto.bind(this);
+    this.renderCarousel = this.renderCarousel.bind(this);
+
+    this.state = {
       showCarousel: false,
       editModeEnabled: false,
       currentPhotoIndex: null,
       selectedPhotoIds: []
     }
-  },
+  }
 
-  toggleEditMode: function() {
+  toggleEditMode() {
     console.log("Toggle Edit Mode");
 
     this.setState({
       editModeEnabled: !this.state.editModeEnabled,
       selectedPhotoIds: []
     });
-  },
+  }
 
-  togglePhotoSelection: function(photoIndex) {
-    var selectedPhotoIds = this.state.selectedPhotoIds;
-    var photoId = this.props.photoData[photoIndex].id;
+  togglePhotoSelection(photoIndex) {
+    const selectedPhotoIds = this.state.selectedPhotoIds;
+    const photoId = this.props.photoData[photoIndex].id;
 
     if (selectedPhotoIds.indexOf(photoId) >= 0) {
       // Unselect photo by removing it from array
-      var index = selectedPhotoIds.indexOf(photoId);
+      let index = selectedPhotoIds.indexOf(photoId);
       if (index !== -1) selectedPhotoIds.splice(index, 1);
     } else {
       // Select photo by adding it to array
@@ -37,33 +54,33 @@ var PhotoGrid = React.createClass({
     this.setState({
       selectedPhotoIds: selectedPhotoIds
     });
-  },
+  }
 
-  enableCarousel: function(photoIndex) {
+  enableCarousel(photoIndex) {
     if (photoIndex !== null) {
       this.setState({
         showCarousel: true,
         clickedPhotoIndex: photoIndex
       });
     }
-  },
+  }
 
-  disableCarousel: function(e) {
+  disableCarousel(e) {
     this.setState({
       showCarousel: false,
       clickedPhotoIndex: null
     });
-  },
+  }
 
-  renderEditToggle: function() {
+  renderEditToggle() {
     return (
       <PhotoGridEditToggle
         editModeEnabled={this.state.editModeEnabled}
         toggleEditMode={this.toggleEditMode} />
     );
-  },
+  }
 
-  renderPhoto: function(photo, photoIndex) {
+  renderPhoto(photo, photoIndex) {
     return (
       <Photo
         key={`photo_${photo.id}`}
@@ -74,9 +91,9 @@ var PhotoGrid = React.createClass({
         handleClickWhenEditModeEnabled={this.togglePhotoSelection}
         handleClickWhenEditModeDisabled={this.enableCarousel} />
     );
-  },
+  }
 
-  renderCarousel: function() {
+  renderCarousel() {
     if (this.state.showCarousel) {
       return (
         <PhotoCarousel
@@ -85,11 +102,11 @@ var PhotoGrid = React.createClass({
           closeCarousel={this.disableCarousel}/>
       );
     }
-  },
+  }
 
-  render: function() {
-    var self = this;
-    var enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
+  render() {
+    const self = this;
+    const enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
 
     return (
       <div className={"photo-grid" + enabledClass}>
@@ -107,4 +124,6 @@ var PhotoGrid = React.createClass({
       </div>
     );
   }
-});
+}
+
+export default PhotoGrid;

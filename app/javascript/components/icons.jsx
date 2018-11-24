@@ -1,17 +1,22 @@
-var IconArrowThickLeft = React.createClass({
-  propTypes: {
+import PropTypes from "prop-types";
+import React from "react";
+
+class IconArrowThickLeft extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       // icons/arrow-thick-left.svg
       <svg width={this.props.size} height={this.props.size} xmlns="http://www.w3.org/2000/svg"viewBox="0 0 8 8">
@@ -19,22 +24,24 @@ var IconArrowThickLeft = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconArrowThickRight = React.createClass({
-    propTypes: {
+class IconArrowThickRight extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       // icons/arrow-thick-right.svg
       <svg width={this.props.size} height={this.props.size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
@@ -42,22 +49,24 @@ var IconArrowThickRight = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconCheckMark = React.createClass({
-    propTypes: {
+class IconCheckMark extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -68,22 +77,24 @@ var IconCheckMark = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconCircle = React.createClass({
-    propTypes: {
+class IconCircle extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -94,23 +105,25 @@ var IconCircle = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconFilledCircle = React.createClass({
-    propTypes: {
+class IconFilledCircle extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE",
       strokeColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
@@ -124,22 +137,24 @@ var IconFilledCircle = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconPencilWithSquares = React.createClass({
-    propTypes: {
+class IconPencilWithSquares extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -164,22 +179,24 @@ var IconPencilWithSquares = React.createClass({
       </svg>
     );
   }
-});
+}
 
-var IconX = React.createClass({
-    propTypes: {
+class IconX extends React.Component {
+  static propTypes = {
     size: React.PropTypes.string,
     fillColor: React.PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    };
-  },
+    }
+  }
 
-  render: function() {
+  render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <title>Close Icon</title>
@@ -194,4 +211,9 @@ var IconX = React.createClass({
       </svg>
     );
   }
-});
+}
+
+export {
+  IconArrowThickLeft, IconArrowThickRight, IconCheckMark, IconCircle,
+  IconFilledCircle, IconPencilWithSquares, IconX
+};

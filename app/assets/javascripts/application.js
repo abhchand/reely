@@ -12,8 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require react
-//= require react_ujs
-//= require components
-//= require common
+//= require i18n/translations
 //= require_tree .

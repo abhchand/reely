@@ -1,0 +1,29 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": ["ie >= 10"],
+          "uglify": true
+        },
+        "useBuiltIns": true
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    ["module-resolver",
+      { "root": ["./app/javascript/**"], "alias": {} }
+    ],
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",
+    [
+      "transform-class-properties",
+      {
+        "spec": true
+      }
+    ]
+  ]
+}

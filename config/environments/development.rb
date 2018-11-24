@@ -1,4 +1,9 @@
+# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
+  # Verifies that versions and hashed value of the package contents in the
+  # project's package.json
+  config.webpacker.check_yarn_integrity = true
+
   # Settings specified here will take precedence over those in
   # config/application.rb.
 
@@ -74,3 +79,4 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+# rubocop:enable Metrics/BlockLength
