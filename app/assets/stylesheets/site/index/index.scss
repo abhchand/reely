@@ -1,6 +1,6 @@
 .site-index-container {
-  padding: 0;
   margin-top: 60px;
+  padding: 0;
 }
 
 .site-index-logo {
@@ -9,20 +9,20 @@
 
 .site-index-auth-form__container {
   width: 100%;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 
   @include breakpoint($screen-xs) {
     border-radius: 3px;
   }
 
   input {
-    border-left-width: 0;
     border-right-width: 0;
+    border-left-width: 0;
 
     @include breakpoint($screen-xs) {
-      border-left-width: 1px;
       border-right-width: 1px;
+      border-left-width: 1px;
     }
   }
 }

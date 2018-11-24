@@ -1,7 +1,7 @@
 .mobile-navigation {
   width: 100%;
-  background-color: $white;
   color: $white;
+  background-color: $white;
 
   @include breakpoint($screen-xs) {
     display: none;
@@ -32,11 +32,11 @@
   cursor: pointer;
 
   svg {
-    fill: $dark-purple;
     // Icon is 12px smaller than logo so
     // it needs 12/2 = 6px more on each side
     margin-top: 5px + 6px;
     margin-right: 10px + 6px;
+    fill: $dark-purple;
   }
 }
 
@@ -46,8 +46,8 @@
 
 .mobile-navigation__links-container {
   position: absolute;
-  width: 100%;
   z-index: 99;
+  width: 100%;
   background-color: $dark-gray;
 
   -webkit-transition: all 0.25s ease;
@@ -76,13 +76,13 @@
   align-items: center;
 
   width: 120px;
-  padding: 15px 0;
   margin: 0 auto;
+  padding: 15px 0;
 
   img {
     max-width: 75%;
-    max-height: 75%;
     height: auto;
+    max-height: 75%;
     margin-bottom: 15px;
 
     border-width: 3px;
@@ -102,17 +102,17 @@
 .mobile-navigation__link-element {
   &.mobile-navigation__link-element--major {
     height: 50px;
-    line-height: 50px;
     padding-left: 20px;
     font-size: 22px;
+    line-height: 50px;
     text-align: left;
   }
 
   &.mobile-navigation__link-element--minor {
     height: 32px;
-    line-height: 32px;
     padding-left: 40px;
     font-size: 16px;
+    line-height: 32px;
     text-align: left;
   }
 
@@ -129,9 +129,9 @@
 
 .mobile-navigation__footer {
   text-align: center;
-  cursor: pointer;
   // border-top: 2px solid $leaf-green;
   background-color: $leaf-green;
+  cursor: pointer;
 
   svg {
     width: 25px;
@@ -154,12 +154,12 @@
 
   &.active {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    background: $black-opacity;
 
     // Stack order should be just under the nav and mobile dropdown menu
     z-index: 98;
+    width: 100%;
+    height: 100%;
+    background: $black-opacity;
   }
 
   &.inactive {

@@ -1,11 +1,11 @@
 .collections-editable-name-heading {
 }
 .collections-editable-name-heading__textarea {
-  resize: none;
-  height: 55px;
   width: 80%;
-  border: none;
+  height: 55px;
   overflow: hidden;
+  border: none;
+  resize: none;
 
   &:hover {
     border-bottom: 1px solid $medium-gray;

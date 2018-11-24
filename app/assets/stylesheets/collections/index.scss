@@ -4,10 +4,10 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
+  width: 100%;
   margin: auto;
   margin-top: 15px;
   background-color: $white;
-  width: 100%;
 
   @include breakpoint($screen-xs) {
     justify-content: flex-start;
@@ -17,21 +17,21 @@
   @extend .collections-card;
 
   position:relative;
-  border: dashed 1px $dark_purple;
-  box-shadow: none;
 
   // For lower widths the collections card becomes 1 card per row, which
   // causes this element to no longer maintain its height. At these smaller
   // widths we work around that by having it take on a square aspect ratio by
   // setting padding bottom equal to the width (as taken from .collections-card)
   padding-bottom: 51%;
+  border: dashed 1px $dark_purple;
+  box-shadow: none;
   @media screen and (min-width: 680px) {
     padding-bottom: 0;
   }
 
   &:hover {
-    box-shadow: none;
     border-width: 2px;
+    box-shadow: none;
   }
 
   svg {

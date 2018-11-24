@@ -7,10 +7,10 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: solid 1px $medium-gray;
 
     width: 100%;
     height: 50px;
+    border-bottom: solid 1px $medium-gray;
   }
 }
 .desktop-header__image {
@@ -19,8 +19,8 @@
 
   img {
     max-width: 100%;
-    max-height: 100%;
     height: auto;
+    max-height: 100%;
     margin-bottom: 15px;
 
     border-width: 2px;
@@ -33,6 +33,6 @@
   margin-left: 20px;
 }
 .desktop-header__image--profile-pic {
-  margin-left: auto;
   margin-right: 5%;
+  margin-left: auto;
 }

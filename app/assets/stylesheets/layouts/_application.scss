@@ -3,11 +3,11 @@ html {
 }
 
 body {
-  margin: 0;
   height: 100%;
+  margin: 0;
   font-family: $heading-font;
-  background-color: $white;
   text-align: center;
+  background-color: $white;
 }
 
 nav, section {
@@ -15,6 +15,7 @@ nav, section {
 }
 
 ul, li {
+  margin: 0;
   list-style-type: none;
   // Override user stylesheet on several browsers
   -webkit-margin-before: 0;
@@ -27,7 +28,6 @@ ul, li {
   -moz-margin-start: 0;
   -moz-margin-end: 0;
   -moz-padding-start: 0;
-  margin: 0;
 }
 
 h1, h2, h3 {
@@ -37,8 +37,8 @@ h1, h2, h3 {
 
 h1 {
   color: $white;
-  font-size: 5rem;
   font-weight: 300;
+  font-size: 5rem;
   line-height: 50px;
 }
 

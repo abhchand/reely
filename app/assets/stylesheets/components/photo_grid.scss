@@ -14,11 +14,11 @@
 
 .photo-grid__edit-toggle {
   position: relative;
-  height: 30px;
-  cursor: pointer;
-  background-color: $white;
   width: 30px;
+  height: 30px;
+  background-color: $white;
   border-radius: 50%;
+  cursor: pointer;
   transition: background-color 0.15s ease-in;
 
   svg {
@@ -36,15 +36,15 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  background-color: $white;
-  font-size: 0;
   width: 100%;
   margin-top: 10px;
+  font-size: 0;
+  background-color: $white;
 }
 
 .photo-grid__photo-container {
-  flex: auto;
   position: relative;
+  flex: auto;
 
   // Widths dictate the maximun number of photos per row (e.g. 25% = 4 photos)
   // Setting padding-bottom equal to the widths maintains the square aspect
@@ -52,9 +52,9 @@
   width: calc(100% / 4);
   max-width: calc(100% / 4);
   padding-bottom: calc(100% / 4);
+  border-width: 1px;
 
   border-style: solid;
-  border-width: 1px;
   border-color: $white;
 
   @include breakpoint($screen-xs) {
@@ -93,38 +93,38 @@
 .photo-grid__photo {
   position: absolute;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  cursor: pointer;
-
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+
+  background-size: cover;
+  cursor: pointer;
 
   transition: all 0.10s linear;
 
   .photo-grid--edit-mode-enabled & {
     top: 2px;
+    right: 2px;
     bottom: 2px;
     left: 2px;
-    right: 2px;
   }
 }
 
 .photo-grid__photo-overlay {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 
   padding-left: 5%;
-  padding-bottom: 3%;
-  padding-top: 3%;
 
   text-align: left;
 
-  opacity: 0;
-
   background: $black-opacity;
+
+  opacity: 0;
   -webkit-transition: opacity 0.25s ease;
   -moz-transition: opacity 0.25s ease;
 
@@ -148,22 +148,22 @@
 
 .photo-grid__photo-selected-overlay {
   @extend .photo-grid__photo-overlay;
+  padding: 0;
+  text-align: center;
+  border: 2px solid $leaf-green;
 
   opacity: 1;
-  text-align: center;
-  padding: 0;
-  border: 2px solid $leaf-green;
 
   svg {
     @extend .vertical-align;
-    height: 36px;
     width: 36px;
+    height: 36px;
   }
 
   @include breakpoint($screen-xs) {
     svg {
-      height: 48px;
       width: 48px;
+      height: 48px;
     }
   }
 }

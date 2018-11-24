@@ -2,10 +2,10 @@ $collection_card_padding: 3px;
 
 .collections-card {
   @extend .soft-shadow;
+  width: 51%;
+  margin: 10px 0;
 
   padding: $collection_card_padding;
-  margin: 10px 0;
-  width: 51%;
 
   // Introduce a midway point between screen-xs and screen-sm to make
   // the responsive transitions work a bit better
@@ -38,12 +38,12 @@ $collection_card_padding: 3px;
 }
 .collections-card__cover-photo {
   width: 48%;
-  padding-top: 48%;
   margin: 1px;
-
-  background-size: cover;
+  padding-top: 48%;
   background-repeat: no-repeat;
   background-position: center center;
+
+  background-size: cover;
 }
 
 .collections-card__cover-photo--blank {
@@ -59,18 +59,18 @@ $collection_card_padding: 3px;
 }
 .collections-card__name {
   display: inline-block;
-  padding-left: 3px;
   max-width: 150px;
-  font-size: 14px;
-  text-align: left;
-  font-weight: 600;
-  margin: 0;
-  cursor: pointer;
-  line-height: 20px;
 
   max-height: 40px;
+  margin: 0;
+  padding-left: 3px;
   overflow: hidden;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
   text-overflow: ellipsis;
+  cursor: pointer;
 
   a {
     color: $dark-gray;
@@ -85,28 +85,28 @@ $collection_card_padding: 3px;
 }
 .collections-card__menu {
   @extend .hard-shadow;
+  position: absolute;
+  right: $collection_card_padding;
+  bottom: 0;
 
   display: none;
-  position: absolute;
-  background-color: $white;
-  bottom: 0;
-  right: $collection_card_padding;
   width: 175px;
   padding: 20px 0px;
+  background-color: $white;
 }
 .collections-card__menu-item {
+  width: 100%;
+  height: 40px;
+  font-weight: 500;
   font-weight: 500;
   font-size: 14px;
-  font-weight: 500;
-  height: 40px;
-  width: 100%;
 
   a {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
+    height: 100%;
     color: $dark-gray;
 
     &:hover {
@@ -123,8 +123,8 @@ $collection_card_padding: 3px;
     }
 
     span {
-      margin-left: 15px;
       width: 50px;
+      margin-left: 15px;
     }
   }
 }

@@ -14,8 +14,8 @@
   width: 30px;
   height: 30px;
   margin: 15px 0 15px 20px;
-  border-radius: 50%;
   background-color: $white;
+  border-radius: 50%;
 
   @include breakpoint($screen-xs) {
     margin-left: 40px;
@@ -46,9 +46,9 @@
   }
 }
 .collections-index__date-range {
+  margin-left: 20px;
   color: $dark-gray;
   text-align: left;
-  margin-left: 20px;
 
   @include breakpoint($screen-xs) {
     margin-left: 40px;
@@ -65,21 +65,21 @@
   }
 }
 .collections-show__action-bar-item {
-  cursor: pointer;
   margin-right: 5px;
+  cursor: pointer;
 
   svg {
     g, path, ellipse {
-      stroke: $medium-gray;
       fill: $medium-gray;
+      stroke: $medium-gray;
     }
   }
 
   &:hover {
     svg {
       g, path, ellipse {
-        stroke: $leaf-green;
         fill: $leaf-green;
+        stroke: $leaf-green;
       }
     }
   }

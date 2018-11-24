@@ -2,15 +2,15 @@
   display: none;
 
   @include breakpoint($screen-xs) {
+    top: 0;
     display: initial;
     width: 160px;
-    top: 0;
-    color: $black;
-    transition: width 0.4s ease;
 
     // Default (expanded state) should clip overflowed content to make for
     // a smoother transition
     overflow: hidden;
+    color: $black;
+    transition: width 0.4s ease;
   }
 }
 
@@ -26,11 +26,11 @@
 
 .desktop-navigation__link-element {
   @include breakpoint($screen-xs) {
-    text-align: left;
 
     // Default (expanded state) should clip overflowed content to make for
     // a smoother transition
     overflow: hidden;
+    text-align: left;
 
     a {
       // Display as block and set height so anchor fills up the whole
@@ -54,10 +54,10 @@
 .desktop-navigation__link-element--major {
   @include breakpoint($screen-xs) {
     height: 40px;
-    // Vertically center the text
-    line-height: 40px;
     padding-left: 20px;
     font-size: 18px;
+    // Vertically center the text
+    line-height: 40px;
 
     a {
       line-height: 40px;
@@ -68,10 +68,10 @@
 .desktop-navigation__link-element--minor {
   @include breakpoint($screen-xs) {
     height: 28px;
-    // Vertically center the text
-    line-height: 28px;
     padding-left: 40px;
     font-size: 14px;
+    // Vertically center the text
+    line-height: 28px;
 
     a {
       line-height: 28px;

@@ -24,27 +24,27 @@
 }
 .page-heading {
   width: 100%;
-  padding-left: 20px;
   margin: 20px 0;
-  text-align: left;
+  padding-left: 20px;
   color: $dark-gray;
   font-weight: 500;
   font-size: 36px;
   line-height: 48px;
+  text-align: left;
 
   @include breakpoint($screen-xs) {
-    font-size: 48px;
     padding-left: 40px;
+    font-size: 48px;
   }
 }
 .page-subheading {
   width: 100%;
-  padding-left: 20px;
   margin: 20px 0;
-  text-align: left;
+  padding-left: 20px;
   color: $black;
   font-weight: 500;
   font-size: 22px;
+  text-align: left;
 
   @include breakpoint($screen-xs) {
     padding-left: 40px;
@@ -63,6 +63,6 @@
 }
 .empty-state {
   color: $dark-gray;
-  font-style: italic;
   font-size: 18px;
+  font-style: italic;
 }

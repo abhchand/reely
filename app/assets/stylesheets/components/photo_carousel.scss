@@ -1,9 +1,9 @@
 .photo-carousel {
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
 }
 
 .photo-carousel__content {
@@ -13,17 +13,17 @@
   background-color: $black;
 
   background-repeat: no-repeat;
-  background-size: contain;
   background-position: center;
+  background-size: contain;
 
   transition: background-image 0.15s ease-in-out;
 }
 
 .photo-carousel__navigation-container {
   position: absolute;
+  top: 50%;
   width: 35%;
   height: 70%;
-  top: 50%;
   transform: translate(0, -50%);
 
   &:hover {
@@ -70,9 +70,9 @@
 
 .photo-carousel__navigation {
   position: absolute;
+  top: 50%;
   width: 70px;
   height: 70px;
-  top: 50%;
   border-radius: 50%;
 
   svg {
@@ -85,11 +85,11 @@
 
 .photo-carousel__close {
   position: absolute;
-  color: $white;
-  left: 0;
   top: 0;
+  left: 0;
   width: 64px;
   height: 64px;
+  color: $white;
   cursor: pointer;
 
   svg {
