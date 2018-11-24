@@ -16,6 +16,8 @@
     "babel-preset-react": "^6.24.1",
     "create-react-class": "^15.6.3",
     "html-react-parser": "^0.4.6",
+    "jquery": "^3.3.1",
+    "jquery-ujs": "^1.2.2",
     "prop-types": "^15.6.1",
     "rails-erb-loader": "^5.4.1",
     "react": "15.6.0",

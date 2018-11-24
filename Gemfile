@@ -9,7 +9,6 @@ ruby "2.5.1"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "inline_svg", "~> 0.6.1"
 gem "jbuilder", "~> 2.7"
-gem "jquery-rails"
 gem "react-rails", "~> 2.4", ">= 2.4.7"
 gem "sass-rails", "~> 5.0", ">= 5.0.7"
 gem "sdoc", "~> 0.4.0", group: :doc
