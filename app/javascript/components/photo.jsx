@@ -26,7 +26,7 @@ class Photo extends React.Component {
     return this.props.photo.mediumUrl;
   }
 
-  handleClick(e) {
+  handleClick() {
     if (this.props.editModeEnabled) {
       this.props.handleClickWhenEditModeEnabled(this.props.photoIndex);
     } else {
@@ -37,9 +37,9 @@ class Photo extends React.Component {
   renderOverlay() {
     if (this.props.editModeEnabled) {
       return this.renderOverlayWhenEditModeEnabled();
-    } else {
-      return this.renderOverlayWhenEditModeDisabled();
     }
+      return this.renderOverlayWhenEditModeDisabled();
+
   }
 
   renderOverlayWhenEditModeEnabled() {
@@ -63,13 +63,13 @@ class Photo extends React.Component {
   }
 
   render() {
-    const divStyle = { backgroundImage: 'url(' + this.photoUrl() + ')' };
+    const divStyle = { backgroundImage: `url(${  this.photoUrl()  })` };
     const selectedClass = this.props.isSelected ? " selected" : "";
 
     return (
       <div
         data-id={this.props.photo.id}
-        className={"photo-grid__photo-container" + selectedClass}
+        className={`photo-grid__photo-container${  selectedClass}`}
         onClick={this.handleClick}>
 
         <div className="photo-grid__photo covered-background" style={divStyle}>

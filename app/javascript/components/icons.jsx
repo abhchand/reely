@@ -3,8 +3,8 @@ import React from "react";
 
 class IconArrowThickLeft extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -13,7 +13,7 @@ class IconArrowThickLeft extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
@@ -28,8 +28,8 @@ class IconArrowThickLeft extends React.Component {
 
 class IconArrowThickRight extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -38,7 +38,7 @@ class IconArrowThickRight extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
@@ -53,8 +53,8 @@ class IconArrowThickRight extends React.Component {
 
 class IconCheckMark extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -63,7 +63,7 @@ class IconCheckMark extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
@@ -81,8 +81,8 @@ class IconCheckMark extends React.Component {
 
 class IconCircle extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -91,7 +91,7 @@ class IconCircle extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
@@ -109,8 +109,9 @@ class IconCircle extends React.Component {
 
 class IconFilledCircle extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    strokeColor: PropTypes.string
   }
 
   constructor(props) {
@@ -120,17 +121,17 @@ class IconFilledCircle extends React.Component {
       size: "32",
       fillColor: "#EEEEEE",
       strokeColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="Artboard-8">
             <g id="Oval-3">
               <circle fill={this.props.fillColor} fillRule="evenodd" cx="16" cy="16" r="16"></circle>
-              <circle stroke={this.props.strokeColor} stroke-width="1" cx="16" cy="16" r="15.5"></circle>
+              <circle stroke={this.props.strokeColor} strokeWidth="1" cx="16" cy="16" r="15.5"></circle>
             </g>
           </g>
         </g>
@@ -141,8 +142,8 @@ class IconFilledCircle extends React.Component {
 
 class IconPencilWithSquares extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -151,7 +152,7 @@ class IconPencilWithSquares extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {
@@ -183,8 +184,8 @@ class IconPencilWithSquares extends React.Component {
 
 class IconX extends React.Component {
   static propTypes = {
-    size: React.PropTypes.string,
-    fillColor: React.PropTypes.string
+    size: PropTypes.string,
+    fillColor: PropTypes.string
   }
 
   constructor(props) {
@@ -193,7 +194,7 @@ class IconX extends React.Component {
     this.state = {
       size: "32",
       fillColor: "#EEEEEE"
-    }
+    };
   }
 
   render() {

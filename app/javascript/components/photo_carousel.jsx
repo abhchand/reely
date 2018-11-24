@@ -1,4 +1,4 @@
-import {IconArrowThickLeft, IconArrowThickRight, IconCheckMark, IconX} from "icons";
+import {IconArrowThickLeft, IconArrowThickRight, IconX} from "icons";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -21,7 +21,7 @@ class PhotoCarousel extends React.Component {
 
     this.state = {
       currentPhotoIndex: this.props.clickedPhotoIndex
-    }
+    };
   }
 
   componentDidMount() {
@@ -80,7 +80,7 @@ class PhotoCarousel extends React.Component {
   }
 
   render() {
-    var divStyle = { backgroundImage: 'url(' + this.currentPhoto().url + ')' };
+    const divStyle = { backgroundImage: `url(${  this.currentPhoto().url  })` };
 
     return (
       <div className="photo-carousel">

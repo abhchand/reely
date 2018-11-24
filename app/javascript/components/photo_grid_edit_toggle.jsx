@@ -8,14 +8,6 @@ class PhotoGridEditToggle extends React.Component {
     toggleEditMode: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentPhotoIndex: this.props.clickedPhotoIndex
-    }
-  }
-
   render() {
     const fillColor = (this.props.editModeEnabled ? "#FFFFFF" : "#888888");
 

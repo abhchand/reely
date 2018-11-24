@@ -1,9 +1,8 @@
+import Photo from "photo";
+import PhotoCarousel from "photo_carousel";
+import PhotoGridEditToggle from "photo_grid_edit_toggle";
 import PropTypes from "prop-types";
 import React from "react";
-
-import PhotoGridEditToggle from "photo_grid_edit_toggle";
-import PhotoCarousel from "photo_carousel";
-import Photo from "photo";
 
 class PhotoGrid extends React.Component {
   static propTypes = {
@@ -26,12 +25,10 @@ class PhotoGrid extends React.Component {
       editModeEnabled: false,
       currentPhotoIndex: null,
       selectedPhotoIds: []
-    }
+    };
   }
 
   toggleEditMode() {
-    console.log("Toggle Edit Mode");
-
     this.setState({
       editModeEnabled: !this.state.editModeEnabled,
       selectedPhotoIds: []
@@ -44,7 +41,7 @@ class PhotoGrid extends React.Component {
 
     if (selectedPhotoIds.indexOf(photoId) >= 0) {
       // Unselect photo by removing it from array
-      let index = selectedPhotoIds.indexOf(photoId);
+      const index = selectedPhotoIds.indexOf(photoId);
       if (index !== -1) selectedPhotoIds.splice(index, 1);
     } else {
       // Select photo by adding it to array
@@ -65,7 +62,7 @@ class PhotoGrid extends React.Component {
     }
   }
 
-  disableCarousel(e) {
+  disableCarousel() {
     this.setState({
       showCarousel: false,
       clickedPhotoIndex: null
@@ -109,7 +106,7 @@ class PhotoGrid extends React.Component {
     const enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
 
     return (
-      <div className={"photo-grid" + enabledClass}>
+      <div className={`photo-grid${  enabledClass}`}>
         {this.renderEditToggle()}
 
         <div className="photo-grid__content">
