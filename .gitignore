@@ -22,6 +22,9 @@
 # Ignore gemset files
 .ruby-gemset
 
+# Dotenv files
+.env*
+
 # RSpec
 spec/examples.txt
 
