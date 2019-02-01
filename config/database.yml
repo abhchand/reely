@@ -1,3 +1,19 @@
+# Any database connection attributes set in `ENV["DATABASE_URL"]` override
+# the configurations here. See Rails behavior:
+#
+#   https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
+#
+# The staging, production, and any non-development environments rely exclusively
+# on this connection URl to be set and are not defaulted here.
+#
+# An example postgres connection string is:
+#
+#   postgres://username:password@hostname/dbname?key1=val1
+#   e.g postgres://reely:12345@localhost/reely_production?pool=5
+#
+# Other databases (MySQL, SQLite3, etc...) have their own formats specified
+# in their documentation.
+
 default: &default
   adapter: postgresql
   encoding: utf8
@@ -13,15 +29,3 @@ test:
 development:
   <<: *default
   database: reely_development
-
-staging:
-  <<: *default
-  database: reely_staging
-  username: reely
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-
-production:
-  <<: *default
-  database: reely_production
-  username: reely
-  password: <%= ENV["DATABASE_PASSWORD"] %>
