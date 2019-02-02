@@ -1,30 +1,28 @@
+# Set Environment
+rails_env = ENV["RAILS_ENV"] || "development"
+environment(rails_env)
+
+# Directories
+app_root = File.expand_path("..", __dir__)
+tmp_dir = "#{app_root}/tmp"
+
+# Load dotenv file(s) manually
+require "dotenv"
+Dotenv.load("#{app_root}/.env.#{rails_env}", "#{app_root}/.env")
+
 # Change to match your CPU core count
 workers Integer(ENV["PUMA_WORKERS"] || 2)
 
 # Min and Max threads per worker
 threads 1, Integer(ENV["PUMA_MAX_THREADS"] || 5)
 
-# Set Environment
-rails_env = ENV["RAILS_ENV"] || "development"
-environment(rails_env)
-
-# Set directories
-app_root = File.expand_path("..", __dir__)
-tmp_dir = "#{app_root}/tmp"
-log_dir = "#{app_root}/log"
-# Locally the shared directory is under the app root, but on remote servers
-# Capistrano symlinks each release to a shared/ directory
-shared_dir = # rubocop:disable Lint/UselessAssignment
-  if %w[staging production].include?(rails_env)
-    "/home/deploy/reely/shared"
-  else
-    "#{app_root}/shared"
-  end
-
-# Set up socket location
-bind "unix://#{tmp_dir}/sockets/puma.sock"
+# Socket
+socket_dir = tmp_dir + "/sockets"
+system "mkdir", "-p", socket_dir
+bind "unix://#{socket_dir}/puma.sock"
 
 # Logging
+log_dir = "#{app_root}/log"
 if %w[production].include?(rails_env)
   stdout_redirect(
     "#{log_dir}/puma.stdout.log",
@@ -33,17 +31,21 @@ if %w[production].include?(rails_env)
   )
 end
 
-# Set master PID and state locations
-pidfile "#{tmp_dir}/pids/puma.pid"
-state_path "#{tmp_dir}/pids/puma.state"
+# PID
+pid_dir = tmp_dir + "/pids"
+system "mkdir", "-p", pid_dir
+pidfile "#{pid_dir}/puma.pid"
+state_path "#{pid_dir}/puma.state"
 activate_control_app
 
+# Workers
 on_worker_boot do
   require "active_record"
+
   # rubocop:disable LineLength, RescueModifier
   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
   # rubocop:enable LineLength, RescueModifier
-  ActiveRecord::Base.establish_connection(
-    YAML.load_file("#{app_root}/config/database.yml")[rails_env]
-  )
+
+  configs = ActiveRecord::Base.configurations[rails_env]
+  ActiveRecord::Base.establish_connection(configs)
 end
