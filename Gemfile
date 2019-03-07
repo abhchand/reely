@@ -25,6 +25,10 @@ gem "paperclip", "~> 6.1"
 gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
 
+group :production do
+  gem "foreman", "~> 0.85.0"
+end
+
 group :development, :test do
   gem "factory_bot_rails", "~> 4.5"
   gem "pry-rails"

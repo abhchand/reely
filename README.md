@@ -45,7 +45,7 @@ bin/rspec
 Start the app:
 
 ```
-bin/rails server
+bin/rails s
 ```
 
 # Production Deploy
@@ -79,5 +79,5 @@ RAILS_ENV=production bundle exec rake assets:precompile
 Start the app:
 
 ```
-RAILS_ENV=production bundle exec puma -C config/puma.rb
+RAILS_ENV=production bin/foreman start
 ```
