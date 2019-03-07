@@ -53,7 +53,7 @@ bin/rails server
 Create an environment file using the provided template. Follow the instructions inside that file to set the environment.
 
 ```
-cp .env.deploy.sample .env.production
+cp .env.production.sample .env.production
 ```
 
 Install dependencies:
