@@ -22,9 +22,11 @@ workers Integer(ENV["PUMA_WORKERS"] || 2)
 threads 1, Integer(ENV["PUMA_MAX_THREADS"] || 5)
 
 # Socket
-socket_dir = tmp_dir + "/sockets"
-system "mkdir", "-p", socket_dir
-bind "unix://#{socket_dir}/puma.sock"
+if %w[production].include?(rails_env)
+  socket_dir = tmp_dir + "/sockets"
+  system "mkdir", "-p", socket_dir
+  bind "unix://#{socket_dir}/puma.sock"
+end
 
 # Logging
 log_dir = "#{app_root}/log"
