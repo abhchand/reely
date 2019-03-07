@@ -1,5 +1,6 @@
 # Set Environment
 rails_env = ENV["RAILS_ENV"] || "development"
+is_remote = !%w[test development].include?(rails_env)
 environment(rails_env)
 
 # Directories
@@ -22,15 +23,15 @@ workers Integer(ENV["PUMA_WORKERS"] || 2)
 threads 1, Integer(ENV["PUMA_MAX_THREADS"] || 5)
 
 # Socket
-if %w[production].include?(rails_env)
+if is_remote
   socket_dir = tmp_dir + "/sockets"
   system "mkdir", "-p", socket_dir
   bind "unix://#{socket_dir}/puma.sock"
 end
 
 # Logging
-log_dir = "#{app_root}/log"
-if %w[production].include?(rails_env)
+if is_remote
+  log_dir = "#{app_root}/log"
   stdout_redirect(
     "#{log_dir}/puma.stdout.log",
     "#{log_dir}/puma.stderr.log",
