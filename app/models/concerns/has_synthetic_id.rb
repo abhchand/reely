@@ -13,7 +13,7 @@ module HasSyntheticId
 
   def generate_synthetic_id
     self[:synthetic_id] ||= loop do
-      token = Digest::MD5.hexdigest([Time.zone.now, rand(36**8)].join)[0..10]
+      token = SecureRandom.base58(28)
       break token unless self.class.exists?(synthetic_id: token)
     end
   end
