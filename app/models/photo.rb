@@ -1,5 +1,6 @@
 class Photo < ApplicationRecord
   include HasSyntheticId
+  include HasDirectAccessKey
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
 

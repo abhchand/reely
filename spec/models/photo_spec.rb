@@ -1,10 +1,12 @@
 require "rails_helper"
 # rubocop:disable LineLength
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
+require Rails.root.join("spec/support/shared_examples/models/concerns/has_direct_access_key").to_s
 # rubocop:enable LineLength
 
 RSpec.describe Photo, type: :model do
   it_behaves_like "has synthetic id"
+  it_behaves_like "has direct access key"
 
   describe "Associations" do
     it { should belong_to(:owner) }

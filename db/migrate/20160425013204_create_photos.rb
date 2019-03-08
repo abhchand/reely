@@ -3,6 +3,7 @@ class CreatePhotos < ActiveRecord::Migration[4.2]
     create_table :photos do |t|
       t.timestamps null: false
       t.string :synthetic_id, index: { unique: true }, null: false
+      t.string :direct_access_key, index: { unique: true }, null: false
       t.references :owner, references: :users, index: true, null: false
       t.attachment :source, null: false
       t.string :source_file_fingerprint

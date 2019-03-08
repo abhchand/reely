@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_022211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "synthetic_id", null: false
+    t.string "direct_access_key", null: false
     t.integer "owner_id", null: false
     t.string "source_file_name", null: false
     t.string "source_content_type", null: false
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_022211) do
     t.integer "height", null: false
     t.decimal "latitude"
     t.decimal "longitude"
+    t.index ["direct_access_key"], name: "index_photos_on_direct_access_key", unique: true
     t.index ["owner_id"], name: "index_photos_on_owner_id"
     t.index ["source_file_fingerprint"], name: "index_photos_on_source_file_fingerprint"
     t.index ["synthetic_id"], name: "index_photos_on_synthetic_id", unique: true
