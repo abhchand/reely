@@ -1,5 +1,6 @@
 // Expose JQuery globally
 window.$ = window.jQuery = require("jquery");
+require("jquery-ujs");
 
 function openCollectionsDeleteModal(dataId, dataName) {
   // Add data-id to modal
