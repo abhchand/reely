@@ -1,8 +1,10 @@
 <div class="collections-card" data-id="<%= collection.synthetic_id %>" data-name="<%= collection.name %>">
   <%= link_to(collection_path(collection), class: "collections-card__cover-photos-link") do %>
   <div class="collections-card__cover-photos">
+    <% cover_photos = PhotoPresenter.wrap(collection.cover_photos, view: view_context) %>
+
     <% (0..3).each do |photo_idx| %>
-      <% photo = collection.cover_photos[photo_idx] %>
+      <% photo = cover_photos[photo_idx] %>
 
       <% if photo %>
         <div class="collections-card__cover-photo" data-id="<%= photo_idx %>" style="background-image: url(<%= photo.source_file_path(size: :medium) %>);">

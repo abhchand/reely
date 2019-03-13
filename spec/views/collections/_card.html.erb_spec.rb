@@ -3,7 +3,10 @@ require "rails_helper"
 RSpec.describe "collections/_card.html.erb", type: :view do
   let(:collection) { create_collection_with_photos(photo_count: 4) }
 
-  before { @t_prefix = "collections.card" }
+  before do
+    stub_view_context
+    @t_prefix = "collections.card"
+  end
 
   describe "cover photos" do
     it "renders 4 photos as a link" do
@@ -20,9 +23,10 @@ RSpec.describe "collections/_card.html.erb", type: :view do
         photo_el = page.find(
           ".collections-card__cover-photo[data-id='#{photo_idx}']"
         )
+        photo = PhotoPresenter.new(photos[photo_idx], view: nil)
 
         expect(photo_el["style"]).
-          to have_content(photos[photo_idx].source_file_path(size: :medium))
+          to have_content(photo.source_file_path(size: :medium))
       end
     end
 

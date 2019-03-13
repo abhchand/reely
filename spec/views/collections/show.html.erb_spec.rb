@@ -15,6 +15,7 @@ RSpec.describe "collections/show.html.erb", type: :view do
     assign(:photo_count, @photo_count)
     assign(:date_range_label, @date_range_label)
 
+    stub_view_context
     stub_template("_delete_modal.html.erb" => "_stubbed_delete_modal")
     stub_template(
       "_editable_name_heading.html.erb" => "_stubbed_editable_name_heading"

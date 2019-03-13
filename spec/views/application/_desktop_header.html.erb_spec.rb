@@ -2,8 +2,12 @@ require "rails_helper"
 
 RSpec.describe "application/_desktop_header.html.erb", type: :view do
   let(:user) { create(:user) }
+  let(:user_presenter) { UserPresenter.new(user, view: view_context) }
 
-  before { allow(view).to receive(:current_user) { user } }
+  before do
+    stub_view_context
+    stub_current_user
+  end
 
   it "renders the logo" do
     render
@@ -20,6 +24,6 @@ RSpec.describe "application/_desktop_header.html.erb", type: :view do
     expect(page.find(".desktop-header__image--profile-pic > a")["href"]).
       to eq(root_path)
     expect(page.find(".desktop-header__image--profile-pic img")["src"]).
-      to eq(user.avatar_path)
+      to eq(user_presenter.avatar_path)
   end
 end

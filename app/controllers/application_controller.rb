@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :ensure_authentication
   before_action :append_view_paths
 
+  helper_method :view_context
+
   private
 
   def ensure_authentication

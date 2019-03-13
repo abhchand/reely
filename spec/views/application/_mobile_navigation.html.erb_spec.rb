@@ -2,9 +2,12 @@ require "rails_helper"
 
 RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
   let(:user) { create(:user) }
+  let(:user_presenter) { UserPresenter.new(user, view: view_context) }
 
   before do
+    stub_view_context
     stub_current_user
+
     @t_prefix = "application.mobile_navigation"
   end
 
@@ -28,7 +31,8 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
 
     # Profile Picture
     expect(profile.find("a")["href"]).to eq(root_path)
-    expect(profile.find("img")["src"]).to eq(user.avatar_path(size: :thumb))
+    expect(profile.find("img")["src"]).
+      to eq(user_presenter.avatar_path(size: :thumb))
 
     # User Name
     expect(profile.find("span")).to have_content(user.first_name.downcase)

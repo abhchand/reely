@@ -6,6 +6,7 @@ RSpec.describe "photos/index.html.erb", type: :view do
   let(:photos) { create_list(:photo, 2) }
 
   before do
+    stub_view_context
     stub_template "shared/_photo_count.html.erb" => "_stubbed_photo_count"
 
     assign(:photos, photos)

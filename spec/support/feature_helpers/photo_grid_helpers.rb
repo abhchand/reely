@@ -24,6 +24,7 @@ module FeatureHelpers
   end
 
   def expect_photo_carousel_to_display(photo)
+    photo = PhotoPresenter.new(photo, view: view_context)
     photo_el = find(".photo-carousel__content")
 
     expect(photo_el["data-id"]).to eq(photo.synthetic_id)

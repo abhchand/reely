@@ -9,13 +9,13 @@ RSpec.shared_examples "photo grid" do
     render
 
     page.all(".photo-grid__photo-container").each_with_index do |photo_el, i|
-      photo = @photos[i]
-      url = photo.source_file_path(size: :medium)
+      photo = PhotoPresenter.new(@photos[i], view: nil)
+      path = photo.source_file_path(size: :medium)
 
       expect(photo_el["data-id"]).to eq(photo.synthetic_id)
       expect(
         photo_el.find(".photo-grid__photo")["style"]
-      ).to eq("background-image:url(#{url});")
+      ).to eq("background-image:url(#{path});")
     end
   end
 

@@ -92,38 +92,4 @@ RSpec.describe User do
       expect(user.correct_password?("bar")).to be_falsey
     end
   end
-
-  describe "#avatar_path" do
-    let(:user) { create(:user, with_avatar: true) }
-
-    it "returns the avatar url based on the size" do
-      # No size specified
-      expect(user.avatar_path).to eq(avatar_path_for(user))
-
-      # Size specified
-      expect(user.avatar_path(size: :thumb)).
-        to eq(avatar_path_for(user, size: :thumb))
-    end
-
-    context "no avatar attached" do
-      let(:user) { create(:user) }
-
-      it "returns the default blank avatar based on the size" do
-        # No size specified
-        expect(user.avatar_path).to eq("/assets/blank-avatar-medium.jpg")
-
-        # Size specified
-        expect(user.avatar_path(size: :thumb)).
-          to eq("/assets/blank-avatar-thumb.jpg")
-      end
-    end
-  end
-
-  def avatar_path_for(user, size: nil)
-    transformations = User::AVATAR_SIZES[size] || {}
-    variant = user.avatar.variant(transformations)
-
-    Rails.application.routes.url_helpers.
-      rails_representation_url(variant, only_path: true)
-  end
 end

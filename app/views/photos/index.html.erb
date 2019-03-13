@@ -13,7 +13,7 @@
     react_component(
       "photo_grid",
       {
-        photoData: @photos.map(&:to_photo_grid_react_props)
+        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
       },
       { prerender: Rails.env.test? }
     )

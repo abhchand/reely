@@ -22,15 +22,6 @@ RSpec.describe Photo, type: :model do
     it { should validate_presence_of(:height) }
   end
 
-  describe "#taken_at_display_label" do
-    it "returns the formatted taken_at" do
-      photo = create(:photo, taken_at: Time.zone.now)
-
-      label = l(photo.taken_at, format: :month_and_year)
-      expect(photo.taken_at_display_label).to eq(label)
-    end
-  end
-
   describe "callbacks" do
     describe "after_commit" do
       describe "#process_all_variants" do
@@ -66,33 +57,6 @@ RSpec.describe Photo, type: :model do
             expect { photo.source_file.detach }.to_not raise_error
           end
         end
-      end
-    end
-  end
-
-  describe "#source_file_path" do
-    it "returns the URL path to the original image" do
-      path =
-        Rails.application.routes.url_helpers.
-        photos_source_file_path(id: photo.direct_access_key)
-      expect(photo.source_file_path).to eq(path)
-    end
-
-    context "size specified" do
-      it "returns the URL path to the specified size" do
-        path =
-          Rails.application.routes.url_helpers.
-          photos_source_file_path(id: photo.direct_access_key, size: :medium)
-
-        expect(photo.source_file_path(size: :medium)).to eq(path)
-      end
-
-      it "ignores the size when invalid" do
-        path =
-          Rails.application.routes.url_helpers.
-          photos_source_file_path(id: photo.direct_access_key)
-
-        expect(photo.source_file_path(size: :foo)).to eq(path)
       end
     end
   end

@@ -3,6 +3,12 @@ module ApplicationHelper
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
 
+  def current_user_presenter
+    @current_user_presenter ||= begin
+      UserPresenter.new(current_user, view: view_context) if current_user
+    end
+  end
+
   def page_specific_css_id
     "#{params[:controller]}-#{params[:action]}".tr("_", "-")
   end
