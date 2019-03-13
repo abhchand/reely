@@ -5,7 +5,7 @@
       <% photo = collection.cover_photos[photo_idx] %>
 
       <% if photo %>
-        <div class="collections-card__cover-photo" data-id="<%= photo_idx %>" style="background-image: url(<%= photo.source.url(:medium) %>);">
+        <div class="collections-card__cover-photo" data-id="<%= photo_idx %>" style="background-image: url(<%= photo.source_file_path(size: :medium) %>);">
         </div>
       <% else %>
         <div class="collections-card__cover-photo collections-card__cover-photo--blank" data-id="<%= photo_idx %>">

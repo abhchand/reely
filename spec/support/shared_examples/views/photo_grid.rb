@@ -10,7 +10,7 @@ RSpec.shared_examples "photo grid" do
 
     page.all(".photo-grid__photo-container").each_with_index do |photo_el, i|
       photo = @photos[i]
-      url = photo.source.url(:medium)
+      url = photo.source_file_path(size: :medium)
 
       expect(photo_el["data-id"]).to eq(photo.synthetic_id)
       expect(

@@ -30,6 +30,7 @@ spec/examples.txt
 
 public/*
 shared/*
+storage/*
 
 # Node / Yarn
 node_modules/*

@@ -22,7 +22,7 @@ RSpec.describe "collections/_card.html.erb", type: :view do
         )
 
         expect(photo_el["style"]).
-          to have_content(photos[photo_idx].source.url(:medium))
+          to have_content(photos[photo_idx].source_file_path(size: :medium))
       end
     end
 

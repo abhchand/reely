@@ -28,7 +28,7 @@ module FeatureHelpers
 
     expect(photo_el["data-id"]).to eq(photo.synthetic_id)
     expect(photo_el["style"]).
-      to eq("background-image: url(\"#{photo.source.url}\");")
+      to eq("background-image: url(\"#{photo.source_file_path}\");")
   end
 
   def expect_photo_carousel_is_closed

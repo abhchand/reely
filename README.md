@@ -18,6 +18,13 @@ bundle install
 yarn install
 ```
 
+Install [`imagemagick`](www.imagemagick.org/), used for image manipulation and analysis.
+
+```
+brew install imagemagick            # OSX
+sudo apt-get install imagemagick    # Debian / Ubuntu
+```
+
 Install githooks, if you plan on committing or contributing to Reely.
 The script below registers a new hook under the `.git/hooks/pre-commit` which will run all the linters and stylers under `contrib/hooks/scripts/*`.
 
@@ -61,6 +68,13 @@ Install dependencies:
 ```
 bundle install
 yarn install
+```
+
+Install [`imagemagick`](www.imagemagick.org/), used for image manipulation and analysis.
+
+```
+brew install imagemagick            # OSX
+sudo apt-get install imagemagick    # Debian / Ubuntu
 ```
 
 Build the schema:

@@ -20,6 +20,6 @@ RSpec.describe "application/_desktop_header.html.erb", type: :view do
     expect(page.find(".desktop-header__image--profile-pic > a")["href"]).
       to eq(root_path)
     expect(page.find(".desktop-header__image--profile-pic img")["src"]).
-      to eq(user.avatar_url)
+      to eq(user.avatar_path)
   end
 end

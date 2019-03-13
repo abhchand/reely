@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.2", ">= 5.2.1"
+gem "rails", "~> 5.2", ">= 5.2.2"
 ruby "2.5.1"
 
 #
@@ -21,7 +21,7 @@ gem "webpacker", "~> 3.5", ">= 3.5.5"
 gem "bcrypt", "~> 3.1", ">= 3.1.10"
 gem "dotenv-rails", "~> 2.6"
 gem "interactor", "~> 3.0"
-gem "paperclip", "~> 6.1"
+gem "mini_magick", "~> 4.9", ">= 4.9.3"
 gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
 

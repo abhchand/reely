@@ -19,20 +19,6 @@ RSpec.describe User do
         should_not allow_value("xy").for(:email)
       end
     end
-
-    describe "avatar" do
-      it { is_expected.to have_attached_file(:avatar) }
-
-      it "validates the content type" do
-        is_expected.to validate_attachment_content_type(:avatar).
-          allowing("image/bmp", "image/jpeg", "image/png", "image/tiff").
-          rejecting("text/plain", "text/xml", "image/gif")
-      end
-
-      it "validates the attachment size" do
-        is_expected.to validate_attachment_size(:avatar).in(0..200.kilobytes)
-      end
-    end
   end
 
   describe "callbacks" do
@@ -107,30 +93,37 @@ RSpec.describe User do
     end
   end
 
-  describe "#avatar_url" do
-    let(:user) { create(:user, :with_avatar) }
+  describe "#avatar_path" do
+    let(:user) { create(:user, with_avatar: true) }
 
     it "returns the avatar url based on the size" do
-      # Default
-      expect(user.avatar_url).to eq(user.avatar.url(:thumb))
+      # No size specified
+      expect(user.avatar_path).to eq(avatar_path_for(user))
 
-      # Specified size
-      expect(user.avatar_url(:medium)).to eq(user.avatar.url(:medium))
-      expect(user.avatar_url(:thumb)).to eq(user.avatar.url(:thumb))
+      # Size specified
+      expect(user.avatar_path(size: :thumb)).
+        to eq(avatar_path_for(user, size: :thumb))
     end
 
-    context "no avatar exists" do
+    context "no avatar attached" do
       let(:user) { create(:user) }
 
       it "returns the default blank avatar based on the size" do
-        expect(user.avatar_url).to eq("/assets/blank-avatar-thumb.jpg")
+        # No size specified
+        expect(user.avatar_path).to eq("/assets/blank-avatar-medium.jpg")
 
-        # Specified size
-        # rubocop:disable LineLength
-        expect(user.avatar_url(:medium)).to eq("/assets/blank-avatar-medium.jpg")
-        expect(user.avatar_url(:thumb)).to eq("/assets/blank-avatar-thumb.jpg")
-        # rubocop:enable LineLength
+        # Size specified
+        expect(user.avatar_path(size: :thumb)).
+          to eq("/assets/blank-avatar-thumb.jpg")
       end
     end
+  end
+
+  def avatar_path_for(user, size: nil)
+    transformations = User::AVATAR_SIZES[size] || {}
+    variant = user.avatar.variant(transformations)
+
+    Rails.application.routes.url_helpers.
+      rails_representation_url(variant, only_path: true)
   end
 end

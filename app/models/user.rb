@@ -1,22 +1,18 @@
 class User < ApplicationRecord
+  AVATAR_SIZES = {
+    thumb: { resize: "75x75" },
+    medium: { resize: "200x200" }
+  }.freeze
+
   # rubocop:disable LineLength
   has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
   has_many :collections, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
 
-  has_attached_file(
-    :avatar,
-    styles: { medium: "200x200#", thumb: "75x75#" }
-  )
+  has_one_attached :avatar
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, format: Rails.configuration.x.email_format
-
-  validates_attachment(
-    :avatar,
-    content_type: { content_type: Rails.configuration.x.allowed_photo_types },
-    size: { in: 0..200.kilobytes }
-  )
 
   before_validation :encrypt_password_with_salt
   before_save :lower_email_case
@@ -37,12 +33,19 @@ class User < ApplicationRecord
     BCrypt::Engine.hash_secret(guess, password_salt) == password
   end
 
-  def avatar_url(size = :thumb)
-    if self[:avatar_file_name].present?
-      avatar.url(size)
-    else
-      "/assets/blank-avatar-#{size.to_s.downcase}.jpg"
+  def avatar_path(size: nil)
+    unless avatar.attached?
+      return "/assets/blank-avatar-#{size&.downcase || :medium}.jpg"
     end
+
+    # Somewhat annoyingly, ActiveStorage only provides URL path helpers on
+    # variants or previews, not on ::Blob records themselves. So we have to
+    # always generate a variant, even if we aren't applying any transformations.
+    transformations = AVATAR_SIZES[size] || {}
+    variant = avatar.variant(transformations)
+
+    Rails.application.routes.url_helpers.
+      rails_representation_url(variant, only_path: true)
   end
 
   def owns_collection?(collection)
