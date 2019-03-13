@@ -7,6 +7,8 @@ AllCops:
     - 'bin/**'
 Documentation:
   Enabled: false
+Style/AccessModifierDeclarations:
+  Enabled: false
 Style/EmptyMethod:
   Enabled: false
 Style/EmptyCaseCondition:
