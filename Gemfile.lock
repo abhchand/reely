@@ -99,6 +99,8 @@ GEM
       railties (>= 3.2, < 6.0)
     erubi (1.8.0)
     execjs (2.7.0)
+    exiftool (1.2.1)
+      json
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.11.1)
@@ -300,6 +302,7 @@ DEPENDENCIES
   capybara-screenshot
   database_cleaner (~> 1.5, >= 1.5.1)
   dotenv-rails (~> 2.6)
+  exiftool (~> 1.0)
   factory_bot_rails (~> 4.5)
   foreman (~> 0.85.0)
   highline (~> 2.0)

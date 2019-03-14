@@ -6,9 +6,8 @@ FactoryBot.define do
     end
 
     owner factory: :user
+    exif_data { {} }
     taken_at { Time.zone.now }
-    width { 100 }
-    height { 100 }
     latitude { 0.0000 }
     longitude { 0.0000 }
 

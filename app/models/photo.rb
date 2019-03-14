@@ -15,12 +15,17 @@ class Photo < ApplicationRecord
   has_one_attached :source_file
 
   validates :taken_at, presence: true
-  validates :width, presence: true
-  validates :height, presence: true
+
+  validate :exif_data_not_nil
 
   after_commit :process_all_variants
 
   private
+
+  def exif_data_not_nil
+    return unless self[:exif_data].nil?
+    errors.add(:exif_data, :blank)
+  end
 
   def process_all_variants
     return unless source_file.attached?

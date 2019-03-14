@@ -20,6 +20,7 @@ gem "webpacker", "~> 3.5", ">= 3.5.5"
 #
 gem "bcrypt", "~> 3.1", ">= 3.1.10"
 gem "dotenv-rails", "~> 2.6"
+gem "exiftool", "~> 1.0"
 gem "interactor", "~> 3.0"
 gem "mini_magick", "~> 4.9", ">= 4.9.3"
 gem "pg", "~> 0.18.4"

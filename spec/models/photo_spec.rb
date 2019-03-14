@@ -17,9 +17,13 @@ RSpec.describe Photo, type: :model do
   end
 
   describe "Validations" do
+    describe "#exif_data" do
+      it { should allow_value({}).for(:exif_data) }
+      it { should allow_value(foo: :bar).for(:exif_data) }
+      it { should_not allow_value(nil).for(:exif_data) }
+    end
+
     it { should validate_presence_of(:taken_at) }
-    it { should validate_presence_of(:width) }
-    it { should validate_presence_of(:height) }
   end
 
   describe "callbacks" do

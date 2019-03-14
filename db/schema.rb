@@ -61,9 +61,8 @@ ActiveRecord::Schema.define(version: 2019_03_08_163847) do
     t.string "synthetic_id", null: false
     t.string "direct_access_key", null: false
     t.integer "owner_id", null: false
+    t.jsonb "exif_data", default: "{}", null: false
     t.datetime "taken_at", null: false
-    t.integer "width", null: false
-    t.integer "height", null: false
     t.decimal "latitude"
     t.decimal "longitude"
     t.index ["direct_access_key"], name: "index_photos_on_direct_access_key", unique: true
