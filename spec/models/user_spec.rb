@@ -1,6 +1,11 @@
 require "rails_helper"
+# rubocop:disable LineLength
+require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
+# rubocop:enable LineLength
 
 RSpec.describe User do
+  it_behaves_like "has synthetic id"
+
   describe "Associations" do
     it { should have_many(:photos) }
     it { should have_many(:collections) }

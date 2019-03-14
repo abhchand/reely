@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include HasSyntheticId
+
   AVATAR_SIZES = {
     thumb: { resize: "75x75" },
     medium: { resize: "200x200" }
