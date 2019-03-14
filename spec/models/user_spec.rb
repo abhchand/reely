@@ -19,6 +19,9 @@ RSpec.describe User do
         should_not allow_value("xy").for(:email)
       end
     end
+
+    it { should validate_presence_of(:password) }
+    it { should validate_presence_of(:password_salt) }
   end
 
   describe "callbacks" do

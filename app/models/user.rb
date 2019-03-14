@@ -13,6 +13,8 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, format: Rails.configuration.x.email_format
+  validates :password, presence: true
+  validates :password_salt, presence: true
 
   before_validation :encrypt_password_with_salt
   before_save :lower_email_case
