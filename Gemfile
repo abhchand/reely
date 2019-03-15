@@ -25,6 +25,7 @@ gem "interactor", "~> 3.0"
 gem "mini_magick", "~> 4.9", ">= 4.9.3"
 gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
+gem "sidekiq", "~> 5.2", ">= 5.2.5"
 
 group :production do
   gem "foreman", "~> 0.85.0"
@@ -53,6 +54,7 @@ group :test do
   gem "capybara", "~> 3.9"
   gem "capybara-screenshot"
   gem "database_cleaner", "~> 1.5", ">= 1.5.1"
+  gem "mock_redis", "~> 0.19.0"
   gem "rails-controller-testing"
   gem "rake"
   gem "selenium-webdriver", "~> 3.14"

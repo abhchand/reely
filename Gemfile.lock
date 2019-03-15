@@ -141,6 +141,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    mock_redis (0.19.0)
     multi_json (1.13.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -161,6 +162,8 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
+    rack-protection (2.0.5)
+      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -205,6 +208,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.1.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -253,6 +257,11 @@ GEM
       rubyzip (~> 1.2, >= 1.2.2)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    sidekiq (5.2.5)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (>= 1.5.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.2)
@@ -311,6 +320,7 @@ DEPENDENCIES
   interactor (~> 3.0)
   jbuilder (~> 2.7)
   mini_magick (~> 4.9, >= 4.9.3)
+  mock_redis (~> 0.19.0)
   pg (~> 0.18.4)
   pry-rails
   puma (~> 3.4)
@@ -325,6 +335,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   selenium-webdriver (~> 3.14)
   shoulda-matchers (~> 2.8)
+  sidekiq (~> 5.2, >= 5.2.5)
   spring
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

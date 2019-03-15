@@ -1,0 +1,13 @@
+---
+
+:timeout: 10
+
+development:
+  :concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 2 %>
+staging:
+  :concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 2 %>
+production:
+  :concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || 2 %>
+
+:queues:
+  - default
