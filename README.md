@@ -52,7 +52,7 @@ bin/rspec
 Start the app:
 
 ```
-bin/rails s
+bin/foreman start -f Procfile.dev
 ```
 
 # Production Deploy
