@@ -20,6 +20,22 @@ class Photo < ApplicationRecord
 
   after_commit :process_all_variants
 
+  def taken_at=(val)
+    if val.blank?
+      self[:taken_at] = nil
+      return
+    end
+
+    # `taken_at` represents the date and time WITHOUT a timezone, since most
+    # EXIF Data does not have timezone information :(
+    # However Rails always stores time with a zone, and converts to UTC before
+    # storage. To workaround this we parse all dates as if they were UTC so
+    # it does not get transformed in any way. When working with this date we
+    # will just ignore the time zone.
+    val = val.strftime("%Y-%m-%d %H:%M:%S") if val.respond_to?(:strftime)
+    self[:taken_at] = Time.find_zone("UTC").parse(val)
+  end
+
   private
 
   def exif_data_not_nil

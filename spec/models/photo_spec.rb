@@ -65,6 +65,30 @@ RSpec.describe Photo, type: :model do
     end
   end
 
+  context "#taken_at=" do
+    let(:time) { "2019-01-01 13:00:00" }
+
+    it "stores as UTC without transforming the timezone" do
+      photo.update!(taken_at: time)
+      expect(photo.reload.taken_at.strftime("%Y-%m-%d %H:%M:%S")).to eq(time)
+    end
+
+    it "correctly handles a nil value" do
+      expect(photo.valid?).to eq(true)
+      photo.taken_at = nil
+      expect(photo.valid?).to eq(false)
+    end
+
+    context "a string formattable object is provided" do
+      it "stores as UTC without transforming the timezone" do
+        time_obj = Time.parse(time)
+
+        photo.update!(taken_at: time_obj)
+        expect(photo.reload.taken_at.strftime("%Y-%m-%d %H:%M:%S")).to eq(time)
+      end
+    end
+  end
+
   def expect_all_variants_processed(photo)
     Photo::SOURCE_FILE_SIZES.each do |_variant, transformations|
       variant = photo.source_file.variant(transformations)
