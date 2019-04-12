@@ -20,13 +20,176 @@ RSpec.describe Photo, type: :model do
     describe "#exif_data" do
       it { should allow_value({}).for(:exif_data) }
       it { should allow_value(foo: :bar).for(:exif_data) }
-      it { should_not allow_value(nil).for(:exif_data) }
     end
 
-    it { should validate_presence_of(:taken_at) }
+    describe "#taken_at" do
+      # `taken_at` is defaulted to a value if `nil`, so validating presence
+      # incorrectly passes when it should fail. Since this defaulting is
+      # only done `on: :create`, we can get around this by defining a
+      # `subject` that is re-used and not defaulted beyond the first validation
+      # on create.
+      subject { photo }
+
+      it { should validate_presence_of(:taken_at) }
+    end
+
+    describe "#lat_long_both_blank_or_present" do
+      it "succeeds when latitude and longitude are both present" do
+        photo.latitude = 38.8721
+        photo.longitude = -99.3302532
+        expect(photo).to be_valid
+      end
+
+      it "succeeds when latitude and longitude are both blank" do
+        photo.latitude = nil
+        photo.longitude = nil
+        expect(photo).to be_valid
+      end
+
+      it "errors when only one is present" do
+        photo.latitude = 38.8721
+        photo.longitude = nil
+        expect(photo).to_not be_valid
+        expect(photo.errors.messages[:base]).
+          to eq(["latitude and longitude must both be present or blank"])
+
+        photo.latitude = nil
+        photo.longitude = -99.3302532
+        expect(photo).to_not be_valid
+        expect(photo.errors.messages[:base]).
+          to eq(["latitude and longitude must both be present or blank"])
+      end
+    end
   end
 
   describe "callbacks" do
+    describe "before_validation" do
+      describe "#default_taken_at" do
+        let(:photo) { create(:photo, taken_at: nil, exif_data: exif_data) }
+
+        let(:exif_data) do
+          {
+            "date_time_original" => "2019:03:14 13:00:00",
+            "gps_latitude" => 38.8721,
+            "gps_latitude_ref" => "North",
+            "gps_longitude" => -99.3302532,
+            "gps_longitude_ref" => "West"
+          }
+        end
+
+        it "only runs on: :create" do
+          expect do
+            photo.taken_at = nil
+          end.to change { photo.taken_at.nil? }.from(false).to(true)
+        end
+
+        it "is set from the `Date/TimeOriginal` field" do
+          expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+            to eq("2019-03-14 13:00:00")
+        end
+
+        it "falls back on `CreateDate` second" do
+          exif_data["date_time_original"] = nil
+          exif_data["create_date"] = "2019:03:14 14:00:00"
+
+          expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+            to eq("2019-03-14 14:00:00")
+        end
+
+        it "falls back on `GPSDateTime` third" do
+          exif_data["date_time_original"] = nil
+          exif_data["create_date"] = nil
+          exif_data["gps_date_time"] = "2019:03:14 15:00:00"
+
+          expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+            to eq("2019-03-14 15:00:00")
+        end
+
+        it "falls back on the current UTC time last" do
+          now = Time.zone.parse("2000-01-01 10:00:00")
+
+          travel_to(now) do
+            exif_data["date_time_original"] = nil
+            exif_data["create_date"] = nil
+            exif_data["gps_date_time"] = nil
+
+            expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+              to eq("2000-01-01 10:00:00")
+          end
+        end
+
+        context "`GPSDateTime` has a timezone" do
+          it "ignores timezone info" do
+            exif_data["date_time_original"] = nil
+            exif_data["create_date"] = nil
+            exif_data["gps_date_time"] = "2019:03:14 15:00:00-0400"
+
+            expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+              to eq("2019-03-14 15:00:00")
+          end
+        end
+
+        context "taken_at is already populated" do
+          it "does not override the existing value" do
+            photo.exif_data["date_time_original"] = "2001:01:01 13:00:00"
+            photo.save!
+
+            expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+              to eq("2019-03-14 13:00:00")
+          end
+        end
+      end
+
+      describe "#default_lat_long" do
+        let(:photo) { create(:photo, taken_at: nil, exif_data: exif_data) }
+
+        let(:exif_data) do
+          {
+            "gps_latitude" => 38.8721,
+            "gps_longitude" => -99.3302532
+          }
+        end
+
+        it "only runs on: :create" do
+          expect do
+            photo.update!(latitude: nil, longitude: nil)
+          end.to change { photo.latitude.nil? }.from(false).to(true)
+        end
+
+        it "populates the latitude and longitude from the exif_data values" do
+          expect(photo.latitude).to eq(38.8721)
+          expect(photo.longitude).to eq(-99.3302532)
+        end
+
+        context "latitude and longitude are already populated" do
+          let(:photo) do
+            create(
+              :photo,
+              taken_at: nil,
+              exif_data: exif_data,
+              latitude: 13.14,
+              longitude: 13.14
+            )
+          end
+
+          it "does not override the existing values" do
+            expect(photo.latitude).to eq(13.14)
+            expect(photo.longitude).to eq(13.14)
+          end
+        end
+
+        context "only one of latitude or longitude is present in exif_data" do
+          it "does not populate latitude or longitude" do
+            exif_data["gps_latitude"] = nil
+            exif_data["gps_longitude"] = 13.14
+
+            expect(photo.latitude).to be_nil
+            expect(photo.longitude).to be_nil
+          end
+        end
+      end
+    end
+
     describe "after_commit" do
       describe "#process_all_variants" do
         before do
@@ -79,7 +242,22 @@ RSpec.describe Photo, type: :model do
       expect(photo.valid?).to eq(false)
     end
 
-    context "a string formattable object is provided" do
+    context "string contains a time zone" do
+      it "ignores the time zone" do
+        [
+          "2019-01-01 13:00:00+02:00",
+          "2019-01-01 13:00:00-02:00",
+          "2019-01-01 13:00:00+0200",
+          "2019-01-01 13:00:00-0200"
+        ].each do |time|
+          photo.update!(taken_at: time)
+          expect(photo.taken_at.strftime("%Y-%m-%d %H:%M:%S")).
+            to eq(time.first(19))
+        end
+      end
+    end
+
+    context "an object that implements `strftime()` is provided" do
       it "stores as UTC without transforming the timezone" do
         time_obj = Time.parse(time)
 

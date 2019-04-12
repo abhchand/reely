@@ -1,7 +1,7 @@
 # Create a user
 user = FactoryBot.create(
   :user,
-  :with_avatar,
+  with_avatar: true,
   first_name: "Sindhu",
   last_name: "Iyer",
   email: "test@example.com",

@@ -7,9 +7,9 @@ FactoryBot.define do
 
     owner factory: :user
     exif_data { {} }
-    taken_at { Time.now }
-    latitude { 0.0000 }
-    longitude { 0.0000 }
+    taken_at { Time.zone.now }
+    latitude { nil }
+    longitude { nil }
 
     after(:create) do |photo, e|
       if e.with_source_file

@@ -4,9 +4,11 @@ unless defined? SidekiqRedisConnectionWrapper
   Sidekiq::Logging.logger = Rails.logger
 
   class SidekiqRedisConnectionWrapper
+    # rubocop:disable Style/IfUnlessModifier
     unless defined? URL
       URL = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
     end
+    # rubocop:enable Style/IfUnlessModifier
 
     def initialize
       Sidekiq.configure_server do |config|
@@ -19,11 +21,13 @@ unless defined? SidekiqRedisConnectionWrapper
       end
     end
 
+    # rubocop:disable Style/MethodMissingSuper
     def method_missing(meth, *args, &block)
       Sidekiq.redis do |connection|
         connection.send(meth, *args, &block)
       end
     end
+    # rubocop:enable Style/MethodMissingSuper
 
     def respond_to_missing?(meth)
       Sidekiq.redis do |connection|
