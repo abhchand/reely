@@ -32,6 +32,13 @@ brew install redis                  # OSX
 sudo apt install redis-server       # Debian / Ubuntu
 ```
 
+Install [Exiftool](https://www.sno.phy.queensu.ca/~phil/exiftool), used for manipulating [EXIF Data](https://en.wikipedia.org/wiki/Exif).
+
+```
+brew install exiftool                         # OSX
+sudo apt-get install libimage-exiftool-perl   # Debian / Ubuntu
+```
+
 Install githooks, if you plan on committing or contributing to Reely.
 The script below registers a new hook under the `.git/hooks/pre-commit` which will run all the linters and stylers under `contrib/hooks/scripts/*`.
 
@@ -89,6 +96,13 @@ Install [Redis](https://redis.io), used for job queueing and caching
 ```
 brew install redis                  # OSX
 sudo apt install redis-server       # Debian / Ubuntu
+```
+
+Install [Exiftool](https://www.sno.phy.queensu.ca/~phil/exiftool), used for manipulating [EXIF Data](https://en.wikipedia.org/wiki/Exif).
+
+```
+brew install exiftool                         # OSX
+sudo apt-get install libimage-exiftool-perl   # Debian / Ubuntu
 ```
 
 Build the schema:

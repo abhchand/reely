@@ -319,6 +319,7 @@ DEPENDENCIES
   inline_svg (~> 0.6.1)
   interactor (~> 3.0)
   jbuilder (~> 2.7)
+  marcel (~> 0.3.3)
   mini_magick (~> 4.9, >= 4.9.3)
   mock_redis (~> 0.19.0)
   pg (~> 0.18.4)

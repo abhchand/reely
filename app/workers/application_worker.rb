@@ -5,7 +5,7 @@ class ApplicationWorker
     Sidekiq.logger.error [
       "Sidekiq Retries Exhausted - #{msg['class']}",
       "with #{msg['args']}:",
-      "#{msg['error_message']}"
+      msg["error_message"].to_s
     ].join(" ")
   end
 end
