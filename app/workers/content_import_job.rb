@@ -32,7 +32,7 @@ class ContentImportJob < ApplicationWorker
 
   def import!
     ActiveRecord::Base.transaction do
-      photo = Photo.create!(owner: @owner, exif_data: metadata)
+      photo = Photo.create!(owner: @owner, exif_data: exif_data)
       photo.source_file.attach(io: file_io, filename: @filepath.basename)
 
       Rails.logger.info("#{log_tag} Created Photo #{photo.id}")
@@ -74,8 +74,8 @@ class ContentImportJob < ApplicationWorker
     @file_io ||= File.open(@filepath)
   end
 
-  def metadata
-    @metadata ||= Exiftool.new(@filepath).to_hash
+  def exif_data
+    @exif_data ||= Exiftool.new(@filepath).to_hash
   end
 
   def remove_file
