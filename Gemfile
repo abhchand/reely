@@ -26,6 +26,7 @@ gem "marcel", "~> 0.3.3"
 gem "mini_magick", "~> 4.9", ">= 4.9.3"
 gem "pg", "~> 0.18.4"
 gem "puma", "~> 3.4"
+gem "rolify", "~> 5.2"
 gem "sidekiq", "~> 5.2", ">= 5.2.5"
 
 group :production do

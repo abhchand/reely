@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  rolify
+
   include HasSyntheticId
 
   AVATAR_SIZES = {

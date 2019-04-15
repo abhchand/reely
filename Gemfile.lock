@@ -209,6 +209,7 @@ GEM
       railties (>= 3.2)
       tilt
     redis (4.1.0)
+    rolify (5.2.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -329,6 +330,7 @@ DEPENDENCIES
   rails-controller-testing
   rake
   react-rails (~> 2.4, >= 2.4.7)
+  rolify (~> 5.2)
   rspec-rails (~> 3.8)
   rubocop (~> 0.57.2)
   rubocop-git (~> 0.1.3)
