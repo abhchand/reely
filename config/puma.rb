@@ -11,11 +11,6 @@ tmp_dir = "#{app_root}/tmp"
 require "dotenv"
 Dotenv.load("#{app_root}/.env.#{rails_env}", "#{app_root}/.env")
 
-# dotenv loads unspecified values as `""` not `nil`
-%w[PUMA_WORKERS PUMA_MAX_THREADS].each do |key|
-  ENV.delete(key) if ENV[key] == ""
-end
-
 # Change to match your CPU core count
 workers Integer(ENV["PUMA_WORKERS"] || 2)
 
