@@ -1,4 +1,5 @@
 require "sidekiq/web"
+require Rails.root.join("lib", "sidekiq", "admin_constraint")
 
 unless defined? SidekiqRedisConnectionWrapper
   Sidekiq::Logging.logger = Rails.logger
