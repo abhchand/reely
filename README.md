@@ -63,6 +63,12 @@ Run tests (if you want to):
 bin/rspec
 ```
 
+Create an admin account:
+
+```
+bundle exec rake reely:admin:create['FirstName','LastName','email@example.com','password']
+```
+
 Start the app:
 
 ```
@@ -116,6 +122,12 @@ Build the assets:
 
 ```
 RAILS_ENV=production bundle exec rake assets:precompile
+```
+
+Create an admin account:
+
+```
+bundle exec rake reely:admin:create['FirstName','LastName','email@example.com','password']
 ```
 
 Start the app:
