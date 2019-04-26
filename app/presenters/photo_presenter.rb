@@ -18,7 +18,23 @@ class PhotoPresenter < ApplicationPresenter
       id: synthetic_id,
       mediumUrl: source_file_path(size: :medium),
       url: source_file_path,
-      takenAtLabel: taken_at_label
+      takenAtLabel: taken_at_label,
+      rotate: clockwise_rotation
     }
+  end
+
+  private
+
+  def clockwise_rotation
+    # See: https://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
+    # TODO: Support horizontal and vertical mirroring options
+    case exif_data["orientation"]&.strip&.downcase
+    when "horizontal (normal)"  then 0
+    when "rotate 180"           then 180
+    when "rotate 90 cw"         then 90
+    when "rotate 270 cw"        then 270
+    else
+      0
+    end
   end
 end

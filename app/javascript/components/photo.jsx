@@ -16,6 +16,8 @@ class Photo extends React.Component {
     super(props);
 
     this.photoUrl = this.photoUrl.bind(this);
+    this.applyRotation = this.applyRotation.bind(this);
+    this.applyAntiRotation = this.applyAntiRotation.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
     this.renderOverlayWhenEditModeEnabled = this.renderOverlayWhenEditModeEnabled.bind(this);
@@ -24,6 +26,30 @@ class Photo extends React.Component {
 
   photoUrl() {
     return this.props.photo.mediumUrl;
+  }
+
+  applyRotation(style) {
+    const degrees = this.props.photo.rotate || 0;
+
+    if (degrees === 0) {
+      return;
+    }
+
+    style.transform = `rotate(${ degrees }deg)`;
+  }
+
+  applyAntiRotation(style) {
+    // Child elements get rotated along with the parent and can't be
+    // reversed using `transform: none`. Apply an anti-rotation to
+    // correct the orientation of all child elements
+
+    const degrees = this.props.photo.rotate || 0;
+
+    if (degrees === 0) {
+      return;
+    }
+
+    style.transform = `rotate(${ -1 * degrees }deg)`;
   }
 
   handleClick() {
@@ -43,9 +69,12 @@ class Photo extends React.Component {
   }
 
   renderOverlayWhenEditModeEnabled() {
+    const divStyle = {};
+    this.applyAntiRotation(divStyle);
+
     if (this.props.isSelected) {
       return (
-        <div className="photo-grid__photo-selected-overlay">
+        <div className="photo-grid__photo-selected-overlay" style={divStyle}>
           <IconCheckMark fillColor="#FFFFFF" />
         </div>
       );
@@ -53,8 +82,11 @@ class Photo extends React.Component {
   }
 
   renderOverlayWhenEditModeDisabled() {
+    const divStyle = {};
+    this.applyAntiRotation(divStyle);
+
     return (
-      <div className="photo-grid__photo-overlay">
+      <div className="photo-grid__photo-overlay" style={divStyle}>
         <span className="photo-grid__taken-at-label">
           {this.props.photo.takenAtLabel}
         </span>
@@ -65,6 +97,8 @@ class Photo extends React.Component {
   render() {
     const divStyle = { backgroundImage: `url(${  this.photoUrl()  })` };
     const selectedClass = this.props.isSelected ? " selected" : "";
+
+    this.applyRotation(divStyle);
 
     return (
       <div

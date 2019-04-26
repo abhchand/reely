@@ -100,4 +100,28 @@ RSpec.feature "photos carousel", type: :feature do
     click_photo_carousel_next
     expect_photo_carousel_to_display(photos[0])
   end
+
+  describe "photo orientation", :js do
+    it "displays the photo with correct orientation" do
+      photos[0].exif_data["orientation"] = "Rotate 90 CW"
+      photos[1].exif_data["orientation"] = "Horizontal (normal)"
+      photos[2].exif_data["orientation"] = nil
+      photos.map(&:save!)
+
+      log_in(user)
+      visit photos_path
+
+      click_photo(photos[0])
+      style = page.find(".photo-carousel__current-photo")["style"]
+      expect(style).to match(/transform:\s?rotate\(90deg\);/)
+
+      click_photo_carousel_next
+      style = page.find(".photo-carousel__current-photo")["style"]
+      expect(style).to_not match(/transform:\s?rotate/)
+
+      click_photo_carousel_next
+      style = page.find(".photo-carousel__current-photo")["style"]
+      expect(style).to_not match(/transform:\s?rotate/)
+    end
+  end
 end

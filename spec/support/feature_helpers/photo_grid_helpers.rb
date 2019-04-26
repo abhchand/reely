@@ -25,11 +25,11 @@ module FeatureHelpers
 
   def expect_photo_carousel_to_display(photo)
     photo = PhotoPresenter.new(photo, view: view_context)
-    photo_el = find(".photo-carousel__content")
+    photo_el = find(".photo-carousel__current-photo-container")
 
     expect(photo_el["data-id"]).to eq(photo.synthetic_id)
-    expect(photo_el["style"]).
-      to eq("background-image: url(\"#{photo.source_file_path}\");")
+    expect(photo_el.find("img")["src"]).
+      to eq(prepend_host_to_path(photo.source_file_path))
   end
 
   def expect_photo_carousel_is_closed

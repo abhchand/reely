@@ -6,7 +6,7 @@
   left: 0;
 }
 
-.photo-carousel__content {
+.photo-carousel__current-photo-container {
   width: 100%;
   height: 100%;
   margin: auto;
@@ -15,6 +15,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.photo-carousel__current-photo {
+  height: 100%;
 
   transition: background-image 0.15s ease-in-out;
 }

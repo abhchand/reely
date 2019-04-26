@@ -16,6 +16,7 @@ class PhotoCarousel extends React.Component {
     this.componentWillUnmount = this.componentWillUnmount.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.currentPhoto = this.currentPhoto.bind(this);
+    this.applyRotation = this.applyRotation.bind(this);
     this.navigateNext = this.navigateNext.bind(this);
     this.navigatePrev = this.navigatePrev.bind(this);
 
@@ -61,6 +62,16 @@ class PhotoCarousel extends React.Component {
     return this.props.photoData[this.state.currentPhotoIndex];
   }
 
+  applyRotation(style) {
+    const degrees = this.currentPhoto().rotate || 0;
+
+    if (degrees === 0) {
+      return;
+    }
+
+    style.transform = `rotate(${ degrees }deg)`;
+  }
+
   navigateNext() {
     let newIndex = this.state.currentPhotoIndex + 1;
     if (newIndex >= this.props.photoData.length) {
@@ -80,26 +91,28 @@ class PhotoCarousel extends React.Component {
   }
 
   render() {
-    const divStyle = { backgroundImage: `url(${  this.currentPhoto().url  })` };
+    const imgStyle = {};
+    this.applyRotation(imgStyle);
 
     return (
       <div className="photo-carousel">
-        <div className="photo-carousel__content" data-id={this.currentPhoto().id} style={divStyle}>
+        <div className="photo-carousel__current-photo-container" data-id={this.currentPhoto().id}>
+          <img className="photo-carousel__current-photo" src={this.currentPhoto().url} style={imgStyle} />
+        </div>
 
-          <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
-            <IconX size="16"/>
+        <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
+          <IconX size="16"/>
+        </div>
+
+        <div className="photo-carousel__navigation-container prev" onClick={this.navigatePrev}>
+          <div className="photo-carousel__navigation">
+            <IconArrowThickLeft size="24" />
           </div>
+        </div>
 
-          <div className="photo-carousel__navigation-container prev" onClick={this.navigatePrev}>
-            <div className="photo-carousel__navigation">
-              <IconArrowThickLeft size="24" />
-            </div>
-          </div>
-
-          <div className="photo-carousel__navigation-container next" onClick={this.navigateNext}>
-            <div className="photo-carousel__navigation">
-              <IconArrowThickRight size="24" />
-            </div>
+        <div className="photo-carousel__navigation-container next" onClick={this.navigateNext}>
+          <div className="photo-carousel__navigation">
+            <IconArrowThickRight size="24" />
           </div>
         </div>
       </div>
