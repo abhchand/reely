@@ -9,13 +9,9 @@ namespace :reely do
         password: args[:password]
       }
 
-      begin
-        user = User.new(attrs)
-        user.save!
-        user.add_role(:admin)
-      rescue StandardError => e
-        puts e.message
-      end
+      user = User.new(attrs)
+      user.save!
+      user.add_role(:admin)
     end
   end
 end
