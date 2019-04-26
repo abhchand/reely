@@ -17,7 +17,7 @@ fi
 for file in $(git diff --diff-filter=d --cached --name-only | grep -E '\.(css|scss|sass)$')
 do
   # we only want to lint the staged changes, not any un-staged changes
-  git show ":$file" | "$STYLELINT" --stdin --stdin-filename "$file"
+  git show ":$file" | "$STYLELINT" --stdin-filename "$file"
   if [ $? -ne 0 ]; then
     FILES=("${FILES[@]}" "$file")
   fi
