@@ -6,10 +6,10 @@ class Photo extends React.Component {
   static propTypes = {
     photo: PropTypes.object.isRequired,
     photoIndex: PropTypes.number.isRequired,
-    editModeEnabled: PropTypes.bool.isRequired,
+    selectionModeEnabled: PropTypes.bool.isRequired,
     isSelected: PropTypes.bool.isRequired,
-    handleClickWhenEditModeEnabled: PropTypes.func.isRequired,
-    handleClickWhenEditModeDisabled: PropTypes.func.isRequired
+    handleClickWhenSelectionModeEnabled: PropTypes.func.isRequired,
+    handleClickWhenSelectionModeDisabled: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -20,8 +20,8 @@ class Photo extends React.Component {
     this.applyAntiRotation = this.applyAntiRotation.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
-    this.renderOverlayWhenEditModeEnabled = this.renderOverlayWhenEditModeEnabled.bind(this);
-    this.renderOverlayWhenEditModeDisabled = this.renderOverlayWhenEditModeDisabled.bind(this);
+    this.renderOverlayWhenSelectionModeEnabled = this.renderOverlayWhenSelectionModeEnabled.bind(this);
+    this.renderOverlayWhenSelectionModeDisabled = this.renderOverlayWhenSelectionModeDisabled.bind(this);
   }
 
   photoUrl() {
@@ -53,22 +53,22 @@ class Photo extends React.Component {
   }
 
   handleClick() {
-    if (this.props.editModeEnabled) {
-      this.props.handleClickWhenEditModeEnabled(this.props.photoIndex);
+    if (this.props.selectionModeEnabled) {
+      this.props.handleClickWhenSelectionModeEnabled(this.props.photoIndex);
     } else {
-      this.props.handleClickWhenEditModeDisabled(this.props.photoIndex);
+      this.props.handleClickWhenSelectionModeDisabled(this.props.photoIndex);
     }
   }
 
   renderOverlay() {
-    if (this.props.editModeEnabled) {
-      return this.renderOverlayWhenEditModeEnabled();
+    if (this.props.selectionModeEnabled) {
+      return this.renderOverlayWhenSelectionModeEnabled();
     }
-      return this.renderOverlayWhenEditModeDisabled();
+      return this.renderOverlayWhenSelectionModeDisabled();
 
   }
 
-  renderOverlayWhenEditModeEnabled() {
+  renderOverlayWhenSelectionModeEnabled() {
     const divStyle = {};
     this.applyAntiRotation(divStyle);
 
@@ -81,7 +81,7 @@ class Photo extends React.Component {
     }
   }
 
-  renderOverlayWhenEditModeDisabled() {
+  renderOverlayWhenSelectionModeDisabled() {
     const divStyle = {};
     this.applyAntiRotation(divStyle);
 

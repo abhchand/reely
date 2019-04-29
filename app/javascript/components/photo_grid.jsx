@@ -1,6 +1,6 @@
 import Photo from "photo";
 import PhotoCarousel from "photo_carousel";
-import PhotoGridEditToggle from "photo_grid_edit_toggle";
+import PhotoGridSelectionToggle from "photo_grid_selection_toggle";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -12,18 +12,18 @@ class PhotoGrid extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.toggleSelectionMode = this.toggleSelectionMode.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.togglePhotoSelection = this.togglePhotoSelection.bind(this);
     this.enableCarousel = this.enableCarousel.bind(this);
     this.disableCarousel = this.disableCarousel.bind(this);
-    this.renderEditToggle = this.renderEditToggle.bind(this);
+    this.renderSelectionToggle = this.renderSelectionToggle.bind(this);
     this.renderPhoto = this.renderPhoto.bind(this);
     this.renderCarousel = this.renderCarousel.bind(this);
 
     this.state = {
       showCarousel: false,
-      editModeEnabled: false,
+      selectionModeEnabled: false,
       currentPhotoIndex: null,
       selectedPhotoIds: []
     };
@@ -33,16 +33,16 @@ class PhotoGrid extends React.Component {
     switch(e.keyCode) {
       case 27:
         // Escape
-        if (this.state.editModeEnabled) {
-          this.toggleEditMode();
+        if (this.state.selectionModeEnabled) {
+          this.toggleSelectionMode();
         }
         break;
     }
   }
 
-  toggleEditMode() {
+  toggleSelectionMode() {
     this.setState({
-      editModeEnabled: !this.state.editModeEnabled,
+      selectionModeEnabled: !this.state.selectionModeEnabled,
       selectedPhotoIds: []
     });
   }
@@ -81,11 +81,11 @@ class PhotoGrid extends React.Component {
     });
   }
 
-  renderEditToggle() {
+  renderSelectionToggle() {
     return (
-      <PhotoGridEditToggle
-        editModeEnabled={this.state.editModeEnabled}
-        toggleEditMode={this.toggleEditMode} />
+      <PhotoGridSelectionToggle
+        selectionModeEnabled={this.state.selectionModeEnabled}
+        toggleSelectionMode={this.toggleSelectionMode} />
     );
   }
 
@@ -95,10 +95,10 @@ class PhotoGrid extends React.Component {
         key={`photo_${photo.id}`}
         photo={photo}
         photoIndex={photoIndex}
-        editModeEnabled={this.state.editModeEnabled}
+        selectionModeEnabled={this.state.selectionModeEnabled}
         isSelected={this.state.selectedPhotoIds.indexOf(photo.id) >= 0}
-        handleClickWhenEditModeEnabled={this.togglePhotoSelection}
-        handleClickWhenEditModeDisabled={this.enableCarousel} />
+        handleClickWhenSelectionModeEnabled={this.togglePhotoSelection}
+        handleClickWhenSelectionModeDisabled={this.enableCarousel} />
     );
   }
 
@@ -115,7 +115,7 @@ class PhotoGrid extends React.Component {
 
   render() {
     const self = this;
-    const enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
+    const enabledClass = (this.state.selectionModeEnabled ? " photo-grid--selection-mode-enabled" : "");
 
     return (
       <div
@@ -124,7 +124,7 @@ class PhotoGrid extends React.Component {
         tabIndex="-1"
         role="presentation">
 
-        {this.renderEditToggle()}
+        {this.renderSelectionToggle()}
 
         <div className="photo-grid__content">
           {

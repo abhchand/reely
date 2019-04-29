@@ -40,16 +40,18 @@ module FeatureHelpers
   # Photo Selection
   #
 
-  def enable_edit_mode
-    find(".photo-grid__edit-toggle").click
+  def enable_selection_mode
+    find(".photo-grid__selection-toggle").click
     photo_grid_el = page.find(".photo-grid")
-    expect(photo_grid_el["class"]).to match(/photo-grid--edit-mode-enabled/)
+    expect(photo_grid_el["class"]).
+      to match(/photo-grid--selection-mode-enabled/)
   end
 
-  def disable_edit_mode
-    find(".photo-grid__edit-toggle").click
+  def disable_selection_mode
+    find(".photo-grid__selection-toggle").click
     photo_grid_el = page.find(".photo-grid")
-    expect(photo_grid_el["class"]).to_not match(/photo-grid--edit-mode-enabled/)
+    expect(photo_grid_el["class"]).
+      to_not match(/photo-grid--selection-mode-enabled/)
   end
 
   def expect_photo_to_be_selected(photo)

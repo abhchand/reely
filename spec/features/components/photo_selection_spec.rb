@@ -13,7 +13,7 @@ RSpec.feature "photo selection", type: :feature do
     log_in(user)
     visit photos_path
 
-    enable_edit_mode
+    enable_selection_mode
 
     click_photo(photos[0])
     expect_photo_to_be_selected(photos[0])
@@ -31,19 +31,19 @@ RSpec.feature "photo selection", type: :feature do
     expect_photo_to_be_selected(photos[2])
   end
 
-  it "clears any selected photos when edit mode is disabled", :js do
+  it "clears any selected photos when selection mode is disabled", :js do
     log_in(user)
     visit photos_path
 
-    enable_edit_mode
+    enable_selection_mode
 
     click_photo(photos[0])
     expect_photo_to_be_selected(photos[0])
     expect_photo_to_be_unselected(photos[1])
     expect_photo_to_be_unselected(photos[2])
 
-    disable_edit_mode
-    enable_edit_mode
+    disable_selection_mode
+    enable_selection_mode
 
     expect_photo_to_be_unselected(photos[0])
     expect_photo_to_be_unselected(photos[1])
@@ -51,18 +51,18 @@ RSpec.feature "photo selection", type: :feature do
   end
 
   describe "keyboard navigation" do
-    it "user can disable edit mode using the Escape key", :js do
+    it "user can disable selection mode using the Escape key", :js do
       log_in(user)
       visit photos_path
 
-      enable_edit_mode
+      enable_selection_mode
       click_photo(photos[0])
 
       pg = page.find(".photo-grid")
 
-      expect(pg["class"]).to match(/photo-grid--edit-mode-enabled/)
+      expect(pg["class"]).to match(/photo-grid--selection-mode-enabled/)
       pg.send_keys(:escape)
-      expect(pg["class"]).to_not match(/photo-grid--edit-mode-enabled/)
+      expect(pg["class"]).to_not match(/photo-grid--selection-mode-enabled/)
     end
   end
 end

@@ -12,7 +12,7 @@
   }
 }
 
-.photo-grid__edit-toggle {
+.photo-grid__selection-toggle {
   position: relative;
   width: 30px;
   height: 30px;
@@ -25,7 +25,7 @@
     @extend .vertical-align;
   }
 
-  .photo-grid--edit-mode-enabled & {
+  .photo-grid--selection-mode-enabled & {
     background-color: $leaf-green;
   }
 }
@@ -104,7 +104,7 @@
 
   transition: all 0.10s linear;
 
-  .photo-grid--edit-mode-enabled & {
+  .photo-grid--selection-mode-enabled & {
     top: 2px;
     right: 2px;
     bottom: 2px;
@@ -134,7 +134,7 @@
     }
   }
 
-  // Somewhat of an animation hack. When photos are selected but edit mode
+  // Somewhat of an animation hack. When photos are selected but selection mode
   // is disabled, the photo overlay renders the taken at lable, which shows
   // up for a brief second before dissappearing. This is because both overlays
   // use the same class rules.
