@@ -13,6 +13,7 @@ class PhotoGrid extends React.Component {
     super(props);
 
     this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.togglePhotoSelection = this.togglePhotoSelection.bind(this);
     this.enableCarousel = this.enableCarousel.bind(this);
     this.disableCarousel = this.disableCarousel.bind(this);
@@ -26,6 +27,17 @@ class PhotoGrid extends React.Component {
       currentPhotoIndex: null,
       selectedPhotoIds: []
     };
+  }
+
+  handleKeyDown(e) {
+    switch(e.keyCode) {
+      case 27:
+        // Escape
+        if (this.state.editModeEnabled) {
+          this.toggleEditMode();
+        }
+        break;
+    }
   }
 
   toggleEditMode() {
@@ -106,7 +118,12 @@ class PhotoGrid extends React.Component {
     const enabledClass = (this.state.editModeEnabled ? " photo-grid--edit-mode-enabled" : "");
 
     return (
-      <div className={`photo-grid${  enabledClass}`}>
+      <div
+        className={`photo-grid${  enabledClass}`}
+        onKeyDown={this.handleKeyDown}
+        tabIndex="-1"
+        role="presentation">
+
         {this.renderEditToggle()}
 
         <div className="photo-grid__content">
