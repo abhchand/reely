@@ -7,6 +7,10 @@ module FeatureHelpers
     find_photo_element(photo).click
   end
 
+  def shift_click_photo(photo)
+    find_photo_element(photo).click(:shift)
+  end
+
   #
   # Photo Carousel
   #

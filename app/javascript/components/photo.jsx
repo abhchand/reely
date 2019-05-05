@@ -52,9 +52,9 @@ class Photo extends React.Component {
     style.transform = `rotate(${ -1 * degrees }deg)`;
   }
 
-  handleClick() {
+  handleClick(e) {
     if (this.props.selectionModeEnabled) {
-      this.props.handleClickWhenSelectionModeEnabled(this.props.photoIndex);
+      this.props.handleClickWhenSelectionModeEnabled(this.props.photoIndex, e);
     } else {
       this.props.handleClickWhenSelectionModeDisabled(this.props.photoIndex);
     }

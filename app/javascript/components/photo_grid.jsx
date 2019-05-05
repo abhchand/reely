@@ -1,6 +1,7 @@
 import Photo from "photo";
 import PhotoCarousel from "photo_carousel";
 import PhotoGridSelectionToggle from "photo_grid_selection_toggle";
+import PhotoSelectionService from "./services/photo_selection_service";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -14,7 +15,7 @@ class PhotoGrid extends React.Component {
 
     this.toggleSelectionMode = this.toggleSelectionMode.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.togglePhotoSelection = this.togglePhotoSelection.bind(this);
+    this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
     this.enableCarousel = this.enableCarousel.bind(this);
     this.disableCarousel = this.disableCarousel.bind(this);
     this.renderSelectionToggle = this.renderSelectionToggle.bind(this);
@@ -47,21 +48,18 @@ class PhotoGrid extends React.Component {
     });
   }
 
-  togglePhotoSelection(photoIndex) {
-    const selectedPhotoIds = this.state.selectedPhotoIds;
-    const photoId = this.props.photoData[photoIndex].id;
+  handlePhotoSelection(photoIndex, event) {
+    const service = new PhotoSelectionService(
+      this.props.photoData,
+      this.state.selectedPhotoIds,
+      photoIndex,
+      event
+    );
 
-    if (selectedPhotoIds.indexOf(photoId) >= 0) {
-      // Unselect photo by removing it from array
-      const index = selectedPhotoIds.indexOf(photoId);
-      if (index !== -1) selectedPhotoIds.splice(index, 1);
-    } else {
-      // Select photo by adding it to array
-      selectedPhotoIds.push(photoId);
-    }
+    service.performSelection();
 
     this.setState({
-      selectedPhotoIds: selectedPhotoIds
+      selectedPhotoIds: service.selectedPhotoIds
     });
   }
 
@@ -97,7 +95,7 @@ class PhotoGrid extends React.Component {
         photoIndex={photoIndex}
         selectionModeEnabled={this.state.selectionModeEnabled}
         isSelected={this.state.selectedPhotoIds.indexOf(photo.id) >= 0}
-        handleClickWhenSelectionModeEnabled={this.togglePhotoSelection}
+        handleClickWhenSelectionModeEnabled={this.handlePhotoSelection}
         handleClickWhenSelectionModeDisabled={this.enableCarousel} />
     );
   }
