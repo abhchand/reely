@@ -8,6 +8,10 @@ class Collection < ApplicationRecord
 
   validates :name, presence: true
 
+  def as_json(_options = {})
+    super(only: %i[synthetic_id owner_id name])
+  end
+
   def cover_photos
     @cover_photos ||= photos.order(:created_at).first(4)
   end
