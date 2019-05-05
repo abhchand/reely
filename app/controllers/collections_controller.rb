@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   layout "with_responsive_navigation"
 
-  before_action :ensure_xhr_only, only: %i[update destroy]
+  before_action :ensure_xhr_only, only: %i[create update destroy]
   before_action :collection, only: %i[show update destroy]
   before_action :only_my_collection, only: %i[show update destroy]
 
@@ -16,8 +16,20 @@ class CollectionsController < ApplicationController
     @date_range_label = DateRangeLabelService.call(@photos)
   end
 
+  def create
+    @collection = Collection.new(
+      owner: current_user,
+      name: collections_create_params["name"]
+    )
+    status, json = @collection.save ? [200, @collection] : [400, {}]
+
+    respond_to do |format|
+      format.json { render json: json, status: status }
+    end
+  end
+
   def update
-    @collection.attributes = collections_params
+    @collection.attributes = collections_update_params
     status = @collection.save ? 200 : 400
 
     respond_to do |format|
@@ -47,7 +59,13 @@ class CollectionsController < ApplicationController
     handle_not_my_collection
   end
 
-  def collections_params
+  def collections_create_params
+    params.require(:collection).permit(
+      :name
+    )
+  end
+
+  def collections_update_params
     params.require(:collection).permit(
       :name
     )

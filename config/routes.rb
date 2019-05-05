@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post "/log-in", to: "sessions#create"
   get "/log-out", to: "sessions#destroy"
 
-  resources :collections, only: [:index, :show, :update, :destroy]
+  resources :collections, only: [:index, :show, :create, :update, :destroy]
 
   resources :photos, only: :index
 

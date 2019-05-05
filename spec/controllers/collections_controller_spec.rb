@@ -48,6 +48,54 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
+  describe "POST #create" do
+    let(:params) do
+      {
+        collection: {
+          name: "Some Name"
+        }
+      }
+    end
+
+    context "request is not xhr" do
+      it "redirects to root_path" do
+        post :create, params: params, xhr: false
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    it "creates the collection" do
+      expect do
+        post :create, params: params, xhr: true
+      end.to change { Collection.count }.by(1)
+
+      collection = Collection.last
+      expect(collection.owner).to eq(user)
+      expect(collection.name).to eq("Some Name")
+    end
+
+    it "returns a 200 OK JSON response" do
+      post :create, params: params, xhr: true
+
+      collection = Collection.last
+      expect(JSON.parse(response.body)).to eq(collection.as_json)
+      expect(response.code).to eq("200")
+    end
+
+    context "error in creating collection" do
+      before do
+        allow_any_instance_of(Collection).to receive(:save) { false }
+      end
+
+      it "returns a 400 Error JSON response" do
+        post :create, params: params, xhr: true
+
+        expect(JSON.parse(response.body)).to eq({})
+        expect(response.code).to eq("400")
+      end
+    end
+  end
+
   describe "PATCH #update" do
     let(:collection) { create_collection_with_photos(owner: user) }
 
