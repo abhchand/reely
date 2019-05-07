@@ -1,6 +1,6 @@
 import Photo from "photo";
 import PhotoCarousel from "photo_carousel";
-import PhotoGridSelectionToggle from "photo_grid_selection_toggle";
+import PhotoGridControlPanel from "photo_grid_control_panel";
 import PhotoSelectionService from "./services/photo_selection_service";
 import PropTypes from "prop-types";
 import React from "react";
@@ -18,7 +18,7 @@ class PhotoGrid extends React.Component {
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
     this.enableCarousel = this.enableCarousel.bind(this);
     this.disableCarousel = this.disableCarousel.bind(this);
-    this.renderSelectionToggle = this.renderSelectionToggle.bind(this);
+    this.renderPhotoGridControlPanel = this.renderPhotoGridControlPanel.bind(this);
     this.renderPhoto = this.renderPhoto.bind(this);
     this.renderCarousel = this.renderCarousel.bind(this);
 
@@ -79,9 +79,9 @@ class PhotoGrid extends React.Component {
     });
   }
 
-  renderSelectionToggle() {
+  renderPhotoGridControlPanel() {
     return (
-      <PhotoGridSelectionToggle
+      <PhotoGridControlPanel
         selectionModeEnabled={this.state.selectionModeEnabled}
         toggleSelectionMode={this.toggleSelectionMode} />
     );
@@ -122,7 +122,7 @@ class PhotoGrid extends React.Component {
         tabIndex="-1"
         role="presentation">
 
-        {this.renderSelectionToggle()}
+        {this.renderPhotoGridControlPanel()}
 
         <div className="photo-grid__content">
           {
