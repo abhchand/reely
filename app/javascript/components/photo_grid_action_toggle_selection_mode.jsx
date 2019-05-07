@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 // eslint-disable-next-line react/prop-types
-const PhotoGridSelectionToggle = (props) => {
+const PhotoGridActionToggleSelectionMode = (props) => {
   const fillColor = (props.selectionModeEnabled ? "#FFFFFF" : "#888888");
 
   return (
@@ -18,9 +18,9 @@ const PhotoGridSelectionToggle = (props) => {
   );
 };
 
-PhotoGridSelectionToggle.propTypes = {
+PhotoGridActionToggleSelectionMode.propTypes = {
   selectionModeEnabled: PropTypes.bool.isRequired,
   toggleSelectionMode: PropTypes.func.isRequired
 };
 
-export default PhotoGridSelectionToggle;
+export default PhotoGridActionToggleSelectionMode;

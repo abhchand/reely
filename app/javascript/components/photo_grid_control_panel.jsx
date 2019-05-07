@@ -1,4 +1,4 @@
-import PhotoGridSelectionToggle from "photo_grid_selection_toggle";
+import PhotoGridActionToggleSelectionMode from "./photo_grid_action_toggle_selection_mode";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -17,7 +17,7 @@ class PhotoGridControlPanel extends React.Component {
 
   renderPhotoGridControlPanel() {
     return (
-      <PhotoGridSelectionToggle
+      <PhotoGridActionToggleSelectionMode
         selectionModeEnabled={this.props.selectionModeEnabled}
         toggleSelectionMode={this.props.toggleSelectionMode} />
     );
