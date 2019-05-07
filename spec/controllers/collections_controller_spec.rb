@@ -155,6 +155,73 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
+  describe "PUT #add_photos" do
+    let(:collection) { create(:collection, owner: user) }
+    let(:photos) { create_list(:photo, 2, owner: user) }
+
+    let(:params) do
+      {
+        collection_id: collection.synthetic_id,
+        collection: {
+          photo_ids: photos.map(&:synthetic_id)
+        }
+      }
+    end
+
+    context "request is not xhr" do
+      it "redirects to root_path" do
+        put :add_photos, params: params, xhr: false
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not found" do
+      it "redirects to the root path" do
+        put :add_photos, params: params.merge(collection_id: "abcde"), xhr: true
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not owned by current_user" do
+      before { collection.update!(owner: create(:user)) }
+
+      it "redirects to the root path" do
+        put :add_photos, params: params, xhr: true
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    it "adds photos to the collection and responds as success" do
+      put :add_photos, params: params, xhr: true
+
+      expect(collection.reload.photos).to match_array(photos)
+      expect(response.status).to eq(200)
+      expect(response.body).to eq("{}")
+    end
+
+    context "there is an error while adding photos to collection" do
+      before do
+        # Ensure records are created before stubbing `:save` below
+        params
+
+        # Return `false` on the second record to be saved
+        # rubocop:disable LineLength
+        allow_any_instance_of(PhotoCollection).to receive(:save).and_wrap_original do |method|
+          PhotoCollection.count.zero? ? method.call : false
+        end
+        # rubocop:enable LineLength
+      end
+
+      it "does not update the collection and responds as failure" do
+        put :add_photos, params: params, xhr: true
+
+        expect(collection.reload.photos).to eq([])
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
+      end
+    end
+  end
+
   describe "DELETE #destroy" do
     let(:collection) { create_collection_with_photos(owner: user) }
 
