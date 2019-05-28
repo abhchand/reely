@@ -44,6 +44,18 @@ en:
     mobile_navigation:
       <<: *shared_navigation
 
+  components:
+    shared:
+      creatable_select_dropdown_menu:
+        close_menu_button:
+          default_label: Close
+        create_option:
+          label: Create '%{name}'
+        search_input:
+          default_placeholder: Search...
+        select_options:
+          default_empty_state: No results
+
   collections:
     index:
       heading: Collections

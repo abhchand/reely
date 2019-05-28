@@ -1,0 +1,24 @@
+.creatable-select-dropdown__open-menu-button {
+  position: relative;
+  top: 8px;
+  width: 34px;
+  height: 34px;
+  outline: 0;
+  transition: all 0.10s ease-in;
+
+  &:hover {
+    background-color: $light-gray;
+    border-radius: 50%;
+  }
+
+  &:focus {
+    background-color: $light-gray;
+    border-radius: 50%;
+  }
+
+  svg {
+    @extend .vertical-align;
+    width: 22px;
+    height: 22px;
+  }
+}
