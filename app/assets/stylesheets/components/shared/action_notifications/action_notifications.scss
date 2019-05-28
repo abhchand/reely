@@ -1,0 +1,111 @@
+.action-notifications {
+  position: absolute;
+  bottom: 40px;
+  left: 10px;
+  z-index: 99;
+  padding: 12px 0;
+
+  @include breakpoint($screen-xs) {
+    left: 40px;
+  }
+
+  .notification {
+    @extend .hard-shadow;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 200px;
+    max-width: 275px;
+    height: 45px;
+    margin-top: 10px;
+    padding-left: 20px;
+    color: $white;
+    font-size: 14px;
+    border-radius: 3px;
+
+    @include breakpoint($screen-xs) {
+      max-width: 400px;
+      font-size: 16px;
+    }
+
+    &.notification--error {
+      background-color: $orange-red;
+    }
+
+    &.notification--info {
+      background-color: $mustard;
+    }
+
+    &.notification--success {
+      background-color: $leaf-green;
+    }
+
+    span {
+      padding-right: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .close-btn {
+      height: 100%;
+      margin-left: auto;
+      font-weight: 700;
+      font-size: 14px;
+      background-color: Transparent;
+      border: none;
+      border-left: 1px solid $white;
+      outline: none;
+      transition: color 0.15s ease-in;
+
+      &:hover {
+        // Matches overriden bootstrap a:focus color;
+        color: #23527C;
+      }
+    }
+
+    a {
+      font-weight: 700;
+    }
+  }
+}
+
+// Note: The transition timeouts need to be specified both here and in the
+// React render() method. From the React docs:
+//
+//    You’ll notice that animation durations need to be specified in
+//    both the CSS and the render method; this tells React when to remove
+//    the animation classes from the element and — if it’s leaving — when
+//    to remove the element from the DOM.
+//
+// See: https://reactjs.org/docs/animation.html
+
+.action-notifications-group-enter {
+  overflow: hidden;
+  opacity: 0.1;
+}
+
+.action-notifications-group-enter-active {
+  opacity: 1;
+  transition: all 150ms ease-in;
+}
+
+.action-notifications-group-leave {
+  height: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  opacity: 1;
+}
+.action-notifications-group-leave-active {
+  height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  overflow: hidden;
+  opacity: 0.01;
+  transition: opacity 300ms ease-in,
+              padding-top 500ms ease-in,
+              padding-bottom 500ms ease-in,
+              height 500ms ease-in;
+}

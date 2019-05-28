@@ -23,6 +23,7 @@
     "react": "15.6.0",
     "react-autocomplete": "^1.8.1",
     "react-dom": "15.6.0",
+    "react-transition-group": "1.x",
     "react_ujs": "^2.4.4"
   }
 }

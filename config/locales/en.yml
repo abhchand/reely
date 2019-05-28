@@ -46,6 +46,9 @@ en:
 
   components:
     shared:
+      action_notifications:
+        action_notification:
+          close: Close
       creatable_select_dropdown_menu:
         close_menu_button:
           default_label: Close
