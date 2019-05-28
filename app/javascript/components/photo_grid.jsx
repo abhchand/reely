@@ -1,65 +1,62 @@
+import ControlPanel from "./photo_grid/control_panel/control_panel";
 import Photo from "photo";
 import PhotoCarousel from "photo_carousel";
-import PhotoGridControlPanel from "photo_grid_control_panel";
 import PhotoSelectionService from "./services/photo_selection_service";
 import PropTypes from "prop-types";
 import React from "react";
 
 class PhotoGrid extends React.Component {
   static propTypes = {
-    photoData: PropTypes.array.isRequired
+    photoData: PropTypes.array.isRequired,
+    collections: PropTypes.array.isRequired
   }
 
   constructor(props) {
     super(props);
 
-    this.toggleSelectionMode = this.toggleSelectionMode.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.enableSelectionMode = this.enableSelectionMode.bind(this);
+    this.disableSelectionMode = this.disableSelectionMode.bind(this);
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
     this.enableCarousel = this.enableCarousel.bind(this);
     this.disableCarousel = this.disableCarousel.bind(this);
-    this.renderPhotoGridControlPanel = this.renderPhotoGridControlPanel.bind(this);
+    this.renderControlPanel = this.renderControlPanel.bind(this);
     this.renderPhoto = this.renderPhoto.bind(this);
     this.renderCarousel = this.renderCarousel.bind(this);
 
     this.state = {
       showCarousel: false,
       selectionModeEnabled: false,
-      currentPhotoIndex: null,
       selectedPhotoIds: []
     };
   }
 
-  handleKeyDown(e) {
-    switch(e.keyCode) {
-      case 27:
-        // Escape
-        if (this.state.selectionModeEnabled) {
-          this.toggleSelectionMode();
-        }
-        break;
-    }
+  enableSelectionMode() {
+    this.setState({
+      selectionModeEnabled: true
+    });
   }
 
-  toggleSelectionMode() {
+  disableSelectionMode() {
     this.setState({
-      selectionModeEnabled: !this.state.selectionModeEnabled,
+      selectionModeEnabled: false,
       selectedPhotoIds: []
     });
   }
 
   handlePhotoSelection(photoIndex, event) {
-    const service = new PhotoSelectionService(
-      this.props.photoData,
-      this.state.selectedPhotoIds,
-      photoIndex,
-      event
-    );
+    const self = this;
 
-    service.performSelection();
+    this.setState(function(prevState) {
+      const service = new PhotoSelectionService(
+        self.props.photoData,
+        prevState.selectedPhotoIds,
+        photoIndex,
+        event
+      );
 
-    this.setState({
-      selectedPhotoIds: service.selectedPhotoIds
+      service.performSelection();
+
+      return { selectedPhotoIds: service.selectedPhotoIds };
     });
   }
 
@@ -79,11 +76,13 @@ class PhotoGrid extends React.Component {
     });
   }
 
-  renderPhotoGridControlPanel() {
+  renderControlPanel() {
     return (
-      <PhotoGridControlPanel
-        selectionModeEnabled={this.state.selectionModeEnabled}
-        toggleSelectionMode={this.toggleSelectionMode} />
+      <ControlPanel
+        collections={this.props.collections}
+        selectedPhotoIds={this.state.selectedPhotoIds}
+        onOpen={this.enableSelectionMode}
+        onClose={this.disableSelectionMode} />
     );
   }
 
@@ -122,7 +121,7 @@ class PhotoGrid extends React.Component {
         tabIndex="-1"
         role="presentation">
 
-        {this.renderPhotoGridControlPanel()}
+        {this.renderControlPanel()}
 
         <div className="photo-grid__content">
           {

@@ -7,26 +7,12 @@
   margin: auto;
   margin-top: 35px;
 
+  &:focus {
+    outline: 0;
+  }
+
   @include breakpoint($screen-xs) {
     margin: 35px 0 0 0;
-  }
-}
-
-.photo-grid__selection-toggle {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  background-color: $white;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease-in;
-
-  svg {
-    @extend .vertical-align;
-  }
-
-  .photo-grid--selection-mode-enabled & {
-    background-color: $leaf-green;
   }
 }
 

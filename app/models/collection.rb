@@ -9,7 +9,10 @@ class Collection < ApplicationRecord
   validates :name, presence: true
 
   def as_json(_options = {})
-    super(only: %i[synthetic_id owner_id name])
+    super(only: %i[id owner_id name]).tap do |obj|
+      # Only ever expose the `synthetic_id` externally
+      obj["id"] = synthetic_id
+    end
   end
 
   def cover_photos

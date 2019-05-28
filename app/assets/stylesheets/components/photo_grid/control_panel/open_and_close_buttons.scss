@@ -1,0 +1,19 @@
+.photo-grid-control-panel__toggle-button {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: $white;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in;
+
+  svg {
+    @extend .vertical-align;
+  }
+}
+
+.photo-grid-control-panel__open-button {
+  border-radius: 50%;
+}
+
+.photo-grid-control-panel__close-button {
+}

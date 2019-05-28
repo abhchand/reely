@@ -1,3 +1,5 @@
+<%= render "layouts/action_notifications", notifications: action_notification_props %>
+
 <% if @photo_count.zero? %>
 <div class="photos-index__emtpy-state">
   <%= t(".empty") %>
@@ -13,7 +15,8 @@
     react_component(
       "photo_grid",
       {
-        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
+        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props),
+        collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_grid_props)
       },
       { prerender: Rails.env.test? }
     )

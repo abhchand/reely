@@ -1,0 +1,17 @@
+.photo_grid-bulk-action-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+  margin-right: 15px;
+  margin-left: auto;
+
+  & > svg {
+    @extend .vertical-align;
+  }
+}
+
+.photo-grid-bulk-action-panel__item {
+  height: 100%;
+}
