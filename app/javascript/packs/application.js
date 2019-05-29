@@ -13,7 +13,7 @@ const ReactRailsUJS = require("react_ujs");
 
 ReactRailsUJS.useContext(componentRequireContext);
 
-import 'babel-polyfill';
+import "core-js/stable";
 
 import "common.js"
 
