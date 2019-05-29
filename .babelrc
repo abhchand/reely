@@ -20,8 +20,11 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    ["module-resolver",
-      { "root": ["./app/javascript/**"], "alias": {} }
+    [
+      "module-resolver",
+      {
+        "root": ["./app/javascript"]
+      }
     ],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-object-rest-spread",
