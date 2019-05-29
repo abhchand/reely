@@ -30,7 +30,6 @@
     "prop-types": "^15.6.1",
     "rails-erb-loader": "^5.4.1",
     "react": "^16.0.0",
-    "react-autocomplete": "^1.8.1",
     "react-dom": "^16.0.0",
     "react-transition-group": "1.x",
     "react_ujs": "^2.4.4"
