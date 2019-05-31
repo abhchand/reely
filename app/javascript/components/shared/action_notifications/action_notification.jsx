@@ -5,13 +5,15 @@ class ActionNotification extends React.Component {
   static propTypes = {
     notification: PropTypes.object.isRequired,
     duration: PropTypes.number,
-    closeNotification: PropTypes.func.isRequired,
-    isDismissable: PropTypes.bool
+    isDismissable: PropTypes.bool,
+    closeButtonLabel: PropTypes.string,
+    onClose: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     duration: 5000,
-    isDismissable: true
+    isDismissable: true,
+    closeButtonLabel: "Close"
   };
 
   static notificationTypes = {
@@ -45,8 +47,8 @@ class ActionNotification extends React.Component {
     if (typeof content === "string" || content instanceof String) {
       return <span>{content}</span>;
     }
-      return content;
 
+    return content;
   }
 
   notificationClass() {
@@ -56,33 +58,39 @@ class ActionNotification extends React.Component {
 
   pauseTimer() {
     clearTimeout(this.timer);
-    this.remaining -= (new Date() - this.start);
+    this.remaining -= (Date.now() - this.start);
   }
 
   resumeTimer() {
     clearTimeout(this.timer);
 
-    this.start = new Date();
-    this.timer = setTimeout(this.props.closeNotification, this.remaining);
+    this.start = Date.now();
+    this.timer = setTimeout(this.props.onClose, this.remaining);
   }
 
   closeButton() {
     if (this.props.isDismissable) {
-      const label = I18n.t("components.shared.action_notifications.action_notification.close");
+      const label = this.props.closeButtonLabel;
 
       return (
-        <button type="button" className="close-btn" title={label} onClick={this.props.closeNotification}>
+        <button
+          data-testid={`notification-${this.props.notification.id}-close-btn`}
+          type="button"
+          className="close-btn"
+          title={label}
+          onClick={this.props.onClose}>
           {label}
         </button>
       );
     }
-      return null;
 
+    return null;
   }
 
   render() {
     return(
       <div
+        data-testid={`notification-${this.props.notification.id}`}
         className={`notification ${this.notificationClass()}`}
         onMouseEnter={this.pauseTimer}
         onMouseLeave={this.resumeTimer}>

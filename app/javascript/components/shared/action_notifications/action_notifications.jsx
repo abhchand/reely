@@ -35,8 +35,11 @@ import React from "react";
 
 class ActionNotifications extends React.Component {
   static propTypes = {
-    notifications: PropTypes.array.isRequired
-  }
+    notifications: PropTypes.array.isRequired,
+    duration: PropTypes.number,
+    isDismissable: PropTypes.bool,
+    closeButtonLabel: PropTypes.string
+  };
 
   constructor(props) {
     super(props);
@@ -76,7 +79,10 @@ class ActionNotifications extends React.Component {
         <ActionNotification
           key={notification.id}
           notification={notification}
-          closeNotification={() => self.remove(notification)} /> // eslint-disable-line react/jsx-no-bind
+          duration={self.props.duration}
+          isDismissable={self.props.isDismissable}
+          closeButtonLabel={self.props.closeButtonLabel}
+          onClose={() => self.remove(notification)} /> // eslint-disable-line react/jsx-no-bind
       );
     });
 
