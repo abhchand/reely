@@ -90,7 +90,6 @@
     "semi": ["error", "always"],
     "padding-line-between-statements": [
       "warn",
-      { blankLine: "always", prev: ["const", "let", "var", "block-like"], next: "*"},
       { blankLine: "any",    prev: ["const", "let", "var"], next: ["const", "let", "var"]},
       { blankLine: "any",    prev: "function", next: "*" },
       { blankLine: "always", prev: "directive", next: "*" },
