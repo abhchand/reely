@@ -45,14 +45,14 @@ module FeatureHelpers
   #
 
   def enable_selection_mode
-    find(".photo-grid__selection-toggle").click
+    find(".photo-grid-control-panel__open-button").click
     photo_grid_el = page.find(".photo-grid")
     expect(photo_grid_el["class"]).
       to match(/photo-grid--selection-mode-enabled/)
   end
 
   def disable_selection_mode
-    find(".photo-grid__selection-toggle").click
+    find(".photo-grid-control-panel__close-button").click
     photo_grid_el = page.find(".photo-grid")
     expect(photo_grid_el["class"]).
       to_not match(/photo-grid--selection-mode-enabled/)

@@ -87,7 +87,7 @@ class BulkActionAddToCollection extends React.Component {
         const notification = { id: id, content: content, type: "success" };
 
         self.addNotification(notification);
-        self.addToExistingCollection(id);
+        self.addToExistingCollection(collectionId);
       })
     ;
   }

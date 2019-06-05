@@ -120,6 +120,7 @@ class SearchInput extends React.Component {
       <div data-testid="search-input" className="creatable-select-dropdown-search-input">
         <input
           type="text"
+          name="search"
           placeholder={this.props.placeholder}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown} />
