@@ -81,7 +81,7 @@ class BulkActionAddToCollection extends React.Component {
       })
       .done(function(collection) {
         const collectionId = collection.id;
-        const msg = I18n.t(`${self.i18nPrefix}.new.success`, { href: `/collections/${  collectionId}`, name: collection.name });
+        const msg = I18n.t(`${self.i18nPrefix}.new.success`, { href: `/collections/${collectionId}`, name: collection.name });
         // eslint-disable-next-line react/no-danger
         const content = <span dangerouslySetInnerHTML={{__html: msg}}></span>;
         const notification = { id: id, content: content, type: "success" };
@@ -97,7 +97,10 @@ class BulkActionAddToCollection extends React.Component {
   }
 
   render() {
-    const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.close_menu_label`);
+    const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.close_menu`);
+    const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
+    const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
+    const textGeneratorForCreateOption = (collection) => (I18n.t(`${this.i18nPrefix}.create`, { name: collection }));
 
     return (
       <div
@@ -108,7 +111,10 @@ class BulkActionAddToCollection extends React.Component {
           options={this.props.collections}
           onCreate={this.addToNewCollection}
           onSelect={this.addToExistingCollection}
-          textForCloseMenuButton={textForCloseMenuButton} />
+          textForCloseMenuButton={textForCloseMenuButton}
+          textForOptionsEmptyState={textForOptionsEmptyState}
+          textForSearchInputPlaceholder={textForSearchInputPlaceholder}
+          textGeneratorForCreateOption={textGeneratorForCreateOption} />
         }
       </div>
     );

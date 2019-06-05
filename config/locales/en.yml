@@ -45,22 +45,15 @@ en:
       <<: *shared_navigation
 
   components:
-    shared:
-      creatable_select_dropdown_menu:
-        close_menu_button:
-          default_label: Close
-        create_option:
-          label: Create '%{name}'
-        search_input:
-          default_placeholder: Search...
-        select_options:
-          default_empty_state: No results
-
     photo_grid:
       control_panel:
         bulk_action_panel:
           add_to_collection:
-            close_menu_label: Add to Collection
+            close_menu: Add to Collection
+            search_placeholder: Search...
+            empty_state: No results
+            create: Create '%{name}'
+
             existing:
               success:
                 one: "1 photo added to <a href=\"%{href}\">collection</a>"
@@ -90,7 +83,7 @@ en:
       empty: You have no photos (yet!) in this collection
 
   layouts:
-    action_notification:
+    action_notifications:
       close: Dismiss
 
   photos:
