@@ -147,6 +147,15 @@
         "prefer-const": "warn",
         "prefer-template": "warn"
       }
+    },
+    {
+      files: [
+        "**/*.spec.js",
+        "**/*.spec.jsx"
+      ],
+      env: {
+        jest: true
+      }
     }
   ]
 }
