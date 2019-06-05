@@ -1,4 +1,5 @@
 import {IconCollection} from "components/icons";
+import {parseKeyCode} from "utils";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -14,13 +15,14 @@ class SelectOptions extends React.Component {
   };
 
   static defaultProps = {
-    textForEmptyState: I18n.t("components.shared.creatable_select_dropdown_menu.select_options.default_empty_state")
+    textForEmptyState: "No results"
   }
 
   constructor(props) {
     super(props);
 
     this.onClick = this.onClick.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.renderEmptyState = this.renderEmptyState.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
   }
@@ -31,7 +33,7 @@ class SelectOptions extends React.Component {
   }
 
   onKeyDown(e) {
-    switch(e.keyCode) {
+    switch(parseKeyCode(e)) {
       case 13: {
         // Enter
         this.onClick(e);
@@ -65,7 +67,7 @@ class SelectOptions extends React.Component {
         // See: github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-noninteractive-element-interactions.md
         return (
           <li key={option.id} data-id={option.id} className={className}>
-            <div role="presentation" onClick={self.onClick} onKeyDown={self.onKeyDown}>
+            <div data-id={option.id} role="presentation" onClick={self.onClick} onKeyDown={self.onKeyDown}>
               <IconCollection size="20" fillColor="#4F14C8" />
               {option.html || <span>{option.name}</span>}
             </div>
@@ -79,7 +81,7 @@ class SelectOptions extends React.Component {
     const content = this.props.options.length === 0 ? this.renderEmptyState() : this.renderOptions();
 
     return (
-      <ul className="creatable-select-dropdown-select-options">
+      <ul data-testid="select-options" className="creatable-select-dropdown-select-options">
         {content}
       </ul>
     );

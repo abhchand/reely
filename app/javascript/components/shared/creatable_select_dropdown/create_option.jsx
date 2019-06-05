@@ -1,10 +1,16 @@
+import {parseKeyCode} from "utils";
 import PropTypes from "prop-types";
 import React from "react";
 
 class CreateOption extends React.Component {
   static propTypes = {
     searchInputValue: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    labelGenerator: PropTypes.func
+  };
+
+  static defaultProps = {
+    labelGenerator: (text) => ( `Create '${text}'` )
   }
 
   constructor(props) {
@@ -12,30 +18,21 @@ class CreateOption extends React.Component {
 
     this.onClick = this.onClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.formatText = this.formatText.bind(this);
   }
 
-  onClick() {
+  // eslint-disable-next-line no-unused-vars
+  onClick(_e) {
     const optionName = this.props.searchInputValue.trim();
     this.props.onClick(optionName);
   }
 
   onKeyDown(e) {
-    switch(e.keyCode) {
+    switch(parseKeyCode(e)) {
       case 13:
         // Enter
-        this.onClick();
+        this.onClick(e);
         break;
     }
-  }
-
-  formatText(text) {
-    return (
-      I18n.t(
-        "components.shared.creatable_select_dropdown_menu.create_option.label",
-        { name: text }
-      )
-    );
   }
 
   render() {
@@ -47,12 +44,13 @@ class CreateOption extends React.Component {
 
     return(
       <div
+        data-testid="create-option"
         role="button"
         tabIndex={0}
         className="creatable-select-dropdown-create-option"
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
-        <span>{this.formatText(optionName)}</span>
+        <span>{this.props.labelGenerator(optionName)}</span>
       </div>
     );
   }

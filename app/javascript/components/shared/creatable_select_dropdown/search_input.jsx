@@ -18,7 +18,7 @@ class SearchInput extends React.Component {
   };
 
   static defaultProps = {
-    placeholder: I18n.t("components.shared.creatable_select_dropdown_menu.search_input.default_placeholder")
+    placeholder: "Search..."
   }
 
   constructor(props) {
@@ -84,7 +84,8 @@ class SearchInput extends React.Component {
       if (query.length <= 0) {
         results.push({
           id: option.id,
-          html: <span>{option.name}</span>
+          name: name,
+          html: <span>{name}</span>
         });
         continue;
       }
@@ -104,6 +105,7 @@ class SearchInput extends React.Component {
 
         results.push({
           id: option.id,
+          name: name,
           html: <span>{a}<span className="highlight">{b}</span>{c}</span>
         });
 
@@ -115,7 +117,7 @@ class SearchInput extends React.Component {
 
   render() {
     return (
-      <div className="creatable-select-dropdown-search-input">
+      <div data-testid="search-input" className="creatable-select-dropdown-search-input">
         <input
           type="text"
           placeholder={this.props.placeholder}

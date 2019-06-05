@@ -11,10 +11,10 @@ class CreatableSelectDropdown extends React.Component {
     onCreate: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
 
-    textForSearchInputPlaceholder: PropTypes.string,
+    textForCloseMenuButton: PropTypes.string,
     textForOptionsEmptyState: PropTypes.string,
-    textForCloseMenuButton: PropTypes.string
-
+    textForSearchInputPlaceholder: PropTypes.string,
+    textGeneratorForCreateOption: PropTypes.func
   }
 
   constructor(props) {
@@ -55,14 +55,14 @@ class CreatableSelectDropdown extends React.Component {
   }
 
   renderMenuClosed() {
-    return <OpenMenuButton openMenu={this.openMenu} />;
+    return <OpenMenuButton onClick={this.openMenu} />;
   }
 
   renderMenuOpen() {
     return (
       <div tabIndex={-1} className="creatable-select-dropdown-container">
         <CloseMenuButton
-          closeMenu={this.closeMenu}
+          onClick={this.closeMenu}
           label={this.props.textForCloseMenuButton} />
 
         <DropdownMenu
@@ -71,7 +71,8 @@ class CreatableSelectDropdown extends React.Component {
           handleSelect={this.onSelect}
           handleCreate={this.onCreate}
           textForSearchInputPlaceholder={this.props.textForSearchInputPlaceholder}
-          textForOptionsEmptyState={this.props.textForOptionsEmptyState} />
+          textForOptionsEmptyState={this.props.textForOptionsEmptyState}
+          textGeneratorForCreateOption={this.props.textGeneratorForCreateOption} />
       </div>
     );
   }

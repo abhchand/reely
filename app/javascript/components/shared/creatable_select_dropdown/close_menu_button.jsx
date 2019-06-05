@@ -1,26 +1,29 @@
+import {parseKeyCode} from "utils";
 import PropTypes from "prop-types";
 import React from "react";
+
 
 const CloseMenuButton = (props) => {
   return (
     <div
+      data-testid="close-menu-button"
       role="button"
       className="creatable-select-dropdown__close-menu-button"
       tabIndex={0}
-      onClick={props.closeMenu}
-      onKeyPress={props.closeMenu}>
+      onClick={props.onClick}
+      onKeyPress={(e) => { if (parseKeyCode(e) === 13 /* Enter */) { props.onClick(e); } }}>
       <span>{props.label}</span>
     </div>
   );
 };
 
 CloseMenuButton.propTypes = {
-  closeMenu: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   label: PropTypes.string
 };
 
 CloseMenuButton.defaultProps = {
-  label: I18n.t("components.shared.creatable_select_dropdown_menu.close_menu_button.default_label")
+  label: "Close"
 };
 
 export default CloseMenuButton;

@@ -11,7 +11,8 @@ module.exports = {
   ],
   "moduleDirectories": [
     "node_modules",
-    "app/javascript"
+    "app/javascript",
+    "spec/javascript"
   ],
   "setupFilesAfterEnv": [
     "<rootDir>/spec/javascript/jest.setup.js"

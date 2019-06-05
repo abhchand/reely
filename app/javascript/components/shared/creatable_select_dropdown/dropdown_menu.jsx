@@ -12,8 +12,9 @@ class DropdownMenu extends React.Component {
     handleSelect: PropTypes.func.isRequired,
     handleCreate: PropTypes.func.isRequired,
 
+    textForOptionsEmptyState: PropTypes.string,
     textForSearchInputPlaceholder: PropTypes.string,
-    textForOptionsEmptyState: PropTypes.string
+    textGeneratorForCreateOption: PropTypes.func
   }
 
   constructor(props) {
@@ -64,7 +65,7 @@ class DropdownMenu extends React.Component {
 
   render() {
     return (
-      <div className="creatable-select-dropdown-menu">
+      <div data-testid="dropdown-menu" className="creatable-select-dropdown-menu">
         <SearchInput
           options={this.props.options}
           filteredOptions={this.state.filteredOptions}
@@ -84,7 +85,8 @@ class DropdownMenu extends React.Component {
 
         <CreateOption
           searchInputValue={this.state.searchInputValue}
-          onClick={this.props.handleCreate} />
+          onClick={this.props.handleCreate}
+          labelGenerator={this.props.textGeneratorForCreateOption} />
       </div>
     );
   }
