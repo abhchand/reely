@@ -1,31 +1,12 @@
-$collection_card_padding: 3px;
-
 .collections-card {
   @extend .soft-shadow;
-  width: 51%;
-  margin: 10px 0;
+  width: 200px;
+  margin: 10px 15px 10px 0;
 
-  padding: $collection_card_padding;
+  padding: 3px;
 
-  // Introduce a midway point between screen-xs and screen-sm to make
-  // the responsive transitions work a bit better
-  @media screen and (min-width: 680px) {
-    width: 40%;
-    margin: 10px 15px 10px 0;
-  }
-  @include breakpoint($screen-sm) {
-    width: 30%;
-  }
   @include breakpoint($screen-md) {
-    width: 25%;
-  }
-  @include breakpoint($screen-lg) {
-    width: 20%;
-  }
-
-  &:hover {
-    // box-shadow: 1px 0 12px 1px $medium-gray;
-    border-radius: 2px;
+    width: 300px;
   }
 }
 .collections-card__cover-photos {
@@ -37,13 +18,20 @@ $collection_card_padding: 3px;
   margin: 0 auto;
 }
 .collections-card__cover-photo {
-  width: 48%;
+  // Width accounts for padding and margin of containing elements
+  width: 95px;
   margin: 1px;
-  padding-top: 48%;
+  padding-top: 95px;
   background-repeat: no-repeat;
   background-position: center center;
 
   background-size: cover;
+
+  @include breakpoint($screen-md) {
+    // Width accounts for padding and margin of containing elements
+    width: 145px;
+    padding-top: 145px;
+  }
 }
 
 .collections-card__cover-photo--blank {
@@ -61,7 +49,7 @@ $collection_card_padding: 3px;
   display: inline-block;
   max-width: 150px;
 
-  max-height: 40px;
+  height: 20px;
   margin: 0;
   padding-left: 3px;
   overflow: hidden;
@@ -86,7 +74,7 @@ $collection_card_padding: 3px;
 .collections-card__menu {
   @extend .hard-shadow;
   position: absolute;
-  right: $collection_card_padding;
+  right: 3px;
   bottom: 0;
 
   display: none;

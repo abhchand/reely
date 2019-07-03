@@ -18,15 +18,18 @@
 
   position:relative;
 
-  // For lower widths the collections card becomes 1 card per row, which
-  // causes this element to no longer maintain its height. At these smaller
-  // widths we work around that by having it take on a square aspect ratio by
-  // setting padding bottom equal to the width (as taken from .collections-card)
-  padding-bottom: 51%;
+  // This element expands its height to match the generated
+  // height of the collections cards. When no cards exist, its
+  // height becomes 0px, so we have to set a minimum height
+  // here. The minimum height is not exact - it's a manual approximation
+  // based on the generated height of the card at different
+  // breakpoints.
+  min-height: 240px;
   border: dashed 1px $dark_purple;
   box-shadow: none;
-  @media screen and (min-width: 680px) {
-    padding-bottom: 0;
+
+  @include breakpoint($screen-md) {
+    min-height: 340px
   }
 
   &:hover {
