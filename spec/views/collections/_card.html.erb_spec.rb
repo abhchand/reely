@@ -30,6 +30,35 @@ RSpec.describe "collections/_card.html.erb", type: :view do
       end
     end
 
+    describe "photo orientation" do
+      let(:collection) { create_collection_with_photos(photo_count: 3) }
+
+      it "displays the photo with correct orientation" do
+        photos = collection.cover_photos
+
+        photos[0].exif_data["orientation"] = "Rotate 90 CW"
+        photos[1].exif_data["orientation"] = "Horizontal (normal)"
+        photos[2].exif_data["orientation"] = nil
+        photos.map(&:save!)
+
+        render_partial
+
+        expected_transforms = [
+          /transform:\s?rotate\(90deg\)/,
+          /transform:\s?rotate/,
+          /transform:\s?rotate/
+        ]
+
+        (0..3).each do |photo_idx|
+          photo_el = page.find(
+            ".collections-card__cover-photo[data-id='#{photo_idx}']"
+          )
+
+          expect(photo_el["style"]).to match(expected_transforms[photo_idx])
+        end
+      end
+    end
+
     context "collection has less than 4 photos" do
       let(:collection) { create_collection_with_photos(photo_count: 3) }
 

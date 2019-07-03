@@ -15,7 +15,7 @@ RSpec.shared_examples "photo grid" do
       expect(photo_el["data-id"]).to eq(photo.synthetic_id)
       expect(
         photo_el.find(".photo-grid__photo")["style"]
-      ).to eq("background-image:url(#{path});")
+      ).to eq("background-image:url(#{path})")
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.shared_examples "photo grid" do
       end
 
       style = style_for.call(0)
-      expect(style).to match(/transform:\s?rotate\(90deg\);/)
+      expect(style).to match(/transform:\s?rotate\(90deg\)/)
 
       style = style_for.call(1)
       expect(style).to_not match(/transform:\s?rotate/)
@@ -70,7 +70,7 @@ RSpec.shared_examples "photo grid" do
       end
 
       style = style_for.call(0)
-      expect(style).to match(/transform:\s?rotate\(-90deg\);/)
+      expect(style).to match(/transform:\s?rotate\(-90deg\)/)
 
       style = style_for.call(1)
       expect(style).to_not match(/transform:\s?rotate/)
