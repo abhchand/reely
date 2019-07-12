@@ -1,4 +1,6 @@
 <%= render_inside(parent_layout: "application") do %>
+  <%= render "layouts/flash", flash: flash %>
+
   <section class="responsive-navigation-view-container responsive-navigation-view-container--mobile">
     <%= render "mobile_navigation" %>
   </section>
