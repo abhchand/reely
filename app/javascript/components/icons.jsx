@@ -7,15 +7,11 @@ class IconCollection extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -44,15 +40,11 @@ class IconArrowThickLeft extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -69,15 +61,11 @@ class IconArrowThickRight extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -94,15 +82,11 @@ class IconCheckMark extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -121,15 +105,11 @@ class IconCircle extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -150,16 +130,12 @@ class IconFilledCircle extends React.Component {
     size: PropTypes.string,
     fillColor: PropTypes.string,
     strokeColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE",
-      strokeColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE",
+    strokeColor: "#EEEEEE"
   }
 
   render() {
@@ -182,15 +158,11 @@ class IconPencilWithSquares extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -223,18 +195,12 @@ class IconPencilWithSquares extends React.Component {
 class IconPlus extends React.Component {
   static propTypes = {
     size: PropTypes.string,
-    fillColor: PropTypes.string,
-    strokeColor: PropTypes.string
-  }
+    fillColor: PropTypes.string
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE",
-      strokeColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
@@ -253,15 +219,11 @@ class IconX extends React.Component {
   static propTypes = {
     size: PropTypes.string,
     fillColor: PropTypes.string
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      size: "32",
-      fillColor: "#EEEEEE"
-    };
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
   }
 
   render() {
