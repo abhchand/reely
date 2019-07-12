@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   layout "with_responsive_navigation"
 
-  before_action :ensure_xhr_only, only: %i[create update add_photos destroy]
+  before_action :ensure_xhr_only, only: %i[update add_photos destroy]
   before_action :collection, only: %i[show update add_photos destroy]
   before_action :only_my_collection, only: %i[show update add_photos destroy]
 
@@ -25,6 +25,15 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: json, status: status }
+
+      format.html do
+        if status == 200
+          redirect_to collection_path(@collection)
+        else
+          flash[:error] = t("collections.create.error")
+          redirect_to root_path
+        end
+      end
     end
   end
 

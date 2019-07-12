@@ -70,6 +70,8 @@ en:
   collections:
     index:
       heading: Collections
+    create:
+      error: Something went wrong when creating the collection
     card:
       delete: Delete
       share: Share

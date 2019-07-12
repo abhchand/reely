@@ -57,16 +57,9 @@ RSpec.describe CollectionsController, type: :controller do
       }
     end
 
-    context "request is not xhr" do
-      it "redirects to root_path" do
-        post :create, params: params, xhr: false
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     it "creates the collection" do
       expect do
-        post :create, params: params, xhr: true
+        post :create, params: params
       end.to change { Collection.count }.by(1)
 
       collection = Collection.last
@@ -74,24 +67,50 @@ RSpec.describe CollectionsController, type: :controller do
       expect(collection.name).to eq("Some Name")
     end
 
-    it "returns a 200 OK JSON response" do
-      post :create, params: params, xhr: true
+    context "format json" do
+      before { params[:format] = "json" }
 
-      collection = Collection.last
-      expect(JSON.parse(response.body)).to eq(collection.as_json)
-      expect(response.code).to eq("200")
-    end
+      it "returns a 200 OK JSON response" do
+        post :create, params: params
 
-    context "error in creating collection" do
-      before do
-        allow_any_instance_of(Collection).to receive(:save) { false }
+        collection = Collection.last
+        expect(JSON.parse(response.body)).to eq(collection.as_json)
+        expect(response.code).to eq("200")
       end
 
-      it "returns a 400 Error JSON response" do
-        post :create, params: params, xhr: true
+      context "error in creating collection" do
+        before do
+          allow_any_instance_of(Collection).to receive(:save) { false }
+        end
 
-        expect(JSON.parse(response.body)).to eq({})
-        expect(response.code).to eq("400")
+        it "returns a 400 Error JSON response" do
+          post :create, params: params
+
+          expect(JSON.parse(response.body)).to eq({})
+          expect(response.code).to eq("400")
+        end
+      end
+    end
+
+    context "format html" do
+      it "redirects to the show page for the new collection" do
+        post :create, params: params
+
+        collection = Collection.last
+        expect(response).to redirect_to(collection_path(collection))
+      end
+
+      context "error in creating collection" do
+        before do
+          allow_any_instance_of(Collection).to receive(:save) { false }
+        end
+
+        it "redirects to root_path with a flash error" do
+          post :create, params: params
+
+          expect(response).to redirect_to(root_path)
+          expect(flash["error"]).to eq(t("collections.create.error"))
+        end
       end
     end
   end
