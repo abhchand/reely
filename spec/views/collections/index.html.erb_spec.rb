@@ -15,8 +15,9 @@ RSpec.describe "collections/index.html.erb", type: :view do
   it "renders the create link" do
     render
 
-    link = page.find(".collections-index-create")
-    expect(link["href"]).to eq(root_path)
+    form = page.find(".collections-index-create")
+    expect(form["method"]).to eq("post")
+    expect(form["action"]).to eq(collections_path)
   end
 
   it "renders each collection card" do

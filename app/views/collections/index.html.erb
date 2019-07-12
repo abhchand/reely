@@ -5,7 +5,7 @@
 </h1>
 
 <div class="collections-index-container page-content">
-  <%= link_to(root_path, class: "collections-index-create") do %>
+  <%= button_to(collections_path, form_class: "collections-index-create", params: { "collection[name]": "Untitled" }) do %>
     <%= inline_svg("icons/plus.svg", height: "32px", width: "32px") %>
   <% end %>
 
