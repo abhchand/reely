@@ -1,4 +1,4 @@
-import {openCollectionsDeleteModal} from "common.js"
+import {openCollectionsDeleteModal, openCollectionsShareModal} from "common.js"
 
 $(document).ready(function() {
   $("body#collections-index").click(function(e) {
@@ -23,6 +23,7 @@ $(document).ready(function() {
     }
   });
 
+  // Delete
   $(".collections-card").on("click", ".collections-card__menu-item--delete", function(e) {
     var card = $(this).parents(".collections-card");
 
@@ -30,6 +31,16 @@ $(document).ready(function() {
     var dataName = $(card).attr("data-name");
 
     openCollectionsDeleteModal(dataId, dataName);
+  });
+
+  // Share
+  $(".collections-card").on("click", ".collections-card__menu-item--share", function(e) {
+    var card = $(this).parents(".collections-card");
+
+    var dataId = $(card).attr("data-id");
+    var dataName = $(card).attr("data-name");
+
+    openCollectionsShareModal(dataId, dataName);
   });
 
   function closeAllMenus() {

@@ -25,4 +25,5 @@ import "application/flash.js";
 import "collections/_card.js";
 import "collections/_delete_modal.js";
 import "collections/_editable_name_heading.js";
+import "collections/_share_modal.js";
 import "collections/show.js";

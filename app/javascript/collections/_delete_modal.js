@@ -1,9 +1,9 @@
 $(document).ready(function() {
   $(".collections-delete-modal").on("click", ".modal-content__button--submit", function(e) {
 
-    // It is expected that whatever process opens the delete modal also sets the relevant
-    // data-id attribute for use here
-    var dataId = $(".modal").attr("data-id");
+    // It is expected that whatever process opens the delete modal also
+    // sets the relevant data-id attribute for use here
+    var dataId = $(".collections-delete-modal").attr("data-id");
 
     // Disable submit
     $(e.target).prop("disabled", true);

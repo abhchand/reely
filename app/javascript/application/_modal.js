@@ -3,6 +3,10 @@ $(document).ready(function() {
     closeModal();
   });
 
+  $(".modal-content__button--close").click(function(e) {
+    closeModal();
+  });
+
   $("body").on("keyup", function(e) {
     // Escape Key
     if (e.keyCode === 27 && $('.modal').is(':visible')) closeModal();

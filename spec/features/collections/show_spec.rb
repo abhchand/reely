@@ -74,7 +74,7 @@ RSpec.feature "collections show page", type: :feature do
 
     it "user can delete a collection" do
       click_delete_icon
-      expect(page).to have_selector(".modal", visible: true)
+      expect(page).to have_selector(".collections-delete-modal", visible: true)
 
       expect do
         click_delete_modal_submit
@@ -86,14 +86,14 @@ RSpec.feature "collections show page", type: :feature do
 
     it "user can cancel the deletion" do
       click_delete_icon
-      expect(page).to have_selector(".modal", visible: true)
+      expect(page).to have_selector(".collections-delete-modal", visible: true)
 
       expect do
         click_delete_modal_cancel
       end.to change { Collection.count }.by(0)
 
       expect(page).to have_current_path(collection_path(collection))
-      expect(page).to have_selector(".modal", visible: false)
+      expect(page).to have_selector(".collections-delete-modal", visible: false)
     end
 
     context "collection name was updated" do
@@ -118,7 +118,8 @@ RSpec.feature "collections show page", type: :feature do
 
         click_delete_icon
 
-        expect(page.find(".modal-content__heading")).to have_content(
+        heading = page.find(".collections-delete-modal .modal-content__heading")
+        expect(heading).to have_content(
           strip_tags(
             t("collections.delete_modal.heading", collection_name: @new_name)
           )
@@ -136,6 +137,21 @@ RSpec.feature "collections show page", type: :feature do
     end
   end
 
+  describe "sharing collection", :js do
+    before do
+      log_in(user)
+      visit collection_path(collection)
+    end
+
+    it "user can open and close the share modal" do
+      click_share_icon
+      expect(page).to have_selector(".collections-share-modal", visible: true)
+
+      click_share_modal_close
+      expect(page).to have_selector(".collections-share-modal", visible: false)
+    end
+  end
+
   def click_outside_textarea
     # Pick an arbitrary element somewhere else on the page
     page.find(".collections-show__date-range").click
@@ -146,11 +162,25 @@ RSpec.feature "collections show page", type: :feature do
   end
 
   def click_delete_modal_submit
-    page.find(".modal-content__button--submit").click
-    wait_for_ajax
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--submit").click
+      wait_for_ajax
+    end
   end
 
   def click_delete_modal_cancel
-    page.find(".modal-content__button--cancel").click
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--cancel").click
+    end
+  end
+
+  def click_share_icon
+    page.find(".collections-show__action-bar-item--share").click
+  end
+
+  def click_share_modal_close
+    within(".collections-share-modal") do
+      page.find(".modal-content__button--close").click
+    end
   end
 end

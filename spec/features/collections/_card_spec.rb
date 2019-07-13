@@ -80,6 +80,23 @@ RSpec.feature "collections card", type: :feature do
     end
   end
 
+  describe "sharing collection", :js do
+    it "user can open and close the share modal" do
+      collection1 = create_collection_with_photos(owner: user)
+      _collection2 = create_collection_with_photos(owner: user)
+
+      visit collections_path
+
+      open_menu(collection1)
+
+      click_share_menu_option(collection1)
+      expect(page).to have_selector(".collections-share-modal", visible: true)
+
+      click_share_modal_close
+      expect(page).to have_selector(".collections-share-modal", visible: false)
+    end
+  end
+
   def find_collection(collection)
     page.find(".collections-card[data-id='#{collection.synthetic_id}']")
   end
@@ -95,12 +112,27 @@ RSpec.feature "collections card", type: :feature do
   end
 
   def click_delete_modal_submit
-    page.find(".modal-content__button--submit").click
-    wait_for_ajax
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--submit").click
+      wait_for_ajax
+    end
   end
 
   def click_delete_modal_cancel
-    page.find(".modal-content__button--cancel").click
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--cancel").click
+    end
+  end
+
+  def click_share_menu_option(collection)
+    collection_el = find_collection(collection)
+    collection_el.find(".collections-card__menu-item--share").click
+  end
+
+  def click_share_modal_close
+    within(".collections-share-modal") do
+      page.find(".modal-content__button--close").click
+    end
   end
 
   def expect_menu_is_closed(collection)
