@@ -1,6 +1,7 @@
 require "rails_helper"
 # rubocop:disable LineLength
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
+require Rails.root.join("spec/support/shared_examples/models/concerns/has_share_id").to_s
 # rubocop:enable LineLength
 
 RSpec.describe Collection, type: :model do

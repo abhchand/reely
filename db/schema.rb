@@ -40,9 +40,11 @@ ActiveRecord::Schema.define(version: 2019_04_15_040203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "synthetic_id", null: false
+    t.string "share_id", null: false
     t.integer "owner_id", null: false
     t.string "name", null: false
     t.index ["owner_id"], name: "index_collections_on_owner_id"
+    t.index ["share_id"], name: "index_collections_on_share_id", unique: true
     t.index ["synthetic_id"], name: "index_collections_on_synthetic_id", unique: true
   end
 
