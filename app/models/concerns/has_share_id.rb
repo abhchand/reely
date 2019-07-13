@@ -7,10 +7,6 @@ module HasShareId
     before_validation :generate_share_id, on: :create
   end
 
-  def to_param
-    share_id
-  end
-
   def generate_share_id
     self[:share_id] ||= loop do
       # TODO: Instead of downcasing, use `base36` after upgrading to Rails 6
