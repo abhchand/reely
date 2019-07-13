@@ -138,7 +138,7 @@ RSpec.feature "collections show page", type: :feature do
 
   def click_outside_textarea
     # Pick an arbitrary element somewhere else on the page
-    page.find(".collections-index__date-range").click
+    page.find(".collections-show__date-range").click
   end
 
   def click_delete_icon

@@ -10,7 +10,7 @@
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
 <% if @date_range_label %>
-<div class="collections-index__date-range">
+<div class="collections-show__date-range">
   <%= @date_range_label %>
 </div>
 <% end %>
@@ -29,7 +29,7 @@
   <%= t(".empty") %>
 </div>
 <% else %>
-<div class="collections-index__photo-grid-container photo-grid-container page-content">
+<div class="collections-show__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
       "photo_grid",
