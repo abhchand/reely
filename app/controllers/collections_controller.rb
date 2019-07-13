@@ -1,9 +1,11 @@
 class CollectionsController < ApplicationController
   layout "with_responsive_navigation"
 
-  before_action :ensure_xhr_only, only: %i[update add_photos destroy]
-  before_action :collection, only: %i[show update add_photos destroy]
-  before_action :only_my_collection, only: %i[show update add_photos destroy]
+  # rubocop:disable LineLength
+  before_action :ensure_xhr_only, only: %i[update add_photos destroy accessibility]
+  before_action :collection, only: %i[show update add_photos destroy accessibility]
+  before_action :only_my_collection, only: %i[show update add_photos destroy accessibility]
+  # rubocop:enable LineLength
 
   def index
     @collections = current_user.collections.order(created_at: :desc)
@@ -64,6 +66,12 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: {}, status: status }
+    end
+  end
+
+  def accessibility
+    respond_to do |format|
+      format.json { render json: @collection.accessibility, status: 200 }
     end
   end
 

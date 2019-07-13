@@ -16,7 +16,17 @@ class Collection < ApplicationRecord
     end
   end
 
+  def share_path
+    Rails.application.routes.url_helpers.shared_collection_path(
+      id: self[:share_id]
+    )
+  end
+
   def cover_photos
     @cover_photos ||= photos.order(:created_at).first(4)
+  end
+
+  def accessibility
+    { share_path: share_path }
   end
 end

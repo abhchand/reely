@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/log-out", to: "sessions#destroy"
 
   resources :collections, only: [:index, :show, :create, :update, :destroy] do
+    get "accessibility" => "collections#accessibility"
     put "add-photos" => "collections#add_photos"
   end
 

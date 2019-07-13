@@ -287,4 +287,29 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
   end
+
+  describe "GET #accessibility" do
+    let(:collection) { create_collection_with_photos(owner: user) }
+
+    let(:params) do
+      {
+        collection_id: collection.synthetic_id
+      }
+    end
+
+    context "request is not xhr" do
+      it "redirects to root_path" do
+        put :accessibility, params: params, xhr: false
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    it "returns the accessibility info for the collection" do
+      put :accessibility, params: params, xhr: true
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)).
+        to eq(collection.accessibility.stringify_keys)
+    end
+  end
 end
