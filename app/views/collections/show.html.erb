@@ -1,12 +1,12 @@
 <%= render "delete_modal" %>
 
+<%= render "editable_name_heading", collection: @collection %>
+
 <div class="collections-show__back-btn">
   <%= link_to(collections_path) do %>
     <%= inline_svg("icons/arrow-thick-left.svg", height: "20px", width: "20px") %>
   <% end %>
 </div>
-
-<%= render "editable_name_heading", collection: @collection %>
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
 <% if @date_range_label %>
