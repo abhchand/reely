@@ -9,6 +9,8 @@
 
 <div class="flash <%= classes %>">
   <div class="flash__message col-xs-10 col-xs-push-1 no-gutter">
-    <%= flash_hash.values.first unless flash.empty? %>
+    <% unless flash.empty? %>
+      <%= flash_hash.values.first %> <span class="close"><%= t(".close") %></span>
+    <% end %>
   </div>
 </div>

@@ -23,4 +23,20 @@
   &.notice {
     background: $light-green;
   }
+
+  .flash__message {
+    .close {
+
+      // Matches bootstrap a:focus color;
+      color: #337AB7;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.15s ease-in;
+
+      &:hover {
+        // Matches overriden bootstrap a:focus color;
+        color: #23527C;
+      }
+    }
+  }
 }

@@ -3,14 +3,20 @@ require "rails_helper"
 RSpec.feature "Flash message", type: :feature do
   let!(:user) { create(:user) }
 
-  it "displays the flash" do
+  it "displays the flash message and close 'link'" do
     visit root_path
 
     click_submit
 
+    expected_message = [
+      t("sessions.create.authenticate.blank_email"),
+      t("layouts.flash.close")
+    ].join(" ")
+
     expect(find(".flash")).to be_visible
-    expect(find(".flash .flash__message").text).
-      to eq(t("sessions.create.authenticate.blank_email"))
+    expect(find(".flash .flash__message").text).to eq(expected_message)
+    expect(find(".flash .flash__message .close").text).
+      to eq(t("layouts.flash.close"))
   end
 
   it "allows the user to close the flash", js: true do
