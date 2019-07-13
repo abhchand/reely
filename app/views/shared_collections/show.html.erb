@@ -1,0 +1,29 @@
+<h1 class="page-heading">
+  <%= @collection.name %>
+</h1>
+
+<%= render "shared/photo_count", photo_count: @photo_count %>
+
+<% if @date_range_label %>
+<div class="shared-collections-show__date-range">
+  <%= @date_range_label %>
+</div>
+<% end %>
+
+<% if @photo_count.zero? %>
+<div class="shared-collections-show__emtpy-state">
+  <%= t(".empty") %>
+</div>
+<% else %>
+<div class="shared-collections-show__photo-grid-container photo-grid-container page-content">
+  <%=
+    react_component(
+      "photo_grid",
+      {
+        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
+      },
+      { prerender: Rails.env.test? }
+    )
+  %>
+</div>
+<% end %>

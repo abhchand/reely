@@ -1,0 +1,16 @@
+.shared-collections-show__date-range {
+  margin-left: 20px;
+  color: $dark-gray;
+  text-align: left;
+
+  @include breakpoint($screen-xs) {
+    margin-left: 40px;
+  }
+}
+.shared-collections-show__emtpy-state {
+  @extend .empty-state;
+
+  margin: 80px auto;
+}
+.shared-collections-show__photo-grid-container {
+}

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # rubocop:disable Style/SymbolArray
+  # rubocop:disable LineLength
   root to: "site#index"
 
   mount Sidekiq::Web => "/sidekiq", constraints: Sidekiq::AdminConstraint.new
@@ -16,5 +17,8 @@ Rails.application.routes.draw do
   namespace :photos do
     resources :source_file, only: :show, path: :file
   end
+
+  resources :c, only: :show, controller: :shared_collections, as: "shared_collection"
+  # rubocop:enable LineLength
   # rubocop:enable Style/SymbolArray
 end
