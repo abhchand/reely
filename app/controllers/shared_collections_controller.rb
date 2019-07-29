@@ -1,7 +1,7 @@
 class SharedCollectionsController < CollectionsController
   layout "application"
 
-  skip_before_action :ensure_authentication
+  skip_before_action :authenticate_user!
   skip_before_action :only_my_collection
 
   def show

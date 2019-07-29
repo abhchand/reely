@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe PhotosController, type: :controller do
   let(:user) { create(:user) }
 
-  before { session[:user_id] = user.id }
+  before { sign_in(user) }
 
   describe "GET index" do
     let(:collection) { create_collection_with_photos(owner: user) }

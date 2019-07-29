@@ -1,8 +1,10 @@
 module Sidekiq
   class AdminConstraint
     def matches?(request)
-      return false unless request.session[:user_id]
-      user = User.find_by_id(request.session[:user_id])
+      user_id = request.session["warden.user.user.key"].dig(0, 0)
+
+      return false unless user_id
+      user = User.find_by_id(user_id)
       user && Ability.new(user).can?(:manage, :sidekiq)
     end
   end

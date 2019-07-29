@@ -9,7 +9,7 @@ RSpec.describe "photos/index.html.erb", type: :view do
   before do
     stub_view_context
     # rubocop:disable LineLength
-    stub_template "layouts/action_notifications" => "_stubbed_action_notifications"
+    stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
     stub_template "shared/_photo_count.html.erb" => "_stubbed_photo_count"
     # rubocop:enable LineLength
 

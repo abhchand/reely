@@ -1,3 +1,89 @@
+//
+// BEGIN: Default Style Sheet (https://drafts.csswg.org/css2/sample.html)
+//
+html, address,
+blockquote,
+body, dd, div,
+dl, dt, fieldset, form,
+frame, frameset,
+h1, h2, h3, h4,
+h5, h6, noframes,
+ol, p, ul, center,
+dir, hr, menu, pre   { display: block; unicode-bidi: embed }
+li              { display: list-item }
+head            { display: none }
+table           { display: table }
+tr              { display: table-row }
+thead           { display: table-header-group }
+tbody           { display: table-row-group }
+tfoot           { display: table-footer-group }
+col             { display: table-column }
+colgroup        { display: table-column-group }
+td, th          { display: table-cell }
+caption         { display: table-caption }
+th              { font-weight: bolder; text-align: center }
+caption         { text-align: center }
+body            { margin: 8px }
+h1              { margin: .67em 0; font-size: 2em }
+h2              { margin: .75em 0; font-size: 1.5em }
+h3              { margin: .83em 0; font-size: 1.17em }
+h4, p,
+blockquote, ul,
+fieldset, form,
+ol, dl, dir,
+menu            { margin: 1.12em 0 }
+h5              { margin: 1.5em 0; font-size: .83em }
+h6              { margin: 1.67em 0; font-size: .75em }
+h1, h2, h3, h4,
+h5, h6, b,
+strong          { font-weight: bolder }
+blockquote      { margin-right: 40px; margin-left: 40px }
+i, cite, em,
+var, address    { font-style: italic }
+pre, tt, code,
+kbd, samp       { font-family: monospace }
+pre             { white-space: pre }
+button, textarea,
+input, select   { display: inline-block }
+big             { font-size: 1.17em }
+small, sub, sup { font-size: .83em }
+sub             { vertical-align: sub }
+sup             { vertical-align: super }
+table           { border-spacing: 2px; }
+thead, tbody,
+tfoot           { vertical-align: middle }
+td, th, tr      { vertical-align: inherit }
+s, strike, del  { text-decoration: line-through }
+hr              { border: 1px inset }
+ol, ul, dir,
+menu, dd        { margin-left: 40px }
+ol              { list-style-type: decimal }
+ol ul, ul ol,
+ul ul, ol ol    { margin-top: 0; margin-bottom: 0 }
+u, ins          { text-decoration: underline }
+br:before       { content: "\A"; white-space: pre-line }
+center          { text-align: center }
+:link, :visited { text-decoration: underline }
+:focus          { outline: thin dotted invert }
+
+/* Begin bidirectionality settings (do not change) */
+BDO[DIR="ltr"]  { direction: ltr; unicode-bidi: bidi-override }
+BDO[DIR="rtl"]  { direction: rtl; unicode-bidi: bidi-override }
+
+*[DIR="ltr"]    { direction: ltr; unicode-bidi: embed }
+*[DIR="rtl"]    { direction: rtl; unicode-bidi: embed }
+
+@media print {
+  h1            { page-break-before: always }
+  h1, h2, h3,
+  h4, h5, h6    { page-break-after: avoid }
+  ul, ol, dl    { page-break-before: avoid }
+}
+
+//
+// END: Default Style Sheet
+//
+
 html {
   height: 100%;
 }
@@ -12,6 +98,10 @@ body {
 
 nav, section {
   display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $black;
 }
 
 ul, li {
@@ -30,36 +120,6 @@ ul, li {
   -moz-padding-start: 0;
 }
 
-h1, h2, h3 {
-  margin: 0;
-  font-family: $heading-font;
-}
-
-h1 {
-  color: $white;
-  font-weight: 300;
-  font-size: 5rem;
-  line-height: 50px;
-}
-
-h2 {
-  color: $white;
-  font-size: 2.25rem;
-  line-height: 30px;
-}
-
-h3 {
-  color: $white;
-  font-size: 1.25rem;
-  line-height: 26px;
-}
-
-a, a:hover, a:focus {
+a, a:hover, a:focus, :link, :visited {
   text-decoration: none;
-}
-
-@media (min-width: $screen-sm) {
-  h1 { font-size: 0.8 * 5rem; }
-  h2 { font-size: 0.8 * 2.25rem; }
-  h3 { font-size: 0.8 * 1.25rem; }
 }

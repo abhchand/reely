@@ -1,3 +1,7 @@
+require Rails.root.join("config/smtp")
+
+# rubocop:disable Metrics/BlockLength
+
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the
   # project's package.json
@@ -18,8 +22,23 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # ActionMailer
+  config.consider_all_requests_local = true
+  config.action_controller.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = SMTP_SETTINGS
+  config.action_mailer.preview_path = "spec/mailers/previews"
+  config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "localhost"),
+    port: ENV.fetch("APP_PORT", "3000")
+  }
+
+  Mail.register_interceptor(
+    RecipientInterceptor.new(ENV.fetch("EMAIL_INTERCEPT"))
+  )
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -63,8 +82,6 @@ Rails.application.configure do
   # options)
   config.active_storage.service = :local
 
-  config.action_mailer.perform_caching = false
-
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
@@ -75,3 +92,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+# rubocop:enable Metrics/BlockLength

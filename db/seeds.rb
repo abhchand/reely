@@ -5,7 +5,7 @@ user = FactoryBot.create(
   first_name: "Sindhu",
   last_name: "Iyer",
   email: "test@example.com",
-  password: "test"
+  password: "test!123"
 )
 
 # Import each photo under the test path

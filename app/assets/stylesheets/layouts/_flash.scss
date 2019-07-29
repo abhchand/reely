@@ -20,7 +20,7 @@
     background: $mustard;
   }
 
-  &.notice {
+  &.notice, &.alert {
     background: $light-green;
   }
 

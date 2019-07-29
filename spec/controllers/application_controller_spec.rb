@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe ApplicationController, type: :controller do
   let(:user) { create(:user) }
 
-  describe "#ensure_authentication" do
+  describe "#authenticate_user!" do
     controller(ApplicationController) do
-      before_action :ensure_authentication
+      before_action :authenticate_user!
 
       def index
         render plain: "test"
@@ -13,7 +13,7 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     context "user is authenticated" do
-      before { session[:user_id] = user.id }
+      before { sign_in(user) }
 
       it "renders the action" do
         get :index
@@ -22,11 +22,9 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     context "user is not authenticated" do
-      it "redirects to root_path with a :dest parameter" do
+      it "redirects to new_user_session_path" do
         get :index
-
-        requested_path = ERB::Util.url_encode("/anonymous")
-        expect(response).to redirect_to(root_path(dest: requested_path))
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -40,7 +38,7 @@ RSpec.describe ApplicationController, type: :controller do
       end
     end
 
-    before { session[:user_id] = user.id }
+    before { sign_in(user) }
 
     context "request is xhr" do
       it "renders the action" do

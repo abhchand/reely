@@ -9,6 +9,32 @@ FactoryBot.define do
     first_name { "Alonzo" }
     last_name { "Harris" }
     password { FeatureHelpers::DEFAULT_PASSWORD }
+    confirmed_at { Time.zone.now }
+    confirmation_token { Devise.friendly_token }
+
+    trait(:native) do
+      password { FeatureHelpers::DEFAULT_PASSWORD }
+      confirmed_at { Time.zone.now }
+      confirmation_token { Devise.friendly_token }
+    end
+
+    trait(:omniauth) do
+      password { nil }
+      confirmed_at { nil }
+      confirmation_token { nil }
+      provider { User::OMNIAUTH_PROVIDERS.first }
+      sequence(:uid) { |n| n.to_s.rjust(8, "0") }
+    end
+
+    trait(:unconfirmed) do
+      confirmed_at { nil }
+      confirmation_token { nil }
+      confirmation_sent_at { nil }
+    end
+
+    trait(:pending_reconfirmation) do
+      unconfirmed_email { "unconfirmed@xyz.com" }
+    end
 
     after(:create) do |user, e|
       if e.with_avatar

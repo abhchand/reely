@@ -1,0 +1,25 @@
+<%= render "layouts/flash" %>
+
+<div class="auth__container container">
+  <div class="auth__logo">
+    <%= inline_svg("logo.svg", height: "100px", width: "100px") %>
+  </div>
+
+  <h1 class="auth__heading"><%= t(".heading") %></h1>
+
+  <%= render "users/shared/error_messages", user: @user %>
+
+  <%= form_for(@user, as: :user, url: user_password_path, html: { method: :post, class: "auth__form" }) do |f| %>
+    <div class="auth__form-input">
+      <%= f.email_field(:email, autofocus: true, autocomplete: "email", placeholder: User.human_attribute_name(:email)) %>
+      <%= f.label(:email, User.human_attribute_name(:email)) %>
+    </div>
+
+    <div class="auth__form-input auth__form-input--submit">
+      <%= f.submit(t(".form.submit"), data: { disable_with: t("form.disable_with") }, class: "cta cta-purple") %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>

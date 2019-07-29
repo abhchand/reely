@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe CollectionsController, type: :controller do
   let(:user) { create(:user) }
 
-  before { session[:user_id] = user.id }
+  before { sign_in(user) }
 
   describe "GET index" do
     it "assigns @collections as all of current user's collections" do

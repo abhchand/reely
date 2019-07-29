@@ -18,7 +18,7 @@
   <meta name="msapplication-config" content="<%= image_path("favicons/browserconfig.xml") %>">
   <meta name="theme-color" content="#ffffff">
 
-  <% ["Raleway", "Open+Sans"].each do |family| %>
+  <% GOOGLE_FONTS.each do |family| %>
     <%=
       stylesheet_link_tag(
         "http://fonts.googleapis.com/css?family=#{family}",

@@ -1,0 +1,32 @@
+<%= render "layouts/flash" %>
+
+<div class="auth__container container">
+  <div class="auth__logo">
+    <%= inline_svg("logo.svg", height: "100px", width: "100px") %>
+  </div>
+
+  <h1 class="auth__heading"><%= t(".heading") %></h1>
+
+  <%= render "users/shared/error_messages", user: @user %>
+
+  <%= form_for(@user, as: :user, url: user_password_path, html: { method: :put, class: "auth__form" }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
+
+    <div class="auth__form-input">
+      <%= f.password_field(:password, autofocus: true, autocomplete: "new-password",placeholder: User.human_attribute_name(:password)) %>
+      <%= f.label(:password, User.human_attribute_name(:password)) %>
+    </div>
+
+    <div class="auth__form-input">
+      <%= f.password_field(:password_confirmation, autocomplete: "off", placeholder: User.human_attribute_name(:password_confirmation)) %>
+      <%= f.label(:password_confirmation, User.human_attribute_name(:password_confirmation)) %>
+    </div>
+
+    <div class="auth__form-input auth__form-input--submit">
+      <%= f.submit(t(".form.submit"), data: { disable_with: t("form.disable_with") }, class: "cta cta-purple") %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>

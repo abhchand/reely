@@ -1,0 +1,46 @@
+<h1>
+  <%= t(".heading", name: @user.name) %>
+</h1>
+
+<%= form_for(@user, as: :user, url: user_registration_path(@user), html: { method: :put }) do |f| %>
+  <div class="field">
+    <%= f.label :email, User.human_attribute_name(:email) %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
+    <div><%= t(".form.pending_confirmation", email: @user.unconfirmed_email) %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :password, User.human_attribute_name(:password) %> <i>(<%= t(".form.password_explanation") %>)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, User.human_attribute_name(:password_confirmation) %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password, User.human_attribute_name(:current_password) %><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t(".form.submit") %>
+  </div>
+<% end %>
+
+<h3><%= t(".cancel") %></h3>
+
+<p>
+  <%=
+    button_to(
+      t(".cancel"),
+      user_registration_path(@user),
+      data: { confirm: t(".confirm_cancel") },
+      method: :delete
+    )
+  %>
+</p>

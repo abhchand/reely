@@ -1,15 +1,16 @@
 require "rails_helper"
 
 RSpec.feature "Flash message", type: :feature do
-  let!(:user) { create(:user) }
-
   it "displays the flash message and close 'link'" do
-    visit root_path
+    log_in(User.new, email: "bad-email@ga.gov")
 
-    click_submit
+    expect(page).to have_current_path(new_user_session_path)
 
     expected_message = [
-      t("sessions.create.authenticate.blank_email"),
+      t(
+        "devise.failure.invalid",
+        authentication_keys: User.human_attribute_name(:email)
+      ),
       t("layouts.flash.close")
     ].join(" ")
 
@@ -20,15 +21,12 @@ RSpec.feature "Flash message", type: :feature do
   end
 
   it "allows the user to close the flash", js: true do
-    visit root_path
+    log_in(User.new, email: "bad-email@ga.gov")
 
-    click_submit
+    expect(page).to have_current_path(new_user_session_path)
+
+    expect(page).to have_selector(".flash")
     find(".flash").click
-
     expect(page).to_not have_selector(".flash")
-  end
-
-  def click_submit
-    click_button(t("site.index.form.submit"))
   end
 end

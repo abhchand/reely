@@ -1,0 +1,9 @@
+<% if user.errors.any? %>
+  <div class="auth__form-errors">
+    <ul>
+      <% user.errors.keys.each do |key| %>
+        <li><%= user.errors[key].first %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

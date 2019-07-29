@@ -1,0 +1,47 @@
+.omniauth-btn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 230px;
+
+  .logo {
+    display: inline-block;
+  }
+
+  .label {
+    display: inline-block;
+  }
+}
+
+.omniauth-btn--google {
+  // Google Branding guidelines: https://developers.google.com/identity/branding-guidelines;
+  height: 40px;
+  border: solid 1px #4285F4;
+  border-radius: 1px;
+
+  .logo {
+    width: 34px;
+    height: 100%;
+    background: $white;
+
+    svg {
+      margin: 11px 8px;
+    }
+  }
+
+  .label {
+    width: 196px;
+    height: 40px;
+    padding-right: 16px;
+    padding-left: 16px;
+    color: $white;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    background: #4285F4;
+    size: 14px;
+
+    span {
+      line-height: 40px;
+    }
+  }
+}

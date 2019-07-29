@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/BlockLength
+
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the
   # project's package.json
@@ -66,10 +68,15 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery
-  # to raise delivery errors.
+  # ActionMailer
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = SMTP_SETTINGS
+  config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST"),
+    port: ENV.fetch("APP_PORT")
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -109,8 +116,6 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "reely_#{Rails.env}"
 
-  config.action_mailer.perform_caching = false
-
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
@@ -122,3 +127,5 @@ Rails.application.configure do
   end
   # rubocop:enable LineLength
 end
+
+# rubocop:enable Metrics/BlockLength

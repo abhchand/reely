@@ -21,11 +21,11 @@
     </li>
 
     <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
-      <%= link_to(t(".links.settings"), "#") %>
+      <%= link_to(t(".links.account"), account_profile_index_path) %>
     </li>
 
     <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
-      <%= link_to(t(".links.log_out"), log_out_path) %>
+      <%= link_to(t(".links.log_out"), destroy_user_session_path) %>
     </li>
   </ul>
 

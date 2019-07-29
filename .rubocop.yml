@@ -31,15 +31,17 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   ExcludedMethods:
     - context
+    - define
     - describe
-    - it
+    - draw
+    - factory
     - feature
+    - it
+    - namespace
+    - proc
     - shared_examples
     - shared_examples_for
-    - namespace
     - task
-    - proc
-    - draw
 Metrics/ModuleLength:
   Enabled: false
 Metrics/ClassLength:

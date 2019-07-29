@@ -32,12 +32,14 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory
   config.active_storage.service = :test
 
-  config.action_mailer.perform_caching = false
-
+  # ActionMailer
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: "localhost", port: "3000" }
+  config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
+  config.action_mailer.perform_caching = false
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random

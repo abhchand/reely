@@ -48,8 +48,8 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
       [t("#{@t_prefix}.links.people"), "#"],
       [t("#{@t_prefix}.links.favorites"), "#"],
       [t("#{@t_prefix}.links.collections"), collections_path],
-      [t("#{@t_prefix}.links.settings"), "#"],
-      [t("#{@t_prefix}.links.log_out"), log_out_path]
+      [t("#{@t_prefix}.links.account"), account_profile_index_path],
+      [t("#{@t_prefix}.links.log_out"), destroy_user_session_path]
     ]
 
     page.all(".mobile-navigation__link-element").each do |el|

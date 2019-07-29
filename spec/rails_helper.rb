@@ -1,3 +1,7 @@
+# Load dotenv file(s) manually
+require "dotenv"
+Dotenv.load(File.expand_path("../.env.test"))
+
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../config/environment", __dir__)
 

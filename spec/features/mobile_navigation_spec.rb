@@ -14,7 +14,7 @@ RSpec.feature "Mobile Navigation", type: :feature do
       expect_menu_is_open
 
       click_link(t("#{@t_prefix}.links.log_out"))
-      expect(page).to have_current_path(root_path)
+      expect(page).to have_current_path(new_user_session_path)
     end
 
     describe "closing the menu" do

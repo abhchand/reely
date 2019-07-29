@@ -66,3 +66,64 @@
   font-size: 18px;
   font-style: italic;
 }
+
+//
+// Auth
+//
+
+.auth__container {
+  margin-top: 60px;
+  padding: 0 15px;
+}
+
+.auth__logo {
+  margin: 30px 0;
+}
+
+.auth__heading {
+  width: 300px;
+  margin: auto;
+  font-weight: 500;
+}
+
+.auth__form-errors {
+  margin: 20px 0;
+  color: red;
+}
+
+.auth__form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.auth__form-input {
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+    height: 48px;
+
+    @include breakpoint($screen-xs) {
+      width: 300px;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    // Floating invisible labels
+    font-size: 12.5px;
+    -webkit-transform: translateY(25%);
+    transform: translateY(25%);
+    opacity: 0;
+  }
+}
+
+.auth__links {
+}

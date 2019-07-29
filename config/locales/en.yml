@@ -1,4 +1,9 @@
 en:
+
+  #
+  # General / Shared
+  #
+
   time:
     formats:
       # Apr 2017
@@ -9,6 +14,12 @@ en:
   form:
     disable_with: Please wait...
 
+  generic_error: Oops, something went wrong. Please try again
+
+  #
+  # Models
+  #
+
   activerecord:
     models:
       user: User
@@ -18,15 +29,88 @@ en:
         last_name: Last name
         email: Email
         password: Password
+        password_confirmation: Confirm Password
+        current_password: Current Password
+      omniauth_provider:
+        google_oauth2: Google
     errors:
       models:
         user:
           attributes:
+            base:
+              omniauth_not_recoverable: This account exists, but was created through %{provider} authentication. Please try signing in using %{provider}
             first_name:
               blank: Please provide a first name
             last_name:
               blank: Please provide a last name
-            email: Please provide an email
+            email:
+              blank: Please provide an email
+              invalid: Email is not a valid email
+              taken: Email has already been taken
+              not_found: Email not found
+            encrypted_password:
+              invalid: "Invalid internal password format: Please contact site administrator"
+            password:
+              blank: Password can not be blank
+              invalid: Your password must be at least 6 characters and contain one letter, one number, and one special character (!#$%&)
+            password_confirmation:
+              confirmation: Password confirmation does not match password
+            confirmation_token:
+              blank: Missing confirmation token
+              invalid: Invalid confirmation link
+            reset_password_token:
+              invalid: Invalid reset password link
+              expired: Link has expired, please request a new one
+            provider:
+              blank: Please specify a provider along with a uid
+            uid:
+              blank: Please specify a uid along with a provider
+
+
+  #
+  # Mailers
+  #
+
+  devise_mailer:
+    users:
+      confirmation_instructions:
+        subject: Confirmation instructions
+        greeting: Welcome %{name}!
+        line1: You can confirm your account email through the link below
+        confirm_email_link: Confirm my account
+
+      reset_password_instructions:
+        subject: Reset password instructions
+        greeting: Hey %{name}!
+        line1: Someone has requested a link to change your password. You can do this through the link below.
+        line2: Your password won't change until you access the link above and create a new one.
+        reset_password_link: Change my password
+
+  example_mailer:
+    new_example:
+      subject: Test Subject
+
+  #
+  # Frontend Components
+  #
+
+  # components:
+  #   my_comonent:
+
+  #
+  # Views / Controllers
+  #
+
+  account:
+    profile:
+      index:
+        heading: Settings for %{name}
+        form:
+          pending_confirmation: "Currently waiting confirmation for: %{email}"
+          password_explanation: leave blank if you don't want to change it
+          submit: Update
+        cancel: Cancel my account
+        confirm_cancel: Are you sure?
 
   application:
     navigation:
@@ -37,7 +121,7 @@ en:
           people: people
           favorites: favorites
           collections: collections
-          settings: settings
+          account: account
           log_out: log out
     desktop_navigation:
       <<: *shared_navigation
@@ -103,19 +187,40 @@ en:
     show:
       empty: There are no photos (yet!) in this collection
 
-  sessions:
-    create:
-      authenticate:
-        blank_email: Please enter an email
-        blank_password: Please enter a password
-        invalid_login: Invalid email or password
-
   shared:
     photo_count:
       label:
         one: <span>1</span> photo
         other: <span>%{count}</span> photos
-  site:
-    index:
-      form:
-        submit: Log In
+
+  users:
+    shared:
+      links:
+        log_in: Log In
+        register: Sign Up
+        reset_password: Forgot your password?
+        resend_confirmation: Didn't receive confirmation instructions?
+    confirmations:
+      new:
+        heading: Resend confirmation instructions
+        form:
+          submit: Resend
+    passwords:
+      edit:
+        heading: Change your password
+        form:
+          submit: Change my password
+      new:
+        heading: Forgot your password?
+        form:
+          submit: Reset
+    registrations:
+      new:
+        heading: Sign Up
+        form:
+          submit: Sign Up
+    sessions:
+      new:
+        heading: Log In
+        form:
+          submit: Log In
