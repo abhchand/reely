@@ -1,3 +1,5 @@
+require "open-uri"
+
 module UserManagement
   module Omniauth
     class GoogleOauth2Service
@@ -58,7 +60,9 @@ module UserManagement
       def attach_avatar
         return true if avatar_url.blank?
 
-        file = File.open(avatar_url)
+        # rubocop:disable Security/Open
+        file = open(avatar_url)
+        # rubocop:enable Security/Open
         user.avatar.attach(io: file, filename: SecureRandom.hex)
         true
       rescue StandardError => e
