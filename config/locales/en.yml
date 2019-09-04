@@ -195,7 +195,7 @@ en:
 
   users:
     shared:
-      links:
+      native_links:
         log_in: Log In
         register: Sign Up
         reset_password: Forgot your password?

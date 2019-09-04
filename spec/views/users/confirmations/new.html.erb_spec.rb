@@ -7,7 +7,7 @@ RSpec.describe "users/confirmations/new.html.erb", type: :view do
     # rubocop:disable LineLength
     stub_template "layouts/_flash.html.erb" => "_stubbed_flash"
     stub_template "users/shared/_error_messages.html.erb" => "_stubbed_error_messages"
-    stub_template "users/shared/_links.html.erb" => "_stubbed_users_links"
+    stub_template "users/shared/_native_links.html.erb" => "_stubbed_users_native_links"
     # rubocop:enable LineLength
 
     assign(:user, user)
@@ -32,7 +32,7 @@ RSpec.describe "users/confirmations/new.html.erb", type: :view do
 
     is_expected.to have_content("_stubbed_flash")
     is_expected.to have_content("_stubbed_error_messages")
-    is_expected.to have_content("_stubbed_users_links")
+    is_expected.to have_content("_stubbed_users_native_links")
 
     # Email
 
