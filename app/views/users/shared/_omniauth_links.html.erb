@@ -1,9 +1,14 @@
 <ul class="auth__links auth__links--omniauth">
   <li>
     <a href="<%= omniauth_authorize_path(:user, "google_oauth2") %>">
-      <div class="omniauth-btn omniauth-btn--google">
+      <div class="omniauth-btn omniauth-btn--google_oauth2">
         <div class="logo"><%= inline_svg("omniauth/google.svg", height: "18px", width: "18px" ) %></div>
-        <div class="label"><span>Sign In With Google</span></div>
+        <% if controller_name == "sessions" %>
+          <div class="label"><span><%= t(".log_in_with.google_oauth2") %></span></div>
+        <% end %>
+        <% if controller_name == "registrations" %>
+          <div class="label"><span><%= t(".register_with.google_oauth2") %></span></div>
+        <% end %>
       </div>
     </a>
   </li>

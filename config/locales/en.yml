@@ -200,6 +200,11 @@ en:
         register: Sign Up
         reset_password: Forgot your password?
         resend_confirmation: Didn't receive confirmation instructions?
+      omniauth_links:
+        log_in_with:
+          google_oauth2: Log In With Google
+        register_with:
+          google_oauth2: Sign Up With Google
     confirmations:
       new:
         heading: Resend confirmation instructions
@@ -217,10 +222,12 @@ en:
     registrations:
       new:
         heading: Sign Up
+        or: Or
         form:
           submit: Sign Up
     sessions:
       new:
         heading: Log In
+        or: Or
         form:
           submit: Log In

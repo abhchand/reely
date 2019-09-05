@@ -28,6 +28,8 @@ RSpec.describe "users/sessions/new.html.erb", type: :view do
       to have_content(t("#{@t_prefix}.heading"))
 
     expect(page.find(".auth__form")["action"]).to eq(user_session_path)
+    expect(page.find(".auth__action-conditional")).
+      to have_content(t("#{@t_prefix}.or"))
 
     # Partials
 
