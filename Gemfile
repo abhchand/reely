@@ -53,6 +53,7 @@ group :development do
   gem "capistrano-rails", "~> 1.1", ">= 1.1.7"
   gem "capistrano-rvm", "~> 0.1.2"
   gem "highline", "~> 2.0"
+  gem "letter_opener", "~> 1.7"
   gem "rubocop-git", "~> 0.1.3"
   gem "spring"
   gem "web-console", "~> 2.0"

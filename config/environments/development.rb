@@ -27,7 +27,8 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method =
+    ENV["PREVIEW_EMAIL_IN_BROWSER"].present? ? :letter_opener : :smtp
   config.action_mailer.smtp_settings = SMTP_SETTINGS
   config.action_mailer.preview_path = "spec/mailers/previews"
   config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
