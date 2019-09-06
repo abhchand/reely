@@ -1,8 +1,5 @@
 <div class="desktop-header">
-  <div class="desktop-header__image desktop-header__image--logo">
-    <%= link_to(inline_svg("logo.svg", height: "36px", width: "36px"), root_path) %>
-  </div>
-  <div class="desktop-header__image desktop-header__image--profile-pic">
+  <div class="desktop-header__profile-pic">
     <%= link_to(root_path) do %>
       <%= image_tag(current_user_presenter.avatar_path) %>
     <% end %>

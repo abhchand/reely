@@ -1,16 +1,14 @@
 <%= render_inside(parent_layout: "application") do %>
-  <%= render "layouts/flash", flash: flash %>
-
-  <section class="responsive-navigation-view-container responsive-navigation-view-container--mobile">
+  <section class="responsive-navigation-view-container">
+    <%= render "desktop_navigation" %>
     <%= render "mobile_navigation" %>
-  </section>
 
-  <section class="responsive-navigation-view-container responsive-navigation-view-container--desktop">
-    <%= render "desktop_header" %>
+    <div class="responsive-navigation-content-container">
+      <%= render "desktop_header" %>
+      <%= render "mobile_header" %>
+      <%= render "layouts/flash", flash: flash %>
 
-    <div class="responsive-navigation-content-container responsive-navigation-content-container--desktop">
-      <%= render "desktop_navigation" %>
-      <div class="responsive-navigation-content responsive-navigation-content--desktop">
+      <div class="responsive-navigation-content">
         <%= yield %>
       </div>
     </div>

@@ -1,6 +1,10 @@
 <nav class="desktop-navigation">
+  <div class="desktop-navigation__logo">
+    <%= link_to(inline_svg("logo.svg", height: "36px", width: "36px"), root_path) %>
+  </div>
+
   <ul class="desktop-navigation__links">
-    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+    <li class="desktop-navigation__link-element">
       <%= link_to(t(".links.my_photos"), photos_path) %>
     </li>
 
@@ -16,20 +20,16 @@
       <%= link_to(t(".links.favorites"), "#") %>
     </li>
 
-    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+    <li class="desktop-navigation__link-element">
       <%= link_to(t(".links.collections"), collections_path) %>
     </li>
 
-    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+    <li class="desktop-navigation__link-element">
       <%= link_to(t(".links.account"), account_profile_index_path) %>
     </li>
 
-    <li class="desktop-navigation__link-element desktop-navigation__link-element--major">
+    <li class="desktop-navigation__link-element">
       <%= link_to(t(".links.log_out"), destroy_user_session_path) %>
     </li>
   </ul>
-
-  <div class="desktop-navigation__toggle">
-    <%= inline_svg("icons/double-chevron-left.svg", height: "32px", width: "32px") %>
-  </div>
 </nav>

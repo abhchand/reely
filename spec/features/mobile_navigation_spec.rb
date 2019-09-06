@@ -25,12 +25,12 @@ RSpec.feature "Mobile Navigation", type: :feature do
       end
 
       it "user can close the menu by clicking the close button" do
-        find(".mobile-navigation__footer").click
+        find(".mobile-navigation__close").click
         expect_menu_is_closed
       end
 
       it "user can close the menu by clicking the overlay" do
-        # The overlay is 400x730 in size
+        # The overlay is 400x730 in size (100% filling the mobile window)
         # `click` by default clicks on the center of the element, but in this
         # case the overlay is covered by the menu itself and is not clickable
         # Manually specify a coordinate *offset* to click on
@@ -42,35 +42,21 @@ RSpec.feature "Mobile Navigation", type: :feature do
   end
 
   def click_menu_icon
-    find(".mobile-navigation__menu-icon").click
+    find(".mobile-header__menu-icon").click
     wait_for_ajax
   end
 
   def expect_menu_is_closed
     wait_for_ajax
 
-    # Menu
-    css_prefix = ".mobile-navigation__links-container"
-    expect(page).to have_css("#{css_prefix}.inactive", visible: false)
-    expect(page).to_not have_css("#{css_prefix}.active")
-
-    # Overlay
-    css_prefix = ".mobile-navigation__overlay"
-    expect(page).to have_css("#{css_prefix}.inactive", visible: false)
-    expect(page).to_not have_css("#{css_prefix}.active")
+    expect(page).to have_selector(".mobile-navigation")
+    expect(page).to have_selector(".mobile-navigation__overlay", visible: false)
   end
 
   def expect_menu_is_open
     wait_for_ajax
 
-    # Menu
-    css_prefix = ".mobile-navigation__links-container"
-    expect(page).to have_css("#{css_prefix}.active", visible: true)
-    expect(page).to_not have_css("#{css_prefix}.inactive")
-
-    # Overlay
-    css_prefix = ".mobile-navigation__overlay"
-    expect(page).to have_css("#{css_prefix}.active", visible: true)
-    expect(page).to_not have_css("#{css_prefix}.inactive")
+    expect(page).to have_selector(".mobile-navigation")
+    expect(page).to have_selector(".mobile-navigation__overlay")
   end
 end

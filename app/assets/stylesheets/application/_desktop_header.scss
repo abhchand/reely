@@ -5,34 +5,24 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
 
     width: 100%;
-    height: 50px;
+    height: 75px;
+    min-height: 75px;
     border-bottom: solid 1px $medium-gray;
   }
 }
-.desktop-header__image {
-  width: 36px;
-  height: 36px;
+.desktop-header__profile-pic {
+  width: 42px;
+  height: 42px;
+  margin-right: 25px;
 
   img {
     max-width: 100%;
     height: auto;
     max-height: 100%;
-    margin-bottom: 15px;
-
-    border-width: 2px;
-    border-style: solid;
-    border-color: $dark-purple;
     border-radius: 50%;
   }
-}
-.desktop-header__image--logo {
-  margin-left: 20px;
-}
-.desktop-header__image--profile-pic {
-  margin-right: 5%;
-  margin-left: auto;
 }

@@ -11,19 +11,6 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
     @t_prefix = "application.mobile_navigation"
   end
 
-  it "displays a navigation header with a logo and menu icon" do
-    render
-
-    header = page.find(".mobile-navigation__header")
-
-    logo = header.find(".mobile-navigation__logo > a")
-    expect(logo["href"]).to eq(root_path)
-    expect(logo).to have_selector("svg")
-
-    menu_icon = header.find(".mobile-navigation__menu-icon")
-    expect(menu_icon).to have_selector("svg")
-  end
-
   it "displays the user's profile" do
     render
 
@@ -58,5 +45,11 @@ RSpec.describe "application/_mobile_navigation.html.erb", type: :view do
     end
 
     expect(expected_links).to eq(actual_links)
+  end
+
+  it "renders the close link" do
+    render
+
+    expect(page).to have_selector(".mobile-navigation__close > svg")
   end
 end

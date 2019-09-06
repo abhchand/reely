@@ -1,18 +1,18 @@
 $(document).ready(function() {
   //
-  // Mobile menu icon in navbar
+  // Open mobile menu
   //
-  $(".mobile-navigation").on("click", ".mobile-navigation__menu-icon", function(e) {
+  $(".mobile-header").on("click", ".mobile-header__menu-icon", function(e) {
     e.preventDefault();
-    toggleMobileDropdown();
+    toggleMobileMenu();
   });
 
   //
-  // Close menu button in mobile dropdown menu footer
+  // Close mobile menu
   //
-  $(".mobile-navigation").on("click", ".mobile-navigation__footer", function(e) {
+  $(".mobile-navigation").on("click", ".mobile-navigation__close", function(e) {
     e.preventDefault();
-    toggleMobileDropdown();
+    toggleMobileMenu();
   });
 
   //
@@ -20,12 +20,12 @@ $(document).ready(function() {
   //
   $("body").on("click", ".mobile-navigation__overlay", function(e) {
     e.preventDefault();
-    toggleMobileDropdown();
+    toggleMobileMenu();
   });
 
-  function toggleMobileDropdown() {
-    var mobileDropdownEl = $(".mobile-navigation__links-container");
-    var overlayEl = $(".mobile-navigation__overlay");
+  function toggleMobileMenu() {
+    const mobileDropdownEl = $(".mobile-navigation");
+    const overlayEl = $(".mobile-navigation__overlay");
 
     if ($(mobileDropdownEl).hasClass("active")) {
       // Disable menu

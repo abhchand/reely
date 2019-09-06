@@ -9,21 +9,12 @@ RSpec.describe "application/_desktop_header.html.erb", type: :view do
     stub_current_user
   end
 
-  it "renders the logo" do
-    render
-
-    logo = page.find(".desktop-header__image--logo")
-
-    expect(logo.find("a")["href"]).to eq(root_path)
-    expect(logo).to have_selector("svg")
-  end
-
   it "renders the profile pic" do
     render
 
-    expect(page.find(".desktop-header__image--profile-pic > a")["href"]).
+    expect(page.find(".desktop-header__profile-pic > a")["href"]).
       to eq(root_path)
-    expect(page.find(".desktop-header__image--profile-pic img")["src"]).
+    expect(page.find(".desktop-header__profile-pic img")["src"]).
       to eq(user_presenter.avatar_path)
   end
 end

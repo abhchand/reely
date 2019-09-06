@@ -8,6 +8,15 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
     @t_prefix = "application.desktop_navigation"
   end
 
+  it "renders the logo" do
+    render
+
+    logo = page.find(".desktop-navigation__logo")
+
+    expect(logo.find("a")["href"]).to eq(root_path)
+    expect(logo).to have_selector("svg")
+  end
+
   it "renders the navigation links" do
     render
 

@@ -17,7 +17,6 @@ import "core-js/stable";
 
 import "common.js";
 
-import "application/_desktop_navigation.js";
 import "application/_mobile_navigation.js";
 import "application/_modal.js";
 import "application/flash.js";

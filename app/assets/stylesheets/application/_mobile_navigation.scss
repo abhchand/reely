@@ -1,70 +1,39 @@
 .mobile-navigation {
-  width: 100%;
-  color: $white;
-  background-color: $white;
-
-  @include breakpoint($screen-xs) {
-    display: none;
-  }
-}
-
-//
-// Header
-//
-
-.mobile-navigation__header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-
-  height: 50px;
-}
-
-.mobile-navigation__logo {
-  svg {
-    margin-top: 5px;
-    margin-left: 10px;
-  }
-}
-
-.mobile-navigation__menu-icon {
-  cursor: pointer;
-
-  svg {
-    // Icon is 12px smaller than logo so
-    // it needs 12/2 = 6px more on each side
-    margin-top: 5px + 6px;
-    margin-right: 10px + 6px;
-    fill: $dark-purple;
-  }
-}
-
-//
-// Links
-//
-
-.mobile-navigation__links-container {
   position: absolute;
   z-index: 99;
-  width: 100%;
-  background-color: $dark-gray;
+  width: 300px;
+  height: 100%;
+  color: $white;
+  background-color: $dark-purple;
 
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
 
-  @include breakpoint($screen-xs) {
-    display: none;
-  }
-
   &.active {
-    top: 0px;
+    left: 0px;
   }
 
   &.inactive {
-    top: -900px;
+    left: -900px;
+  }
+
+  @include breakpoint($screen-xs) {
+    display: none;
+  }
+}
+
+.mobile-navigation__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  svg {
+    cursor: pointer;
+
+    g {
+      stroke: $light-gray;
+    }
   }
 }
 
@@ -77,17 +46,12 @@
 
   width: 120px;
   margin: 0 auto;
-  padding: 15px 0;
+  padding: 50px 0;
 
   img {
-    max-width: 75%;
-    height: auto;
-    max-height: 75%;
+    width: 65px;
+    height: 65px;
     margin-bottom: 15px;
-
-    border-width: 3px;
-    border-style: solid;
-    border-color: $leaf-green;
     border-radius: 50%;
   }
 
@@ -100,50 +64,34 @@
 }
 
 .mobile-navigation__link-element {
-  &.mobile-navigation__link-element--major {
-    height: 50px;
-    padding-left: 20px;
-    font-size: 22px;
-    line-height: 50px;
-    text-align: left;
-  }
+  height: 40px;
+  padding-left: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 40px;
+  text-align: left;
 
-  &.mobile-navigation__link-element--minor {
-    height: 32px;
-    padding-left: 40px;
-    font-size: 16px;
-    line-height: 32px;
-    text-align: left;
+  a {
+    // Display as block and set height so anchor fills up the whole
+    // parent <li>
+    display: block;
+
+    // Boostrap tries to set the anchor color, override it
+    color: $light-gray;
   }
 
   &:hover {
-    background-color: $dark-purple;
-  }
-
-  a {
-    display: block;
-    height: 100%;
-    color: $white;
+    background-color: $white-opacity-30;
   }
 }
 
-.mobile-navigation__footer {
-  text-align: center;
-  // border-top: 2px solid $leaf-green;
-  background-color: $leaf-green;
-  cursor: pointer;
-
-  svg {
-    width: 25px;
-    height: 25px;
-    margin: 10px 0;
-    fill: $white;
-  }
+.mobile-navigation__link-element--minor {
+  height: 32px;
+  padding-left: 40px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: left;
 }
-
-//
-// Overlay
-//
 
 .mobile-navigation__overlay {
   @include breakpoint($screen-xs) {

@@ -1,0 +1,30 @@
+.mobile-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  height: 50px;
+
+  @include breakpoint($screen-xs) {
+    display: none;
+  }
+}
+
+.mobile-header__menu-icon {
+  margin-left: 10px;
+  cursor: pointer;
+
+  svg {
+    fill: $dark-purple;
+  }
+}
+
+.mobile-header__logo {
+  margin-right: 10px;
+
+  svg {
+  }
+}
