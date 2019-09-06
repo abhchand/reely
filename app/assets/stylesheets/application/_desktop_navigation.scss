@@ -2,9 +2,13 @@
   display: none;
 
   @include breakpoint($screen-xs) {
+    // At desktop resolution, left-hand navbar is
+    // fixed on the screen.
+    position: fixed;
     top: 0;
+    bottom: 0;
     display: initial;
-    width: 200px;
+    width: $desktop-navigation-width;
     background-color: $dark-purple;
   }
 }

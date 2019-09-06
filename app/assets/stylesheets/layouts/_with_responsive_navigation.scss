@@ -12,6 +12,13 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
+
+  @include breakpoint($screen-xs) {
+    // At desktop resolution, left-hand navbar is
+    // fixed on the screen. Shift the content under
+    // it by the same width
+    margin-left: $desktop-navigation-width;
+  }
 }
 .responsive-navigation-content {
   width: 100%;
