@@ -5,17 +5,17 @@
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
 <% if @date_range_label %>
-<div class="shared-collections-show__date-range">
+<div class="collections-sharing-display-show__date-range">
   <%= @date_range_label %>
 </div>
 <% end %>
 
 <% if @photo_count.zero? %>
-<div class="shared-collections-show__emtpy-state">
+<div class="collections-sharing-display-show__emtpy-state">
   <%= t(".empty") %>
 </div>
 <% else %>
-<div class="shared-collections-show__photo-grid-container photo-grid-container page-content">
+<div class="collections-sharing-display-show__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
       "photo_grid",

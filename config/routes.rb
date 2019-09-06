@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     resources :source_file, only: :show, path: :file
   end
 
-  resources :c, only: :show, controller: :shared_collections, as: "shared_collection"
+  resources :c, only: :show, controller: "collections/sharing_display", as: "collections_sharing_display"
   # rubocop:enable Style/SymbolArray
   # rubocop:enable LineLength
 end

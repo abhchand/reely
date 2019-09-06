@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SharedCollectionsController, type: :controller do
+RSpec.describe Collections::SharingDisplayController, type: :controller do
   let(:user) { create(:user) }
 
   before { session[:user_id] = user.id }

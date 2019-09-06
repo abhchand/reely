@@ -1,4 +1,4 @@
-.shared-collections-show__date-range {
+.collections-sharing-display-show__date-range {
   margin-left: 20px;
   color: $dark-gray;
   text-align: left;
@@ -7,10 +7,10 @@
     margin-left: 40px;
   }
 }
-.shared-collections-show__emtpy-state {
+.collections-sharing-display-show__emtpy-state {
   @extend .empty-state;
 
   margin: 80px auto;
 }
-.shared-collections-show__photo-grid-container {
+.collections-sharing-display-show__photo-grid-container {
 }

@@ -169,6 +169,9 @@ en:
       heading: Share Collection
       body: Fake body
       close: Close
+    sharing_display:
+      show:
+        empty: There are no photos (yet!) in this collection
     show:
       empty: You have no photos (yet!) in this collection
 
@@ -182,10 +185,6 @@ en:
     index:
       heading: My Photos
       empty: You have no photos
-
-  shared_collections:
-    show:
-      empty: There are no photos (yet!) in this collection
 
   shared:
     photo_count:

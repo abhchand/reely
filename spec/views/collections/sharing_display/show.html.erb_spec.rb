@@ -1,7 +1,7 @@
 require "rails_helper"
 require Rails.root.join("spec/support/shared_examples/views/photo_grid")
 
-RSpec.describe "shared_collections/show.html.erb", type: :view do
+RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
   let(:user) { create(:user) }
 
   before do
@@ -18,7 +18,7 @@ RSpec.describe "shared_collections/show.html.erb", type: :view do
     stub_view_context
     stub_template("shared/_photo_count.html.erb" => "_stubbed_photo_count")
 
-    @t_prefix = "shared_collections.show"
+    @t_prefix = "collections.sharing_display.show"
   end
 
   it "renders a static non-editable heading" do
