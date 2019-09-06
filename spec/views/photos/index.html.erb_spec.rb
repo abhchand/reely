@@ -8,8 +8,10 @@ RSpec.describe "photos/index.html.erb", type: :view do
 
   before do
     stub_view_context
+
     # rubocop:disable LineLength
     stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
+    stub_template "layouts/_flash.html.erb" => "_stubbed_flash"
     stub_template "shared/_photo_count.html.erb" => "_stubbed_photo_count"
     # rubocop:enable LineLength
 
@@ -23,6 +25,11 @@ RSpec.describe "photos/index.html.erb", type: :view do
   it "renders the action notifications" do
     render
     expect(rendered).to have_content("_stubbed_action_notifications")
+  end
+
+  it "renders the flash" do
+    render
+    expect(rendered).to have_content("_stubbed_flash")
   end
 
   it "renders the photo count" do

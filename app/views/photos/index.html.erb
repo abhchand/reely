@@ -1,4 +1,5 @@
 <%= render "layouts/action_notifications", notifications: action_notification_props %>
+<%= render "layouts/flash", flash: flash %>
 
 <% if @photo_count.zero? %>
 <div class="photos-index__emtpy-state">
