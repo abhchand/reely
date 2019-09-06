@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_040203) do
+ActiveRecord::Schema.define(version: 2019_09_06_210040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 2019_04_15_040203) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "shared_collection_recipients", force: :cascade do |t|
+    t.bigint "collection_id", null: false
+    t.bigint "recipient_id", null: false
+    t.index ["collection_id", "recipient_id"], name: "index_shared_collection_recipients_on_collection_and_recipient", unique: true
+    t.index ["recipient_id", "collection_id"], name: "index_shared_collection_recipients_on_recipient_and_collection"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -123,4 +130,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_040203) do
   add_foreign_key "photo_collections", "collections"
   add_foreign_key "photo_collections", "photos"
   add_foreign_key "photos", "users", column: "owner_id"
+  add_foreign_key "shared_collection_recipients", "collections"
+  add_foreign_key "shared_collection_recipients", "users", column: "recipient_id"
 end

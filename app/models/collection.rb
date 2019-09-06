@@ -4,10 +4,15 @@ class Collection < ApplicationRecord
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
 
+  # rubocop:disable LineLength
   has_many :photo_collections, inverse_of: :collection, dependent: :destroy
   has_many :photos, through: :photo_collections
+  has_many :shared_collection_recipients, dependent: :destroy, inverse_of: :collection
+  has_many :sharing_recipients, through: :shared_collection_recipients, source: :recipient
+  # rubocop:enable LineLength
 
   validates :name, presence: true
+  validates :sharing_config, presence: true
 
   def as_json(_options = {})
     super(only: %i[id owner_id name]).tap do |obj|
@@ -16,17 +21,7 @@ class Collection < ApplicationRecord
     end
   end
 
-  def share_path
-    Rails.application.routes.url_helpers.shared_collection_path(
-      id: self[:share_id]
-    )
-  end
-
   def cover_photos
     @cover_photos ||= photos.order(:created_at).first(4)
-  end
-
-  def accessibility
-    { share_path: share_path }
   end
 end

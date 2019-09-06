@@ -11,10 +11,16 @@ RSpec.describe Collection, type: :model do
     it { should belong_to(:owner) }
     it { should have_many(:photo_collections).inverse_of(:collection) }
     it { should have_many(:photos).through(:photo_collections) }
+    it { should have_many(:shared_collection_recipients) }
+    it do
+      should have_many(:sharing_recipients).
+        through(:shared_collection_recipients)
+    end
   end
 
   describe "Validations" do
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:sharing_config) }
   end
 
   describe "#cover_photos" do

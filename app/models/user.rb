@@ -17,6 +17,8 @@ class User < ApplicationRecord
   # rubocop:disable LineLength
   has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
   has_many :collections, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
+  has_many :shared_collection_recipients, dependent: :destroy, inverse_of: :recipient
+  has_many :received_collections, through: :shared_collection_recipients, source: :collection
 
   has_one_attached :avatar
 

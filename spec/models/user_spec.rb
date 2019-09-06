@@ -12,6 +12,11 @@ RSpec.describe User do
   describe "Associations" do
     it { should have_many(:photos) }
     it { should have_many(:collections) }
+    it { should have_many(:shared_collection_recipients) }
+    it do
+      should have_many(:received_collections).
+        through(:shared_collection_recipients)
+    end
   end
 
   describe "validations" do
