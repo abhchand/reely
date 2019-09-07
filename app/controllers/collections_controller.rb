@@ -1,11 +1,12 @@
 class CollectionsController < ApplicationController
+  include CollectionHelper
+
   layout "with_responsive_navigation"
 
-  # rubocop:disable LineLength
-  before_action :ensure_xhr_only, only: %i[update add_photos destroy accessibility]
-  before_action :collection, only: %i[show update add_photos destroy accessibility]
-  before_action :only_my_collection, only: %i[show update add_photos destroy accessibility]
-  # rubocop:enable LineLength
+  before_action :ensure_xhr_only, only: %i[update add_photos destroy]
+  before_action :ensure_json_request, only: %i[update add_photos destroy]
+  before_action :collection, only: %i[show update add_photos destroy]
+  before_action :only_my_collection, only: %i[show update add_photos destroy]
 
   def index
     @collections = current_user.collections.order(created_at: :desc)
@@ -69,27 +70,7 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def accessibility
-    respond_to do |format|
-      format.json { render json: @collection.accessibility, status: 200 }
-    end
-  end
-
   private
-
-  def collection
-    @collection ||= begin
-      id = params[:collection_id] || params[:id]
-      Collection.find_by_synthetic_id(id).tap do |c|
-        handle_collection_not_found if c.blank?
-      end
-    end
-  end
-
-  def only_my_collection
-    return if current_user.owns_collection?(@collection)
-    handle_not_my_collection
-  end
 
   def collections_create_params
     params.require(:collection).permit(
@@ -107,19 +88,5 @@ class CollectionsController < ApplicationController
     params.require(:collection).permit(
       photo_ids: []
     )
-  end
-
-  def handle_collection_not_found
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.json { render json: {}, status: 400 }
-    end
-  end
-
-  def handle_not_my_collection
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.json { render json: {}, status: 400 }
-    end
   end
 end

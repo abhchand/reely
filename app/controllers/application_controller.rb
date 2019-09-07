@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path)
   end
 
+  def ensure_json_request
+    return if (defined? request) && request.format.to_sym == :json
+    redirect_to(root_path)
+  end
+
   def append_view_paths
     append_view_path "app/views/application"
   end

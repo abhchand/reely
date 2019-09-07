@@ -54,4 +54,30 @@ RSpec.describe ApplicationController, type: :controller do
       end
     end
   end
+
+  describe "#ensure_json_request" do
+    controller(ApplicationController) do
+      before_action :ensure_json_request
+
+      def index
+        render json: { "message" => "test" }
+      end
+    end
+
+    before { sign_in(user) }
+
+    context "request is json format" do
+      it "renders the action" do
+        get :index, params: { format: "json" }
+        expect(JSON.parse(response.body)).to eq("message" => "test")
+      end
+    end
+
+    context "request is not json format" do
+      it "redirects to root_path" do
+        get :index, params: { format: "html" }
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end

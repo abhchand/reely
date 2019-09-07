@@ -120,6 +120,7 @@ RSpec.describe CollectionsController, type: :controller do
 
     let(:params) do
       {
+        format: "json",
         id: collection.synthetic_id,
         collection: {
           name: collection.name
@@ -134,10 +135,21 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
 
+    context "request is not json format" do
+      before { params[:format] = "html" }
+
+      it "redirects to root_path" do
+        put :update, params: params, xhr: true
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     context "collection is not found" do
       it "redirects to the root path" do
         put :update, params: params.merge(id: "abcde"), xhr: true
-        expect(response).to redirect_to(root_path)
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
@@ -146,7 +158,9 @@ RSpec.describe CollectionsController, type: :controller do
 
       it "redirects to the root path" do
         put :update, params: params, xhr: true
-        expect(response).to redirect_to(root_path)
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
@@ -168,6 +182,7 @@ RSpec.describe CollectionsController, type: :controller do
         put :update, params: params, xhr: true
 
         expect(collection.reload.name).to eq(old_name)
+
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
       end
@@ -180,6 +195,7 @@ RSpec.describe CollectionsController, type: :controller do
 
     let(:params) do
       {
+        format: "json",
         collection_id: collection.synthetic_id,
         collection: {
           photo_ids: photos.map(&:synthetic_id)
@@ -194,10 +210,21 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
 
+    context "request is not json format" do
+      before { params[:format] = "html" }
+
+      it "redirects to root_path" do
+        put :add_photos, params: params, xhr: true
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
     context "collection is not found" do
       it "redirects to the root path" do
         put :add_photos, params: params.merge(collection_id: "abcde"), xhr: true
-        expect(response).to redirect_to(root_path)
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
@@ -206,7 +233,9 @@ RSpec.describe CollectionsController, type: :controller do
 
       it "redirects to the root path" do
         put :add_photos, params: params, xhr: true
-        expect(response).to redirect_to(root_path)
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
@@ -235,6 +264,7 @@ RSpec.describe CollectionsController, type: :controller do
         put :add_photos, params: params, xhr: true
 
         expect(collection.reload.photos).to eq([])
+
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
       end
@@ -243,18 +273,37 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe "DELETE #destroy" do
     let(:collection) { create_collection_with_photos(owner: user) }
+    let(:params) do
+      {
+        format: "json",
+        id: collection.synthetic_id
+      }
+    end
 
     context "request is not xhr" do
       it "redirects to root_path" do
-        delete :destroy, params: { id: collection.synthetic_id }, xhr: false
+        delete :destroy, params: params, xhr: false
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "request is not json format" do
+      before { params[:format] = "html" }
+
+      it "redirects to root_path" do
+        delete :destroy, params: params, xhr: true
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "collection is not found" do
+      before { params[:id] = "abcde" }
+
       it "redirects to the root path" do
-        delete :destroy, params: { id: "abcde" }, xhr: true
-        expect(response).to redirect_to(root_path)
+        delete :destroy, params: params, xhr: true
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
@@ -262,13 +311,15 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        delete :destroy, params: { id: collection.synthetic_id }, xhr: true
-        expect(response).to redirect_to(root_path)
+        delete :destroy, params: params, xhr: true
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
       end
     end
 
     it "destroys the collection and responds as success" do
-      delete :destroy, params: { id: collection.synthetic_id }, xhr: true
+      delete :destroy, params: params, xhr: true
 
       expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect(response.status).to eq(200)
@@ -279,37 +330,13 @@ RSpec.describe CollectionsController, type: :controller do
       it "does not destroy the collection and responds as failure" do
         allow_any_instance_of(Collection).to receive(:destroy) { false }
 
-        delete :destroy, params: { id: collection.synthetic_id }, xhr: true
+        delete :destroy, params: params, xhr: true
 
         expect { collection.reload }.to_not raise_error
+
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
       end
-    end
-  end
-
-  describe "GET #accessibility" do
-    let(:collection) { create_collection_with_photos(owner: user) }
-
-    let(:params) do
-      {
-        collection_id: collection.synthetic_id
-      }
-    end
-
-    context "request is not xhr" do
-      it "redirects to root_path" do
-        put :accessibility, params: params, xhr: false
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
-    it "returns the accessibility info for the collection" do
-      put :accessibility, params: params, xhr: true
-
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)).
-        to eq(collection.accessibility.stringify_keys)
     end
   end
 end
