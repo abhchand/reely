@@ -73,10 +73,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = SMTP_SETTINGS
   config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
-  config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST"),
-    port: ENV.fetch("APP_PORT")
-  }
+  config.action_mailer.default_url_options = config.x.default_url_options
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
