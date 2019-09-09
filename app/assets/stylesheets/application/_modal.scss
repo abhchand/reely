@@ -46,3 +46,68 @@
   height: 45px;
   margin-right: 5px;
 }
+
+// Loading Spinner
+// Adapted from: https://loading.io/css
+
+.modal-content--loading {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+
+  div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    background: $medium-gray;
+    border-radius: 50%;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+
+  div:nth-child(1) {
+    left: 6px;
+    animation: modal-content--loading1 0.6s infinite;
+  }
+
+  div:nth-child(2) {
+    left: 6px;
+    animation: modal-content--loading2 0.6s infinite;
+  }
+
+  div:nth-child(3) {
+    left: 26px;
+    animation: modal-content--loading2 0.6s infinite;
+  }
+
+  div:nth-child(4) {
+    left: 45px;
+    animation: modal-content--loading3 0.6s infinite;
+  }
+}
+
+@keyframes modal-content--loading1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes modal-content--loading3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes modal-content--loading2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
