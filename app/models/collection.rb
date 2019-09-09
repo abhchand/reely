@@ -12,7 +12,12 @@ class Collection < ApplicationRecord
   # rubocop:enable LineLength
 
   validates :name, presence: true
-  validates :sharing_config, presence: true
+
+  validate do |collection|
+    if collection[:sharing_config].nil?
+      collection.errors.add(:sharing_config, :nil)
+    end
+  end
 
   def as_json(_options = {})
     super(only: %i[id owner_id name]).tap do |obj|

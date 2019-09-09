@@ -6,6 +6,7 @@ class CreateCollections < ActiveRecord::Migration[4.2]
       t.string :share_id, index: { unique: true }, null: false
       t.references :owner, references: :users, index: true, null: false
       t.string :name, null: false
+      t.jsonb :sharing_config, null: false, default: {}
     end
 
     # Can't use `foreign_key:` option when using `references:` option

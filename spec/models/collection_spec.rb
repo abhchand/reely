@@ -20,7 +20,12 @@ RSpec.describe Collection, type: :model do
 
   describe "Validations" do
     it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:sharing_config) }
+
+    describe "#sharing_config" do
+      it { should allow_value({}).for(:sharing_config) }
+      it { should allow_value("foo" => "bar").for(:sharing_config) }
+      it { should_not allow_value(nil).for(:sharing_config) }
+    end
   end
 
   describe "#cover_photos" do

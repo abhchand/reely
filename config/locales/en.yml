@@ -35,6 +35,10 @@ en:
         google_oauth2: Google
     errors:
       models:
+        collection:
+          attributes:
+            sharing_config:
+              nil: Sharing Config can not be NULL
         user:
           attributes:
             base:
