@@ -64,4 +64,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def to_bool(value)
+    ActiveRecord::Type::Boolean.new.deserialize(value)
+  end
 end
