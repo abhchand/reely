@@ -14,12 +14,4 @@ function openCollectionsDeleteModal(dataId, dataName) {
   $(".collections-delete-modal").addClass("active");
 }
 
-function openCollectionsShareModal(dataId, dataName) {
-  // Add data-id to modal
-  $(".collections-share-modal").attr("data-id", dataId);
-
-  // Open modal
-  $(".collections-share-modal").addClass("active");
-}
-
-export {openCollectionsDeleteModal, openCollectionsShareModal};
+export {openCollectionsDeleteModal};

@@ -170,8 +170,6 @@ en:
       cancel: Cancel
       delete: Delete
     share_modal:
-      heading: Share Collection
-      body: Fake body
       close: Close
     sharing_display:
       show:

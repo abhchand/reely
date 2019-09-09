@@ -1,4 +1,5 @@
-import {openCollectionsDeleteModal, openCollectionsShareModal} from "common.js"
+import {openCollectionsDeleteModal} from "common.js";
+import {openCollectionsShareModal} from "./_share_modal.js";
 
 $(document).ready(function() {
   $("body#collections-index").click(function(e) {
@@ -18,27 +19,27 @@ $(document).ready(function() {
     closeAllMenus();
 
     if ($(e.currentTarget).hasClass("collections-card__menu-btn")) {
-      var card = $(e.currentTarget).parents(".collections-card");
+      const card = $(e.currentTarget).parents(".collections-card");
       $(card).addClass("collections-card--menu-open");
     }
   });
 
   // Delete
-  $(".collections-card").on("click", ".collections-card__menu-item--delete", function(e) {
-    var card = $(this).parents(".collections-card");
+  $(".collections-card").on("click", ".collections-card__menu-item--delete", function() {
+    const card = $(this).parents(".collections-card");
 
-    var dataId = $(card).attr("data-id");
-    var dataName = $(card).attr("data-name");
+    const dataId = $(card).attr("data-id");
+    const dataName = $(card).attr("data-name");
 
     openCollectionsDeleteModal(dataId, dataName);
   });
 
   // Share
-  $(".collections-card").on("click", ".collections-card__menu-item--share", function(e) {
-    var card = $(this).parents(".collections-card");
+  $(".collections-card").on("click", ".collections-card__menu-item--share", function() {
+    const card = $(this).parents(".collections-card");
 
-    var dataId = $(card).attr("data-id");
-    var dataName = $(card).attr("data-name");
+    const dataId = $(card).attr("data-id");
+    const dataName = $(card).attr("data-name");
 
     openCollectionsShareModal(dataId, dataName);
   });
