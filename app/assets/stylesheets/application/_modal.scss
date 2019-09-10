@@ -28,6 +28,13 @@
 }
 .modal-content--loading {
 }
+.modal-content--error {
+  height: 50px;
+  margin: 40px 0;
+  font-weight: 700;
+  line-height: 50px;
+  background: $mustard;
+}
 .modal-content__heading {
   color: $black;
   font-size: 20px;
