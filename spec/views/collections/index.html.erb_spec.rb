@@ -9,7 +9,20 @@ RSpec.describe "collections/index.html.erb", type: :view do
 
     assign(:collections, [@collection1, @collection2])
 
+    # rubocop:disable LineLength
+    stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
+    stub_template "collections/_delete_modal.html.erb" => "_stubbed_delete_modal"
+    stub_template "collections/_share_modal.html.erb" => "_stubbed_share_modal"
     stub_template("collections/_card.html.erb" => "_stubbed_collections_card")
+    # rubocop:enable LineLength
+  end
+
+  it "renders the view" do
+    render
+
+    expect(rendered).to have_content("_stubbed_action_notifications")
+    expect(rendered).to have_content("_stubbed_delete_modal")
+    expect(rendered).to have_content("_stubbed_share_modal")
   end
 
   it "renders the create link" do

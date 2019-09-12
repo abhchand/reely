@@ -125,6 +125,43 @@ class IconCircle extends React.Component {
   }
 }
 
+class IconCopy extends React.Component {
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    foregroundFillColor: PropTypes.string
+  };
+
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE",
+    foregroundFillColor: "#FFFFFF"
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g id="icon-copy" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g id="page-2" transform="translate(28.000000, 6.000000)" stroke={this.props.fillColor}>
+            <path d="M2,5.50917336e-15 L45,1.23956401e-13 L57,12 L57,75 C57,76.1045695 56.1045695,77 55,77 L2,77 C0.8954305,77 -1.76282976e-14,76.1045695 -1.77635684e-14,75 L-2.33146835e-14,2 C-2.34499543e-14,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="page" strokeWidth="2"></path>
+            <g id="corner" transform="translate(44.500000, 0.000000)" strokeLinecap="square">
+              <path d="M0.5,12 L12.5,12" id="horizontal-line"></path>
+              <path d="M0.5,-8.8817842e-16 L0.5,12" id="vertical-line"></path>
+            </g>
+          </g>
+          <g id="page-1" transform="translate(18.000000, 15.000000)" stroke={this.props.fillColor}>
+            <path d="M2,5.50917336e-15 L45,1.23956401e-13 L57,12 L57,75 C57,76.1045695 56.1045695,77 55,77 L2,77 C0.8954305,77 -1.76282976e-14,76.1045695 -1.77635684e-14,75 L-2.33146835e-14,2 C-2.34499543e-14,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="page" strokeWidth="2" fill={this.props.foregroundFillColor}></path>
+            <g id="corner" transform="translate(44.500000, 0.000000)" strokeLinecap="square">
+              <path d="M0.5,12 L12.5,12" id="horizontal-line"></path>
+              <path d="M0.5,-8.8817842e-16 L0.5,12" id="vertical-line"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    );
+  }
+}
+
 class IconFilledCircle extends React.Component {
   static propTypes = {
     size: PropTypes.string,
@@ -215,6 +252,29 @@ class IconPlus extends React.Component {
   }
 }
 
+class IconRefresh extends React.Component {
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string
+  };
+
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE"
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g id="icon-refresh" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <path d="M35.5764413,7.36126098 L38.2645075,15.04145 C23.5615994,20.1139791 13,34.0735927 13,50.5 C13,71.2106781 29.7893219,88 50.5,88 C71.2106781,88 88,71.2106781 88,50.5 C88,34.0735927 77.4384006,20.1139791 62.7354925,15.04145 L65.3144338,7.67304628 C82.6278758,13.9384955 95,30.5244156 95,50 C95,74.8528137 74.8528137,95 50,95 C25.1471863,95 5,74.8528137 5,50 C5,30.191978 17.7980998,13.3731124 35.5764413,7.36126098 Z" id="Combined-Shape" fill={this.props.fillColor} transform="translate(50.000000, 51.180630) rotate(19.000000) translate(-50.000000, -51.180630) "></path>
+          <polygon id="Triangle" fill={this.props.fillColor} transform="translate(56.000000, 9.500000) rotate(90.000000) translate(-56.000000, -9.500000) " points="56 3.5 65 15.5 47 15.5"></polygon>
+        </g>
+      </svg>
+    );
+  }
+}
+
 class IconX extends React.Component {
   static propTypes = {
     size: PropTypes.string,
@@ -245,5 +305,6 @@ class IconX extends React.Component {
 
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
-  IconCircle, IconFilledCircle, IconPencilWithSquares, IconPlus, IconX
+  IconCircle, IconCopy, IconFilledCircle, IconPencilWithSquares, IconPlus,
+  IconRefresh, IconX
 };

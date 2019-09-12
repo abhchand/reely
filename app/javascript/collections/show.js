@@ -1,5 +1,5 @@
 import {openCollectionsDeleteModal} from "common.js";
-import {openCollectionsShareModal} from "./_share_modal.js";
+import {openCollectionsShareModal} from "./_share_modal";
 
 // Delete
 $(document).ready(function() {

@@ -41,6 +41,7 @@
     "rails-erb-loader": "^5.4.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-toggle-switch": "^3.0.4",
     "react-transition-group": "1.x",
     "react_ujs": "^2.4.4"
   }

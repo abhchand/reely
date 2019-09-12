@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ShareCollection from "../components/share_collection/share_collection";
+import ShareCollection from "components/share_collection";
 
 // Open
 function openCollectionsShareModal(dataId, dataName) {
@@ -8,7 +8,7 @@ function openCollectionsShareModal(dataId, dataName) {
 
   ReactDOM.render(
     <ShareCollection collection={collection} />,
-    document.getElementById("collections-share-modal-content")
+    document.getElementById("collections-share-modal__component-container")
   );
 
   // Open modal

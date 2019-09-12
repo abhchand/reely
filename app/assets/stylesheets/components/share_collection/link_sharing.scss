@@ -1,0 +1,34 @@
+.share-collection__link-sharing {
+  margin: 25px auto;
+}
+.share-collection__link-sharing-content {
+  margin-top: 10px;
+}
+.share-collection__link-sharing-actions {
+  height: 36px;
+
+  // The action buttons share a lot of styling, so put
+  // that in one place here
+  button {
+    height: 100%;
+    font-weight: 600;
+    line-height: 36px;
+    background-color: $white;
+    border: 1px solid $black;
+    border: 1px solid $dark-gray;
+    border-top-width: 0;
+
+    .button-contents {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      span {
+        margin-left: 7px;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.share-collection__link-sharing-toggle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+
+  .switch {
+    margin-right: 15px;
+  }
+
+  span {
+    color: $dark-gray;
+  }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>icon-copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="page-2" transform="translate(28.000000, 6.000000)" stroke="#979797">
+            <path d="M2,5.50917336e-15 L45,1.23956401e-13 L57,12 L57,75 C57,76.1045695 56.1045695,77 55,77 L2,77 C0.8954305,77 -1.76282976e-14,76.1045695 -1.77635684e-14,75 L-2.33146835e-14,2 C-2.34499543e-14,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="page" stroke-width="2"></path>
+            <g id="corner" transform="translate(44.500000, 0.000000)" stroke-linecap="square">
+                <path d="M0.5,12 L12.5,12" id="horizontal-line"></path>
+                <path d="M0.5,-8.8817842e-16 L0.5,12" id="vertical-line"></path>
+            </g>
+        </g>
+        <g id="page-1" transform="translate(18.000000, 15.000000)" stroke="#979797">
+            <path d="M2,5.50917336e-15 L45,1.23956401e-13 L57,12 L57,75 C57,76.1045695 56.1045695,77 55,77 L2,77 C0.8954305,77 -1.76282976e-14,76.1045695 -1.77635684e-14,75 L-2.33146835e-14,2 C-2.34499543e-14,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="page" stroke-width="2" fill="#FFFFFF"></path>
+            <g id="corner" transform="translate(44.500000, 0.000000)" stroke-linecap="square">
+                <path d="M0.5,12 L12.5,12" id="horizontal-line"></path>
+                <path d="M0.5,-8.8817842e-16 L0.5,12" id="vertical-line"></path>
+            </g>
+        </g>
+    </g>
+</svg>

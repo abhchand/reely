@@ -154,6 +154,21 @@ en:
           heading:
             one: "%{count} Photo Selected"
             other: "%{count} Photos Selected"
+    share_collection:
+      copy_link:
+        label: Copy
+        success: Link copied to clipboard
+      link_sharing_toggle:
+        enabled: Link sharing is <b>on</b>
+        disabled: Link sharing is <b>off</b>
+        failure: Could not update preference
+      renew_link:
+        label: Regenerate
+        loading: generating...
+        failure: Could not fetch new link
+      share_collection:
+        heading: Share "%{name}"
+
 
   collections:
     index:

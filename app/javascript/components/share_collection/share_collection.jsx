@@ -1,3 +1,6 @@
+import LinkSharing from "./link_sharing";
+import LoadingIconEllipsis from "components/shared/icons/loading_icon_ellipsis";
+import ModalError from "components/shared/modal_error";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -9,14 +12,81 @@ class ShareCollection extends React.Component {
   constructor(props) {
     super(props);
 
+    this.setCollection = this.setCollection.bind(this);
+    this.renderHeading = this.renderHeading.bind(this);
+    this.renderLinkSharing = this.renderLinkSharing.bind(this);
+
+    this.i18nPrefix = "components.share_collection.share_collection";
+
     this.state = {
+      isLoading: true,
+      fetchFailed: false,
+      collection: this.props.collection
     };
   }
 
-  render() {
-    return(
-      <div>{this.props.collection.name}</div>
+  componentDidMount() {
+    const self = this;
+
+    $.ajax({
+      type: "GET",
+      url: `/collections/${  this.props.collection.id  }/sharing_config`,
+      dataType: "json",
+      contentType: "application/json"
+    })
+      .fail(function() {
+        self.setState({
+          fetchFailed: true,
+          isLoading: false
+        });
+      })
+      .done(function(data) {
+        // Update sharing config on collection
+        const newCollection = self.state.collection;
+        newCollection.sharing_config = data;
+        self.setCollection(newCollection);
+
+        self.setState({
+          isLoading: false
+        });
+      })
+    ;
+  }
+
+  setCollection(newCollection) {
+    this.setState({
+      collection: newCollection
+    });
+  }
+
+  renderHeading() {
+    return (
+      <h1 key="share-collection__heading" className="share-collection__heading">
+        {I18n.t(`${this.i18nPrefix  }.heading`, { name: this.props.collection.name })}
+      </h1>
     );
+  }
+
+  renderLinkSharing() {
+    return (<LinkSharing
+      key="share-collection__link-sharing"
+      collection={this.state.collection}
+      setCollection={this.setCollection} />);
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return <LoadingIconEllipsis className={"share-collection__loading-icon"} />;
+    }
+
+    if (this.state.fetchFailed) {
+      return <ModalError />;
+    }
+
+    return([
+      this.renderHeading(),
+      this.renderLinkSharing()
+    ]);
   }
 }
 
