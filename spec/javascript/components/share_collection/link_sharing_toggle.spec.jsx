@@ -76,7 +76,7 @@ describe("<LinkSharingToggle />", () => {
     it("does not update toggle while fetching", () => {
       // Use the long form of mocking implementation so we can
       // assert the loading state is enabled
-      axios.post.mockImplementation(async () => {
+      axios.patch.mockImplementation(async () => {
         await expect(toggleSwitch).not.toHaveClass("on");
         expect(toggleContainer.querySelector("span")).toHaveTextContent(stripHtmlTags(I18n.t(i18nPrefix + ".disabled")));
 
@@ -88,7 +88,7 @@ describe("<LinkSharingToggle />", () => {
 
     describe("on success", () => {
       beforeEach(() => {
-        axios.post.mockResolvedValue({ data: data });
+        axios.patch.mockResolvedValue({ data: data });
       });
 
       it("no longer displays the loading state", async () => {
@@ -100,7 +100,7 @@ describe("<LinkSharingToggle />", () => {
       it("calls the setCollection() handler with the updated collection", async () => {
         fireEvent.click(toggleSwitch);
 
-        await expect(axios.post).toHaveBeenCalledTimes(1);
+        await expect(axios.patch).toHaveBeenCalledTimes(1);
         await expect(setCollection).toHaveBeenCalled();
 
         let newCollection = collection;
@@ -112,7 +112,7 @@ describe("<LinkSharingToggle />", () => {
 
     describe("on fail", () => {
       beforeEach(() => {
-        axios.post.mockRejectedValue("Some error");
+        axios.patch.mockRejectedValue("Some error");
       });
 
       it("no longer displays the loading state", async () => {
@@ -124,7 +124,7 @@ describe("<LinkSharingToggle />", () => {
       it("does not call the setCollection() handler", async () => {
         fireEvent.click(toggleSwitch);
 
-        await expect(axios.post).toHaveBeenCalledTimes(1);
+        await expect(axios.patch).toHaveBeenCalledTimes(1);
         await expect(setCollection).not.toHaveBeenCalled();
       });
 
@@ -137,7 +137,7 @@ describe("<LinkSharingToggle />", () => {
         // It seems awaiting these two expectations is necessary in order to
         // give the action notifications time to load. If these are removed
         // the action notification expectation fails -_-
-        await expect(axios.post).toHaveBeenCalledTimes(1);
+        await expect(axios.patch).toHaveBeenCalledTimes(1);
         await expect(setCollection).not.toHaveBeenCalled();
         // </hack>
 

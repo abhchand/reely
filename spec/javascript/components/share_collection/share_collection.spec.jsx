@@ -134,7 +134,7 @@ describe("<ShareCollection />", () => {
     //
 
     data.via_link.enabled = true;
-    axios.post.mockResolvedValue({ data: data });
+    axios.patch.mockResolvedValue({ data: data });
 
     fireEvent.click(toggleSwitch);
 
@@ -144,14 +144,14 @@ describe("<ShareCollection />", () => {
     );
 
     expect(toggleSwitch).toHaveClass("on");
-    expect(axios.post).toHaveBeenCalledTimes(1);
+    expect(axios.patch).toHaveBeenCalledTimes(1);
 
     //
     // Click switch, expect link sharing to be DISABLED
     //
 
     data.via_link.enabled = false;
-    axios.post.mockResolvedValue({ data: data });
+    axios.patch.mockResolvedValue({ data: data });
 
     fireEvent.click(toggleSwitch);
 
@@ -161,7 +161,7 @@ describe("<ShareCollection />", () => {
     );
 
     expect(toggleSwitch).not.toHaveClass("on");
-    expect(axios.post).toHaveBeenCalledTimes(2);
+    expect(axios.patch).toHaveBeenCalledTimes(2);
 
   });
 

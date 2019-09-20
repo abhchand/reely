@@ -45,7 +45,7 @@ class LinkSharingToggle extends React.Component {
       }
     };
 
-    axios.post(url, data, config)
+    axios.patch(url, data, config)
       .then(function(response) {
         // Update sharing config on collection
         const newCollection = self.props.collection;
