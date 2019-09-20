@@ -1,8 +1,10 @@
+import axios from "axios";
 import LinkSharing from "./link_sharing";
 import LoadingIconEllipsis from "components/shared/icons/loading_icon_ellipsis";
 import ModalError from "components/shared/modal_error";
 import PropTypes from "prop-types";
 import React from "react";
+import ReactOnRails from "react-on-rails/node_package/lib/Authenticity";
 
 class ShareCollection extends React.Component {
   static propTypes = {
@@ -28,25 +30,30 @@ class ShareCollection extends React.Component {
   componentDidMount() {
     const self = this;
 
-    $.ajax({
-      type: "GET",
-      url: `/collections/${  this.props.collection.id  }/sharing_config`,
-      dataType: "json",
-      contentType: "application/json"
-    })
-      .fail(function() {
-        self.setState({
-          fetchFailed: true,
-          isLoading: false
-        });
-      })
-      .done(function(data) {
+    const url = `/collections/${  this.props.collection.id  }/sharing_config`;
+    const data = {};
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": ReactOnRails.authenticityToken()
+      }
+    };
+
+    axios.get(url, data, config)
+      .then(function(response) {
         // Update sharing config on collection
         const newCollection = self.state.collection;
-        newCollection.sharing_config = data;
+        newCollection.sharing_config = response.data;
         self.setCollection(newCollection);
 
         self.setState({
+          isLoading: false
+        });
+      })
+      .catch(function() {
+        self.setState({
+          fetchFailed: true,
           isLoading: false
         });
       })

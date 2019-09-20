@@ -27,13 +27,16 @@ class CopyLink extends React.Component {
       window.action_notifications.add(notification);
     } catch (err) {
       // eslint-disable-next-line no-empty
-
     }
   }
 
   render() {
     return (
-      <button type="button" className="share-collection__link-sharing-copy" onClick={this.onClick}>
+      <button
+        data-testid="copy-link"
+        type="button"
+        className="share-collection__link-sharing-copy"
+        onClick={this.onClick}>
         <div className="button-contents">
           <IconCopy size="22px" fillColor="#000000" />
           <span>{I18n.t(`${this.i18nPrefix  }.label`)}</span>

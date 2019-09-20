@@ -15,29 +15,11 @@ class LinkSharing extends React.Component {
     super(props);
 
     this.isEnabled = this.isEnabled.bind(this);
-    this.renderCopyLink = this.renderCopyLink.bind(this);
-    this.renderRenewLink = this.renderRenewLink.bind(this);
     this.renderContent = this.renderContent.bind(this);
   }
 
   isEnabled() {
     return this.props.collection.sharing_config.via_link.enabled;
-  }
-
-  renderCopyLink() {
-    return this.isEnabled() ? <CopyLink /> : null;
-  }
-
-  renderRenewLink() {
-    if (!this.isEnabled()) {
-      return null;
-    }
-
-    return (
-      <RenewLink
-        collection={this.props.collection}
-        setCollection={this.props.setCollection} />
-    );
   }
 
   renderContent() {
@@ -46,12 +28,14 @@ class LinkSharing extends React.Component {
     }
 
     return (
-      <div className="share-collection__link-sharing-content">
+      <div data-testid="link-sharing-content" className="share-collection__link-sharing-content">
         <Url collection={this.props.collection} />
 
         <div className="share-collection__link-sharing-actions">
-          {this.renderCopyLink()}
-          {this.renderRenewLink()}
+          <CopyLink />
+          <RenewLink
+            collection={this.props.collection}
+            setCollection={this.props.setCollection} />
         </div>
       </div>
     );
@@ -59,7 +43,7 @@ class LinkSharing extends React.Component {
 
   render() {
     return (
-      <div className="share-collection__link-sharing">
+      <div data-testid="link-sharing" className="share-collection__link-sharing">
         <LinkSharingToggle
           collection={this.props.collection}
           setCollection={this.props.setCollection} />

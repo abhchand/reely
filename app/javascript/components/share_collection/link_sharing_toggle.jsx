@@ -1,8 +1,10 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import React from "react";
+import ReactOnRails from "react-on-rails/node_package/lib/Authenticity";
 import Switch from "react-toggle-switch";
 
-class RenewLink extends React.Component {
+class LinkSharingToggle extends React.Component {
   static propTypes = {
     collection: PropTypes.object.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
@@ -33,14 +35,28 @@ class RenewLink extends React.Component {
       isUpdating: true
     });
 
-    $.ajax({
-      type: "PUT",
-      url: `/collections/${  this.props.collection.id  }/sharing_config`,
-      dataType: "json",
-      data: JSON.stringify({ "link_sharing_enabled": newState }),
-      contentType: "application/json"
-    })
-      .fail(function() {
+    const url = `/collections/${  this.props.collection.id  }/sharing_config`;
+    const data = { "link_sharing_enabled": newState };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": ReactOnRails.authenticityToken()
+      }
+    };
+
+    axios.post(url, data, config)
+      .then(function(response) {
+        // Update sharing config on collection
+        const newCollection = self.props.collection;
+        newCollection.sharing_config = response.data;
+        self.props.setCollection(newCollection);
+
+        self.setState({
+          isUpdating: false
+        });
+      })
+      .catch(function() {
         const id = `id${  Math.random().toString(16).slice(2)}`;
         const content = I18n.t(`${self.i18nPrefix  }.failure`);
         const notification = { id: id, content: content, type: "error" };
@@ -48,16 +64,6 @@ class RenewLink extends React.Component {
         // HTML page is expected to have loaded the `<ActionNotifications />`
         // component separately
         window.action_notifications.add(notification);
-
-        self.setState({
-          isUpdating: false
-        });
-      })
-      .done(function(data) {
-        // Update sharing config on collection
-        const newCollection = self.props.collection;
-        newCollection.sharing_config = data;
-        self.props.setCollection(newCollection);
 
         self.setState({
           isUpdating: false
@@ -80,7 +86,7 @@ class RenewLink extends React.Component {
     const labelContent = <span dangerouslySetInnerHTML={{__html: this.label()}}></span>;
 
     return (
-      <div className="share-collection__link-sharing-toggle">
+      <div data-testid="link-sharing-toggle" className="share-collection__link-sharing-toggle">
         <Switch
           onClick={this.onClick}
           on={this.isEnabled()}
@@ -91,4 +97,4 @@ class RenewLink extends React.Component {
   }
 }
 
-export default RenewLink;
+export default LinkSharingToggle;
