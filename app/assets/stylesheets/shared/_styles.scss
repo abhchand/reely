@@ -95,6 +95,7 @@
   flex-flow: column nowrap;
   align-items: center;
   width: 100%;
+  margin: 15px 0;
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -125,11 +126,11 @@
 }
 
 .auth__action-conditional {
-  margin: 15px 0;
   color: $dark-gray;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .auth__links {
+  margin: 50px 0;
 }
