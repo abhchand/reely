@@ -36,7 +36,7 @@ class RenewLink extends React.Component {
       isRenewingLink: true
     });
 
-    const url = `/collections/${  this.props.collection.id  }/sharing_config/renew-link`;
+    const url = `/collections/${  this.props.collection.id  }/sharing_config/renew-link.json`;
     const data = {};
     const config = {
       headers: {

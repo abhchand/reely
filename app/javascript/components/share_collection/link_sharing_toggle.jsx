@@ -35,7 +35,7 @@ class LinkSharingToggle extends React.Component {
       isUpdating: true
     });
 
-    const url = `/collections/${  this.props.collection.id  }/sharing_config`;
+    const url = `/collections/${  this.props.collection.id  }/sharing_config.json`;
     const data = { "link_sharing_enabled": newState };
     const config = {
       headers: {

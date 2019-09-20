@@ -30,7 +30,7 @@ class ShareCollection extends React.Component {
   componentDidMount() {
     const self = this;
 
-    const url = `/collections/${  this.props.collection.id  }/sharing_config`;
+    const url = `/collections/${  this.props.collection.id  }/sharing_config.json`;
     const data = {};
     const config = {
       headers: {
