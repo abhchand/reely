@@ -21,6 +21,12 @@ $(document).ready(function() {
 
     // Close modal
     $(".collections-share-modal").removeClass("active");
+
+    // Unmount <ShareCollection /> component so it reloads for the
+    // next collection
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById("collections-share-modal__component-container")
+    );
   });
 });
 
