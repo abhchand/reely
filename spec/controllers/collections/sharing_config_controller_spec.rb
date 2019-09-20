@@ -4,7 +4,6 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
   let(:user) { create(:user) }
   let(:collection) { create(:collection, owner: user) }
   let(:sharing_config) { Collections::SharingConfigService.new(collection) }
-  let(:xhr) { true }
 
   before { sign_in(user) }
 
@@ -15,7 +14,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { sign_out(user) }
 
       it "returns a 401 JSON response" do
-        get :show, params: params, xhr: xhr
+        get :show, params: params
 
         expect(response.status).to eq(401)
         expect(parsed_response).
@@ -23,21 +22,11 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "request is not xhr" do
-      let(:xhr) { false }
-
-      it "redirects to the root_path" do
-        get :show, params: params, xhr: xhr
-
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to the root_path" do
-        get :show, params: params, xhr: xhr
+        get :show, params: params
 
         expect(response).to redirect_to(root_path)
       end
@@ -47,7 +36,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { params[:collection_id] = "abcde" }
 
       it "returns a 400 JSON response" do
-        get :show, params: params, xhr: xhr
+        get :show, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -58,7 +47,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "returns a 400 JSON response" do
-        get :show, params: params, xhr: xhr
+        get :show, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -66,7 +55,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     end
 
     it "returns the sharing config for the collection" do
-      get :show, params: params, xhr: xhr
+      get :show, params: params
 
       expect(response.status).to eq(200)
       expect(parsed_response).to eq(sharing_config_json)
@@ -88,7 +77,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { sign_out(user) }
 
       it "returns a 401 JSON response" do
-        post :update, params: params, xhr: xhr
+        post :update, params: params
 
         expect(response.status).to eq(401)
         expect(parsed_response).
@@ -96,21 +85,11 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "request is not xhr" do
-      let(:xhr) { false }
-
-      it "redirects to the root_path" do
-        post :update, params: params, xhr: xhr
-
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to the root_path" do
-        post :update, params: params, xhr: xhr
+        post :update, params: params
 
         expect(response).to redirect_to(root_path)
       end
@@ -120,7 +99,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { params[:collection_id] = "abcde" }
 
       it "returns a 400 JSON response" do
-        post :update, params: params, xhr: xhr
+        post :update, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -131,7 +110,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "returns a 400 JSON response" do
-        post :update, params: params, xhr: xhr
+        post :update, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -142,7 +121,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { params[:foo] = "bar" }
 
       it "ignores the unpermitted keys" do
-        post :update, params: params, xhr: xhr
+        post :update, params: params
 
         collection.reload
 
@@ -154,7 +133,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     end
 
     it "updates the sharing_config" do
-      post :update, params: params, xhr: xhr
+      post :update, params: params
 
       collection.reload
 
@@ -179,7 +158,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { sign_out(user) }
 
       it "returns a 401 JSON response" do
-        post :renew_link, params: params, xhr: xhr
+        post :renew_link, params: params
 
         expect(response.status).to eq(401)
         expect(parsed_response).
@@ -187,21 +166,11 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "request is not xhr" do
-      let(:xhr) { false }
-
-      it "redirects to the root_path" do
-        post :renew_link, params: params, xhr: xhr
-
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to the root_path" do
-        post :renew_link, params: params, xhr: xhr
+        post :renew_link, params: params
 
         expect(response).to redirect_to(root_path)
       end
@@ -211,7 +180,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { params[:collection_id] = "abcde" }
 
       it "returns a 400 JSON response" do
-        post :renew_link, params: params, xhr: xhr
+        post :renew_link, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -222,7 +191,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "returns a 400 JSON response" do
-        post :renew_link, params: params, xhr: xhr
+        post :renew_link, params: params
 
         expect(response.status).to eq(400)
         expect(parsed_response).to eq({})
@@ -231,7 +200,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
 
     it "renews the collection share_id" do
       expect do
-        post :renew_link, params: params, xhr: xhr
+        post :renew_link, params: params
       end.to(change { collection.reload.share_id })
 
       expect(response.status).to eq(200)

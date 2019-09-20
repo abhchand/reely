@@ -6,7 +6,6 @@ class Collections::SharingConfigController < ApplicationController
 
   include CollectionHelper
 
-  before_action :ensure_xhr_only
   before_action :ensure_json_request
   before_action :collection
   before_action :only_my_collection

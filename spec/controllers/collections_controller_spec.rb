@@ -128,25 +128,18 @@ RSpec.describe CollectionsController, type: :controller do
       }
     end
 
-    context "request is not xhr" do
-      it "redirects to root_path" do
-        put :update, params: params, xhr: false
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to root_path" do
-        put :update, params: params, xhr: true
+        put :update, params: params
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "collection is not found" do
       it "redirects to the root path" do
-        put :update, params: params.merge(id: "abcde"), xhr: true
+        put :update, params: params.merge(id: "abcde")
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -157,7 +150,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        put :update, params: params, xhr: true
+        put :update, params: params
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -167,7 +160,7 @@ RSpec.describe CollectionsController, type: :controller do
     it "updates the collection and responds as success" do
       params[:collection][:name] = "Some new name"
 
-      put :update, params: params, xhr: true
+      put :update, params: params
 
       expect(collection.reload.name).to eq("Some new name")
       expect(response.status).to eq(200)
@@ -179,7 +172,7 @@ RSpec.describe CollectionsController, type: :controller do
         old_name = collection.name
         params[:collection][:name] = ""
 
-        put :update, params: params, xhr: true
+        put :update, params: params
 
         expect(collection.reload.name).to eq(old_name)
 
@@ -203,25 +196,18 @@ RSpec.describe CollectionsController, type: :controller do
       }
     end
 
-    context "request is not xhr" do
-      it "redirects to root_path" do
-        put :add_photos, params: params, xhr: false
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to root_path" do
-        put :add_photos, params: params, xhr: true
+        put :add_photos, params: params
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "collection is not found" do
       it "redirects to the root path" do
-        put :add_photos, params: params.merge(collection_id: "abcde"), xhr: true
+        put :add_photos, params: params.merge(collection_id: "abcde")
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -232,7 +218,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        put :add_photos, params: params, xhr: true
+        put :add_photos, params: params
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -240,7 +226,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it "adds photos to the collection and responds as success" do
-      put :add_photos, params: params, xhr: true
+      put :add_photos, params: params
 
       expect(collection.reload.photos).to match_array(photos)
       expect(response.status).to eq(200)
@@ -261,7 +247,7 @@ RSpec.describe CollectionsController, type: :controller do
       end
 
       it "does not update the collection and responds as failure" do
-        put :add_photos, params: params, xhr: true
+        put :add_photos, params: params
 
         expect(collection.reload.photos).to eq([])
 
@@ -280,18 +266,11 @@ RSpec.describe CollectionsController, type: :controller do
       }
     end
 
-    context "request is not xhr" do
-      it "redirects to root_path" do
-        delete :destroy, params: params, xhr: false
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
     context "request is not json format" do
       before { params[:format] = "html" }
 
       it "redirects to root_path" do
-        delete :destroy, params: params, xhr: true
+        delete :destroy, params: params
         expect(response).to redirect_to(root_path)
       end
     end
@@ -300,7 +279,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { params[:id] = "abcde" }
 
       it "redirects to the root path" do
-        delete :destroy, params: params, xhr: true
+        delete :destroy, params: params
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -311,7 +290,7 @@ RSpec.describe CollectionsController, type: :controller do
       before { collection.update!(owner: create(:user)) }
 
       it "redirects to the root path" do
-        delete :destroy, params: params, xhr: true
+        delete :destroy, params: params
 
         expect(response.status).to eq(400)
         expect(response.body).to eq("{}")
@@ -319,7 +298,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it "destroys the collection and responds as success" do
-      delete :destroy, params: params, xhr: true
+      delete :destroy, params: params
 
       expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect(response.status).to eq(200)
@@ -330,7 +309,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "does not destroy the collection and responds as failure" do
         allow_any_instance_of(Collection).to receive(:destroy) { false }
 
-        delete :destroy, params: params, xhr: true
+        delete :destroy, params: params
 
         expect { collection.reload }.to_not raise_error
 

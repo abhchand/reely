@@ -10,11 +10,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def ensure_xhr_only
-    return if (defined? request) && request.xhr?
-    redirect_to(root_path)
-  end
-
   def ensure_json_request
     return if (defined? request) && request.format.to_sym == :json
     redirect_to(root_path)
