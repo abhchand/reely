@@ -1,0 +1,97 @@
+require "rails_helper"
+
+RSpec.feature "deleting collection", :js, type: :feature do
+  let(:user) { create(:user) }
+  let(:collection) { create_collection_with_photos(owner: user) }
+
+  before do
+    log_in(user)
+    visit collection_path(collection)
+  end
+
+  it "user can delete a collection" do
+    click_delete_icon
+    expect(page).to have_selector(".collections-delete-modal", visible: true)
+
+    expect do
+      click_delete_modal_submit
+    end.to change { Collection.count }.by(-1)
+
+    expect(page).to have_current_path(collections_path)
+    expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it "user can cancel the deletion" do
+    click_delete_icon
+    expect(page).to have_selector(".collections-delete-modal", visible: true)
+
+    expect do
+      click_delete_modal_cancel
+    end.to change { Collection.count }.by(0)
+
+    expect(page).to have_current_path(collection_path(collection))
+    expect(page).to have_selector(".collections-delete-modal", visible: false)
+  end
+
+  context "collection name was updated" do
+    let(:textarea) do
+      page.find(".collections-editable-name-heading__textarea")
+    end
+
+    before do
+      @old_name = collection.name
+      @new_name = @old_name + "_new"
+
+      textarea.send_keys("_new")
+
+      click_outside_textarea
+      wait_for_ajax
+    end
+
+    it "delete modal heading reflects the updated collection name" do
+      # Verify name was changed
+      expect(textarea.value).to eq(@new_name)
+      expect(collection.reload.name).to eq(@new_name)
+
+      click_delete_icon
+
+      heading = page.find(".collections-delete-modal .modal-content__heading")
+      expect(heading).to have_content(
+        strip_tags(
+          t("collections.delete_modal.heading", collection_name: @new_name)
+        )
+      )
+
+      expect do
+        click_delete_modal_submit
+      end.to change { Collection.count }.by(-1)
+
+      expect(page).to have_current_path(collections_path)
+      expect do
+        collection.reload
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  def click_outside_textarea
+    # Pick an arbitrary element somewhere else on the page
+    page.find(".collections-show__date-range").click
+  end
+
+  def click_delete_icon
+    page.find(".collections-show__action-bar-item--delete").click
+  end
+
+  def click_delete_modal_submit
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--submit").click
+      wait_for_ajax
+    end
+  end
+
+  def click_delete_modal_cancel
+    within(".collections-delete-modal") do
+      page.find(".modal-content__button--cancel").click
+    end
+  end
+end
