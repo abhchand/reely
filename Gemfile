@@ -20,7 +20,7 @@ gem "webpacker", "~> 3.5", ">= 3.5.5"
 #
 gem "bcrypt", "~> 3.1", ">= 3.1.10"
 gem "cancancan", "~> 3.0"
-gem "devise", "~> 4.6", ">= 4.6.2"
+gem "devise", "~> 4.7", ">= 4.7.1"
 gem "dotenv-rails", "~> 2.6"
 gem "exiftool", "~> 1.0"
 gem "interactor", "~> 3.0"
@@ -34,6 +34,13 @@ gem "recipient_interceptor", "~> 0.2.0"
 gem "rolify", "~> 5.2"
 gem "sidekiq", "~> 5.2", ">= 5.2.5"
 gem "smtpapi", "~> 0.1.0"
+
+#
+# Vulnerabilities
+#
+
+gem "nokogiri", ">= 1.10.4"     # https://nvd.nist.gov/vuln/detail/CVE-2019-5477
+gem "rubyzip", ">= 1.3.0"       # https://nvd.nist.gov/vuln/detail/CVE-2019-16892
 
 group :production do
   gem "foreman", "~> 0.85.0"
