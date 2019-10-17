@@ -10,7 +10,7 @@ unless defined? SidekiqRedisConnectionWrapper
   class SidekiqRedisConnectionWrapper
     # rubocop:disable Style/IfUnlessModifier
     unless defined? URL
-      URL = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
+      URL = ENV["REDIS_URL"] || "redis://localhost:6379/"
     end
     # rubocop:enable Style/IfUnlessModifier
 

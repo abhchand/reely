@@ -1,0 +1,12 @@
+.dockerignore
+logs/
+node_modules/
+public/
+tmp/
+vendor/cache/
+.env.development
+.env.dockercompose
+.bundle
+tags
+.git
+.cache

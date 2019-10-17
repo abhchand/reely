@@ -1,3 +1,5 @@
+require Rails.root.join("config/smtp")
+
 # rubocop:disable Metrics/BlockLength
 
 Rails.application.configure do

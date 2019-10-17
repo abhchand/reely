@@ -1,0 +1,22 @@
+version: '3'
+services:
+  redis:
+    image: redis:5.0.6-alpine
+  db:
+    image: postgres:11.5-alpine
+    volumes:
+      - /var/www/reely.co/docker_volumes/db/data:/var/lib/postgresql/data
+    env_file:
+      - .env.dockercompose
+  web:
+    build:
+      context: .
+      args:
+        RAILS_ENV: production
+    volumes:
+      - /var/www/reely.co/docker_volumes/web/log:/app/log
+      - /var/www/reely.co/docker_volumes/web/tmp:/app/tmp
+      - /var/www/reely.co/docker_volumes/web/public:/app/public
+    depends_on:
+      - db
+      - redis

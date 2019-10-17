@@ -54,7 +54,10 @@ RAILS_ENV=development bundle exec rake db:create
 
 # Doesnt migrate test schema, but that's done automatically
 # at the start of each test run anyway
-RAILS_ENV=test bundle exec rake db:migrate
+RAILS_ENV=development bundle exec rake db:migrate
+
+# Seed the local environment
+RAILS_ENV=development bundle exec rake db:seed
 ```
 
 Run tests (if you want to):
@@ -75,63 +78,63 @@ Start the app:
 bin/foreman start -f Procfile.dev
 ```
 
-# Production Deploy
+# Production (Docker)
 
-Create an environment file using the provided template. Follow the instructions inside that file to set the environment.
+Create and fill out env files
 
 ```
 cp .env.production.sample .env.production
+cp .env.dockercompose.sample .env.dockercompose
 ```
 
-Install dependencies:
+Build
 
 ```
-bundle install
-yarn install
+docker-compose up --build --no-start
+
+# Only required on first build
+docker-compose run --rm web bundle exec rake db:create
+
+docker-compose run --rm web bundle exec rake db:migrate
+docker-compose run --rm web bundle exec rake assets:precompile
+
+# Optional
+docker-compose run --rm web bundle exec rake reely:admin:create['FirstName','LastName','email@example.com','password']
 ```
 
-Install [`imagemagick`](www.imagemagick.org/), used for image manipulation and analysis.
+Start app
 
 ```
-brew install imagemagick            # OSX
-sudo apt-get install imagemagick    # Debian / Ubuntu
+docker-compose start
 ```
 
-Install [Redis](https://redis.io), used for job queueing and caching
+The app listens for incoming HTTP requests on a unix socket. This can be setup via Nginx or similar reverse proxies.
+
+To test it's working, enter the running container and make a test HTTP request:
 
 ```
-brew install redis                  # OSX
-sudo apt install redis-server       # Debian / Ubuntu
+docker exec -i -t reely_web_1 /bin/bash
+> curl --unix-socket /app/tmp/sockets/puma.sock http://localhost/
 ```
 
-Install [Exiftool](https://www.sno.phy.queensu.ca/~phil/exiftool), used for manipulating [EXIF Data](https://en.wikipedia.org/wiki/Exif).
+Stop app
 
 ```
-brew install exiftool                         # OSX
-sudo apt-get install libimage-exiftool-perl   # Debian / Ubuntu
+docker-compose stop
 ```
 
-Build the schema:
+# Production (Automated)
+
+The above production build and deploy can be automated with the [reely-ansible](https://gitlab.com/reely/reely-ansible) repo.
+
+Follow the instructions in there to provision the server.
+
+Then add a new git remote and push changes to create a new build
 
 ```
-RAILS_ENV=production bundle exec rake db:create
-RAILS_ENV=production bundle exec rake db:migrate
-```
+git remote add production ssh://git@XXXXX:/opt/git/reely.git
 
-Build the assets:
+# Commit new changes
 
-```
-RAILS_ENV=production bundle exec rake assets:precompile
-```
-
-Create an admin account:
-
-```
-bundle exec rake reely:admin:create['FirstName','LastName','email@example.com','password']
-```
-
-Start the app:
-
-```
-RAILS_ENV=production bin/foreman start
+git push production master
 ```

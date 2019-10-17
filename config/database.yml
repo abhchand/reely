@@ -3,7 +3,7 @@
 #
 #   https://edgeguides.rubyonrails.org/configuring.html#configuring-a-database
 #
-# The staging, production, and any non-development environments rely exclusively
+# The staging and production environments rely exclusively
 # on this connection URl to be set and are not defaulted here.
 #
 # An example postgres connection string is:
@@ -24,8 +24,13 @@ default: &default
 
 test:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: reely_test
 
 development:
   <<: *default
   database: reely_development
+
++production:
+  <<: *default
+  database: reely_production

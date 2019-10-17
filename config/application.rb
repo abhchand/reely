@@ -61,10 +61,7 @@ module Reely
           port: ENV.fetch("APP_PORT", "3000")
         }
       when Rails.env.production?
-        {
-          host: ENV.fetch("APP_HOST"),
-          port: ENV.fetch("APP_PORT")
-        }
+        { host: ENV.fetch("APP_HOST") }
       end
 
     Rails.application.routes.default_url_options.merge!(
