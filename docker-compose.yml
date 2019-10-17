@@ -17,6 +17,8 @@ services:
       - /var/www/reely.co/docker_volumes/web/log:/app/log
       - /var/www/reely.co/docker_volumes/web/tmp:/app/tmp
       - /var/www/reely.co/docker_volumes/web/public:/app/public
+      - /var/www/reely.co/docker_volumes/web/import:/app/import
+      - /var/www/reely.co/docker_volumes/web/storage:/app/storage
     depends_on:
       - db
       - redis
