@@ -15,12 +15,12 @@ class BulkActionPanel extends React.Component {
 
   render() {
     return (
-      <div className="photo_grid-bulk-action-panel">
+      <ul className="photo_grid-bulk-action-panel">
         <AddToCollection
           collections={this.props.collections}
           selectedPhotoIds={this.props.selectedPhotoIds}
           onAddToExistingCollection={this.props.closeControlPanel} />
-      </div>
+      </ul>
     );
   }
 }

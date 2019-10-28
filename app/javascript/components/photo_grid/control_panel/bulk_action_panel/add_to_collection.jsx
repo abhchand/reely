@@ -110,8 +110,7 @@ class AddToCollection extends React.Component {
     };
 
     return (
-      <div
-        role="presentation"
+      <li
         className={"photo-grid-bulk-action-panel__item photo-grid-bulk-action-panel__item--add-to-collection"}>
         <ReactSelectOrCreate
           items={this.props.collections}
@@ -122,7 +121,7 @@ class AddToCollection extends React.Component {
           textForOptionsEmptyState={textForOptionsEmptyState}
           textForSearchInputPlaceholder={textForSearchInputPlaceholder}
           textForCreateItem={textForCreateItem} />
-      </div>
+      </li>
     );
   }
 }
