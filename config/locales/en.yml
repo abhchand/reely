@@ -137,6 +137,7 @@ en:
       control_panel:
         bulk_action_panel:
           add_to_collection:
+            tooltip: Add to Collection
             btn_label: Add to Collection
             search_placeholder: Search...
             empty_state: No results

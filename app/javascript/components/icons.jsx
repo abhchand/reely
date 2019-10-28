@@ -232,7 +232,8 @@ class IconPencilWithSquares extends React.Component {
 class IconPlus extends React.Component {
   static propTypes = {
     size: PropTypes.string,
-    fillColor: PropTypes.string
+    fillColor: PropTypes.string,
+    title: PropTypes.string
   };
 
   static defaultProps = {
@@ -243,6 +244,7 @@ class IconPlus extends React.Component {
   render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
         <g id="icon-plus" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <rect id="vertical" fill={this.props.fillColor} x="45" y="0" width="10" height="100"></rect>
           <rect id="horizontal" fill={this.props.fillColor} x="0" y="45" width="100" height="10"></rect>

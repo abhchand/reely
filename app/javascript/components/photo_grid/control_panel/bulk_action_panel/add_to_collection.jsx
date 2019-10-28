@@ -1,3 +1,4 @@
+import { IconPlus } from "components/icons";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactSelectOrCreate from "react-select-or-create";
@@ -100,7 +101,7 @@ class AddToCollection extends React.Component {
 
   render() {
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
-    const textForOpenMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
+    const textForOpenMenuButton = () => (<IconPlus fillColor="#4F14C8" size="22" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
     const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
     const textForCreateItem = (searchValue) => {
