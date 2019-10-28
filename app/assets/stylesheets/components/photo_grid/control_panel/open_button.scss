@@ -1,3 +1,9 @@
+.photo-grid-control-panel__open-button {
+  border-radius: 50%;
+}
+
+// Shared styling with `close_button`
+
 .photo-grid-control-panel__toggle-button {
   position: relative;
   width: 30px;
@@ -9,11 +15,4 @@
   svg {
     @extend .vertical-align;
   }
-}
-
-.photo-grid-control-panel__open-button {
-  border-radius: 50%;
-}
-
-.photo-grid-control-panel__close-button {
 }
