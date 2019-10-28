@@ -24,13 +24,30 @@ input[type="submit"] {
   line-height: 1px;
   border: none;
 
+  -webkit-transition: 0.15s ease-in-out;
+  -moz-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+
   &:disabled {
     opacity: 0.2;
+  }
+}
+.cta-green {
+  color: $white;
+  background: $leaf-green;
+
+  &:hover {
+    background: $leaf-green-darkened;
   }
 }
 .cta-purple {
   color: $white;
   background: $dark-purple;
+
+  &:hover {
+    background: $dark-purple-darkened;
+  }
 }
 .cta-white {
   color: $dark-purple;
