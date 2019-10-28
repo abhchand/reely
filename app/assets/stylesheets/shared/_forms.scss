@@ -14,6 +14,13 @@ input[type="submit"] {
   -webkit-appearance: button;
 }
 
+.input-highlight-on-focus {
+  &:focus {
+    border-color: $mustard;
+    box-shadow: 0 0 3px $mustard;
+  }
+}
+
 ::-webkit-input-placeholder { text-transform: lowercase; }
 ::-moz-placeholder { text-transform: lowercase; }
 
