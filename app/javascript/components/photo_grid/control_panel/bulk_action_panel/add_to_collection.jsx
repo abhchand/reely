@@ -1,8 +1,8 @@
-import CreatableSelectDropdown from "components/shared/creatable_select_dropdown/creatable_select_dropdown";
 import PropTypes from "prop-types";
 import React from "react";
+import ReactSelectOrCreate from "react-select-or-create";
 
-class BulkActionAddToCollection extends React.Component {
+class AddToCollection extends React.Component {
   static propTypes = {
     collections: PropTypes.array.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
@@ -57,7 +57,7 @@ class BulkActionAddToCollection extends React.Component {
     ;
   }
 
-  addToNewCollection(collectionName) {
+  addToNewCollection(collectionName, prevCollections) {
     const self = this;
     const id = `id${  Math.random().toString(16).slice(2)}`;
     const data = {
@@ -90,6 +90,8 @@ class BulkActionAddToCollection extends React.Component {
         self.addToExistingCollection(collectionId);
       })
     ;
+
+    return prevCollections;
   }
 
   addNotification(notification) {
@@ -97,28 +99,31 @@ class BulkActionAddToCollection extends React.Component {
   }
 
   render() {
-    const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.close_menu`);
+    const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
+    const textForOpenMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
     const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
-    const textGeneratorForCreateOption = (collection) => (I18n.t(`${this.i18nPrefix}.create`, { name: collection }));
+    const textForCreateItem = (searchValue) => {
+      const key = searchValue === '' ? 'blank' : 'present';
+      return I18n.t(`${this.i18nPrefix}.create.${key}`, { name: searchValue });
+    };
 
     return (
       <div
         role="presentation"
         className={"photo-grid-bulk-action-panel__item photo-grid-bulk-action-panel__item--add-to-collection"}>
-        {
-          <CreatableSelectDropdown
-          options={this.props.collections}
+        <ReactSelectOrCreate
+          items={this.props.collections}
           onCreate={this.addToNewCollection}
           onSelect={this.addToExistingCollection}
           textForCloseMenuButton={textForCloseMenuButton}
+          textForOpenMenuButton={textForOpenMenuButton}
           textForOptionsEmptyState={textForOptionsEmptyState}
           textForSearchInputPlaceholder={textForSearchInputPlaceholder}
-          textGeneratorForCreateOption={textGeneratorForCreateOption} />
-        }
+          textForCreateItem={textForCreateItem} />
       </div>
     );
   }
 }
 
-export default BulkActionAddToCollection;
+export default AddToCollection;

@@ -137,10 +137,12 @@ en:
       control_panel:
         bulk_action_panel:
           add_to_collection:
-            close_menu: Add to Collection
+            btn_label: Add to Collection
             search_placeholder: Search...
             empty_state: No results
-            create: Create '%{name}'
+            create:
+              blank: New Collection
+              present: Create "%{name}"
 
             existing:
               success:

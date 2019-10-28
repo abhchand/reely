@@ -18,9 +18,6 @@
 // Frameworks
 @import "bootstrap";
 
-// Vendors
-@import "react-toggle-switch/dist/css/switch.min.css";
-
 // Shared
 @import "shared/vars";
 @import "shared/breakpoints";
@@ -30,6 +27,11 @@
 @import "shared/styles";
 
 @import "shared/photo_count";
+
+// Vendor
+@import "react-toggle-switch/dist/css/switch.min.css";
+@import "react-select-or-create/dist/main.css";
+@import "vendor/**/*";
 
 // Views
 @import "application/**/*";
