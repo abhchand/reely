@@ -1,4 +1,4 @@
-import BulkActionPanel from "./bulk_action_panel/bulk_action_panel";
+import BulkActionPanel from "./bulk_action_panel";
 import CloseButton from "./close_button";
 import OpenButton from "./open_button";
 import PropTypes from "prop-types";

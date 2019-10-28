@@ -1,4 +1,4 @@
-import ControlPanel from "./photo_grid/control_panel/control_panel";
+import ControlPanel from "./photo_grid/control_panel";
 import Photo from "./photo";
 import PhotoCarousel from "./photo_carousel";
 import PhotoSelectionService from "./services/photo_selection_service";
