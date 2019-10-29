@@ -134,3 +134,45 @@
 .auth__links {
   margin: 50px 0;
 }
+
+
+//
+// Icon Trays
+//
+
+.icon-tray {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+  margin-right: auto;
+  margin-left: 15px;
+}
+
+.icon-try__item {
+  position: relative;
+  height: 100%;
+  background-color: $white;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in;
+
+  // Kind of a hack since we try to list all elements
+  // of an SVG directly here
+
+  svg {
+    g, path, ellipse, rect {
+      fill: $dark-gray;
+      stroke: $dark-gray;
+    }
+  }
+
+  &:hover {
+    svg {
+      g, path, ellipse, rect {
+        fill: $dark-purple;
+        stroke: $dark-purple;
+      }
+    }
+  }
+}

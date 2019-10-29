@@ -101,7 +101,7 @@ class AddToCollection extends React.Component {
 
   render() {
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
-    const textForOpenMenuButton = () => (<IconPlus fillColor="#4F14C8" size="22" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
+    const textForOpenMenuButton = () => (<IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
     const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
     const textForCreateItem = (searchValue) => {
@@ -111,7 +111,7 @@ class AddToCollection extends React.Component {
 
     return (
       <li
-        className={"photo-grid-bulk-action-panel__item photo-grid-bulk-action-panel__item--add-to-collection"}>
+        className={"icon-tray__item icon-tray__item--add-to-collection"}>
         <ReactSelectOrCreate
           items={this.props.collections}
           onCreate={this.addToNewCollection}

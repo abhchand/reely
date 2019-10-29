@@ -15,7 +15,7 @@ class BulkActionPanel extends React.Component {
 
   render() {
     return (
-      <ul className="photo_grid-bulk-action-panel">
+      <ul className="icon-tray">
         <AddToCollection
           collections={this.props.collections}
           selectedPhotoIds={this.props.selectedPhotoIds}

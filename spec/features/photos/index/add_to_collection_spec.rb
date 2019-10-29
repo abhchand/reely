@@ -148,7 +148,7 @@ RSpec.feature "photos carousel", type: :feature do
 
   # rubocop:disable Lint/UnusedMethodArgument
   def within_add_to_collection(&block)
-    within(".photo-grid-bulk-action-panel__item--add-to-collection") do
+    within(".icon-tray__item--add-to-collection") do
       yield
     end
   end
