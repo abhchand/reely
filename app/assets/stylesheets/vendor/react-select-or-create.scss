@@ -18,13 +18,13 @@
     border: none;
 
     svg {
-      // Vertically centering 24px SVG inside 50px div
-      margin-top: 13px;
-
       // Match SVG styling here with `.icon-try__item svg`.
       // This element is a bit different because it's wrapped
       // in a `.open-menu-btn` container, but we disguise it
       // to have the same behavior
+
+      // Vertically centering 24px SVG inside 50px div
+      margin-top: 13px;
 
       g, path, ellipse, rect {
         fill: $dark-gray;
