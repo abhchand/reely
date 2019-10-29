@@ -110,8 +110,7 @@ class AddToCollection extends React.Component {
     };
 
     return (
-      <li
-        className={"icon-tray__item icon-tray__item--add-to-collection"}>
+      <li className={"icon-tray__item icon-tray__item--add-to-collection"}>
         <ReactSelectOrCreate
           items={this.props.collections}
           onCreate={this.addToNewCollection}

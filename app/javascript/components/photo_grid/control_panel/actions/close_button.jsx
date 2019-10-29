@@ -4,14 +4,13 @@ import React from "react";
 
 const CloseButton = (props) => {
   return (
-    <div
-      role="button"
+    <li
       tabIndex={0}
-      className="photo-grid-control-panel__toggle-button photo-grid-control-panel__close-button"
+      className="icon-tray__item icon-tray__item--close-control-panel"
       onClick={props.onClick}
       onKeyPress={props.onClick}>
-      <IconX size="22" fillColor="#888888" />
-    </div>
+      <IconX size="24" fillColor="#888888" />
+    </li>
   );
 };
 

@@ -1,6 +1,6 @@
-import BulkActionPanel from "./bulk_action_panel";
-import CloseButton from "./close_button";
-import OpenButton from "./open_button";
+import AddToCollection from "./actions/add_to_collection";
+import CloseButton from "./actions/close_button";
+import OpenButton from "./actions/open_button";
 import PropTypes from "prop-types";
 import React from "react";
 import SelectedPhotoCount from "./selected_photo_count";
@@ -56,22 +56,25 @@ class ControlPanel extends React.Component {
   }
 
   renderClosed() {
-    return <OpenButton onClick={this.openPanel} />;
+    return (
+      <ul key="controlPanelIconTray" className="icon-tray">
+        <OpenButton onClick={this.openPanel} />
+      </ul>
+    );
   }
 
   renderOpen() {
     return ([
-      <CloseButton
-        key="controlPanelCloseButton"
-        onClick={this.closePanel} />,
+      <ul key="controlPanelIconTray" className="icon-tray">
+        <CloseButton onClick={this.closePanel} />
+        <AddToCollection
+          collections={this.props.collections}
+          selectedPhotoIds={this.props.selectedPhotoIds}
+          onAddToExistingCollection={this.closePanel} />
+      </ul>,
       <SelectedPhotoCount
         key="controlPanelSelectedPhotoCount"
         count={this.props.selectedPhotoIds.length} />,
-      <BulkActionPanel
-        key="controlPanelBulkActionPanel"
-        collections={this.props.collections}
-        selectedPhotoIds={this.props.selectedPhotoIds}
-        closeControlPanel={this.closePanel} />
     ]);
   }
 

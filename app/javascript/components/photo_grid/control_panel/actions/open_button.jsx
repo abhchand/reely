@@ -4,14 +4,13 @@ import React from "react";
 
 const OpenButton = (props) => {
   return (
-    <div
-      role="button"
+    <li
       tabIndex={0}
-      className="photo-grid-control-panel__toggle-button photo-grid-control-panel__open-button"
+      className="icon-tray__item icon-tray__item--open-control-panel"
       onClick={props.onClick}
       onKeyPress={props.onClick}>
-      <IconCheckMark size="22" fillColor="#888888" />
-    </div>
+      <IconCheckMark size="24" fillColor="#888888" />
+    </li>
   );
 };
 
