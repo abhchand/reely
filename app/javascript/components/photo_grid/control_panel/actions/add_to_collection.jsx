@@ -100,6 +100,10 @@ class AddToCollection extends React.Component {
   }
 
   render() {
+    if (this.props.selectedPhotoIds.length === 0) {
+      return null;
+    }
+
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
     const textForOpenMenuButton = () => (<IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
     const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
