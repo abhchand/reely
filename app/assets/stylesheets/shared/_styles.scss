@@ -145,7 +145,7 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
-  height: 50px;
+  height: 40px;
   margin-right: auto;
   margin-left: 15px;
 }
@@ -163,8 +163,8 @@
 
   svg {
 
-    // Vertically centering 24px SVG inside 50px div
-    margin-top: 13px;
+    // Vertically centering 24px SVG inside 40px div
+    margin-top: 8px;
 
     g, path, ellipse, rect {
       fill: $dark-gray;
