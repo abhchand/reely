@@ -8780,6 +8780,11 @@ react-on-rails@^11.3.0:
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
 
+react-select-or-create@^1.0.0-beta.1:
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/react-select-or-create/-/react-select-or-create-1.0.0-beta.1.tgz#065d68b755d60075969b8d4f26281e1354aa4a1d"
+  integrity sha512-9DgKI0e/RNOFoPZvZYLaQqZV9S9HQJehfEpdiaJftdMzVbSPONhdTOIsLYFfqWBIgozDNBCrI26C3D4sAXdNWA==
+
 react-testing-library@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-7.0.1.tgz#0cf113bb53a78599f018378f6854e91a52dbf205"
