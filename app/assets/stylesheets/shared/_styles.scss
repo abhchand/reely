@@ -147,7 +147,12 @@
   align-items: stretch;
   height: 40px;
   margin-right: auto;
-  margin-left: 15px;
+
+  // The first icon creates some space that makes
+  // the tray look indented. Compensate for that with
+  // negative margin - the amount here matches the one-sided
+  // width a 24px icon leaves inside a 40px div
+  margin-left: -8px;
 }
 
 .icon-tray__item {
