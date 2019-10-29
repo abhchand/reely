@@ -55,9 +55,6 @@
   }
 }
 .collections-show__action-bar {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   margin: 20px 0 5px 20px;
 
   @include breakpoint($screen-xs) {
@@ -65,22 +62,4 @@
   }
 }
 .collections-show__action-bar-item {
-  margin-right: 5px;
-  cursor: pointer;
-
-  svg {
-    g, path, ellipse {
-      fill: $medium-gray;
-      stroke: $medium-gray;
-    }
-  }
-
-  &:hover {
-    svg {
-      g, path, ellipse {
-        fill: $leaf-green;
-        stroke: $leaf-green;
-      }
-    }
-  }
 }

@@ -16,12 +16,12 @@
 </div>
 <% end %>
 
-<ul class="collections-show__action-bar" data-id="<%= @collection.synthetic_id %>">
-  <li class="collections-show__action-bar-item collections-show__action-bar-item--delete">
-    <%= inline_svg("icons/trash.svg", height: "22px", width: "22px") %>
+<ul class="collections-show__action-bar icon-tray" data-id="<%= @collection.synthetic_id %>">
+  <li class="collections-show__action-bar-item collections-show__action-bar-item--delete icon-tray__item">
+    <%= inline_svg("icons/trash.svg", height: "24px", width: "24px") %>
   </li>
-  <li class="collections-show__action-bar-item collections-show__action-bar-item--share">
-    <%= inline_svg("icons/share.svg", height: "22px", width: "22px") %>
+  <li class="collections-show__action-bar-item collections-show__action-bar-item--share icon-tray__item">
+    <%= inline_svg("icons/share.svg", height: "24px", width: "24px") %>
   </li>
 </ul>
 
