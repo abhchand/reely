@@ -1,3 +1,4 @@
+import {keyCodes, parseKeyCode} from "components/utils/keys";
 import {IconArrowThickLeft, IconArrowThickRight, IconX} from "components/icons";
 import PropTypes from "prop-types";
 import React from "react";
@@ -34,25 +35,20 @@ class PhotoCarousel extends React.Component {
   }
 
   handleKeyDown(e) {
-    switch(e.keyCode) {
-      case 27:
-        // Escape
+    switch(parseKeyCode(e)) {
+      case keyCodes.ESCAPE:
         this.props.closeCarousel();
         break;
-      case 37:
-        // Left Arrow
+      case keyCodes.ARROW_LEFT:
         this.navigatePrev();
         break;
-      case 39:
-        // Right Arrow
+      case keyCodes.ARROW_RIGHT:
         this.navigateNext();
         break;
-      case 75:
-        // Letter 'k'
+      case keyCodes.LETTER_K:
         this.navigatePrev();
         break;
-      case 74:
-        // Letter 'j'
+      case keyCodes.LETTER_J:
         this.navigateNext();
         break;
     }

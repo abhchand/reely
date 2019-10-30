@@ -1,3 +1,4 @@
+import {keyCodes, parseKeyCode} from "components/utils/keys";
 import AddToCollection from "./actions/add_to_collection";
 import CloseButton from "./actions/close_button";
 import OpenButton from "./actions/open_button";
@@ -30,9 +31,8 @@ class ControlPanel extends React.Component {
 
   handleKeyDown(e) {
 
-    switch(e.keyCode) {
-      case 27:
-        // Escape
+    switch(parseKeyCode(e)) {
+      case keyCodes.ESCAPE:
         if (this.state.isOpen) {
           this.closePanel();
         }
