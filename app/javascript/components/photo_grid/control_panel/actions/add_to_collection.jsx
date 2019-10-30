@@ -66,9 +66,13 @@ class AddToCollection extends React.Component {
         name: collectionName
       }
     };
+    let newCollections;
 
     $.ajax({
       type: "POST",
+      // Until react-select-or-create allows returning promises we need
+      // to run this synchronously
+      async: false,
       url: "/collections",
       dataType: "json",
       data: JSON.stringify(data),
@@ -89,10 +93,12 @@ class AddToCollection extends React.Component {
 
         self.addNotification(notification);
         self.addToExistingCollection(collectionId);
+
+        newCollections = prevCollections.unshift({ id: collection.id, name: collection.name });
       })
     ;
 
-    return prevCollections;
+    return newCollections;
   }
 
   addNotification(notification) {
