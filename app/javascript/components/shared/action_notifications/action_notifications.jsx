@@ -1,7 +1,8 @@
 import ActionNotification from "./action_notification";
-import { CSSTransitionGroup } from "react-transition-group";
+import mountReactComponent from "mount-react-component.jsx";
 import PropTypes from "prop-types";
 import React from "react";
+import { CSSTransitionGroup } from "react-transition-group";
 
 // Action Notifications are similar to flash notifications, with a few
 // differences:
@@ -114,3 +115,5 @@ class ActionNotifications extends React.Component {
 }
 
 export default ActionNotifications;
+
+mountReactComponent(ActionNotifications, 'action-notifications');

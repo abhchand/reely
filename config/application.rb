@@ -28,12 +28,6 @@ module Reely
     # config.i18n.default_locale = :de
     # rubocop:enable LineLength
 
-    # React pre-rendering
-    config.react.server_renderer_options = {
-      files: ["server_rendering.js"], # files to load for prerendering
-      replay_console: true, # if true, console.* will be replayed client-side
-    }
-
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false
 

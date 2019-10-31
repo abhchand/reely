@@ -36,6 +36,13 @@ module ApplicationHelper
     render template: layout
   end
 
+  def react_component(mount_id, props)
+    id = "react-mount-#{mount_id}"
+
+    content_tag(:div, id: id, data: { react_props: props }) do
+    end
+  end
+
   # Action Notifications are similar to flash notifications with a few key
   # differences. See description in the `<ActionNotifications />` React
   # component for further explanation

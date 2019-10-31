@@ -14,12 +14,11 @@
 <div class="photos-index__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
-      "photo_grid",
+      "photo-grid",
       {
         photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props),
         collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_grid_props)
-      },
-      { prerender: Rails.env.test? }
+      }
     )
   %>
 </div>

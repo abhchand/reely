@@ -18,11 +18,8 @@
 <div class="collections-sharing-display-show__photo-grid-container photo-grid-container page-content">
   <%=
     react_component(
-      "photo_grid",
-      {
-        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
-      },
-      { prerender: Rails.env.test? }
+      "photo-grid",
+      { photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props) }
     )
   %>
 </div>

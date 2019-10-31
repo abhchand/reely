@@ -7,15 +7,10 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %>
 // to the appropriate layout file, like app/views/layouts/application.html.erb
 
-// Support component names relative to this directory:
-const componentRequireContext = require.context("components", true);
-const ReactRailsUJS = require("react_ujs");
-
-ReactRailsUJS.useContext(componentRequireContext);
-
 import "core-js/stable";
 
-import "common.js";
+import "common";
+import "mount-react-component";
 
 import "application/_mobile_navigation.js";
 import "application/_modal.js";
@@ -26,3 +21,6 @@ import "collections/_delete_modal.js";
 import "collections/_editable_name_heading.js";
 import "collections/_share_modal.jsx";
 import "collections/show.js";
+
+import "components/photo_grid";
+import "components/shared/action_notifications/action_notifications";
