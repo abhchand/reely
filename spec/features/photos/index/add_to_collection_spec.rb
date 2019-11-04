@@ -39,7 +39,7 @@ RSpec.feature "photos carousel", type: :feature do
 
       # Empty State
       fill_in "search", with: "nnn"
-      expect(find(".creatable-select-dropdown-select-options")).
+      expect(find(".react-select-or-create .select-items")).
         to have_content(t("#{@t_prefix}.empty_state"))
     end
   end
@@ -155,30 +155,30 @@ RSpec.feature "photos carousel", type: :feature do
   # rubocop:enable Lint/UnusedMethodArgument
 
   def open_dropdown_menu
-    find(".creatable-select-dropdown__open-menu-button").click
+    find(".react-select-or-create .open-menu-btn").click
   end
 
   def find_option_for(collection)
     id = collection.synthetic_id
     # The <div> has the click event
-    find(".creatable-select-dropdown-select-options li[data-id='#{id}'] div")
+    find(".react-select-or-create .select-items li[data-id='#{id}'] div")
   end
 
   def search_input
-    find(".creatable-select-dropdown-search-input input")
+    find(".react-select-or-create .search-input input")
   end
 
   def create_collection
-    find(".creatable-select-dropdown-create-option")
+    find(".react-select-or-create .create-item")
   end
 
   def selected_option_id
-    find(".creatable-select-dropdown-select-options li.selected")["data-id"]
+    find(".react-select-or-create .select-items li.selected")["data-id"]
   end
 
   def displayed_dropdown_option_ids
     [].tap do |ids|
-      all(".creatable-select-dropdown-select-options li").each do |li|
+      all(".react-select-or-create .select-items li").each do |li|
         ids << li["data-id"]
       end
     end

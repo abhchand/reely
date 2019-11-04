@@ -1,5 +1,4 @@
 require "rails_helper"
-require Rails.root.join("spec/support/shared_examples/views/photo_grid")
 
 RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
   let(:user) { create(:user) }
@@ -33,25 +32,15 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
     expect(page).to have_content("_stubbed_photo_count")
   end
 
-  describe "photo grid" do
-    it_behaves_like "photo grid"
-  end
+  it "renders the photo grid" do
+    render
 
-  context "no photos exist" do
-    before do
-      assign(:photos, [])
-      assign(:photo_count, 0)
-    end
+    # rubocop:disable LineLength
+    props = {
+      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
+    }
+    # rubocop:enable LineLength
 
-    it "displays the empty state" do
-      render
-
-      expect(page.find(".shared-collections-show__emtpy-state")).
-        to have_content(t("#{@t_prefix}.empty"))
-
-      expect(rendered).to have_content("_stubbed_photo_count")
-      expect(rendered).
-        to_not have_content(".shared-collections-show__photo-grid-container")
-    end
+    expect(page).to have_react_component("photo-grid").including_props(props)
   end
 end

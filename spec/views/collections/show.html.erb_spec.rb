@@ -1,5 +1,4 @@
 require "rails_helper"
-require Rails.root.join("spec/support/shared_examples/views/photo_grid")
 
 RSpec.describe "collections/show.html.erb", type: :view do
   let(:user) { create(:user) }
@@ -49,8 +48,16 @@ RSpec.describe "collections/show.html.erb", type: :view do
     expect(page).to have_content("_stubbed_photo_count")
   end
 
-  describe "photo grid" do
-    it_behaves_like "photo grid"
+  it "renders the photo grid" do
+    render
+
+    # rubocop:disable LineLength
+    props = {
+      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
+    }
+    # rubocop:enable LineLength
+
+    expect(page).to have_react_component("photo-grid").including_props(props)
   end
 
   context "no photos exist" do
