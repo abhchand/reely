@@ -1,4 +1,4 @@
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import ActionNotification from "components/action_notifications/action_notification";
 import ActionNotifications from "components/action_notifications";
 import React from "react";

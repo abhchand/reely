@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render } from "react-testing-library";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import ActionNotifications from "components/action_notifications";
 import CopyLink from "components/share_collection/copy_link";
 import React from "react";

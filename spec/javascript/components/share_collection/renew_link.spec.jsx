@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render } from "react-testing-library";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import ActionNotifications from "components/action_notifications";
 import axios from "axios";
 import React from "react";

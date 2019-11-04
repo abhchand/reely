@@ -1,4 +1,4 @@
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import React from "react";
 import Url from "components/share_collection/url";
 

@@ -1,4 +1,4 @@
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render } from "@testing-library/react";
 import LinkSharing from "components/share_collection/link_sharing";
 import React from "react";
 
