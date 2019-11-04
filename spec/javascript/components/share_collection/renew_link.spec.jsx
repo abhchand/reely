@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render } from "react-testing-library";
-import ActionNotifications from "components/shared/action_notifications/action_notifications";
+import ActionNotifications from "components/action_notifications";
 import axios from "axios";
 import React from "react";
 import RenewLink from "components/share_collection/renew_link";

@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render } from "react-testing-library";
 import { stripHtmlTags } from "test_utils/utils";
-import ActionNotifications from "components/shared/action_notifications/action_notifications";
+import ActionNotifications from "components/action_notifications";
 import axios from "axios";
 import LinkSharingToggle from "components/share_collection/link_sharing_toggle";
 import React from "react";

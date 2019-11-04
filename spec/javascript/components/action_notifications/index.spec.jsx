@@ -1,6 +1,6 @@
 import { cleanup, render } from "react-testing-library";
-import ActionNotification from "components/shared/action_notifications/action_notification";
-import ActionNotifications from "components/shared/action_notifications/action_notifications";
+import ActionNotification from "components/action_notifications/action_notification";
+import ActionNotifications from "components/action_notifications";
 import React from "react";
 
 let notifications;

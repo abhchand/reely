@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render } from "react-testing-library";
-import ActionNotification from "components/shared/action_notifications/action_notification";
+import ActionNotification from "components/action_notifications/action_notification";
 import React from "react";
 
 let onClose;

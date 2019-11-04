@@ -1,4 +1,4 @@
-import {keyCodes, parseKeyCode} from "components/utils/keys";
+import {keyCodes, parseKeyCode} from "utils/keys";
 import {IconArrowThickLeft, IconArrowThickRight, IconX} from "components/icons";
 import PropTypes from "prop-types";
 import React from "react";

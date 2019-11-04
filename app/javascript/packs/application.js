@@ -7,9 +7,12 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %>
 // to the appropriate layout file, like app/views/layouts/application.html.erb
 
+// Expose JQuery globally
+window.$ = window.jQuery = require("jquery");
+require("jquery-ujs");
+
 import "core-js/stable";
 
-import "common";
 import "mount-react-component";
 
 import "application/_mobile_navigation.js";
@@ -23,4 +26,4 @@ import "collections/_share_modal.jsx";
 import "collections/show.js";
 
 import "components/photo_grid";
-import "components/shared/action_notifications/action_notifications";
+import "components/action_notifications";

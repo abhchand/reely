@@ -1,4 +1,4 @@
-import {keyCodes, parseKeyCode} from "components/utils/keys";
+import {keyCodes, parseKeyCode} from "utils/keys";
 import AddToCollection from "./actions/add_to_collection";
 import CloseButton from "./actions/close_button";
 import OpenButton from "./actions/open_button";
