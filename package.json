@@ -5,6 +5,8 @@
     "test": "node_modules/.bin/jest --no-cache --config spec/javascript/jest.config.js",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --config spec/javascript/jest.config.js --colors --verbose"
   },
+  "author": "Abhishek Chandrasekhar <me@abhchand.me>",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^4.6.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
