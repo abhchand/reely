@@ -140,7 +140,8 @@ en:
             tooltip: Add to Collection
             btn_label: Add to Collection
             search_placeholder: Search...
-            empty_state: No results
+            empty_state: You don't have any collections yet!
+            no_results: No collections found
             create:
               blank: New Collection
               present: Create "%{name}"

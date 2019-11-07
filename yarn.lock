@@ -9083,10 +9083,10 @@ react-property@1.0.1:
   resolved "https://registry.yarnpkg.com/react-property/-/react-property-1.0.1.tgz#4ae4211557d0a0ae050a71aa8ad288c074bea4e6"
   integrity sha512-1tKOwxFn3dXVomH6pM9IkLkq2Y8oh+fh/lYW3MJ/B03URswUTqttgckOlbxY2XHF3vPG6uanSc4dVsLW/wk3wQ==
 
-react-select-or-create@^1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-select-or-create/-/react-select-or-create-1.0.0-beta.1.tgz#065d68b755d60075969b8d4f26281e1354aa4a1d"
-  integrity sha512-9DgKI0e/RNOFoPZvZYLaQqZV9S9HQJehfEpdiaJftdMzVbSPONhdTOIsLYFfqWBIgozDNBCrI26C3D4sAXdNWA==
+react-select-or-create@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-select-or-create/-/react-select-or-create-1.0.0.tgz#3dfd435633c6a1191cae3c6e2eadc4080a445eb5"
+  integrity sha512-We12zNbNfmTIxTkGOSqwQurfAHN6wKzDzoMeLbPFcUPtOxkoa0h7HUe8qAgcKvGs3YW3YbPVdZNa2G++KJAUsA==
 
 react-toggle-switch@^3.0.4:
   version "3.0.4"

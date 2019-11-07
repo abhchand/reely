@@ -112,7 +112,8 @@ class AddToCollection extends React.Component {
 
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
     const textForOpenMenuButton = () => (<IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
-    const textForOptionsEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
+    const textForEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
+    const textForNoSearchResults = I18n.t(`${this.i18nPrefix}.no_results`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
     const textForCreateItem = (searchValue) => {
       const key = searchValue === '' ? 'blank' : 'present';
@@ -127,7 +128,8 @@ class AddToCollection extends React.Component {
           onSelect={this.addToExistingCollection}
           textForCloseMenuButton={textForCloseMenuButton}
           textForOpenMenuButton={textForOpenMenuButton}
-          textForOptionsEmptyState={textForOptionsEmptyState}
+          textForEmptyState={textForEmptyState}
+          textForNoSearchResults={textForNoSearchResults}
           textForSearchInputPlaceholder={textForSearchInputPlaceholder}
           textForCreateItem={textForCreateItem} />
       </li>
