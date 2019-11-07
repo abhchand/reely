@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photos carousel", type: :feature do
+RSpec.feature "photo grid add to collection", type: :feature do
   let(:user) { create(:user) }
 
   let!(:photos) do
@@ -14,6 +14,19 @@ RSpec.feature "photos carousel", type: :feature do
       "components.photo_grid.control_panel.bulk_action_panel.add_to_collection"
   end
 
+  it "user can only add to collection after selecting a photo", :js do
+    log_in(user)
+    visit photos_path
+
+    enable_selection_mode
+
+    expect_add_to_collections_icon_to_not_be_visible
+    click_photo(photos[0])
+    expect_add_to_collections_icon_to_be_visible
+    click_photo(photos[0])
+    expect_add_to_collections_icon_to_not_be_visible
+  end
+
   it "user can search and filter collections to add to", :js do
     _c1 = create(:collection, owner: user, name: "Tamil")
     c2 = create(:collection, owner: user, name: "Kannada")
@@ -23,6 +36,7 @@ RSpec.feature "photos carousel", type: :feature do
     visit photos_path
 
     enable_selection_mode
+    click_photo(photos[0])
 
     within_add_to_collection do
       open_dropdown_menu
@@ -40,7 +54,7 @@ RSpec.feature "photos carousel", type: :feature do
       # Empty State
       fill_in "search", with: "nnn"
       expect(find(".react-select-or-create .select-items")).
-        to have_content(t("#{@t_prefix}.empty_state"))
+        to have_content(t("#{@t_prefix}.no_results"))
     end
   end
 
@@ -92,58 +106,12 @@ RSpec.feature "photos carousel", type: :feature do
     expect(collection.photos).to match_array([photos[0], photos[2]])
   end
 
-  describe "keyboard navigation" do
-    it "user can add photos to a new collection", :js do
-      log_in(user)
-      visit photos_path
+  def expect_add_to_collections_icon_to_be_visible
+    expect(page).to have_selector(".icon-tray__item--add-to-collection")
+  end
 
-      enable_selection_mode
-      click_photo(photos[0])
-      click_photo(photos[2])
-
-      within_add_to_collection do
-        open_dropdown_menu
-
-        expect do
-          fill_in "search", with: "Cool Collection"
-          create_collection.send_keys(:enter)
-
-          wait_for_ajax
-        end.to change { Collection.count }.by(1)
-      end
-
-      collection = Collection.last
-      expect(collection.name).to eq("Cool Collection")
-      expect(collection.photos).to match_array([photos[0], photos[2]])
-    end
-
-    it "user can add photos to an exisiting collection", :js do
-      c1 = create(:collection, owner: user, name: "Tamil")
-      _c2 = create(:collection, owner: user, name: "Kannada")
-
-      log_in(user)
-      visit photos_path
-
-      enable_selection_mode
-      click_photo(photos[0])
-      click_photo(photos[2])
-
-      within_add_to_collection do
-        open_dropdown_menu
-
-        expect do
-          # Also test in passing that the arrow keys navigate the options
-          # Collections are reverse order: c2, c1
-          search_input.send_keys(:arrow_down)
-          expect(selected_option_id).to eq(c1.synthetic_id)
-
-          search_input.send_keys(:enter)
-          wait_for_ajax
-        end.to change { c1.reload.photos.count }.by(2)
-      end
-
-      expect(c1.photos).to match_array([photos[0], photos[2]])
-    end
+  def expect_add_to_collections_icon_to_not_be_visible
+    expect(page).to_not have_selector(".icon-tray__item--add-to-collection")
   end
 
   # rubocop:disable Lint/UnusedMethodArgument
@@ -164,16 +132,8 @@ RSpec.feature "photos carousel", type: :feature do
     find(".react-select-or-create .select-items li[data-id='#{id}'] div")
   end
 
-  def search_input
-    find(".react-select-or-create .search-input input")
-  end
-
   def create_collection
     find(".react-select-or-create .create-item")
-  end
-
-  def selected_option_id
-    find(".react-select-or-create .select-items li.selected")["data-id"]
   end
 
   def displayed_dropdown_option_ids

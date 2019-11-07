@@ -1,10 +1,10 @@
 import ControlPanel from "./control_panel";
+import mountReactComponent from "mount-react-component.jsx";
 import Photo from "./photo";
 import PhotoCarousel from "./carousel";
 import PhotoSelectionService from "./photo_selection_service";
 import PropTypes from "prop-types";
 import React from "react";
-import mountReactComponent from "mount-react-component.jsx";
 
 class PhotoGrid extends React.Component {
   static propTypes = {
@@ -46,6 +46,8 @@ class PhotoGrid extends React.Component {
 
   handlePhotoSelection(photoIndex, event) {
     const self = this;
+
+    event.persist();
 
     this.setState(function(prevState) {
       const service = new PhotoSelectionService(
@@ -140,4 +142,4 @@ class PhotoGrid extends React.Component {
 
 export default PhotoGrid;
 
-mountReactComponent(PhotoGrid,'photo-grid');
+mountReactComponent(PhotoGrid, 'photo-grid');

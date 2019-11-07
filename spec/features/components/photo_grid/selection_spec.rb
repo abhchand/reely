@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photo selection", type: :feature do
+RSpec.feature "photo grid photo selection", type: :feature do
   let(:user) { create(:user) }
   let(:photo_count) { 3 }
 
@@ -49,22 +49,6 @@ RSpec.feature "photo selection", type: :feature do
     expect_photo_to_be_unselected(photos[0])
     expect_photo_to_be_unselected(photos[1])
     expect_photo_to_be_unselected(photos[2])
-  end
-
-  describe "keyboard navigation" do
-    it "user can disable selection mode using the Escape key", :js do
-      log_in(user)
-      visit photos_path
-
-      enable_selection_mode
-      click_photo(photos[0])
-
-      pg = page.find(".photo-grid")
-
-      expect(pg["class"]).to match(/photo-grid--selection-mode-enabled/)
-      pg.send_keys(:escape)
-      expect(pg["class"]).to_not match(/photo-grid--selection-mode-enabled/)
-    end
   end
 
   describe "bulk selection with shift + click", :js do
