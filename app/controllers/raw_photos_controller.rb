@@ -32,7 +32,7 @@
 # while reusing the `DiskController` logic where possible.
 #
 
-class Photos::SourceFileController < ActiveStorage::DiskController
+class RawPhotosController < ActiveStorage::DiskController
   before_action :ensure_blob_and_file_present
 
   def show

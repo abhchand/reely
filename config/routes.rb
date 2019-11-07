@@ -67,8 +67,8 @@ Rails.application.routes.draw do
 
   resources :photos, only: :index
 
-  namespace :photos do
-    resources :source_file, only: :show, path: :file
+  scope :photos do
+    resources :raw_photos, only: :show, path: :file
   end
   # rubocop:enable Style/SymbolArray
   # rubocop:enable LineLength

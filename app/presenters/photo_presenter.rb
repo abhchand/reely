@@ -3,10 +3,10 @@ class PhotoPresenter < ApplicationPresenter
     opts = { id: direct_access_key }
     opts[:size] = size if Photo::SOURCE_FILE_SIZES.key?(size)
 
-    # See documentation in `Photos::SourceFileController` on why we generate
+    # See documentation in `RawPhotosController` on why we generate
     # this custom route to serve the file instead of the service URL provided
     # by ActiveStorage
-    photos_source_file_path(opts)
+    raw_photo_path(opts)
   end
 
   def taken_at_label

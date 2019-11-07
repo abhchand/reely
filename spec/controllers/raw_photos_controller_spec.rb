@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Photos::SourceFileController, type: :controller do
+RSpec.describe RawPhotosController, type: :controller do
   let(:photo) { create(:photo) }
 
   before { photo }
