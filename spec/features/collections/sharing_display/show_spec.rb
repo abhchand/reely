@@ -27,7 +27,6 @@ RSpec.feature "share collections show page", type: :feature do
       to have_selector(
         ".collections-sharing-display-show__photo-grid-container"
       )
-    expect(page.all(".photo-grid__photo-container").count).
-      to eq(collection.photos.count)
+    expect(page).to have_react_component("photo-grid")
   end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "collections show page", :js, type: :feature do
+RSpec.feature "editing collection name", :js, type: :feature do
   let(:user) { create(:user) }
   let(:collection) { create_collection_with_photos(owner: user) }
 
@@ -33,7 +33,9 @@ RSpec.feature "collections show page", :js, type: :feature do
   end
 
   it "user cannot enter a blank name" do
-    fill_in("collection_name", with: "")
+    # For some reason `fill_in("collection_name", with: "")` wont work here
+    # so settle for sending several backspaces in a row
+    collection.name.length.times { textarea.send_keys(:backspace) }
     expect(textarea.value).to eq("")
 
     click_outside_textarea
