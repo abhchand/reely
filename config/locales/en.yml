@@ -135,25 +135,24 @@ en:
   components:
     photo_grid:
       control_panel:
-        bulk_action_panel:
-          add_to_collection:
-            tooltip: Add to Collection
-            btn_label: Add to Collection
-            search_placeholder: Search...
-            empty_state: You don't have any collections yet!
-            no_results: No collections found
-            create:
-              blank: New Collection
-              present: Create "%{name}"
+        add_to_collection:
+          tooltip: Add to Collection
+          btn_label: Add to Collection
+          search_placeholder: Search...
+          empty_state: You don't have any collections yet!
+          no_results: No collections found
+          create:
+            blank: New Collection
+            present: Create "%{name}"
 
-            existing:
-              success:
-                one: "1 photo added to <a href=\"%{href}\">collection</a>"
-                other: "%{count} photos added to <a href=\"%{href}\">collection</a>"
-              error: An error occurred while adding photos to the collection
-            new:
-              success: Created collection <a href="%{href}">%{name}</a>
-              error: An error occurred while creating the collection
+          existing:
+            success:
+              one: "1 photo added to <a href=\"%{href}\">collection</a>"
+              other: "%{count} photos added to <a href=\"%{href}\">collection</a>"
+            error: An error occurred while adding photos to the collection
+          new:
+            success: Created collection <a href="%{href}">%{name}</a>
+            error: An error occurred while creating the collection
         selected_photo_count:
           heading:
             one: "%{count} Photo Selected"

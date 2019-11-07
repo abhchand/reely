@@ -11,7 +11,7 @@ RSpec.feature "photo grid add to collection", type: :feature do
 
   before do
     @t_prefix =
-      "components.photo_grid.control_panel.bulk_action_panel.add_to_collection"
+      "components.photo_grid.control_panel.add_to_collection"
   end
 
   it "user can only add to collection after selecting a photo", :js do
