@@ -2,8 +2,12 @@
   "name": "reely",
   "version": "1.0.0",
   "scripts": {
-    "test": "node_modules/.bin/jest --no-cache --config spec/javascript/jest.config.js",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --config spec/javascript/jest.config.js --colors --verbose"
+    "lint": "eslint . --ext .js,.jsx && stylelint app/assets/stylesheets/*",
+    "lintfix": "eslint . --ext .js,.jsx --fix && stylelint app/assets/stylesheets/* --fix",
+    "testonly": "jest --no-cache --config spec/javascript/jest.config.js",
+    "test": "yarn run lint && yarn run testonly",
+    "dev": "NODE_ENV=development webpack-dev-server --open",
+    "build": "yarn run test NODE_ENV=production webpack --config webpack.config.js"
   },
   "author": "Abhishek Chandrasekhar <me@abhchand.me>",
   "license": "MIT",

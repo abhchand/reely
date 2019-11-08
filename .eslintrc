@@ -1,151 +1,98 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended"
+  extends: [
+    "eslint:all",                       // List of rules: https://eslint.org/docs/rules
+    "plugin:react/all",                 // List of rules: https://github.com/yannickcr/eslint-plugin-react#list-of-supported-rules
+    "plugin:jsx-a11y/strict"            // List of rules: https://github.com/evcohen/eslint-plugin-jsx-a11y#supported-rules
   ],
-  "env": {
-    "browser": true,
-    "es6": true,
-    "jquery": true,
-    "node": true
+  env: {
+    browser: true,
+    node: true,
+    jquery: true
   },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "impliedStrict": true,
-      "experimentalObjectRestSpread": true
+  parser: "babel-eslint",
+  parserOptions: {
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+      impliedStrict: true
     }
   },
-  "settings": {
-    "react": {
-      // Default shipped with the gem version we are using, we should
-      // start being more explicit with it
-      version: "15.6.2"
+  globals: {
+    "I18n": true
+  },
+  plugins: [
+    "react",
+    "jsx-a11y"
+  ],
+  settings: {
+    react: {
+      version: '16.9.11'
     }
   },
-  "globals": {
-    "CKEDITOR": true,
-    "EventEmitter": true,
-    "fbq": true,
-    "gon": true,
-    "I18n": true,
-    "jstz": true,
-    "Swiper": true
+  rules: {
+    arrow-body-style:                       "off",
+    brace-style:                            ["error", "stroustrup", { allowSingleLine: true }],
+    capitalized-comments:                   "warn",
+    comma-dangle:                           ["warn", "never"],
+    consistent-this:                        "off",
+    default-case:                           ["warn", { "commentPattern": "^eslint\\sskip\\sdefault" }],
+    eqeqeq:                                 ["error", "smart"],
+    func-style:                             ["error", "declaration", { allowArrowFunctions: true }],
+    function-call-argument-newline:         "off",
+    id-length:                              "off",
+    indent:                                 ["error", 2, { "SwitchCase": 1 }],
+    init-declarations:                      "off",
+    key-spacing:                            ["error", { "mode": "minimum" }],
+    max-len:                                ["warn", 150, { comments: 80, ignoreTrailingComments: true, ignoreUrls: true }],
+    max-lines-per-function:                 ["error", { skipComments: true, skipBlankLines: true }],
+    max-statements-per-line:                "off",
+    max-statements:                         "off",
+    multiline-ternary:                      "off",
+    no-continue:                            "off",
+    no-extra-parens:                        "warn",
+    no-inline-comments:                     "warn",
+    no-magic-numbers:                       ["warn", { "ignore": [-1, 0, 1] }],
+    no-plusplus:                            ["warn", { "allowForLoopAfterthoughts": true }],
+    no-ternary:                             "off",
+    no-unused-vars:                         ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+    object-curly-spacing:                   ["error", "always"],
+    object-property-newline:                ["error", { "allowAllPropertiesOnSameLine": true }],
+    object-shorthand:                       "off",
+    one-var:                                "off",
+    padded-blocks:                          ["error", { blocks: "never", classes: "always", switches: "never" }, { allowSingleLineBlocks: true }],
+    prefer-arrow-callback:                  "warn",
+    prefer-destructuring:                   "off",
+    quote-props:                            ["error", "consistent"],
+    quotes:                                 ["warn", "single"],
+    react/destructuring-assignment:         ["warn", "never"],
+    react/forbid-prop-types:                "off",
+    react/jsx-closing-bracket-location:     ["warn", "after-props"],
+    react/jsx-filename-extension:           "warn",
+    react/jsx-handler-names:                "off",
+    react/jsx-indent-props:                 ["warn", 2],
+    react/jsx-indent:                       ["warn", 2],
+    react/jsx-max-props-per-line:           "off",
+    react/jsx-no-bind:                      ["error", { allowArrowFunctions: true }],
+    react/jsx-no-literals:                  "off",
+    react/jsx-one-expression-per-line:      "off",
+    react/jsx-sort-props:                   "off",
+    react/no-set-state:                     "off",
+    react/require-default-props:            "off",
+    react/require-optimization:             "off",
+    react/sort-prop-types:                  "off",
+    semi:                                   ["error", "always"],
+    sort-imports:                           ["warn", { ignoreCase: true }],
+    sort-keys:                              "off",
+    space-before-function-paren:            ["error", "never"],
+    space-in-parens:                        ["warn", "never"]
   },
-  "plugins": ["react", "jsx-a11y"],
-  "rules": {
-    // Syntax Errors
-    "for-direction": "error",
-    // Best Practices
-    "array-callback-return": "warn",
-    "curly": ["warn", "multi-line"],
-    "dot-location": ["warn", "property"],
-    "dot-notation": "warn",
-    "eqeqeq": ["error", "smart"],
-    "no-control-regex": "off",
-    "no-else-return": "warn",
-    "no-empty-function": "warn",
-    "no-eq-null": "error",
-    "no-eval": "error",
-    "no-extra-bind": "warn",
-    "no-floating-decimal": "warn",
-    "no-implicit-globals": "warn",
-    "no-implied-eval": "error",
-    // I would like to eventually turn this back on when we have more fixed
-    "no-magic-numbers": ["off", { "ignore": [0, 1] }],
-    // "no-multi-spaces": ["warn", { "ignoreEOLComments": true }],
-    "no-new": "warn",
-    "no-param-reassign": "warn",
-    "no-return-assign": "warn",
-    "no-return-await": "error",
-    "no-script-url": "error",
-    "no-throw-literal": "error",
-    "no-useless-call": "warn",
-    "no-useless-concat": "warn",
-    "no-useless-return": "warn",
-    "require-await": "warn",
-    // Variables
-    "no-shadow-restricted-names": "error",
-    // Stylistic Issues
-    "block-spacing": "warn",
-    "camelcase": "warn",
-    "comma-spacing": ["warn", { "before": false, "after": true }],
-    "func-call-spacing": ["warn", "never"],
-    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
-    "max-len": ["warn", 150, { "comments": 80, "ignoreTrailingComments": true, "ignoreUrls": true }],
-    "max-lines": ["warn", {"max": 500, "skipBlankLines": true, "skipComments": true}],
-    "no-bitwise": "error",
-    "no-lonely-if": "warn",
-    "no-mixed-operators": ["error", {"allowSamePrecedence": true}],
-    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
-    "no-multiple-empty-lines": ["warn", {"max": 2, "maxEOF": 1}],
-    "no-nested-ternary": "error",
-    "no-trailing-spaces": "warn",
-    "no-unneeded-ternary": "error",
-    "no-whitespace-before-property": "error",
-    "operator-assignment": ["warn", "always"],
-    "semi": ["error", "always"],
-    "padding-line-between-statements": [
-      "warn",
-      { blankLine: "any",    prev: ["const", "let", "var"], next: ["const", "let", "var"]},
-      { blankLine: "any",    prev: "function", next: "*" },
-      { blankLine: "always", prev: "directive", next: "*" },
-      { blankLine: "any",    prev: "directive", next: "directive" }
-    ],
-    "space-infix-ops": "warn",
-    "wrap-regex": "warn",
-    // EcmaScript 6
-    "arrow-spacing": "error",
-    "no-confusing-arrow": ["error", {"allowParens": true}],
-    "no-duplicate-imports": "error",
-    "sort-imports": ["warn", { "ignoreCase": true }],
-    // Turn these on when we add ES6 transpiler
-    "no-var": "off",
-    "prefer-const": "off",
-    // React Rules
-    "react/boolean-prop-naming": "warn",
-    "react/button-has-type": "warn",
-    "react/default-props-match-prop-types": ["error", { "allowRequiredDefaults": true }],
-    "react/jsx-filename-extension": "warn",
-    "react/jsx-wrap-multilines": "warn",
-    "react/jsx-no-bind": "error",
-    "react/no-access-state-in-setstate": "warn",
-    "react/no-array-index-key": "warn",
-    "react/no-danger": "warn",
-    "react/no-did-mount-set-state": "error",
-    "react/no-did-update-set-state": "error",
-    "react/no-find-dom-node": "error",
-    "react/no-redundant-should-component-update": "error",
-    "react/no-this-in-sfc": "error",
-    "react/no-typos": "error",
-    "react/no-unused-prop-types": "warn",
-    "react/no-unused-state": "warn",
-    "react/no-will-update-set-state": "error",
-    "react/jsx-pascal-case": "error",
-    "react/prefer-es6-class": ["warn"],
-    "react/sort-comp": ["warn"],
-    "react/void-dom-elements-no-children": "error",
-    // We should fix these and then turn rules back on
-    "react/jsx-no-undef": ["warn", { "allowGlobals": true }],
-    "react/display-name": ["off", { "ignoreTranspilerName": true }],
-    "react/no-deprecated": ["warn"],
-    // JSX A11y rules
-  },
-  "overrides": [
+  overrides: [
     {
-      "files": [
-        "**/app/javascript/**"
+      files: [
+        "**/*.jsx"
       ],
-      "rules": {
-        "camelcase": "off",
-        "no-return-assign": "off",
-        "no-var": "error",
-        "padding-line-between-statements": "off",
-        "prefer-const": "warn",
-        "prefer-template": "warn"
+      rules: {
+        "class-methods-use-this":           "off"
       }
     },
     {
@@ -155,6 +102,18 @@
       ],
       env: {
         jest: true
+      }
+    },
+    {
+      files: [
+        "test/**/*.js",
+        "test/**/*.jsx"
+      ],
+      rules: {
+        max-lines:                          "off",
+        max-lines-per-function:             "off",
+        no-use-before-define:               "off",
+        react/jsx-props-no-spreading:       "off"
       }
     }
   ]
