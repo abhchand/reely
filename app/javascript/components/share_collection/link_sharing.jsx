@@ -1,11 +1,12 @@
-import CopyLink from "./copy_link";
-import LinkSharingToggle from "./link_sharing_toggle";
-import PropTypes from "prop-types";
-import React from "react";
-import RenewLink from "./renew_link";
-import Url from "./url";
+import CopyLink from './copy_link';
+import LinkSharingToggle from './link_sharing_toggle';
+import PropTypes from 'prop-types';
+import React from 'react';
+import RenewLink from './renew_link';
+import Url from './url';
 
 class LinkSharing extends React.Component {
+
   static propTypes = {
     collection: PropTypes.object.isRequired,
     setCollection: PropTypes.func.isRequired
@@ -52,6 +53,7 @@ class LinkSharing extends React.Component {
       </div>
     );
   }
+
 }
 
 export default LinkSharing;

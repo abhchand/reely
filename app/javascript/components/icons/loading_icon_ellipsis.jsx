@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const LoadingIconEllipsis = (props) => {
   return (
     <div className={`loading-icon loading-icon--ellipsis ${props.className}`}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div />
+      <div />
+      <div />
+      <div />
     </div>
   );
 };
@@ -17,7 +17,7 @@ LoadingIconEllipsis.propTypes = {
 };
 
 LoadingIconEllipsis.defaultProps = {
-  className: ""
+  className: ''
 };
 
 export default LoadingIconEllipsis;

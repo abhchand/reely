@@ -1,9 +1,10 @@
-import { IconPlus } from "components/icons";
-import PropTypes from "prop-types";
-import React from "react";
-import ReactSelectOrCreate from "react-select-or-create";
+import { IconPlus } from 'components/icons';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReactSelectOrCreate from 'react-select-or-create';
 
 class AddToCollection extends React.Component {
+
   static propTypes = {
     collections: PropTypes.array.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
@@ -14,7 +15,7 @@ class AddToCollection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.i18nPrefix = "components.photo_grid.control_panel.add_to_collection";
+    this.i18nPrefix = 'components.photo_grid.control_panel.add_to_collection';
 
     this.addToExistingCollection = this.addToExistingCollection.bind(this);
     this.addToNewCollection = this.addToNewCollection.bind(this);
@@ -23,7 +24,8 @@ class AddToCollection extends React.Component {
 
   addToExistingCollection(collectionId) {
     const self = this;
-    const id = `id${  Math.random().toString(16).slice(2)}`;
+    const id = `id${Math.random().toString(16).
+      slice(2)}`;
     const data = {
       collection_id: collectionId,
       collection: {
@@ -32,35 +34,35 @@ class AddToCollection extends React.Component {
     };
 
     $.ajax({
-      type: "PUT",
+      type: 'PUT',
       url: `/collections/${collectionId}/add-photos`,
-      dataType: "json",
+      dataType: 'json',
       data: JSON.stringify(data),
-      contentType: "application/json"
-    })
-      .fail(function() {
+      contentType: 'application/json'
+    }).
+      fail(() => {
         const content = I18n.t(`${self.i18nPrefix}.existing.error`);
-        const notification = { id: id, content: content, type: "error" };
+        const notification = { id: id, content: content, type: 'error' };
 
         self.addNotification(notification);
         self.props.onAddToExistingCollection();
-      })
-      .done(function() {
+      }).
+      done(() => {
         const count = self.props.selectedPhotoIds.length;
-        const msg = I18n.t(`${self.i18nPrefix}.existing.success`, { count: count, href: "/collections" });
+        const msg = I18n.t(`${self.i18nPrefix}.existing.success`, { count: count, href: '/collections' });
         // eslint-disable-next-line react/no-danger
-        const content = <span dangerouslySetInnerHTML={{__html: msg}}></span>;
-        const notification = { id: id, content: content, type: "success" };
+        const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
+        const notification = { id: id, content: content, type: 'success' };
 
         self.addNotification(notification);
         self.props.onAddToExistingCollection();
-      })
-    ;
+      });
   }
 
   addToNewCollection(collectionName, prevCollections) {
     const self = this;
-    const id = `id${  Math.random().toString(16).slice(2)}`;
+    const id = `id${Math.random().toString(16).
+      slice(2)}`;
     const data = {
       collection: {
         name: collectionName
@@ -69,35 +71,36 @@ class AddToCollection extends React.Component {
     let newCollections;
 
     $.ajax({
-      type: "POST",
-      // Until react-select-or-create allows returning promises we need
-      // to run this synchronously
+      type: 'POST',
+
+      /*
+       * Until react-select-or-create allows returning promises we need
+       * to run this synchronously
+       */
       async: false,
-      url: "/collections",
-      dataType: "json",
+      url: '/collections',
+      dataType: 'json',
       data: JSON.stringify(data),
-      contentType: "application/json"
-    })
-      .fail(function() {
+      contentType: 'application/json'
+    }).
+      fail(() => {
         const content = I18n.t(`${self.i18nPrefix}.new.error`);
-        const notification = { id: id, content: content, type: "error" };
+        const notification = { id: id, content: content, type: 'error' };
 
         self.addNotification(notification);
-      })
-      .done(function(collection) {
+      }).
+      done((collection) => {
         const collectionId = collection.id;
         const msg = I18n.t(`${self.i18nPrefix}.new.success`, { href: `/collections/${collectionId}`, name: collection.name });
         // eslint-disable-next-line react/no-danger
-        const content = <span dangerouslySetInnerHTML={{__html: msg}}></span>;
-        const notification = { id: id, content: content, type: "success" };
+        const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
+        const notification = { id: id, content: content, type: 'success' };
 
         self.addNotification(notification);
         self.addToExistingCollection(collectionId);
 
         newCollections = prevCollections.unshift({ id: collection.id, name: collection.name });
-      })
-    ;
-
+      });
     return newCollections;
   }
 
@@ -111,7 +114,7 @@ class AddToCollection extends React.Component {
     }
 
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
-    const textForOpenMenuButton = () => (<IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />);
+    const textForOpenMenuButton = () => <IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />;
     const textForEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForNoSearchResults = I18n.t(`${this.i18nPrefix}.no_results`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
@@ -121,7 +124,7 @@ class AddToCollection extends React.Component {
     };
 
     return (
-      <li className={"icon-tray__item icon-tray__item--add-to-collection"}>
+      <li className="icon-tray__item icon-tray__item--add-to-collection">
         <ReactSelectOrCreate
           items={this.props.collections}
           onCreate={this.addToNewCollection}
@@ -135,6 +138,7 @@ class AddToCollection extends React.Component {
       </li>
     );
   }
+
 }
 
 export default AddToCollection;

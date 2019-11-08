@@ -1,9 +1,10 @@
-import {keyCodes, parseKeyCode} from "utils/keys";
-import {IconArrowThickLeft, IconArrowThickRight, IconX} from "components/icons";
-import PropTypes from "prop-types";
-import React from "react";
+import { keyCodes, parseKeyCode } from 'utils/keys';
+import { IconArrowThickLeft, IconArrowThickRight, IconX } from 'components/icons';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class PhotoCarousel extends React.Component {
+
   static propTypes = {
     photoData: PropTypes.array.isRequired,
     clickedPhotoIndex: PropTypes.number.isRequired,
@@ -27,15 +28,15 @@ class PhotoCarousel extends React.Component {
   }
 
   componentDidMount() {
-    $(document.body).on("keydown", this.handleKeyDown);
+    $(document.body).on('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    $(document.body).off("keydown", this.handleKeyDown);
+    $(document.body).off('keydown', this.handleKeyDown);
   }
 
   handleKeyDown(e) {
-    switch(parseKeyCode(e)) {
+    switch (parseKeyCode(e)) {
       case keyCodes.ESCAPE:
         this.props.closeCarousel();
         break;
@@ -65,7 +66,7 @@ class PhotoCarousel extends React.Component {
       return;
     }
 
-    style.transform = `rotate(${ degrees }deg)`;
+    style.transform = `rotate(${degrees}deg)`;
   }
 
   navigateNext() {
@@ -74,7 +75,7 @@ class PhotoCarousel extends React.Component {
       newIndex = 0;
     }
 
-    this.setState({currentPhotoIndex: newIndex});
+    this.setState({ currentPhotoIndex: newIndex });
   }
 
   navigatePrev() {
@@ -83,7 +84,7 @@ class PhotoCarousel extends React.Component {
       newIndex = this.props.photoData.length - 1;
     }
 
-    this.setState({currentPhotoIndex: newIndex});
+    this.setState({ currentPhotoIndex: newIndex });
   }
 
   render() {
@@ -97,7 +98,7 @@ class PhotoCarousel extends React.Component {
         </div>
 
         <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
-          <IconX size="16"/>
+          <IconX size="16" />
         </div>
 
         <div className="photo-carousel__navigation-container prev" onClick={this.navigatePrev}>
@@ -114,6 +115,7 @@ class PhotoCarousel extends React.Component {
       </div>
     );
   }
+
 }
 
 export default PhotoCarousel;

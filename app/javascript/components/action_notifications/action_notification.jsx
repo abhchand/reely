@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class ActionNotification extends React.Component {
+
   static propTypes = {
     notification: PropTypes.object.isRequired,
     duration: PropTypes.number,
@@ -11,15 +12,15 @@ class ActionNotification extends React.Component {
   };
 
   static defaultProps = {
+    closeButtonLabel: 'Close',
     duration: 5000,
-    isDismissable: true,
-    closeButtonLabel: "Close"
+    isDismissable: true
   };
 
   static notificationTypes = {
-    error: "notification--error",
-    info: "notification--info",
-    success: "notification--success"
+    error: 'notification--error',
+    info: 'notification--info',
+    success: 'notification--success'
   }
 
   constructor(props) {
@@ -44,7 +45,7 @@ class ActionNotification extends React.Component {
   notificationContent() {
     const content = this.props.notification.content;
 
-    if (typeof content === "string" || content instanceof String) {
+    if (typeof content === 'string' || content instanceof String) {
       return <span>{content}</span>;
     }
 
@@ -58,7 +59,7 @@ class ActionNotification extends React.Component {
 
   pauseTimer() {
     clearTimeout(this.timer);
-    this.remaining -= (Date.now() - this.start);
+    this.remaining -= Date.now() - this.start;
   }
 
   resumeTimer() {
@@ -88,7 +89,7 @@ class ActionNotification extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div
         data-testid={`notification-${this.props.notification.id}`}
         className={`notification ${this.notificationClass()}`}
@@ -99,6 +100,7 @@ class ActionNotification extends React.Component {
       </div>
     );
   }
+
 }
 
 export default ActionNotification;

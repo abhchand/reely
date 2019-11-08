@@ -1,1 +1,1 @@
-export {default} from "./share_collection";
+export { default } from './share_collection';

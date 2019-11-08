@@ -1,12 +1,14 @@
-$(document).ready(function() {
-  //
-  // Close flash message
-  //
-  $("body").on("click", ".flash", function(e) {
+$(document).ready(() => {
+  /*
+   *
+   * Close flash message
+   *
+   */
+  $('body').on('click', '.flash', (e) => {
     e.preventDefault();
 
-    var flash = $(".flash");
-    $(flash).removeClass("active");
-    $(flash).addClass("inactive");
+    const flash = $('.flash');
+    $(flash).removeClass('active');
+    $(flash).addClass('inactive');
   });
 });

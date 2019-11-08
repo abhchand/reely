@@ -1,6 +1,6 @@
-import {IconCheckMark} from "components/icons";
-import PropTypes from "prop-types";
-import React from "react";
+import { IconCheckMark } from 'components/icons';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const OpenButton = (props) => {
   return (

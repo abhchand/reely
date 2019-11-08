@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const ModalError = (props) => {
   return (
@@ -14,7 +14,7 @@ ModalError.propTypes = {
 };
 
 ModalError.defaultProps = {
-  text: I18n.t("generic_error")
+  text: I18n.t('generic_error')
 };
 
 export default ModalError;

@@ -1,6 +1,6 @@
-import {IconX} from "components/icons";
-import PropTypes from "prop-types";
-import React from "react";
+import { IconX } from 'components/icons';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const CloseButton = (props) => {
   return (

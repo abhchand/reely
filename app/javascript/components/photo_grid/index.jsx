@@ -1,12 +1,13 @@
-import ControlPanel from "./control_panel";
-import mountReactComponent from "mount-react-component.jsx";
-import Photo from "./photo";
-import PhotoCarousel from "./carousel";
-import PhotoSelectionService from "./photo_selection_service";
-import PropTypes from "prop-types";
-import React from "react";
+import ControlPanel from './control_panel';
+import mountReactComponent from 'mount-react-component.jsx';
+import Photo from './photo';
+import PhotoCarousel from './carousel';
+import PhotoSelectionService from './photo_selection_service';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class PhotoGrid extends React.Component {
+
   static propTypes = {
     photoData: PropTypes.array.isRequired,
     collections: PropTypes.array.isRequired
@@ -49,7 +50,7 @@ class PhotoGrid extends React.Component {
 
     event.persist();
 
-    this.setState(function(prevState) {
+    this.setState((prevState) => {
       const service = new PhotoSelectionService(
         self.props.photoData,
         prevState.selectedPhotoIds,
@@ -108,18 +109,18 @@ class PhotoGrid extends React.Component {
         <PhotoCarousel
           photoData={this.props.photoData}
           clickedPhotoIndex={this.state.clickedPhotoIndex}
-          closeCarousel={this.disableCarousel}/>
+          closeCarousel={this.disableCarousel} />
       );
     }
   }
 
   render() {
     const self = this;
-    const enabledClass = (this.state.selectionModeEnabled ? " photo-grid--selection-mode-enabled" : "");
+    const enabledClass = this.state.selectionModeEnabled ? ' photo-grid--selection-mode-enabled' : '';
 
     return (
       <div
-        className={`photo-grid${  enabledClass}`}
+        className={`photo-grid${enabledClass}`}
         onKeyDown={this.handleKeyDown}
         tabIndex="-1"
         role="presentation">
@@ -128,7 +129,7 @@ class PhotoGrid extends React.Component {
 
         <div className="photo-grid__content">
           {
-            this.props.photoData.map(function(photo, photoIndex){
+            this.props.photoData.map((photo, photoIndex) => {
               return self.renderPhoto(photo, photoIndex);
             })
           }
@@ -138,6 +139,7 @@ class PhotoGrid extends React.Component {
       </div>
     );
   }
+
 }
 
 export default PhotoGrid;

@@ -1,12 +1,13 @@
-import axios from "axios";
-import LinkSharing from "./link_sharing";
-import LoadingIconEllipsis from "components/icons/loading_icon_ellipsis";
-import ModalError from "components/modal_error";
-import PropTypes from "prop-types";
-import React from "react";
-import ReactOnRails from "react-on-rails/node_package/lib/Authenticity";
+import axios from 'axios';
+import LinkSharing from './link_sharing';
+import LoadingIconEllipsis from 'components/icons/loading_icon_ellipsis';
+import ModalError from 'components/modal_error';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class ShareCollection extends React.Component {
+
   static propTypes = {
     collection: PropTypes.object.isRequired
   }
@@ -18,7 +19,7 @@ class ShareCollection extends React.Component {
     this.renderHeading = this.renderHeading.bind(this);
     this.renderLinkSharing = this.renderLinkSharing.bind(this);
 
-    this.i18nPrefix = "components.share_collection.share_collection";
+    this.i18nPrefix = 'components.share_collection.share_collection';
 
     this.state = {
       isLoading: true,
@@ -30,18 +31,18 @@ class ShareCollection extends React.Component {
   componentDidMount() {
     const self = this;
 
-    const url = `/collections/${  this.props.collection.id  }/sharing_config.json`;
+    const url = `/collections/${this.props.collection.id}/sharing_config.json`;
     const data = {};
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "X-CSRF-Token": ReactOnRails.authenticityToken()
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.get(url, data, config)
-      .then(function(response) {
+    axios.get(url, data, config).
+      then((response) => {
         // Update sharing config on collection
         const newCollection = self.state.collection;
         newCollection.sharing_config = response.data;
@@ -50,14 +51,13 @@ class ShareCollection extends React.Component {
         self.setState({
           isLoading: false
         });
-      })
-      .catch(function() {
+      }).
+      catch(() => {
         self.setState({
           fetchFailed: true,
           isLoading: false
         });
-      })
-    ;
+      });
   }
 
   setCollection(newCollection) {
@@ -69,7 +69,7 @@ class ShareCollection extends React.Component {
   renderHeading() {
     return (
       <h1 key="share-collection__heading" className="share-collection__heading">
-        {I18n.t(`${this.i18nPrefix  }.heading`, { name: this.props.collection.name })}
+        {I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })}
       </h1>
     );
   }
@@ -83,18 +83,19 @@ class ShareCollection extends React.Component {
 
   render() {
     if (this.state.isLoading) {
-      return <LoadingIconEllipsis className={"share-collection__loading-icon"} />;
+      return <LoadingIconEllipsis className="share-collection__loading-icon" />;
     }
 
     if (this.state.fetchFailed) {
       return <ModalError />;
     }
 
-    return([
+    return [
       this.renderHeading(),
       this.renderLinkSharing()
-    ]);
+    ];
   }
+
 }
 
 export default ShareCollection;

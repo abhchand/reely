@@ -1,16 +1,16 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
-import ActionNotifications from "components/action_notifications";
-import CopyLink from "components/share_collection/copy_link";
-import React from "react";
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import ActionNotifications from 'components/action_notifications';
+import CopyLink from 'components/share_collection/copy_link';
+import React from 'react';
 
-const i18nPrefix = "components.share_collection.copy_link";
+const i18nPrefix = 'components.share_collection.copy_link';
 
 beforeEach(() => {
   // Mock document.* calls
   const queryFunc = jest.fn(() => { return { focus: jest.fn(), select: jest.fn() }; });
   const execFunc = jest.fn();
-  Object.defineProperty(document, "querySelector", { value: queryFunc, configurable: true });
-  Object.defineProperty(document, "execCommand", { value: execFunc, configurable: true });
+  Object.defineProperty(document, 'querySelector', { value: queryFunc, configurable: true });
+  Object.defineProperty(document, 'execCommand', { value: execFunc, configurable: true });
 });
 
 afterEach(cleanup);
@@ -20,55 +20,55 @@ afterEach(() => {
   delete document.execCommand;
 });
 
-describe("<CopyLink />", () => {
-  it("renders the component", () => {
+describe('<CopyLink />', () => {
+  it('renders the component', () => {
     const rendered = renderComponent();
 
-    const button = rendered.getByTestId("copy-link");
-    expect(button).toHaveAttribute("type", "button");
+    const button = rendered.getByTestId('copy-link');
+    expect(button).toHaveAttribute('type', 'button');
 
-    const icon = button.querySelector("svg");
+    const icon = button.querySelector('svg');
     expect(icon).not.toBeNull();
 
-    const content = button.querySelector("span");
-    expect(content).toHaveTextContent(I18n.t(i18nPrefix + ".label"));
+    const content = button.querySelector('span');
+    expect(content).toHaveTextContent(I18n.t(`${i18nPrefix}.label`));
   });
 
-  describe("button onClick event", () => {
+  describe('button onClick event', () => {
     let rendered;
     let button;
 
     beforeEach(() => {
       rendered = renderComponent();
-      button = rendered.getByTestId("copy-link");
+      button = rendered.getByTestId('copy-link');
     });
 
-    describe("on success", () => {
-      it("displays the action notification", () => {
+    describe('on success', () => {
+      it('displays the action notification', () => {
         const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
 
         fireEvent.click(button);
 
-        expect(actionNotifications.querySelector(".notification--success")).not.toBeNull();
-        expect(actionNotifications).toHaveTextContent(I18n.t(i18nPrefix + ".success"));
+        expect(actionNotifications.querySelector('.notification--success')).not.toBeNull();
+        expect(actionNotifications).toHaveTextContent(I18n.t(`${i18nPrefix}.success`));
       });
     });
 
-    describe("on fail", () => {
+    describe('on fail', () => {
       beforeEach(() => {
         delete document.execCommand;
-        Object.defineProperty(document, "execCommand", {
+        Object.defineProperty(document, 'execCommand', {
           value: jest.fn().mockImplementation(() => { throw new Error(); }),
           configurable: true
         });
       });
 
-      it("displays the action notification", () => {
+      it('displays the action notification', () => {
         const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
 
         fireEvent.click(button);
 
-        expect(actionNotifications.querySelector(".notification--success")).toBeNull();
+        expect(actionNotifications.querySelector('.notification--success')).toBeNull();
       });
     });
   });
@@ -76,7 +76,7 @@ describe("<CopyLink />", () => {
 
 const renderComponent = (additionalProps = {}) => {
   const fixedProps = {};
-  const props = {...fixedProps, ...additionalProps };
+  const props = { ...fixedProps, ...additionalProps };
 
   return render(<CopyLink {...props} />);
 };
