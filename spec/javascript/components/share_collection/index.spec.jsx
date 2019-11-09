@@ -8,6 +8,7 @@ jest.mock('axios');
 
 let collection;
 let data;
+let actionNotifications;
 const i18nPrefix = 'components.share_collection';
 
 beforeEach(() => {
@@ -22,6 +23,8 @@ beforeEach(() => {
       url: 'www.example.co/after'
     }
   };
+
+  actionNotifications = render(<ActionNotifications notifications={[]} />);
 });
 
 afterEach(cleanup);
@@ -201,12 +204,10 @@ describe('<ShareCollection />', () => {
     it('user can copy link', () => {
       const button = rendered.getByTestId('copy-link');
 
-      const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
-
       fireEvent.click(button);
 
-      expect(actionNotifications.querySelector('.notification--success')).not.toBeNull();
-      expect(actionNotifications).toHaveTextContent(I18n.t(`${i18nPrefix}.copy_link.success`));
+      expect(actionNotifications.container.querySelector('.notification--success')).not.toBeNull();
+      expect(actionNotifications.container).toHaveTextContent(I18n.t(`${i18nPrefix}.copy_link.success`));
     });
   });
 

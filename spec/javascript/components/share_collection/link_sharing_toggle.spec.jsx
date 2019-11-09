@@ -9,6 +9,7 @@ jest.mock('axios');
 
 let collection;
 let setCollection;
+let actionNotifications;
 const i18nPrefix = 'components.share_collection.link_sharing_toggle';
 
 beforeEach(() => {
@@ -24,6 +25,8 @@ beforeEach(() => {
   };
 
   setCollection = jest.fn();
+
+  actionNotifications = render(<ActionNotifications notifications={[]} />);
 });
 
 afterEach(cleanup);
@@ -132,8 +135,6 @@ describe('<LinkSharingToggle />', () => {
       });
 
       it('displays the action notification', async() => {
-        const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
-
         fireEvent.click(toggleSwitch);
 
         /*
@@ -146,8 +147,8 @@ describe('<LinkSharingToggle />', () => {
         await expect(setCollection).not.toHaveBeenCalled();
         // </hack>
 
-        await expect(actionNotifications.querySelector('.notification--error')).not.toBeNull();
-        expect(actionNotifications).toHaveTextContent(I18n.t(`${i18nPrefix}.failure`));
+        await expect(actionNotifications.container.querySelector('.notification--error')).not.toBeNull();
+        expect(actionNotifications.container).toHaveTextContent(I18n.t(`${i18nPrefix}.failure`));
       });
     });
   });
