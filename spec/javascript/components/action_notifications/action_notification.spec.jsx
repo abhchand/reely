@@ -43,6 +43,7 @@ describe('<ActionNotification />', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  /* eslint-disable no-magic-numbers */
   it('persists on mouse hover', () => {
     const now = Date.now();
     mockDateOnceAs(now);
@@ -81,6 +82,7 @@ describe('<ActionNotification />', () => {
     expect(onClose).toBeCalled();
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+  /* eslint-enable no-magic-numbers */
 
   describe('notification type', () => {
     it('defaults to success if notification type is null', () => {
@@ -136,6 +138,7 @@ describe('<ActionNotification />', () => {
       expect(onClose).not.toBeCalled();
 
       // <0.5 * defaultDuration> secs
+      // eslint-disable-next-line no-magic-numbers
       jest.advanceTimersByTime(defaultDuration / 2);
       fireEvent.click(closeButton);
       expect(onClose).toBeCalled();
@@ -155,6 +158,7 @@ describe('<ActionNotification />', () => {
 
   describe('duration prop', () => {
     it('overrides the default duration when present', () => {
+      // eslint-disable-next-line no-magic-numbers
       renderComponent({ duration: defaultDuration + 1000 });
 
       // 0.0 secs
@@ -165,6 +169,7 @@ describe('<ActionNotification />', () => {
       expect(onClose).not.toBeCalled();
 
       // <defaultDuration + 1.0> secs
+      // eslint-disable-next-line no-magic-numbers
       jest.advanceTimersByTime(1000);
       expect(onClose).toBeCalled();
       expect(onClose).toHaveBeenCalledTimes(1);
