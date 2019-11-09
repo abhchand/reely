@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, wait, waitForElement, waitForElementToBeRem
 import ActionNotifications from 'components/action_notifications';
 import axios from 'axios';
 import React from 'react';
-import ShareCollection from 'components/share_collection/share_collection';
+import ShareCollection from 'components/share_collection';
 
 jest.mock('axios');
 
