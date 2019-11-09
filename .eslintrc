@@ -106,8 +106,8 @@
     },
     {
       files: [
-        "test/**/*.js",
-        "test/**/*.jsx"
+        "spec/**/*.js",
+        "spec/**/*.jsx"
       ],
       rules: {
         max-lines:                          "off",
