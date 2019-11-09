@@ -173,7 +173,7 @@ describe('<ActionNotification />', () => {
 });
 
 const mockDateOnceAs = (unixTime) => {
-  jest.spyOn(global.Date, 'now').mockImplementationOnce(() => new Date(unixTime).valueOf());
+  jest.spyOn(global.Date, 'now').mockImplementation(() => new Date(unixTime).valueOf());
 };
 
 const renderComponent = (additionalProps = {}) => {
