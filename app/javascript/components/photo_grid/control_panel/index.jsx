@@ -10,6 +10,7 @@ class ControlPanel extends React.Component {
 
   static propTypes = {
     collections: PropTypes.array.isRequired,
+    updateCollections: PropTypes.func.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
 
     onOpen: PropTypes.func.isRequired,
@@ -32,11 +33,14 @@ class ControlPanel extends React.Component {
 
   handleKeyDown(e) {
     switch (parseKeyCode(e)) {
-      case keyCodes.ESCAPE:
+      case keyCodes.ESCAPE: {
         if (this.state.isOpen) {
           this.closePanel();
         }
         break;
+      }
+
+      // eslint skip default
     }
   }
 
@@ -69,6 +73,7 @@ class ControlPanel extends React.Component {
         <CloseButton onClick={this.closePanel} />
         <AddToCollection
           collections={this.props.collections}
+          updateCollections={this.props.updateCollections}
           selectedPhotoIds={this.props.selectedPhotoIds}
           onAddToExistingCollection={this.closePanel} />
       </ul>,

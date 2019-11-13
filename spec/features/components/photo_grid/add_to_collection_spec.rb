@@ -66,19 +66,29 @@ RSpec.feature "photo grid add to collection", type: :feature do
     click_photo(photos[0])
     click_photo(photos[2])
 
+    before_count = Collection.count
+
     within_add_to_collection do
       open_dropdown_menu
-
-      expect do
-        fill_in "search", with: "Cool Collection"
-        create_collection.click
-        wait_for_ajax
-      end.to change { Collection.count }.by(1)
+      fill_in "search", with: "Cool Collection"
+      create_collection.click
     end
 
-    collection = Collection.last
-    expect(collection.name).to eq("Cool Collection")
-    expect(collection.photos).to match_array([photos[0], photos[2]])
+    wait_for { Collection.count == (before_count + 1) }
+
+    wait_for { Collection.last.name == "Cool Collection" }
+    wait_for(10) { Collection.last.photos == [photos[0], photos[2]] }
+
+    # Also verify the new collection is visually added to the dropdown
+
+    enable_selection_mode
+    click_photo(photos[0])
+
+    within_add_to_collection do
+      open_dropdown_menu
+      page.all(".select-items")
+      expect_option_for(Collection.last)
+    end
   end
 
   it "user can add photos to an exisiting collection", :js do
@@ -94,15 +104,14 @@ RSpec.feature "photo grid add to collection", type: :feature do
     click_photo(photos[0])
     click_photo(photos[2])
 
+    before_count = collection.photos.count
+
     within_add_to_collection do
       open_dropdown_menu
-
-      expect do
-        find_option_for(collection).click
-        wait_for_ajax
-      end.to change { collection.reload.photos.count }.by(1)
+      find_option_for(collection).click
     end
 
+    wait_for { collection.reload.photos.count == before_count + 1 }
     expect(collection.photos).to match_array([photos[0], photos[2]])
   end
 
@@ -130,6 +139,13 @@ RSpec.feature "photo grid add to collection", type: :feature do
     id = collection.synthetic_id
     # The <div> has the click event
     find(".react-select-or-create .select-items li[data-id='#{id}'] div")
+  end
+
+  def expect_option_for(collection)
+    id = collection.synthetic_id
+    expect(page).to have_selector(
+      ".react-select-or-create .select-items li[data-id='#{id}']"
+    )
   end
 
   def create_collection

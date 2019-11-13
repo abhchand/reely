@@ -16,6 +16,7 @@ class PhotoGrid extends React.Component {
   constructor(props) {
     super(props);
 
+    this.updateCollections = this.updateCollections.bind(this);
     this.enableSelectionMode = this.enableSelectionMode.bind(this);
     this.disableSelectionMode = this.disableSelectionMode.bind(this);
     this.handlePhotoSelection = this.handlePhotoSelection.bind(this);
@@ -26,10 +27,17 @@ class PhotoGrid extends React.Component {
     this.renderCarousel = this.renderCarousel.bind(this);
 
     this.state = {
+      collections: this.props.collections,
       showCarousel: false,
       selectionModeEnabled: false,
       selectedPhotoIds: []
     };
+  }
+
+  updateCollections(newCollections) {
+    this.setState((_prevState) => {
+      return { collections: newCollections };
+    });
   }
 
   enableSelectionMode() {
@@ -83,7 +91,8 @@ class PhotoGrid extends React.Component {
   renderControlPanel() {
     return (
       <ControlPanel
-        collections={this.props.collections}
+        collections={this.state.collections}
+        updateCollections={this.updateCollections}
         selectedPhotoIds={this.state.selectedPhotoIds}
         onOpen={this.enableSelectionMode}
         onClose={this.disableSelectionMode} />

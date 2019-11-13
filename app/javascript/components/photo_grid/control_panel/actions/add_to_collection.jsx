@@ -1,12 +1,16 @@
+import axios from 'axios';
 import { IconPlus } from 'components/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 import ReactSelectOrCreate from 'react-select-or-create';
 
 class AddToCollection extends React.Component {
 
   static propTypes = {
     collections: PropTypes.array.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
+    updateCollections: PropTypes.func.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     onAddToExistingCollection: PropTypes.func.isRequired
@@ -24,30 +28,28 @@ class AddToCollection extends React.Component {
 
   addToExistingCollection(collectionId) {
     const self = this;
-    const id = `id${Math.random().toString(16).
-      slice(2)}`;
+    // eslint-disable-next-line no-magic-numbers, newline-per-chained-call
+    const id = `id${Math.random().toString(16).slice(2)}`;
+
+    const url = `/collections/${collectionId}/add-photos`;
+    /* eslint-disable camelcase */
     const data = {
       collection_id: collectionId,
       collection: {
         photo_ids: this.props.selectedPhotoIds
       }
     };
+    /* eslint-enable camelcase */
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-Token': ReactOnRails.authenticityToken()
+      }
+    };
 
-    $.ajax({
-      type: 'PUT',
-      url: `/collections/${collectionId}/add-photos`,
-      dataType: 'json',
-      data: JSON.stringify(data),
-      contentType: 'application/json'
-    }).
-      fail(() => {
-        const content = I18n.t(`${self.i18nPrefix}.existing.error`);
-        const notification = { id: id, content: content, type: 'error' };
-
-        self.addNotification(notification);
-        self.props.onAddToExistingCollection();
-      }).
-      done(() => {
+    axios.put(url, data, config).
+      then((_response) => {
         const count = self.props.selectedPhotoIds.length;
         const msg = I18n.t(`${self.i18nPrefix}.existing.success`, { count: count, href: '/collections' });
         // eslint-disable-next-line react/no-danger
@@ -56,40 +58,39 @@ class AddToCollection extends React.Component {
 
         self.addNotification(notification);
         self.props.onAddToExistingCollection();
+      }).
+      catch((_err) => {
+        const content = I18n.t(`${self.i18nPrefix}.existing.error`);
+        const notification = { id: id, content: content, type: 'error' };
+
+        self.addNotification(notification);
+        self.props.onAddToExistingCollection();
       });
   }
 
   addToNewCollection(collectionName, prevCollections) {
     const self = this;
-    const id = `id${Math.random().toString(16).
-      slice(2)}`;
+    // eslint-disable-next-line no-magic-numbers, newline-per-chained-call
+    const id = `id${Math.random().toString(16).slice(2)}`;
+
+    const url = '/collections';
     const data = {
       collection: {
         name: collectionName
       }
     };
-    let newCollections;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-Token': ReactOnRails.authenticityToken()
+      }
+    };
 
-    $.ajax({
-      type: 'POST',
+    return axios.post(url, data, config).
+      then((response) => {
+        const collection = response.data;
 
-      /*
-       * Until react-select-or-create allows returning promises we need
-       * to run this synchronously
-       */
-      async: false,
-      url: '/collections',
-      dataType: 'json',
-      data: JSON.stringify(data),
-      contentType: 'application/json'
-    }).
-      fail(() => {
-        const content = I18n.t(`${self.i18nPrefix}.new.error`);
-        const notification = { id: id, content: content, type: 'error' };
-
-        self.addNotification(notification);
-      }).
-      done((collection) => {
         const collectionId = collection.id;
         const msg = I18n.t(`${self.i18nPrefix}.new.success`, { href: `/collections/${collectionId}`, name: collection.name });
         // eslint-disable-next-line react/no-danger
@@ -99,9 +100,19 @@ class AddToCollection extends React.Component {
         self.addNotification(notification);
         self.addToExistingCollection(collectionId);
 
-        newCollections = prevCollections.unshift({ id: collection.id, name: collection.name });
+        prevCollections.unshift({ id: collection.id, name: collection.name });
+
+        self.props.updateCollections(prevCollections);
+        return prevCollections;
+      }).
+      catch((_err) => {
+        const content = I18n.t(`${self.i18nPrefix}.new.error`);
+        const notification = { id: id, content: content, type: 'error' };
+
+        self.addNotification(notification);
+
+        return prevCollections;
       });
-    return newCollections;
   }
 
   addNotification(notification) {
