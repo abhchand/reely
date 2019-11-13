@@ -1,4 +1,14 @@
 module FeatureHelpers
+  # rubocop:disable Lint/UnusedMethodArgument
+  def wait_for(timeout = Capybara.default_max_wait_time, &block)
+    return unless block_given?
+
+    Timeout.timeout(timeout) do
+      loop until yield
+    end
+  end
+  # rubocop:enable Lint/UnusedMethodArgument
+
   def wait_for_ajax
     return unless @javascript_enabled
 
