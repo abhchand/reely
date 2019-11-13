@@ -1,8 +1,8 @@
+import { TransitionGroup } from 'react-transition-group';
 import ActionNotification from './action_notification';
 import mountReactComponent from 'mount-react-component.jsx';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
 
 /*
  * Action Notifications are similar to flash notifications, with a few
@@ -86,38 +86,16 @@ class ActionNotifications extends React.Component {
           duration={self.props.duration}
           isDismissable={self.props.isDismissable}
           closeButtonLabel={self.props.closeButtonLabel}
-          onClose={() => self.remove(notification)} /> // eslint-disable-line react/jsx-no-bind
+          onClose={() => self.remove(notification)} />
       );
     });
 
-    /*
-     * Note: The transition timeouts need to be specified both here and in the
-     * CSS. From the React docs:
-     *
-     *    You’ll notice that animation durations need to be specified in
-     *    both the CSS and the render method; this tells React when to remove
-     *    the animation classes from the element and — if it’s leaving — when
-     *    to remove the element from the DOM.
-     *
-     * See: https://reactjs.org/docs/animation.html
-     */
-
     return (
-      <div className="action-notifications">
-        <CSSTransitionGroup
-          transitionName="action-notifications-group"
-          transitionAppear={false}
-          transitionAppearTimeout={500}
-          transitionEnter
-          transitionEnterTimeout={500}
-          transitionLeave
-          transitionLeaveTimeout={500}>
-          {notifications}
-        </CSSTransitionGroup>
-      </div>
+      <TransitionGroup className="action-notifications" appear={false}>
+        {notifications}
+      </TransitionGroup>
     );
   }
-
 }
 
 export default ActionNotifications;
