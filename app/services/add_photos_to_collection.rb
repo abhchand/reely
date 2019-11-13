@@ -1,6 +1,21 @@
 class AddPhotosToCollection
   include Interactor
 
+  # Adds a list of photos to a given collection
+  #
+  # * `context.params[:photo_ids]` - List of `Photo` synthetic ids
+  # * `context.collection` - Collection to add to
+  #
+  # Behavior:
+  #
+  # * This class does not verify the `Collection` owner. It is assumed
+  #   that some invoking class has already approved ownership of this collection
+  # * The `PhotoCollection` model itself validates that a `Photo` and
+  #   `Collection` must have the same user. If not, an error is raised
+  # * The addition of all photos is atomic - any raised error rolls back
+  #   all photo additions
+  # * This class verifies that a photo is not double added to a `Collection`
+
   def call
     each_photo do |photo|
       photo_collection = build_photo_collection(photo)
@@ -28,7 +43,7 @@ class AddPhotosToCollection
   def each_photo(&block)
     PhotoCollection.transaction do
       photo_synthetic_ids.each_slice(50) do |synthetic_ids|
-        whitelist_photos(synthetic_ids).each do |photo|
+        find_unadded_photos(synthetic_ids).each do |photo|
           yield(photo)
         end
       end
@@ -36,7 +51,7 @@ class AddPhotosToCollection
   end
   # rubocop:enable Lint/UnusedMethodArgument
 
-  def whitelist_photos(synthetic_ids)
+  def find_unadded_photos(synthetic_ids)
     Photo.
       select(:id, :owner_id).
       joins(
