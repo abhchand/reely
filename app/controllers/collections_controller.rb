@@ -3,9 +3,11 @@ class CollectionsController < ApplicationController
 
   layout "with_responsive_navigation"
 
-  before_action :ensure_json_request, only: %i[update add_photos destroy]
-  before_action :collection, only: %i[show update add_photos destroy]
-  before_action :only_my_collection, only: %i[show update add_photos destroy]
+  # rubocop:disable LineLength
+  before_action :ensure_json_request, only: %i[update add_photos remove_photos destroy]
+  before_action :collection, only: %i[show update add_photos remove_photos destroy]
+  before_action :only_my_collection, only: %i[show update add_photos remove_photos destroy]
+  # rubocop:enable LineLength
 
   def index
     @collections = current_user.collections.order(created_at: :desc)
@@ -59,7 +61,20 @@ class CollectionsController < ApplicationController
   def add_photos
     service = AddPhotosToCollection.call(
       collection: @collection,
-      params: collections_add_photos_params
+      params: collections_add_or_remove_photos_params
+    )
+
+    status = service.success? ? 200 : 400
+
+    respond_to do |format|
+      format.json { render json: {}, status: status }
+    end
+  end
+
+  def remove_photos
+    service = RemovePhotosFromCollection.call(
+      collection: @collection,
+      params: collections_add_or_remove_photos_params
     )
 
     status = service.success? ? 200 : 400
@@ -83,7 +98,7 @@ class CollectionsController < ApplicationController
     )
   end
 
-  def collections_add_photos_params
+  def collections_add_or_remove_photos_params
     params.require(:collection).permit(
       photo_ids: []
     )

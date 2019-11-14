@@ -257,6 +257,83 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
+  describe "PUT #remove_photos" do
+    let(:photos) { collection.photos }
+    let(:collection) do
+      create_collection_with_photos(owner: user, photo_count: 2)
+    end
+
+    let(:params) do
+      {
+        format: "json",
+        collection_id: collection.synthetic_id,
+        collection: {
+          photo_ids: photos.map(&:synthetic_id)
+        }
+      }
+    end
+
+    before { expect(collection.reload.photos).to match_array(photos) }
+
+    context "request is not json format" do
+      before { params[:format] = "html" }
+
+      it "redirects to root_path" do
+        put :remove_photos, params: params
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "collection is not found" do
+      it "redirects to the root path" do
+        put :remove_photos, params: params.merge(collection_id: "abcde")
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
+      end
+    end
+
+    context "collection is not owned by current_user" do
+      before { collection.update!(owner: create(:user)) }
+
+      it "redirects to the root path" do
+        put :remove_photos, params: params
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
+      end
+    end
+
+    it "removes photos from the collection and responds as success" do
+      put :remove_photos, params: params
+
+      expect(collection.reload.photos).to eq([])
+      expect(response.status).to eq(200)
+      expect(response.body).to eq("{}")
+    end
+
+    context "there is an error while adding photos to collection" do
+      before do
+        stub_const("RemovePhotosFromCollection::BATCH_SIZE", 2)
+
+        # Return `nil` on the second batch to be deleted, which will raise
+        # an error when `destroy_all` is called on it
+        allow(PhotoCollection).to receive(:where).and_wrap_original do |method|
+          PhotoCollection.count < 3 ? method.call : nil
+        end
+      end
+
+      it "does not update the collection and responds as failure" do
+        put :remove_photos, params: params
+
+        expect(collection.reload.photos).to match_array(photos)
+
+        expect(response.status).to eq(400)
+        expect(response.body).to eq("{}")
+      end
+    end
+  end
+
   describe "DELETE #destroy" do
     let(:collection) { create_collection_with_photos(owner: user) }
     let(:params) do

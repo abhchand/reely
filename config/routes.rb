@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :collections, only: [:index, :show, :create, :update, :destroy] do
     get "accessibility" => "collections#accessibility"
     put "add-photos" => "collections#add_photos"
+    put "remove-photos" => "collections#remove_photos"
 
     resource :sharing_config, only: [:show, :update], controller: "collections/sharing_config" do
       post "renew-link" => "collections/sharing_config#renew_link"
