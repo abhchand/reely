@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 function mountReactComponent(Component, mountNodeId) {
   document.addEventListener('DOMContentLoaded', () => {
     const mountNode = document.getElementById(`react-mount-${mountNodeId}`);
+
+    if (mountNode === null) { return; }
+
     const propsJSON = mountNode.getAttribute('data-react-props');
     const props = JSON.parse(propsJSON);
 
