@@ -71,7 +71,7 @@ RSpec.feature "photo manager add to collection", type: :feature do
     within_add_to_collection do
       open_dropdown_menu
       fill_in "search", with: "Cool Collection"
-      create_collection.click
+      create_collection_button.click
     end
 
     wait_for { Collection.count == (before_count + 1) }
@@ -113,35 +113,6 @@ RSpec.feature "photo manager add to collection", type: :feature do
 
     wait_for { collection.reload.photos.count == before_count + 1 }
     expect(collection.photos).to match_array([photos[0], photos[2]])
-  end
-
-  # rubocop:disable Lint/UnusedMethodArgument
-  def within_add_to_collection(&block)
-    within(".icon-tray__item--add-to-collection") do
-      yield
-    end
-  end
-  # rubocop:enable Lint/UnusedMethodArgument
-
-  def open_dropdown_menu
-    find(".react-select-or-create .open-menu-btn").click
-  end
-
-  def find_option_for(collection)
-    id = collection.synthetic_id
-    # The <div> has the click event
-    find(".react-select-or-create .select-items li[data-id='#{id}'] div")
-  end
-
-  def expect_option_for(collection)
-    id = collection.synthetic_id
-    expect(page).to have_selector(
-      ".react-select-or-create .select-items li[data-id='#{id}']"
-    )
-  end
-
-  def create_collection
-    find(".react-select-or-create .create-item")
   end
 
   def displayed_dropdown_option_ids

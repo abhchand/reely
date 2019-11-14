@@ -24,6 +24,39 @@ module FeatureHelpers
   end
 
   #
+  # Add to Collection
+  #
+
+  # rubocop:disable Lint/UnusedMethodArgument
+  def within_add_to_collection(&block)
+    within(".icon-tray__item--add-to-collection") do
+      yield
+    end
+  end
+  # rubocop:enable Lint/UnusedMethodArgument
+
+  def open_dropdown_menu
+    find(".react-select-or-create .open-menu-btn").click
+  end
+
+  def find_option_for(collection)
+    id = collection.synthetic_id
+    # The <div> has the click event
+    find(".react-select-or-create .select-items li[data-id='#{id}'] div")
+  end
+
+  def expect_option_for(collection)
+    id = collection.synthetic_id
+    expect(page).to have_selector(
+      ".react-select-or-create .select-items li[data-id='#{id}']"
+    )
+  end
+
+  def create_collection_button
+    find(".react-select-or-create .create-item")
+  end
+
+  #
   # Photo Carousel
   #
 
