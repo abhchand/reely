@@ -1,3 +1,10 @@
+#collections-sharing-display-show {
+  .page-heading {
+    // There's no nav bar on this page so add a little extra
+    // space at the top of the page
+    margin-top: 50px;
+  }
+}
 .collections-sharing-display-show__date-range {
   margin-left: 20px;
   color: $dark-gray;
