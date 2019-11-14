@@ -10,7 +10,8 @@ class PhotoManager extends React.Component {
   static propTypes = {
     photoData: PropTypes.array.isRequired,
     collections: PropTypes.array,
-    isReadOnly: PropTypes.bool
+    isReadOnly: PropTypes.bool,
+    allowAddingToCollection: PropTypes.bool
   };
 
   static defaultProps = {
@@ -88,7 +89,8 @@ class PhotoManager extends React.Component {
         selectedPhotoIds={this.state.selectedPhotoIds}
         onOpen={this.enableSelectionMode}
         onClose={this.disableSelectionMode}
-        isReadOnly={this.props.isReadOnly} />
+        isReadOnly={this.props.isReadOnly}
+        allowAddingToCollection={this.props.allowAddingToCollection} />
     );
   }
 

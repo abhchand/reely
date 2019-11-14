@@ -16,7 +16,12 @@ class ControlPanel extends React.Component {
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
 
-    isReadOnly: PropTypes.bool.isRequired
+    isReadOnly: PropTypes.bool.isRequired,
+    allowAddingToCollection: PropTypes.bool
+  };
+
+  static defaultProps = {
+    allowAddingToCollection: true
   }
 
   constructor(props) {
@@ -27,6 +32,7 @@ class ControlPanel extends React.Component {
     this.closePanel = this.closePanel.bind(this);
     this.renderClosed = this.renderClosed.bind(this);
     this.renderOpen = this.renderOpen.bind(this);
+    this.renderAddToCollection = this.renderAddToCollection.bind(this);
 
     this.state = {
       isOpen: false
@@ -82,7 +88,7 @@ class ControlPanel extends React.Component {
   }
 
   renderAddToCollection() {
-    if (!this.props.isReadOnly) {
+    if (!this.props.isReadOnly && this.props.allowAddingToCollection) {
       return (
         <AddToCollection
           collections={this.props.collections}
