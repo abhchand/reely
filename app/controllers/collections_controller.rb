@@ -48,6 +48,14 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def destroy
+    status = @collection.destroy ? 200 : 400
+
+    respond_to do |format|
+      format.json { render json: {}, status: status }
+    end
+  end
+
   def add_photos
     service = AddPhotosToCollection.call(
       collection: @collection,
@@ -55,14 +63,6 @@ class CollectionsController < ApplicationController
     )
 
     status = service.success? ? 200 : 400
-
-    respond_to do |format|
-      format.json { render json: {}, status: status }
-    end
-  end
-
-  def destroy
-    status = @collection.destroy ? 200 : 400
 
     respond_to do |format|
       format.json { render json: {}, status: status }
