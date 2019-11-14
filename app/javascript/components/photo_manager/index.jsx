@@ -9,11 +9,13 @@ class PhotoManager extends React.Component {
 
   static propTypes = {
     photoData: PropTypes.array.isRequired,
-    collections: PropTypes.array
+    collections: PropTypes.array,
+    isReadOnly: PropTypes.bool
   };
 
   static defaultProps = {
-    collections: []
+    collections: [],
+    isReadOnly: false
   }
 
   constructor(props) {
@@ -85,7 +87,8 @@ class PhotoManager extends React.Component {
         updateCollections={this.updateCollections}
         selectedPhotoIds={this.state.selectedPhotoIds}
         onOpen={this.enableSelectionMode}
-        onClose={this.disableSelectionMode} />
+        onClose={this.disableSelectionMode}
+        isReadOnly={this.props.isReadOnly} />
     );
   }
 

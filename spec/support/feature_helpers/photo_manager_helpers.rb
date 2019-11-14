@@ -12,6 +12,18 @@ module FeatureHelpers
   end
 
   #
+  # Control Panel
+  #
+
+  def expect_add_to_collections_icon_to_be_visible
+    expect(page).to have_selector(".icon-tray__item--add-to-collection")
+  end
+
+  def expect_add_to_collections_icon_to_not_be_visible
+    expect(page).to_not have_selector(".icon-tray__item--add-to-collection")
+  end
+
+  #
   # Photo Carousel
   #
 

@@ -115,14 +115,6 @@ RSpec.feature "photo manager add to collection", type: :feature do
     expect(collection.photos).to match_array([photos[0], photos[2]])
   end
 
-  def expect_add_to_collections_icon_to_be_visible
-    expect(page).to have_selector(".icon-tray__item--add-to-collection")
-  end
-
-  def expect_add_to_collections_icon_to_not_be_visible
-    expect(page).to_not have_selector(".icon-tray__item--add-to-collection")
-  end
-
   # rubocop:disable Lint/UnusedMethodArgument
   def within_add_to_collection(&block)
     within(".icon-tray__item--add-to-collection") do

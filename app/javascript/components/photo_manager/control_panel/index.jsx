@@ -14,7 +14,9 @@ class ControlPanel extends React.Component {
     selectedPhotoIds: PropTypes.array.isRequired,
 
     onOpen: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+
+    isReadOnly: PropTypes.bool.isRequired
   }
 
   constructor(props) {
@@ -71,16 +73,26 @@ class ControlPanel extends React.Component {
     return [
       <ul key="controlPanelIconTray" className="icon-tray">
         <CloseButton onClick={this.closePanel} />
-        <AddToCollection
-          collections={this.props.collections}
-          updateCollections={this.props.updateCollections}
-          selectedPhotoIds={this.props.selectedPhotoIds}
-          onAddToExistingCollection={this.closePanel} />
+        {this.renderAddToCollection()}
       </ul>,
       <SelectedPhotoCount
         key="controlPanelSelectedPhotoCount"
         count={this.props.selectedPhotoIds.length} />
     ];
+  }
+
+  renderAddToCollection() {
+    if (!this.props.isReadOnly) {
+      return (
+        <AddToCollection
+          collections={this.props.collections}
+          updateCollections={this.props.updateCollections}
+          selectedPhotoIds={this.props.selectedPhotoIds}
+          onAddToExistingCollection={this.closePanel} />
+      );
+    }
+
+    return null;
   }
 
   render() {

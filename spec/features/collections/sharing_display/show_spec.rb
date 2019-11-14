@@ -18,6 +18,16 @@ RSpec.feature "share collections show page", type: :feature do
     end
   end
 
+  it "user can not add to a collection", :js do
+    visit collections_sharing_display_path(id: collection.share_id)
+
+    enable_selection_mode
+
+    expect_add_to_collections_icon_to_not_be_visible
+    click_photo(collection.photos[0])
+    expect_add_to_collections_icon_to_not_be_visible
+  end
+
   def expect_show_page_for(collection)
     expected_path = collections_sharing_display_path(id: collection.share_id)
     expect(page).to have_current_path(expected_path)
@@ -27,6 +37,7 @@ RSpec.feature "share collections show page", type: :feature do
       to have_selector(
         ".collections-sharing-display-show__photo-manager-container"
       )
-    expect(page).to have_react_component("photo-manager")
+    expect(page).to have_react_component("photo-manager").
+      including_props("isReadOnly" => true)
   end
 end
