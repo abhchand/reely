@@ -25,8 +25,8 @@ RSpec.feature "share collections show page", type: :feature do
     expect(page).to_not have_selector(".responsive-navigation-view-container")
     expect(page).
       to have_selector(
-        ".collections-sharing-display-show__photo-grid-container"
+        ".collections-sharing-display-show__photo-manager-container"
       )
-    expect(page).to have_react_component("photo-grid")
+    expect(page).to have_react_component("photo-manager")
   end
 end

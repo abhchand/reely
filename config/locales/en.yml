@@ -133,7 +133,7 @@ en:
       <<: *shared_navigation
 
   components:
-    photo_grid:
+    photo_manager:
       control_panel:
         add_to_collection:
           tooltip: Add to Collection

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photo grid add to collection", type: :feature do
+RSpec.feature "photo manager add to collection", type: :feature do
   let(:user) { create(:user) }
 
   let!(:photos) do
@@ -11,7 +11,7 @@ RSpec.feature "photo grid add to collection", type: :feature do
 
   before do
     @t_prefix =
-      "components.photo_grid.control_panel.add_to_collection"
+      "components.photo_manager.control_panel.add_to_collection"
   end
 
   it "user can only add to collection after selecting a photo", :js do

@@ -13,7 +13,7 @@ class PhotoPresenter < ApplicationPresenter
     I18n.l(taken_at, format: :month_and_year)
   end
 
-  def photo_grid_props
+  def photo_manager_props
     {
       id: synthetic_id,
       mediumUrl: source_file_path(size: :medium),

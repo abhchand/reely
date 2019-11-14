@@ -1,6 +1,6 @@
 module FeatureHelpers
   def find_photo_element(photo)
-    find(".photo-grid__photo-container[data-id='#{photo.synthetic_id}']")
+    find(".photo-grid-photo__container[data-id='#{photo.synthetic_id}']")
   end
 
   def click_photo(photo)
@@ -46,15 +46,15 @@ module FeatureHelpers
 
   def enable_selection_mode
     find(".icon-tray__item--open-control-panel").click
-    photo_grid_el = page.find(".photo-grid")
-    expect(photo_grid_el["class"]).
+    photo_manager_el = page.find(".photo-manager")
+    expect(photo_manager_el["class"]).
       to match(/photo-grid--selection-mode-enabled/)
   end
 
   def disable_selection_mode
     find(".icon-tray__item--close-control-panel").click
-    photo_grid_el = page.find(".photo-grid")
-    expect(photo_grid_el["class"]).
+    photo_manager_el = page.find(".photo-manager")
+    expect(photo_manager_el["class"]).
       to_not match(/photo-grid--selection-mode-enabled/)
   end
 

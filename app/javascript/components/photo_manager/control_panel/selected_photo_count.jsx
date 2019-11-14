@@ -9,7 +9,7 @@ const SelectedPhotoCount = (props) => {
       <span>
         {
           I18n.t(
-            `components.photo_grid.control_panel.selected_photo_count.heading.${key}`,
+            `components.photo_manager.control_panel.selected_photo_count.heading.${key}`,
             { count: props.count }
           )
         }

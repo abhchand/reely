@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photo grid photo selection", type: :feature do
+RSpec.feature "photo selection", type: :feature do
   let(:user) { create(:user) }
   let(:photo_count) { 3 }
 

@@ -1,34 +1,4 @@
-.photo-grid-container {
-  display: block;
-  width: 100%;
-}
-
-.photo-grid {
-  margin: auto;
-  margin-top: 35px;
-
-  &:focus {
-    outline: 0;
-  }
-
-  @include breakpoint($screen-xs) {
-    margin: 35px 0 0 0;
-  }
-}
-
-.photo-grid__content {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  width: 100%;
-  margin-top: 10px;
-  font-size: 0;
-  background-color: $white;
-}
-
-.photo-grid__photo-container {
+.photo-grid-photo__container {
   position: relative;
   flex: auto;
 
@@ -76,7 +46,7 @@
   }
 }
 
-.photo-grid__photo {
+.photo-grid-photo {
   position: absolute;
   top: 0;
   right: 0;
@@ -98,7 +68,7 @@
   }
 }
 
-.photo-grid__photo-overlay {
+.photo-grid-photo__overlay {
   width: 100%;
   height: 100%;
   padding-top: 3%;
@@ -126,14 +96,14 @@
   // use the same class rules.
   // To solve this, the the above opacity / hover rules should also apply to
   // the taken-at label child element as well.
-  .photo-grid__taken-at-label { opacity: 0; }
+  .photo-grid-photo__taken-at-label { opacity: 0; }
   @include breakpoint($screen-xs) {
-    &:hover .photo-grid__taken-at-label { opacity: 1; }
+    &:hover .photo-grid-photo__taken-at-label { opacity: 1; }
   }
 }
 
-.photo-grid__photo-selected-overlay {
-  @extend .photo-grid__photo-overlay;
+.photo-grid-photo__selected-overlay {
+  @extend .photo-grid-photo__overlay;
   padding: 0;
   text-align: center;
   border: 2px solid $leaf-green;
@@ -154,7 +124,7 @@
   }
 }
 
-.photo-grid__taken-at-label {
+.photo-grid-photo__taken-at-label {
   font-weight: 500;
 
   @include breakpoint($screen-xs) {

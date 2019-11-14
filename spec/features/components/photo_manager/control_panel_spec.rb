@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photo grid control panel", type: :feature do
+RSpec.feature "photo manager control panel", type: :feature do
   let(:user) { create(:user) }
 
   let!(:photos) do
@@ -10,7 +10,7 @@ RSpec.feature "photo grid control panel", type: :feature do
   end
 
   before do
-    @t_prefix = "components.photo_grid.control_panel"
+    @t_prefix = "components.photo_manager.control_panel"
   end
 
   it "user can open and close the control panel", :js do

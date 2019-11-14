@@ -78,7 +78,7 @@ class Photo extends React.Component {
 
     if (this.props.isSelected) {
       return (
-        <div className="photo-grid__photo-selected-overlay" style={divStyle}>
+        <div className="photo-grid-photo__selected-overlay" style={divStyle}>
           <IconCheckMark fillColor="#FFFFFF" />
         </div>
       );
@@ -90,8 +90,8 @@ class Photo extends React.Component {
     this.applyAntiRotation(divStyle);
 
     return (
-      <div className="photo-grid__photo-overlay" style={divStyle}>
-        <span className="photo-grid__taken-at-label">
+      <div className="photo-grid-photo__overlay" style={divStyle}>
+        <span className="photo-grid-photo__taken-at-label">
           {this.props.photo.takenAtLabel}
         </span>
       </div>
@@ -107,10 +107,10 @@ class Photo extends React.Component {
     return (
       <div
         data-id={this.props.photo.id}
-        className={`photo-grid__photo-container${selectedClass}`}
+        className={`photo-grid-photo__container${selectedClass}`}
         onClick={this.handleClick}>
 
-        <div className="photo-grid__photo covered-background" style={divStyle}>
+        <div className="photo-grid-photo covered-background" style={divStyle}>
           {this.renderOverlay()}
         </div>
       </div>

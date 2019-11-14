@@ -1,0 +1,17 @@
+.photo-manager-container {
+  display: block;
+  width: 100%;
+}
+
+.photo-manager {
+  margin: auto;
+  margin-top: 35px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  @include breakpoint($screen-xs) {
+    margin: 35px 0 0 0;
+  }
+}

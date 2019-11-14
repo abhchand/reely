@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "photo grid carousel", type: :feature do
+RSpec.feature "photo manager carousel", type: :feature do
   let(:user) { create(:user) }
 
   let!(:photos) do

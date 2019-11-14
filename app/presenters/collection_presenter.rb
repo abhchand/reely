@@ -1,5 +1,5 @@
 class CollectionPresenter < ApplicationPresenter
-  def photo_grid_props
+  def photo_manager_props
     {
       id: synthetic_id,
       name: name

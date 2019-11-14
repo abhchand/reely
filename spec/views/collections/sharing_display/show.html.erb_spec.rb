@@ -32,15 +32,15 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
     expect(page).to have_content("_stubbed_photo_count")
   end
 
-  it "renders the photo grid" do
+  it "renders the photo manager" do
     render
 
     # rubocop:disable LineLength
     props = {
-      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props)
+      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props)
     }
     # rubocop:enable LineLength
 
-    expect(page).to have_react_component("photo-grid").including_props(props)
+    expect(page).to have_react_component("photo-manager").including_props(props)
   end
 end

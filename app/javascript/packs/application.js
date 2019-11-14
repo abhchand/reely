@@ -27,5 +27,5 @@ import 'collections/_editable_name_heading.js';
 import 'collections/_share_modal.jsx';
 import 'collections/show.js';
 
-import 'components/photo_grid';
+import 'components/photo_manager';
 import 'components/action_notifications';

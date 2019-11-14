@@ -11,13 +11,13 @@
 </h1>
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
-<div class="photos-index__photo-grid-container photo-grid-container page-content">
+<div class="photos-index__photo-manager-container photo-manager-container page-content">
   <%=
     react_component(
-      "photo-grid",
+      "photo-manager",
       {
-        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_grid_props),
-        collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_grid_props)
+        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+        collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_manager_props)
       }
     )
   %>

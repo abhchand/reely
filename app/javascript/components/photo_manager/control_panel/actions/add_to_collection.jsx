@@ -19,7 +19,7 @@ class AddToCollection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.i18nPrefix = 'components.photo_grid.control_panel.add_to_collection';
+    this.i18nPrefix = 'components.photo_manager.control_panel.add_to_collection';
 
     this.addToExistingCollection = this.addToExistingCollection.bind(this);
     this.addToNewCollection = this.addToNewCollection.bind(this);
