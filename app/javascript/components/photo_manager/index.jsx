@@ -9,7 +9,11 @@ class PhotoManager extends React.Component {
 
   static propTypes = {
     photoData: PropTypes.array.isRequired,
-    collections: PropTypes.array.isRequired
+    collections: PropTypes.array
+  };
+
+  static defaultProps = {
+    collections: []
   }
 
   constructor(props) {
