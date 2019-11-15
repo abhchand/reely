@@ -10,8 +10,10 @@ class PhotoManager extends React.Component {
   static propTypes = {
     photoData: PropTypes.array.isRequired,
     collections: PropTypes.array,
+    currentCollection: PropTypes.object,
     isReadOnly: PropTypes.bool,
-    allowAddingToCollection: PropTypes.bool
+    allowAddingToCollection: PropTypes.bool,
+    allowRemovingFromCollection: PropTypes.bool
   };
 
   static defaultProps = {
@@ -22,6 +24,7 @@ class PhotoManager extends React.Component {
   constructor(props) {
     super(props);
 
+    this.removeSelectedPhotos = this.removeSelectedPhotos.bind(this);
     this.updateCollections = this.updateCollections.bind(this);
     this.updateSelectedPhotoIds = this.updateSelectedPhotoIds.bind(this);
     this.enableSelectionMode = this.enableSelectionMode.bind(this);
@@ -33,11 +36,22 @@ class PhotoManager extends React.Component {
     this.renderCarousel = this.renderCarousel.bind(this);
 
     this.state = {
+      photoData: this.props.photoData,
       collections: this.props.collections,
       showCarousel: false,
       selectionModeEnabled: false,
       selectedPhotoIds: []
     };
+  }
+
+  removeSelectedPhotos() {
+    this.setState((prevState) => {
+      const idsToRemove = prevState.selectedPhotoIds;
+      let newPhotoData = prevState.photoData.filter(
+        (photo) => (idsToRemove.indexOf(photo.id) < 0));
+
+      return { photoData: newPhotoData };
+    });
   }
 
   updateCollections(newCollections) {
@@ -85,19 +99,22 @@ class PhotoManager extends React.Component {
     return (
       <ControlPanel
         collections={this.state.collections}
+        currentCollection={this.props.currentCollection}
         updateCollections={this.updateCollections}
         selectedPhotoIds={this.state.selectedPhotoIds}
         onOpen={this.enableSelectionMode}
         onClose={this.disableSelectionMode}
         isReadOnly={this.props.isReadOnly}
-        allowAddingToCollection={this.props.allowAddingToCollection} />
+        allowAddingToCollection={this.props.allowAddingToCollection}
+        allowRemovingFromCollection={this.props.allowRemovingFromCollection}
+        onRemovingFromCollection={this.removeSelectedPhotos} />
     );
   }
 
   renderPhotoGrid() {
     return (
       <PhotoGrid
-        photoData={this.props.photoData}
+        photoData={this.state.photoData}
         onClick={this.enableCarousel}
         selectionModeEnabled={this.state.selectionModeEnabled}
         selectedPhotoIds={this.state.selectedPhotoIds}
@@ -109,7 +126,7 @@ class PhotoManager extends React.Component {
     if (this.state.showCarousel) {
       return (
         <PhotoCarousel
-          photoData={this.props.photoData}
+          photoData={this.state.photoData}
           clickedPhotoIndex={this.state.clickedPhotoIndex}
           closeCarousel={this.disableCarousel} />
       );

@@ -1,3 +1,4 @@
+<%= render "layouts/action_notifications", notifications: action_notification_props %>
 <%= render "delete_modal" %>
 <%= render "share_modal" %>
 
@@ -34,7 +35,10 @@
   <%=
     react_component(
       "photo-manager",
-      { photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props) }
+      {
+        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+        currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props
+      }
     )
   %>
 </div>

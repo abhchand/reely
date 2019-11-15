@@ -15,13 +15,20 @@ RSpec.describe "collections/show.html.erb", type: :view do
     assign(:date_range_label, @date_range_label)
 
     stub_view_context
+
+    # rubocop:disable LineLength
+    stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
     stub_template("_delete_modal.html.erb" => "_stubbed_delete_modal")
-    stub_template(
-      "_editable_name_heading.html.erb" => "_stubbed_editable_name_heading"
-    )
+    stub_template("_editable_name_heading.html.erb" => "_stubbed_editable_name_heading")
     stub_template("shared/_photo_count.html.erb" => "_stubbed_photo_count")
+    # rubocop:enable LineLength
 
     @t_prefix = "collections.show"
+  end
+
+  it "renders the action notifications" do
+    render
+    expect(rendered).to have_content("_stubbed_action_notifications")
   end
 
   it "renders the delete modal" do
@@ -53,7 +60,8 @@ RSpec.describe "collections/show.html.erb", type: :view do
 
     # rubocop:disable LineLength
     props = {
-      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props)
+      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+      currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props
     }
     # rubocop:enable LineLength
 
