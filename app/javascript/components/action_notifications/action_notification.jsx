@@ -85,7 +85,7 @@ class ActionNotification extends React.Component {
           type="button"
           className="close-btn"
           title={label}
-          onClick={this.props.onClose}>
+          onClick={this.onClose}>
           {label}
         </button>
       );
