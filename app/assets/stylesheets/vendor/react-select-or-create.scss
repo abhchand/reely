@@ -5,6 +5,7 @@
   .close-menu-btn {
     @extend .cta;
     @extend .cta-purple;
+    z-index: 99;
 
     height: 40px;
     line-height: 40px;

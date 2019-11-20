@@ -297,6 +297,41 @@ class IconRefresh extends React.Component {
 
 }
 
+class IconRemovePhoto extends React.Component {
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    size: '32',
+    fillColor: '#EEEEEE',
+    title: 'Remove Icon'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <g id="icon-remove-photo" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g id="photo" transform="translate(4.000000, 0.000000)">
+            <rect id="frame" stroke={this.props.fillColor} strokeWidth="10" fill="#FFFFFF" x="5" y="5" width="65" height="90" rx="3"></rect>
+            <polygon id="mountains" fill={this.props.fillColor} transform="translate(37.500000, 59.000000) scale(-1, 1) translate(-37.500000, -59.000000) " points="10 48.7058824 24 28 41.0869565 51 54 41 65 51 65 90 10 90"></polygon>
+            <circle id="sun" fill={this.props.fillColor} cx="30" cy="25" r="5"></circle>
+          </g>
+          <g id="x-icon" transform="translate(50.000000, 50.000000)">
+            <circle id="outer-circle" fill={this.props.fillColor} cx="25" cy="25" r="25"></circle>
+            <circle id="inner-circle" fill="#FFFFFF" cx="25" cy="25" r="15"></circle>
+            <rect id="x-2" fill={this.props.fillColor} transform="translate(24.760321, 24.760321) rotate(-45.000000) translate(-24.760321, -24.760321) " x="22.5864075" y="11.7168423" width="4.34782609" height="26.0869565"></rect>
+            <rect id="x-1" fill={this.props.fillColor} transform="translate(24.760321, 24.760321) rotate(45.000000) translate(-24.760321, -24.760321) " x="22.5864075" y="11.7168423" width="4.34782609" height="26.0869565"></rect>
+          </g>
+        </g>
+      </svg>
+    )
+  }
+}
+
 class IconX extends React.Component {
 
   static propTypes = {
@@ -330,5 +365,5 @@ class IconX extends React.Component {
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
   IconCircle, IconCopy, IconFilledCircle, IconPencilWithSquares, IconPlus,
-  IconRefresh, IconX
+  IconRefresh, IconRemovePhoto, IconX
 };

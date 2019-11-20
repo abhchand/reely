@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>icon-remove-photo</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-remove-photo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="photo" transform="translate(4.000000, 0.000000)">
+            <rect id="frame" stroke="#D8D8D8" stroke-width="10" fill="#FFFFFF" x="5" y="5" width="65" height="90" rx="3"></rect>
+            <polygon id="mountains" fill="#979797" transform="translate(37.500000, 59.000000) scale(-1, 1) translate(-37.500000, -59.000000) " points="10 48.7058824 24 28 41.0869565 51 54 41 65 51 65 90 10 90"></polygon>
+            <circle id="sun" fill="#979797" cx="30" cy="25" r="5"></circle>
+        </g>
+        <g id="x-icon" transform="translate(50.000000, 50.000000)">
+            <circle id="outer-circle" fill="#D8D8D8" cx="25" cy="25" r="25"></circle>
+            <circle id="inner-circle" fill="#FFFFFF" cx="25" cy="25" r="15"></circle>
+            <rect id="x-2" fill="#D8D8D8" transform="translate(24.760321, 24.760321) rotate(-45.000000) translate(-24.760321, -24.760321) " x="22.5864075" y="11.7168423" width="4.34782609" height="26.0869565"></rect>
+            <rect id="x-1" fill="#D8D8D8" transform="translate(24.760321, 24.760321) rotate(45.000000) translate(-24.760321, -24.760321) " x="22.5864075" y="11.7168423" width="4.34782609" height="26.0869565"></rect>
+        </g>
+    </g>
+</svg>

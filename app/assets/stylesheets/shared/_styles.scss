@@ -163,8 +163,8 @@
   cursor: pointer;
   transition: background-color 0.15s ease-in;
 
-  // Kind of a hack since we try to list all elements
-  // of an SVG directly here
+  // Below are defaults for all SVG icons in the icon tray
+  // Each individual icon can be overridden based on its CSS id
 
   svg {
 

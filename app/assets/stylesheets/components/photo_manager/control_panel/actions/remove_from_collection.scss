@@ -1,2 +1,24 @@
 .icon-tray__item--remove-from-collection {
+  svg {
+    #frame {
+      fill: $white;
+    }
+    #mountains, #sun {
+      fill: $dark-gray;
+    }
+    #outer-circle, #x-1, #x-2 {
+      fill: $orange-red;
+    }
+  }
+
+  &:hover {
+    svg {
+      #mountains, #sun {
+        fill: $dark-purple;
+      }
+      #outer-circle, #x-1, #x-2 {
+        fill: $orange-red;
+      }
+    }
+  }
 }

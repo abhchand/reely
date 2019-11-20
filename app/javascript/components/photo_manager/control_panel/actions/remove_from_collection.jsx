@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IconCopy } from 'components/icons';
+import { IconRemovePhoto } from 'components/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
@@ -94,7 +94,7 @@ class RemoveFromCollection extends React.Component {
   render() {
     return (
       <li className="icon-tray__item icon-tray__item--remove-from-collection" onClick={this.removeFromCollection}>
-        <IconCopy size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} fillColor="#000000" />
+        <IconRemovePhoto size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />
       </li>
     );
   }
