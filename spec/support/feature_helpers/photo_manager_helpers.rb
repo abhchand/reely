@@ -1,4 +1,8 @@
 module FeatureHelpers
+  def displayed_photo_ids
+    all(".photo-grid-photo__container").map { |photo| photo["data-id"] }
+  end
+
   def find_photo_element(photo)
     find(".photo-grid-photo__container[data-id='#{photo.synthetic_id}']")
   end
@@ -15,6 +19,8 @@ module FeatureHelpers
   # Control Panel
   #
 
+  # Add to Collection
+
   def expect_add_to_collections_icon_to_be_visible
     expect(page).to have_selector(".icon-tray__item--add-to-collection")
   end
@@ -22,10 +28,6 @@ module FeatureHelpers
   def expect_add_to_collections_icon_to_not_be_visible
     expect(page).to_not have_selector(".icon-tray__item--add-to-collection")
   end
-
-  #
-  # Add to Collection
-  #
 
   # rubocop:disable Lint/UnusedMethodArgument
   def within_add_to_collection(&block)
@@ -54,6 +56,21 @@ module FeatureHelpers
 
   def create_collection_button
     find(".react-select-or-create .create-item")
+  end
+
+  # Remove from Collection
+
+  def expect_remove_from_collection_icon_to_be_visible
+    expect(page).to have_selector(".icon-tray__item--remove-from-collection")
+  end
+
+  def expect_remove_from_collection_icon_to_not_be_visible
+    expect(page).
+      to_not have_selector(".icon-tray__item--remove-from-collection")
+  end
+
+  def remove_from_collection_icon
+    page.find(".icon-tray__item--remove-from-collection")
   end
 
   #
