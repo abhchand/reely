@@ -36,17 +36,20 @@ RSpec.describe "collections/show.html.erb", type: :view do
     expect(page).to have_content("_stubbed_delete_modal")
   end
 
-  it "renders the back button" do
-    render
-
-    button = page.find(".collections-show__back-btn")
-    expect(button.find("a")["href"]).to eq(collections_path)
-  end
-
   it "renders the editable heading" do
     render
 
     expect(page).to have_content("_stubbed_editable_name_heading")
+  end
+
+  it "renders the action bar items" do
+    render
+
+    button = page.find(".collections-show__action-bar-item--back")
+    expect(button.find("a")["href"]).to eq(collections_path)
+
+    expect(page).to have_selector(".collections-show__action-bar-item--delete")
+    expect(page).to have_selector(".collections-show__action-bar-item--share")
   end
 
   it "renders the photo count and date range label" do

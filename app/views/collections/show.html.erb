@@ -4,11 +4,21 @@
 
 <%= render "editable_name_heading", collection: @collection %>
 
-<div class="collections-show__back-btn">
-  <%= link_to(collections_path) do %>
-    <%= inline_svg("icons/arrow-thick-left.svg", height: "20px", width: "20px") %>
-  <% end %>
-</div>
+<ul class="collections-show__action-bar icon-tray" data-id="<%= @collection.synthetic_id %>">
+  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--back icon-tray__item">
+    <%= link_to(collections_path) do %>
+      <%= inline_svg("icons/arrow-thick-left.svg", height: "24px", width: "24px") %>
+    <% end %>
+  </li>
+  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--delete icon-tray__item">
+    <%= inline_svg("icons/trash.svg", height: "24px", width: "24px") %>
+  </li>
+  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--share icon-tray__item">
+    <%= inline_svg("icons/share.svg", height: "24px", width: "24px") %>
+  </li>
+</ul>
+
+
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
 <%#-
@@ -20,15 +30,6 @@
   <%= @date_range_label %>
 </div>
 <% end %>
-
-<ul class="collections-show__action-bar icon-tray" data-id="<%= @collection.synthetic_id %>">
-  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--delete icon-tray__item">
-    <%= inline_svg("icons/trash.svg", height: "24px", width: "24px") %>
-  </li>
-  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--share icon-tray__item">
-    <%= inline_svg("icons/share.svg", height: "24px", width: "24px") %>
-  </li>
-</ul>
 
 <% if @photo_count.zero? %>
 <div class="collections-show__emtpy-state">
