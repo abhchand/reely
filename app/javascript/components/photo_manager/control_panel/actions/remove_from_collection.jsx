@@ -45,12 +45,14 @@ class RemoveFromCollection extends React.Component {
     };
 
     axios.put(url, data, config).
-      then((_response) => {
+      then((response) => {
         const msg = I18n.t(`${self.i18nPrefix}.success`, { count: this.props.photoIdsToRemove.length });
         // eslint-disable-next-line react/no-danger
         const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
         const notification = { id: id, content: content, type: 'success' };
 
+        self.updateDateRangeLabel(response.data.date_range_label);
+        self.updatePhotoCount(response.data.photo_count);
         self.addNotification(notification);
         self.props.afterRemoval();
       }).
@@ -64,6 +66,29 @@ class RemoveFromCollection extends React.Component {
 
   addNotification(notification) {
     window.action_notifications.add(notification);
+  }
+
+  updateDateRangeLabel(label) {
+    const el = document.querySelector('.collections-show__date-range');
+
+    if (label === null) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
+    else if (typeof label !== 'string' || label.length === 0) {
+      // Nothing
+    }
+    else {
+      el.innerHTML = label;
+    }
+  }
+
+  updatePhotoCount(count) {
+    if (typeof count !== 'number' || count < 0) {
+      return;
+    }
+
+    const el = document.querySelector('.photo-count');
+    el.innerHTML = I18n.t('shared.photo_count.label', { count: count });
   }
 
   render() {

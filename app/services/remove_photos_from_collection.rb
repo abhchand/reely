@@ -33,6 +33,15 @@ class RemovePhotosFromCollection
     check_for_failure!
   end
 
+  after do
+    photos = collection.photos.order(:taken_at)
+
+    context.meta = {
+      date_range_label: DateRangeLabelService.call(photos),
+      photo_count: photos.count
+    }
+  end
+
   private
 
   def collection

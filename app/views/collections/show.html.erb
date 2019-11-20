@@ -11,6 +11,10 @@
 </div>
 <%= render "shared/photo_count", photo_count: @photo_count %>
 
+<%#-
+  NOTE: The logic in `remove_from_collection.jsx` will update this div's value to be blank
+  if the date_range_label is NULL, which conflicts with this logic to not display it at all
+%>
 <% if @date_range_label %>
 <div class="collections-show__date-range">
   <%= @date_range_label %>

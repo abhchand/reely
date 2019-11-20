@@ -53,6 +53,8 @@ RSpec.describe "collections/show.html.erb", type: :view do
     render
 
     expect(page).to have_content("_stubbed_photo_count")
+    expect(page.find(".collections-show__date-range")).
+      to have_content(@date_range_label)
   end
 
   it "renders the photo manager" do
@@ -83,6 +85,14 @@ RSpec.describe "collections/show.html.erb", type: :view do
       expect(rendered).to have_content("_stubbed_photo_count")
       expect(rendered).
         to_not have_content(".collections-show__photo-manager-container")
+    end
+  end
+
+  context "no date range label is set" do
+    before { assign(:date_range_label, nil) }
+
+    it "does not render the date range label" do
+      expect(page).to_not have_selector(".collections-show__date-range")
     end
   end
 end

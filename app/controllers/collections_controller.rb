@@ -78,9 +78,10 @@ class CollectionsController < ApplicationController
     )
 
     status = service.success? ? 200 : 400
+    meta = service.success? ? service.meta : {}
 
     respond_to do |format|
-      format.json { render json: {}, status: status }
+      format.json { render json: meta, status: status }
     end
   end
 

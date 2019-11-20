@@ -23,12 +23,33 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
       expect(collection.reload.photos).to eq([])
     end
 
+    it "sets the meta info" do
+      response = call
+      expect(response.success?).to eq(true)
+
+      meta = {
+        date_range_label: DateRangeLabelService.call(collection.reload.photos),
+        photo_count: 0
+      }
+
+      expect(response.meta).to eq(meta)
+    end
+
     it "doesn't touch other photos in the collection" do
       params[:photo_ids] = photos[0..1].map(&:synthetic_id)
 
       response = call
       expect(response.success?).to eq(true)
       expect(collection.reload.photos).to eq([photos[2]])
+
+      # Also test at least one case where photo_count > 0
+
+      meta = {
+        date_range_label: DateRangeLabelService.call(collection.photos),
+        photo_count: 1
+      }
+
+      expect(response.meta).to eq(meta)
     end
 
     it "doesn't remove the specified photos from their other collections" do
@@ -86,7 +107,7 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
         end
       end
 
-      it "rolls back all created PhotoCollection records" do
+      it "rolls back all deleted PhotoCollection records" do
         expect do
           response = call
 

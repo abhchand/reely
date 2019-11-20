@@ -234,19 +234,14 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     context "there is an error while adding photos to collection" do
-      before do
-        # Ensure records are created before stubbing `:save` below
-        params
+      let(:service) { double("AddPhotosToCollection") }
 
-        # Return `false` on the second record to be saved
-        # rubocop:disable LineLength
-        allow_any_instance_of(PhotoCollection).to receive(:save).and_wrap_original do |method|
-          PhotoCollection.count.zero? ? method.call : false
-        end
-        # rubocop:enable LineLength
+      before do
+        allow(AddPhotosToCollection).to receive(:call) { service }
+        allow(service).to receive(:success?) { false }
       end
 
-      it "does not update the collection and responds as failure" do
+      it "responds as failure" do
         put :add_photos, params: params
 
         expect(collection.reload.photos).to eq([])
@@ -309,21 +304,22 @@ RSpec.describe CollectionsController, type: :controller do
 
       expect(collection.reload.photos).to eq([])
       expect(response.status).to eq(200)
-      expect(response.body).to eq("{}")
+      expect(JSON.parse(response.body)).
+        to eq(
+          "date_range_label" => nil,
+          "photo_count" => 0
+        )
     end
 
-    context "there is an error while adding photos to collection" do
-      before do
-        stub_const("RemovePhotosFromCollection::BATCH_SIZE", 2)
+    context "there is an error while removing photos from collection" do
+      let(:service) { double("RemovePhotosFromCollection") }
 
-        # Return `nil` on the second batch to be deleted, which will raise
-        # an error when `destroy_all` is called on it
-        allow(PhotoCollection).to receive(:where).and_wrap_original do |method|
-          PhotoCollection.count < 3 ? method.call : nil
-        end
+      before do
+        allow(RemovePhotosFromCollection).to receive(:call) { service }
+        allow(service).to receive(:success?) { false }
       end
 
-      it "does not update the collection and responds as failure" do
+      it "responds as failure" do
         put :remove_photos, params: params
 
         expect(collection.reload.photos).to match_array(photos)
