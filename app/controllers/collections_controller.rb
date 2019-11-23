@@ -15,9 +15,11 @@ class CollectionsController < ApplicationController
 
   def show
     @photos ||= collection.photos.order(:taken_at)
-    @photo_count = @photos.count
 
+    @photo_count = @photos.count
     @date_range_label = DateRangeLabelService.call(@photos)
+
+    @collections = current_user.collections.order(created_at: :desc)
   end
 
   def create

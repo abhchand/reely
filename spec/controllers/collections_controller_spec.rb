@@ -36,12 +36,19 @@ RSpec.describe CollectionsController, type: :controller do
       end
     end
 
-    it "assigns the collection, photo, and date range label" do
+    it "assigns the collection(s), photo, and date range label" do
+      # Ensure `collection` is created first
+      collection
+
+      other_collection = create(:collection, owner: user)
+      _irrelevant_collection = create(:collection)
+
       expect(DateRangeLabelService).to receive(:call) { "some label" }
 
       get :show, params: { id: collection.synthetic_id }
 
       expect(assigns(:collection)).to eq(collection)
+      expect(assigns(:collections)).to eq([other_collection, collection])
       expect(assigns(:photos)).to eq(collection.photos.order(:taken_at))
       expect(assigns(:photo_count)).to eq(2)
       expect(assigns(:date_range_label)).to eq("some label")

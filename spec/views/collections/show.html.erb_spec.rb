@@ -5,11 +5,13 @@ RSpec.describe "collections/show.html.erb", type: :view do
 
   before do
     @collection = create_collection_with_photos(photo_count: 2)
+    @collections = [create(:collection, owner: user), @collection]
     @photos = @collection.photos
     @photo_count = 2
     @date_range_label = "date range label"
 
     assign(:collection, @collection)
+    assign(:collections, @collections)
     assign(:photos, @photos)
     assign(:photo_count, @photo_count)
     assign(:date_range_label, @date_range_label)
@@ -66,7 +68,8 @@ RSpec.describe "collections/show.html.erb", type: :view do
     # rubocop:disable LineLength
     props = {
       photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
-      currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props
+      currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props,
+      collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_manager_props)
     }
     # rubocop:enable LineLength
 
