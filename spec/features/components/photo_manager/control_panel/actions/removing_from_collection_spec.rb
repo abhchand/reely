@@ -30,31 +30,6 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     expect_remove_from_collection_icon_to_not_be_visible
   end
 
-  it "user can only remove from collection on Collections show page", :js do
-    log_in(user)
-
-    visit photos_path
-
-    enable_selection_mode
-    expect_remove_from_collection_icon_to_not_be_visible
-    click_photo(photos[0])
-    expect_remove_from_collection_icon_to_not_be_visible
-
-    visit collections_sharing_display_path(id: collection.share_id)
-
-    enable_selection_mode
-    expect_remove_from_collection_icon_to_not_be_visible
-    click_photo(photos[0])
-    expect_remove_from_collection_icon_to_not_be_visible
-
-    visit collection_path(collection)
-
-    enable_selection_mode
-    expect_remove_from_collection_icon_to_not_be_visible
-    click_photo(photos[0])
-    expect_remove_from_collection_icon_to_be_visible
-  end
-
   it "user can remove a single photo", :js do
     log_in(user)
 
@@ -168,6 +143,34 @@ RSpec.feature "photo manager remove from collection", type: :feature do
       expect_date_range_label_for(collection.photos)
 
       validate_photo_display(collection.photos)
+    end
+  end
+
+  describe "on other pages besides Collections#show" do
+    context "on Photos#index" do
+      it "user can not remove from collection", :js do
+        log_in(user)
+
+        visit photos_path
+
+        enable_selection_mode
+        expect_remove_from_collection_icon_to_not_be_visible
+        click_photo(photos[0])
+        expect_remove_from_collection_icon_to_not_be_visible
+      end
+    end
+
+    context "on Collections::SharingConfigController#show" do
+      it "user can not remove from collection", :js do
+        log_in(user)
+
+        visit collections_sharing_display_path(id: collection.share_id)
+
+        enable_selection_mode
+        expect_remove_from_collection_icon_to_not_be_visible
+        click_photo(photos[0])
+        expect_remove_from_collection_icon_to_not_be_visible
+      end
     end
   end
 

@@ -115,6 +115,72 @@ RSpec.feature "photo manager add to collection", type: :feature do
     expect(collection.photos).to match_array([photos[0], photos[2]])
   end
 
+  describe "on other pages besides Photos#index" do
+    let(:collection) { create(:collection, owner: user) }
+
+    before do
+      photos.each do |photo|
+        PhotoCollection.create!(photo: photo, collection: collection)
+      end
+    end
+
+    context "on Collections#show" do
+      it "user can add photos to a new collection", :js do
+        log_in(user)
+        visit collection_path(collection)
+
+        enable_selection_mode
+        click_photo(photos[0])
+        click_photo(photos[2])
+
+        before_count = Collection.count
+
+        within_add_to_collection do
+          open_dropdown_menu
+          fill_in "search", with: "Cool Collection"
+          create_collection_button.click
+        end
+
+        wait_for do
+          Collection.count == (before_count + 1) &&
+            Collection.last.name == "Cool Collection"
+        end
+      end
+
+      it "user can add photos to an exisiting collection", :js do
+        other_collection = create(:collection, owner: user, name: "Tamil")
+
+        log_in(user)
+        visit collection_path(collection)
+
+        enable_selection_mode
+        click_photo(photos[0])
+        click_photo(photos[2])
+
+        before_count = other_collection.photos.count
+
+        within_add_to_collection do
+          open_dropdown_menu
+          find_option_for(other_collection).click
+        end
+
+        wait_for { other_collection.reload.photos.count == before_count + 2 }
+      end
+    end
+
+    context "on Collections::SharingConfigController#show" do
+      it "user can not add to collection", :js do
+        log_in(user)
+        visit collections_sharing_display_path(id: collection.share_id)
+
+        enable_selection_mode
+        click_photo(photos[0])
+
+        expect_add_to_collections_icon_to_not_be_visible
+      end
+    end
+  end
+
   def displayed_dropdown_option_ids
     [].tap do |ids|
       all(".react-select-or-create .select-items li").each do |li|
