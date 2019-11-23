@@ -92,9 +92,17 @@
     font-weight: 700;
     line-height: 40px;
     text-align: center;
+    cursor: pointer;
 
     span {
       width: 90%;
     }
+
+    &.create-item--disabled {
+      &:hover {
+        background: $leaf-green;
+      }
+    }
   }
+
 }
