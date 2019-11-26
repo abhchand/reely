@@ -78,7 +78,8 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for
   # options)
-  config.active_storage.service = :local
+  config.active_storage.service =
+    ENV.fetch("ACTIVE_STORAGE_SERVICE", :local)&.to_sym
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true

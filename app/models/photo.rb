@@ -3,8 +3,8 @@ class Photo < ApplicationRecord
   include HasDirectAccessKey
 
   SOURCE_FILE_SIZES = {
-    thumb: { resize: "75x75" },
-    medium: { resize: "200x200" }
+    medium: { resize: "200x200" },
+    screen: { resize: "1000x1000" }
   }.freeze
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false

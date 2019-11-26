@@ -40,7 +40,8 @@ gem "smtpapi", "~> 0.1.0"
 gem "nokogiri", ">= 1.10.4"     # https://nvd.nist.gov/vuln/detail/CVE-2019-5477
 gem "rubyzip", ">= 1.3.0"       # https://nvd.nist.gov/vuln/detail/CVE-2019-16892
 
-group :production do
+group :development, :production do
+  gem "aws-sdk-s3", "~> 1.48", require: false
   gem "foreman", "~> 0.85.0"
 end
 

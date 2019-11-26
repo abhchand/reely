@@ -6,18 +6,6 @@ RSpec.describe RawPhotosController, type: :controller do
   before { photo }
 
   describe "GET show" do
-    it "returns the photo source file inline" do
-      expect_file_served_for(photo)
-      get :show, params: { id: photo.direct_access_key }
-    end
-
-    it "also work with authentication" do
-      session[:user_id] = photo.owner.id
-
-      expect_file_served_for(photo)
-      get :show, params: { id: photo.direct_access_key }
-    end
-
     context "photo record not found" do
       it "redirects to the root path" do
         get :show, params: { id: "abcde" }
@@ -40,23 +28,73 @@ RSpec.describe RawPhotosController, type: :controller do
       end
     end
 
-    context ":size param is specified" do
+    context "serving files from disk" do
       it "returns the photo source file inline" do
-        expect_file_served_for(photo, :medium)
-        get :show, params: { id: photo.direct_access_key, size: "medium" }
+        expect_file_served_for(photo)
+        get :show, params: { id: photo.direct_access_key }
       end
 
-      it ":size param is case insensitive" do
-        expect_file_served_for(photo, :medium)
-        get :show, params: { id: photo.direct_access_key, size: "MEDiUm" }
+      it "also works with authentication" do
+        session[:user_id] = photo.owner.id
+
+        expect_file_served_for(photo)
+        get :show, params: { id: photo.direct_access_key }
       end
 
-      context ":size param is invalid" do
-        it "redirects to the root_path" do
-          get :show, params: { id: "abcde" }
-          expect(response).to redirect_to(root_path)
+      context ":size param is specified" do
+        it "returns the photo source file inline" do
+          expect_file_served_for(photo, :medium)
+          get :show, params: { id: photo.direct_access_key, size: "medium" }
+        end
+
+        it ":size param is case insensitive" do
+          expect_file_served_for(photo, :medium)
+          get :show, params: { id: photo.direct_access_key, size: "MEDiUm" }
+        end
+
+        context ":size param is invalid" do
+          it "redirects to the root_path" do
+            get :show, params: { id: "abcde" }
+            expect(response).to redirect_to(root_path)
+          end
         end
       end
+    end
+
+    context "serving files from a remote storage" do
+      before do
+        allow(controller).to receive(:serving_files_from_disk?) { false }
+      end
+
+      it "redirects to the service url" do
+        stub_service_url
+        get :show, params: { id: photo.direct_access_key }
+        expect_to_redirect_to_service_url
+      end
+
+      it "also works with authentication" do
+        session[:user_id] = photo.owner.id
+
+        stub_service_url
+        get :show, params: { id: photo.direct_access_key }
+        expect_to_redirect_to_service_url
+      end
+
+      context ":size param is specified" do
+        it "returns the photo source file inline" do
+          stub_service_url(size: "medium")
+          get :show, params: { id: photo.direct_access_key, size: "medium" }
+          expect_to_redirect_to_service_url(size: :medium)
+        end
+      end
+    end
+  end
+
+  def stub_service_url(size: nil)
+    [ActiveStorage::Blob, ActiveStorage::Variant].each do |klass|
+      allow_any_instance_of(klass).to receive(:service_url) {
+        "example.com?size=#{size&.downcase}"
+      }
     end
   end
 
@@ -78,5 +116,9 @@ RSpec.describe RawPhotosController, type: :controller do
     expect(controller).to receive(:serve_file).
       with(path, opts).
       and_call_original
+  end
+
+  def expect_to_redirect_to_service_url(size: nil)
+    expect(response).to redirect_to("example.com?size=#{size&.downcase}")
   end
 end

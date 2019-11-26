@@ -104,7 +104,7 @@ Rails.application.configure do
   # config.action_controller.asset_host = 'http://assets.example.com'
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", :local)&.to_sym
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil

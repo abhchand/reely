@@ -36,10 +36,19 @@ class RawPhotosController < ActiveStorage::DiskController
   before_action :ensure_blob_and_file_present
 
   def show
-    serve_file path, content_type: content_type, disposition: disposition
+    if serving_files_from_disk?
+      serve_file(path, content_type: content_type, disposition: disposition)
+    else
+      redirect_to(blob_or_variant.service_url)
+    end
   end
 
   private
+
+  def serving_files_from_disk?
+    ActiveStorage::Blob.service.class.name ==
+      "ActiveStorage::Service::DiskService"
+  end
 
   def ensure_blob_and_file_present
     redirect_to(root_path) if blob_or_variant.nil? || !processed?

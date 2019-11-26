@@ -17,7 +17,7 @@ class PhotoPresenter < ApplicationPresenter
     {
       id: synthetic_id,
       mediumUrl: source_file_path(size: :medium),
-      url: source_file_path,
+      url: source_file_path(size: :screen),
       takenAtLabel: taken_at_label,
       rotate: clockwise_rotation
     }
