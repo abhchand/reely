@@ -19,7 +19,16 @@ class Photo < ApplicationRecord
 
   before_validation :default_taken_at, on: :create
   before_validation :default_lat_long, on: :create
-  after_commit :process_all_variants
+
+  # Transactional callbacks like `after_commit` are executed in *reverse*
+  # order
+  #
+  # See: https://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
+  # > In case there are multiple transactional callbacks ... order is reversed
+  #
+  # Adding `prepend: true` ensures this gets executed after the `after_commit`
+  # defined by ActiveStorage that uploads/saves the actual image file
+  after_commit :process_all_variants, prepend: true
 
   def taken_at=(val)
     # `taken_at` represents the date and time WITHOUT a timezone, since most
