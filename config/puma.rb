@@ -52,3 +52,13 @@ on_worker_boot do
   configs = ActiveRecord::Base.configurations[rails_env]
   ActiveRecord::Base.establish_connection(configs)
 end
+
+# Use the `preload_app!` method when specifying a `workers` number.
+# This directive tells Puma to first boot the application and load code
+# before forking the application. This takes advantage of Copy On Write
+# process behavior so workers use less memory.
+#
+# preload_app!
+
+# Allow puma to be restarted by `rails restart` command.
+plugin :tmp_restart
