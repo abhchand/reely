@@ -23,10 +23,10 @@ module Reely
 
     # The default locale is :en and all translations from
     # config/locales/*.rb,yml are auto loaded.
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false

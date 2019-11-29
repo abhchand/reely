@@ -67,11 +67,11 @@ RSpec.describe AddPhotosToCollection, type: :service do
         params
 
         # Return `false` on the second record to be saved
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         allow_any_instance_of(PhotoCollection).to receive(:save).and_wrap_original do |method|
           PhotoCollection.count.zero? ? method.call : false
         end
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
       end
 
       it "rolls back all created PhotoCollection records" do

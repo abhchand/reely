@@ -1,7 +1,7 @@
 module Devise
   module Mailers
     module Helpers
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
 
       # Devise creates scoped mailers under: app/views/users/mailer/*
       # Ideally it should live under:        app/views/mailers/devise_mailer/users/*
@@ -38,7 +38,7 @@ module Devise
           scope: [:devise_mailer, devise_mapping.scoped_path.to_sym, key]
         )
       end
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     end
   end
 end

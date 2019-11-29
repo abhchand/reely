@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Resetting Password", type: :feature do
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   #
   # Explanation of password paths routes behavior
   #
@@ -21,7 +21,7 @@ RSpec.feature "Resetting Password", type: :feature do
   #                             PUT    /users/password                -> devise/passwords#update
   #                             POST   /users/password                -> devise/passwords#create
   #
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   let(:user) { create(:user) }
 

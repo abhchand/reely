@@ -7,7 +7,7 @@ Rails.application.configure do
   # project's package.json
   config.webpacker.check_yarn_integrity = false
 
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   # Settings specified here will take precedence over those in
   # config/application.rb.
 
@@ -130,7 +130,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 end
 
 # rubocop:enable Metrics/BlockLength

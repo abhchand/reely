@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable LineLength
+# rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/BlockLength
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -311,4 +311,4 @@ Devise.setup do |config|
 end
 
 # rubocop:enable Metrics/BlockLength
-# rubocop:enable LineLength
+# rubocop:enable Metrics/LineLength

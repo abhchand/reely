@@ -8,11 +8,11 @@ RSpec.describe "photos/index.html.erb", type: :view do
   before do
     stub_view_context
 
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
     stub_template "layouts/_flash.html.erb" => "_stubbed_flash"
     stub_template "shared/_photo_count.html.erb" => "_stubbed_photo_count"
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     assign(:photos, photos)
     assign(:photo_count, photos.count)
@@ -39,12 +39,12 @@ RSpec.describe "photos/index.html.erb", type: :view do
   it "renders the photo manager" do
     render
 
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     props = {
       photoData: PhotoPresenter.wrap(photos, view: view_context).map(&:photo_manager_props),
       collections: CollectionPresenter.wrap(collections, view: view_context).map(&:photo_manager_props)
     }
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     expect(page).to have_react_component("photo-manager").including_props(props)
   end

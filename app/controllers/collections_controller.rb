@@ -3,11 +3,11 @@ class CollectionsController < ApplicationController
 
   layout "with_responsive_navigation"
 
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   before_action :ensure_json_request, only: %i[update add_photos remove_photos destroy]
   before_action :collection, only: %i[show update add_photos remove_photos destroy]
   before_action :only_my_collection, only: %i[show update add_photos remove_photos destroy]
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   def index
     @collections = current_user.collections.order(created_at: :desc)

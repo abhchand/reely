@@ -4,11 +4,11 @@ RSpec.describe "users/passwords/edit.html.erb", type: :view do
   let(:user) { create(:user) }
 
   before do
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     stub_template "layouts/_flash.html.erb" => "_stubbed_flash"
     stub_template "users/shared/_error_messages.html.erb" => "_stubbed_error_messages"
     stub_template "users/shared/_native_links.html.erb" => "_stubbed_users_native_links"
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     assign(:user, user)
 

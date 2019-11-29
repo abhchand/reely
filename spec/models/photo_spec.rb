@@ -1,8 +1,8 @@
 require "rails_helper"
-# rubocop:disable LineLength
+# rubocop:disable Metrics/LineLength
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_direct_access_key").to_s
-# rubocop:enable LineLength
+# rubocop:enable Metrics/LineLength
 
 RSpec.describe Photo, type: :model do
   let(:photo) { create(:photo) }

@@ -1,7 +1,7 @@
 require "rails_helper"
-# rubocop:disable LineLength
+# rubocop:disable Metrics/LineLength
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
-# rubocop:enable LineLength
+# rubocop:enable Metrics/LineLength
 
 RSpec.describe User do
   it_behaves_like "has synthetic id"
@@ -443,7 +443,6 @@ RSpec.describe User do
 
       # Devise
       #
-      # # rubocop:disable LineLength
       #
       # This section also combines specs for 2 other callbacks defined by
       # Devise.
@@ -460,8 +459,6 @@ RSpec.describe User do
       #
       # The `after_create` skips sending the reconfirmation email when already
       # sending the confirmation email so that two emails don't get delivered.
-      #
-      # rubocop:enable LineLength
       describe "#send_reconfirmation_instructions" do
         let(:user) { create(:user) }
 

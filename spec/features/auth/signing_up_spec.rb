@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Signing Up", type: :feature do
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   #
   # Explanation of registration (sign ups) routes behavior
   #
@@ -21,7 +21,7 @@ RSpec.feature "Signing Up", type: :feature do
   #                             PUT    /users/registrations           -> devise/registrations#update
   #                             DELETE /users/registrations           -> devise/registrations#destroy
   #                             POST   /users/registrations           -> devise/registrations#create
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   let(:user_attrs) do
     {

@@ -2,7 +2,7 @@ require Rails.root.join("lib", "sidekiq", "admin_constraint")
 require Rails.root.join("lib", "admin", "mailer_preview_constraint")
 
 Rails.application.routes.draw do
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   # rubocop:disable Style/SymbolArray
   root to: "root#new"
 
@@ -72,5 +72,5 @@ Rails.application.routes.draw do
     resources :raw_photos, only: :show, path: :file
   end
   # rubocop:enable Style/SymbolArray
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 end

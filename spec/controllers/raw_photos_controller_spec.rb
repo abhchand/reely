@@ -99,7 +99,7 @@ RSpec.describe RawPhotosController, type: :controller do
   end
 
   def expect_file_served_for(photo, size = nil)
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     transformations = Photo::SOURCE_FILE_SIZES[size&.to_sym]
     filename = "#{photo.direct_access_key}.jpg"
 
@@ -111,7 +111,7 @@ RSpec.describe RawPhotosController, type: :controller do
     disposition = "inline; filename=\"#{filename}\"; filename*=UTF-8''#{filename}"
 
     opts = { content_type: content_type, disposition: disposition }
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     expect(controller).to receive(:serve_file).
       with(path, opts).

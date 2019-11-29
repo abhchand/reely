@@ -35,11 +35,11 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
   it "renders the photo manager" do
     render
 
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     props = {
       photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props)
     }
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     expect(page).to have_react_component("photo-manager").including_props(props)
   end

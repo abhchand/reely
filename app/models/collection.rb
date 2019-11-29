@@ -4,12 +4,12 @@ class Collection < ApplicationRecord
 
   belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
 
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
   has_many :photo_collections, inverse_of: :collection, dependent: :destroy
   has_many :photos, through: :photo_collections
   has_many :shared_collection_recipients, dependent: :destroy, inverse_of: :collection
   has_many :sharing_recipients, through: :shared_collection_recipients, source: :recipient
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   validates :name, presence: true
 

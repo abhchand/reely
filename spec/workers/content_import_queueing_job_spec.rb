@@ -10,10 +10,10 @@ RSpec.describe ContentImportQueueingJob, type: :worker do
     owner_a = owner
     owner_b = create(:user)
 
-    # rubocop:disable LineLength
+    # rubocop:disable Metrics/LineLength
     file_a = create_import_file(owner: owner_a, fixture: "images/atlanta.jpg").to_s
     file_b = create_import_file(owner: owner_b, fixture: "images/atlanta.jpg").to_s
-    # rubocop:enable LineLength
+    # rubocop:enable Metrics/LineLength
 
     ContentImportQueueingJob.new.perform
 

@@ -45,9 +45,9 @@ activate_control_app
 on_worker_boot do
   require "active_record"
 
-  # rubocop:disable LineLength, RescueModifier
+  # rubocop:disable Metrics/LineLength, Style/RescueModifier
   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
-  # rubocop:enable LineLength, RescueModifier
+  # rubocop:enable Metrics/LineLength, Style/RescueModifier
 
   configs = ActiveRecord::Base.configurations[rails_env]
   ActiveRecord::Base.establish_connection(configs)

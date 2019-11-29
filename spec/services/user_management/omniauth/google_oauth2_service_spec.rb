@@ -1,8 +1,8 @@
 require "rails_helper"
 
-# rubocop:disable LineLength
+# rubocop:disable Metrics/LineLength
 RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor do
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   let(:auth) do
     OmniAuth::AuthHash.new(
