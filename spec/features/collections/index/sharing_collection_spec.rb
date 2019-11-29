@@ -106,14 +106,11 @@ RSpec.feature "sharing collection", :js, type: :feature do
       click_toggle
 
       expect(displayed_sharing_url).to eq(link_sharing_url_for(collection))
+      page.find(".share-collection__link-sharing-renew").click
 
-      expect do
-        page.find(".share-collection__link-sharing-renew").click
-        wait_for_ajax
-      end.to(change { displayed_sharing_url })
-
-      collection.reload
-      expect(displayed_sharing_url).to eq(link_sharing_url_for(collection))
+      wait_for do
+        displayed_sharing_url == link_sharing_url_for(collection.reload)
+      end
     end
   end
 
