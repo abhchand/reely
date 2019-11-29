@@ -26,8 +26,6 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-Metrics/MethodLength:
-  Max: 25
 Metrics/BlockLength:
   ExcludedMethods:
     - context
