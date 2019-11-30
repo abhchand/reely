@@ -27,8 +27,8 @@ RUN npm install -g yarn
 RUN yarn install --check-files --pure-lockfile
 
 # Bundler
-RUN gem install bundler -v 1.17.2
-RUN gem install nokogiri -v 1.10.4 -- --use-system-libraries
+RUN gem install bundler -v 2.0.2
+RUN gem install nokogiri -v 1.10.5 -- --use-system-libraries
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --verbose --jobs 20 --retry 5 --deployment
 
