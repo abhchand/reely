@@ -31,6 +31,6 @@ development:
   <<: *default
   database: reely_development
 
-+production:
+production:
   <<: *default
   database: reely_production
