@@ -20,7 +20,7 @@ ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp, echo: false
 
 # RVM Setup
 set :rvm_type, :system # Forces rvm to look in /usr/local/bin
-set :rvm_ruby_version, "2.5.1"
+set :rvm_ruby_version, "2.5.5"
 
 # Minimize space, keep only 3 releases
 set :keep_releases, 3

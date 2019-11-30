@@ -1,7 +1,7 @@
 language: ruby
 sudo: false
 rvm:
-  - 2.5.1
+  - 2.5.5
 bundler_args: --without production --without development
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
