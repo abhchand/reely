@@ -1,4 +1,3 @@
-config/webpack/*
 spec/javascript/jest.config.js
 spec/javascript/jest.setup.js
 vendor/*

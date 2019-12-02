@@ -8,9 +8,6 @@ ruby "2.5.5"
 #
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "inline_svg", "~> 0.6.1"
-gem "sass-rails", "~> 6.0"
-gem "uglifier", ">= 1.3.0"
-gem "webpacker", "~> 3.5", ">= 3.5.5"
 
 #
 # Back End

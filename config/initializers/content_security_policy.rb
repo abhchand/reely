@@ -15,7 +15,7 @@ Rails.application.config.content_security_policy do |policy|
 
   if Rails.env.development?
     # Allow connections from webpack-dev-server
-    # Port must match with definition in `webpacker.yml`
+    # Port must match with definition in Webpack config file
     policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035"
   end
 
