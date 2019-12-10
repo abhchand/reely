@@ -110,7 +110,8 @@ const config = {
     'application': [
       `${ASSETS_DIR}/javascript/packs/application.js`,
       `${ASSETS_DIR}/stylesheets/packs/application.scss`
-    ]
+    ],
+    'i18n': [`${ASSETS_DIR}/javascript/packs/i18n.js`]
   },
   'module': {
     'strictExportPresence': true,

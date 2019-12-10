@@ -2,6 +2,9 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in
   # config/application.rb.
 
+  # Automatically re-build JS translations file (`i18n-js` gem)
+  config.middleware.use I18n::JS::Middleware
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
