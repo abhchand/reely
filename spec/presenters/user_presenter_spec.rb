@@ -21,11 +21,11 @@ RSpec.describe PhotoPresenter, type: :presenter do
 
       it "returns the default blank avatar based on the size" do
         # No size specified
-        expect(user.avatar_path).to eq("/assets/blank-avatar-medium.jpg")
+        expect(user.avatar_path).to eq(image_path("blank-avatar-medium.jpg"))
 
         # Size specified
         expect(user.avatar_path(size: :thumb)).
-          to eq("/assets/blank-avatar-thumb.jpg")
+          to eq(image_path("blank-avatar-thumb.jpg"))
       end
     end
   end

@@ -1,3 +1,3 @@
 rails: bundle exec rails server
 sidekiq: bundle exec sidekiq -C config/sidekiq.yml
-webpack: ./bin/webpack-dev-server --hot --host 127.0.0.1
+webpack: NODE_ENV=development node_modules/.bin/webpack-dev-server --debug --output-pathinfo

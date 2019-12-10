@@ -1,0 +1,82 @@
+@charset 'utf-8';
+
+// Frameworks
+@import '~bootstrap';
+
+// Shared
+@import 'stylesheets/shared/_vars';
+@import 'stylesheets/shared/_breakpoints';
+@import 'stylesheets/shared/_colors';
+@import 'stylesheets/shared/_fonts';
+@import 'stylesheets/shared/_forms';
+@import 'stylesheets/shared/_styles';
+
+@import 'stylesheets/shared/_photo_count';
+
+// Vendor
+@import '~react-toggle-switch/dist/css/switch.min.css';
+@import '~react-select-or-create/dist/main.css';
+@import 'stylesheets/vendor/react-select-or-create';
+
+// Views
+@import 'stylesheets/application/_desktop_header';
+@import 'stylesheets/application/_desktop_navigation';
+@import 'stylesheets/application/_mobile_header';
+@import 'stylesheets/application/_mobile_navigation';
+@import 'stylesheets/application/_modal';
+
+@import 'stylesheets/collections/_card';
+@import 'stylesheets/collections/_editable_name_heading';
+@import 'stylesheets/collections/_share_modal';
+@import 'stylesheets/collections/index';
+@import 'stylesheets/collections/sharing_display/show';
+@import 'stylesheets/collections/show';
+
+@import 'stylesheets/layouts/_application';
+@import 'stylesheets/layouts/_flash';
+@import 'stylesheets/layouts/_with_responsive_navigation';
+
+@import 'stylesheets/photos/index';
+
+@import 'stylesheets/users/confirmations/new';
+@import 'stylesheets/users/passwords/new';
+@import 'stylesheets/users/registrations/new';
+@import 'stylesheets/users/sessions/new';
+@import 'stylesheets/users/shared/_native_links';
+@import 'stylesheets/users/shared/_omniauth_links';
+
+// Components
+@import 'stylesheets/components/action_notifications/index';
+@import 'stylesheets/components/action_notifications/action_notification';
+
+@import 'stylesheets/components/modal_error/index';
+
+@import 'stylesheets/components/icons/loading_icon_ellipsis';
+
+@import 'stylesheets/components/photo_manager/index';
+@import 'stylesheets/components/photo_manager/control_panel/index';
+@import 'stylesheets/components/photo_manager/control_panel/selected_photo_count';
+@import 'stylesheets/components/photo_manager/control_panel/actions/open_button';
+@import 'stylesheets/components/photo_manager/control_panel/actions/remove_from_collection';
+@import 'stylesheets/components/photo_manager/control_panel/actions/add_to_collection';
+@import 'stylesheets/components/photo_manager/control_panel/actions/close_button';
+@import 'stylesheets/components/photo_manager/carousel/index';
+@import 'stylesheets/components/photo_manager/photo_grid/index';
+@import 'stylesheets/components/photo_manager/photo_grid/photo';
+
+@import 'stylesheets/components/share_collection/index';
+@import 'stylesheets/components/share_collection/url';
+@import 'stylesheets/components/share_collection/copy_link';
+@import 'stylesheets/components/share_collection/renew_link';
+@import 'stylesheets/components/share_collection/link_sharing_toggle';
+@import 'stylesheets/components/share_collection/link_sharing';
+
+// * { background-color: rgba(255,0,0,.2); }
+// * * { background-color: rgba(0,255,0,.2); }
+// * * * { background-color: rgba(0,0,255,.2); }
+// * * * * { background-color: rgba(255,0,255,.2); }
+// * * * * * { background-color: rgba(0,255,255,.2); }
+// * * * * * * { background-color: rgba(255,255,0,.2); }
+// * * * * * * * { background-color: rgba(255,0,0,.2); }
+// * * * * * * * * { background-color: rgba(0,255,0,.2); }
+// * * * * * * * * * { background-color: rgba(0,0,255,.2); }

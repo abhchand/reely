@@ -7,7 +7,7 @@ ruby "2.5.5"
 # Front End
 #
 gem "i18n-js", ">= 3.0.0.rc11"
-gem "inline_svg", "~> 0.6.1"
+gem "inline_svg", "~> 1.5", ">= 1.5.2"
 
 #
 # Back End

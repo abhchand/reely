@@ -1,7 +1,9 @@
 class UserPresenter < ApplicationPresenter
+  include WebpackHelper
+
   def avatar_path(size: nil)
     unless avatar.attached?
-      return "/assets/blank-avatar-#{size&.downcase || :medium}.jpg"
+      return image_path("blank-avatar-#{size&.downcase || :medium}.jpg")
     end
 
     # Somewhat annoyingly, ActiveStorage only provides URL path helpers on

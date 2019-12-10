@@ -28,18 +28,18 @@
     </div>
 
     <div class="collections-card__menu-btn">
-      <%= inline_svg("icons/menu-dots.svg", height: "20px", width: "20px") %>
+      <%= inline_svg_tag("icons/menu-dots.svg", height: "20px", width: "20px") %>
 
       <ul class="collections-card__menu">
         <li class="collections-card__menu-item collections-card__menu-item--delete">
           <%= link_to("#") do %>
-            <%= inline_svg("icons/trash.svg", height: "20px", width: "20px") %>
+            <%= inline_svg_tag("icons/trash.svg", height: "20px", width: "20px") %>
             <span><%= t(".delete") %></span>
           <% end %>
         </li>
         <li class="collections-card__menu-item collections-card__menu-item--share">
           <%= link_to("#") do %>
-            <%= inline_svg("icons/share.svg", height: "20px", width: "20px") %>
+            <%= inline_svg_tag("icons/share.svg", height: "20px", width: "20px") %>
             <span><%= t(".share") %></span>
           <% end %>
         </li>

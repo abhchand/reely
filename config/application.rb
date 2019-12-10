@@ -28,6 +28,9 @@ module Reely
     # config.i18n.default_locale = :de
     # rubocop:enable Metrics/LineLength
 
+    # Disable the built-in asset pipeline
+    config.assets.enabled = false
+
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false
 
