@@ -1,5 +1,5 @@
-spec/javascript/jest.config.js
-spec/javascript/jest.setup.js
+spec/frontend/javascript/jest.config.js
+spec/frontend/javascript/jest.setup.js
 vendor/*
 public/*
 tmp/*

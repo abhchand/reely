@@ -4,10 +4,10 @@
   "scripts": {
     "lint": "eslint . --ext .js,.jsx && stylelint app/assets/stylesheets/*",
     "lintfix": "eslint . --ext .js,.jsx --fix && stylelint app/assets/stylesheets/* --fix",
-    "testonly": "jest --no-cache --config spec/javascript/jest.config.js",
+    "testonly": "jest --no-cache --config spec/frontend/javascript/jest.config.js",
     "test": "yarn run lint && yarn run testonly",
-    "dev": "NODE_ENV=development webpack-dev-server --open",
-    "build": "yarn run test NODE_ENV=production webpack --config webpack.config.js"
+    "dev": "NODE_ENV=development webpack-dev-server --open --debug --output-pathinfo",
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "author": "Abhishek Chandrasekhar <me@abhchand.me>",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "js-yaml": "^3.13.1",
     "stylelint": "^9.3.0",
     "stylelint-config-rational-order": "^0.0.2",
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
@@ -38,11 +38,17 @@
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
+    "bootstrap": "^4.4.1",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "copy-webpack-plugin": "^5.0.5",
     "core-js": "3",
+    "css-loader": "^3.2.1",
     "html-react-parser": "^0.9.2",
     "i18n-js": "^3.2.2",
     "jquery": "^3.3.1",
     "jquery-ujs": "^1.2.2",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.0",
     "prop-types": "^15.6.1",
     "rails-erb-loader": "^5.4.1",
     "react": "^16.0.0",
@@ -51,6 +57,10 @@
     "react-select-or-create": "^1.1.0",
     "react-toggle-switch": "^3.0.4",
     "react-transition-group": "^4.3.0",
-    "react_ujs": "^2.4.4"
+    "react_ujs": "^2.4.4",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.41.2",
+    "webpack-assets-manifest": "^3.1.1",
+    "webpack-cli": "^3.3.9"
   }
 }
