@@ -11,7 +11,7 @@ module FeatureHelpers
       # Frontend
       within(".share-collection__link-sharing") do
         switch = page.find(".switch")
-        expect(switch["class"].split(" ")).to include("on")
+        wait_for { switch["class"].split(" ").include?("on") }
         expect(page).to have_selector(".share-collection__link-sharing-content")
       end
 
@@ -24,7 +24,7 @@ module FeatureHelpers
       # Frontend
       within(".share-collection__link-sharing") do
         switch = page.find(".switch")
-        expect(switch["class"].split(" ")).to_not include("on")
+        wait_for { !switch["class"].split(" ").include?("on") }
         expect(page).
           to_not have_selector(".share-collection__link-sharing-content")
       end
