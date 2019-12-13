@@ -1,9 +1,9 @@
 // See: jestjs.io/docs/configuration.html
 module.exports = {
-  "rootDir": "../../",
+  "rootDir": "../../..",
   "roots": [
-    "app/javascript",
-    "spec/javascript"
+    "app/frontend/javascript",
+    "spec/frontend/javascript"
   ],
   "moduleFileExtensions": [
     "js",
@@ -11,11 +11,11 @@ module.exports = {
   ],
   "moduleDirectories": [
     "node_modules",
-    "app/javascript",
-    "spec/javascript"
+    "app/frontend/javascript",
+    "spec/frontend/javascript"
   ],
   "setupFilesAfterEnv": [
-    "<rootDir>/spec/javascript/jest.setup.js"
+    "<rootDir>/spec/frontend/javascript/jest.setup.js"
   ],
   "transform": {
     "\\.jsx?$": "babel-jest"
