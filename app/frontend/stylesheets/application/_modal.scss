@@ -34,6 +34,18 @@
   line-height: 24px;
   text-align: left;
 }
+.modal-content__subheading {
+  color: $dark-blue;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: left;
+}
+.modal-content__error {
+  color: $red;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: left;
+}
 .modal-content__body {
   color: $dark-gray;
   text-align: left;
@@ -47,4 +59,8 @@
   width: 90px;
   height: 45px;
   margin-right: 5px;
+}
+.modal-content__button--submit {
+}
+.modal-content__button--close {
 }

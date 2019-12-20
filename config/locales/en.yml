@@ -39,6 +39,11 @@ en:
           attributes:
             sharing_config:
               nil: Sharing Config can not be NULL
+        product_feedback:
+          attributes:
+            body:
+              too_long: Feedback is too long
+              blank: Feedback can not be empty
         user:
           attributes:
             base:
@@ -126,6 +131,7 @@ en:
           favorites: favorites
           collections: collections
           account: account
+          product_feedback: give feedback
           log_out: log out
     desktop_navigation:
       <<: *shared_navigation
@@ -163,6 +169,10 @@ en:
           heading:
             one: "%{count} Photo Selected"
             other: "%{count} Photos Selected"
+    product_feedback_form:
+      heading: Tell us what you think
+      subheading: "Please use this to suggest any improvements or features you may find useful (max: %{maxlength} characters)"
+      submit: Submit
     share_collection:
       copy_link:
         label: Copy
@@ -211,6 +221,10 @@ en:
     index:
       heading: My Photos
       empty: You have no photos
+
+  product_feedbacks:
+    create_modal:
+      close: Close
 
   shared:
     photo_count:

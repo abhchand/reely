@@ -1,4 +1,8 @@
+import { openProductFeedbacksModal } from 'javascript/product_feedbacks/_create_modal';
+
+// eslint-disable-next-line padded-blocks
 $(document).ready(() => {
+
   /*
    *
    * Open mobile menu
@@ -27,6 +31,16 @@ $(document).ready(() => {
   $('body').on('click', '.mobile-navigation__overlay', (e) => {
     e.preventDefault();
     toggleMobileMenu();
+  });
+
+  /*
+   *
+   * Product Feedback Link
+   *
+   */
+  $('.mobile-navigation__link-element--product-feedback').on('click', 'a', (e) => {
+    e.preventDefault();
+    openProductFeedbacksModal();
   });
 
   function toggleMobileMenu() {

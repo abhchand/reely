@@ -28,6 +28,7 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
       [t("#{@t_prefix}.links.favorites"), "#"],
       [t("#{@t_prefix}.links.collections"), collections_path],
       [t("#{@t_prefix}.links.account"), account_profile_index_path],
+      [t("#{@t_prefix}.links.product_feedback"), "#"],
       [t("#{@t_prefix}.links.log_out"), destroy_user_session_path]
     ]
 

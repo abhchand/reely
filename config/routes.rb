@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   end
 
   resources :photos, only: :index
+  resources :product_feedbacks, only: :create
 
   scope :photos do
     resources :raw_photos, only: :show, path: :file

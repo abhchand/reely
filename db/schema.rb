@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_002803) do
+ActiveRecord::Schema.define(version: 2019_12_19_034707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,14 @@ ActiveRecord::Schema.define(version: 2019_11_27_002803) do
     t.index ["synthetic_id"], name: "index_photos_on_synthetic_id", unique: true
   end
 
+  create_table "product_feedbacks", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.string "body", null: false
+    t.index ["user_id"], name: "index_product_feedbacks_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,6 +139,7 @@ ActiveRecord::Schema.define(version: 2019_11_27_002803) do
   add_foreign_key "photo_collections", "collections"
   add_foreign_key "photo_collections", "photos"
   add_foreign_key "photos", "users", column: "owner_id"
+  add_foreign_key "product_feedbacks", "users"
   add_foreign_key "shared_collection_recipients", "collections"
   add_foreign_key "shared_collection_recipients", "users", column: "recipient_id"
 end

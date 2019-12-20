@@ -8,6 +8,7 @@ import 'core-js/stable';
 
 import 'javascript/mount-react-component';
 
+import 'javascript/application/_desktop_navigation.js';
 import 'javascript/application/_mobile_navigation.js';
 import 'javascript/application/_modal.js';
 import 'javascript/application/flash.js';
@@ -22,4 +23,5 @@ import 'javascript/components/action_notifications';
 import 'javascript/components/icons';
 import 'javascript/components/modal_error';
 import 'javascript/components/photo_manager';
+import 'javascript/components/product_feedback_form';
 import 'javascript/components/share_collection';

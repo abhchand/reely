@@ -1,0 +1,10 @@
+.product-feedback-form__heading {
+  @extend .modal-content__heading;
+}
+.product-feedback-form__subheading {
+  @extend .modal-content__subheading;
+}
+.product-feedback-form__textarea {
+  width: 100%;
+  height: 150px;
+}
