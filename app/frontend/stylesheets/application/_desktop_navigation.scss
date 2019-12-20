@@ -45,12 +45,19 @@
     text-align: left;
 
     a {
-      // Display as block and set height so anchor fills up the whole
-      // parent <li>
-      display: block;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
 
       // Boostrap tries to set the anchor color, override it
       color: $light-gray;
+    }
+
+    svg {
+      // Give icons some breathing room
+      margin-left: 7px;
     }
 
     &:hover {
@@ -69,6 +76,14 @@
 
     a {
       line-height: 28px;
+    }
+  }
+}
+
+.desktop-navigation__link-element--product-feedback {
+  svg {
+    rect, path {
+      stroke: $mustard;
     }
   }
 }

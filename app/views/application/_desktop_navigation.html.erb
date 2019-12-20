@@ -35,7 +35,10 @@
     </li>
 
     <li class="desktop-navigation__link-element desktop-navigation__link-element--product-feedback">
-      <%= link_to(t(".links.product_feedback"), "#") %>
+      <%= link_to("#") do %>
+        <%= t(".links.product_feedback") %>
+        <%= inline_svg_tag("icons/speaker.svg", width: "22px", height: "22px") %>
+      <% end %>
     </li>
 
     <li class="desktop-navigation__link-element">

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>icon-speaker</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-speaker" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#D8D8D8" stroke-width="5" x="11.5" y="32.5" width="15" height="35" rx="3"></rect>
+        <path d="M28.7350005,26.2387438 C28.5888098,26.3301129 28.5,26.4903479 28.5,26.6627429 L28.5,73.3372571 C28.5,73.5096521 28.5888098,73.6698871 28.7350005,73.7612562 L62.7350005,95.0112562 C62.8144663,95.0609224 62.9062901,95.0872571 63,95.0872571 C63.2761424,95.0872571 63.5,94.8633995 63.5,94.5872571 L63.5,5.41274292 C63.5,5.31903307 63.4736653,5.22720926 63.4239992,5.14774345 C63.277644,4.91357519 62.9691688,4.84238861 62.7350005,4.98874377 L28.7350005,26.2387438 Z" id="Rectangle" stroke="#D8D8D8" stroke-width="5"></path>
+        <path d="M72,50.0643224 L92,50.0643224" id="Line" stroke="#D8D8D8" stroke-width="5" stroke-linecap="square"></path>
+        <path d="M71.2776461,26.6773498 L86.2776461,26.6773498" id="Line" stroke="#D8D8D8" stroke-width="5" stroke-linecap="square" transform="translate(78.777646, 26.677350) rotate(-25.000000) translate(-78.777646, -26.677350) "></path>
+        <path d="M70.7232785,73.439242 L85.7232785,73.439242" id="Line" stroke="#D8D8D8" stroke-width="5" stroke-linecap="square" transform="translate(78.223278, 73.439242) rotate(25.000000) translate(-78.223278, -73.439242) "></path>
+    </g>
+</svg>
