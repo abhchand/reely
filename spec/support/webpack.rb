@@ -2,12 +2,12 @@ RSpec.configure do |config|
   config.include WebpackHelper
 
   config.before(:suite) do
-    running_features =
+    should_run_webpack =
       RSpec.world.
       registered_example_group_files.
-      any? { |f| f =~ /spec\/features/ }
+      any? { |f| f =~ %r{spec\/(features|views)} }
 
-    if running_features
+    if should_run_webpack
       packs_dir = Rails.root.join("public", "packs-test")
 
       if packs_dir.exist?
