@@ -30,15 +30,15 @@ RSpec.feature "sharing collection", :js, type: :feature do
     visit collection_path(collection)
 
     click_share_menu
-    expect(page).to have_selector(".collections-share-modal", visible: true)
+    expect_modal_is_open
 
-    click_share_modal_close
-    expect(page).to have_selector(".collections-share-modal", visible: false)
+    click_modal_close
+    expect_modal_is_closed
   end
 
   def click_share_menu
     page.find(".collections-show__action-bar-item--share").click
     wait_for_ajax
-    expect(page).to have_selector(".share-collection__heading")
+    expect(page).to have_selector(".modal-content__heading")
   end
 end

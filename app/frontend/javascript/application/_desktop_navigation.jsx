@@ -1,4 +1,6 @@
-import { openProductFeedbacksModal } from 'javascript/product_feedbacks/_create_modal';
+import { openModal } from 'javascript/components/modal/open';
+import ProductFeedbackForm from 'javascript/components/product_feedback_form';
+import React from 'react';
 
 // eslint-disable-next-line padded-blocks
 $(document).ready(() => {
@@ -10,6 +12,6 @@ $(document).ready(() => {
    */
   $('.desktop-navigation__link-element--product-feedback').on('click', 'a', (e) => {
     e.preventDefault();
-    openProductFeedbacksModal();
+    openModal(<ProductFeedbackForm />);
   });
 });

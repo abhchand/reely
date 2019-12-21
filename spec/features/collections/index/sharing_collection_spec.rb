@@ -45,7 +45,7 @@ RSpec.feature "sharing collection", :js, type: :feature do
           click_toggle
           expect_link_sharing_enabled_for(collection)
 
-          click_share_modal_close
+          click_modal_close
 
           # Other Collection
           # Change from enabled -> disabled
@@ -57,7 +57,7 @@ RSpec.feature "sharing collection", :js, type: :feature do
           click_toggle
           expect_link_sharing_disabled_for(other_collection)
 
-          click_share_modal_close
+          click_modal_close
 
           # Collection
           # Should be unchanged
@@ -120,10 +120,10 @@ RSpec.feature "sharing collection", :js, type: :feature do
     open_menu(collection)
 
     click_share_menu_option(collection)
-    expect(page).to have_selector(".collections-share-modal", visible: true)
+    expect_modal_is_open
 
-    click_share_modal_close
-    expect(page).to have_selector(".collections-share-modal", visible: false)
+    click_modal_close
+    expect_modal_is_closed
   end
 
   def find_collection(collection)
@@ -140,6 +140,6 @@ RSpec.feature "sharing collection", :js, type: :feature do
     collection_el.find(".collections-card__menu-item--share").click
 
     wait_for_ajax
-    expect(page).to have_selector(".share-collection__heading")
+    expect(page).to have_selector(".modal-content__heading")
   end
 end

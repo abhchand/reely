@@ -13,7 +13,10 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
     open_menu(collection1)
     click_delete_menu_option(collection1)
-    click_delete_modal_submit
+
+    old_count = Collection.count
+    click_modal_submit
+    wait_for { Collection.count == old_count - 1 }
 
     expect { collection1.reload }.
       to raise_error(ActiveRecord::RecordNotFound)
@@ -32,7 +35,7 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
     open_menu(collection1)
     click_delete_menu_option(collection1)
-    click_delete_modal_cancel
+    click_modal_close
 
     expect { collection1.reload }.to_not raise_error
     expect { collection2.reload }.to_not raise_error
@@ -53,18 +56,5 @@ RSpec.feature "deleting collection", :js, type: :feature do
   def click_delete_menu_option(collection)
     collection_el = find_collection(collection)
     collection_el.find(".collections-card__menu-item--delete").click
-  end
-
-  def click_delete_modal_submit
-    within(".collections-delete-modal") do
-      page.find(".modal-content__button--submit").click
-      wait_for_ajax
-    end
-  end
-
-  def click_delete_modal_cancel
-    within(".collections-delete-modal") do
-      page.find(".modal-content__button--cancel").click
-    end
   end
 end

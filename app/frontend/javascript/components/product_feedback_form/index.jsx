@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Modal from 'javascript/components/modal';
+import ModalError from 'javascript/components/modal/error';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
@@ -7,12 +9,9 @@ class ProductFeedbackForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.renderHeading = this.renderHeading.bind(this);
-    this.renderSubheading = this.renderSubheading.bind(this);
     this.renderErrorText = this.renderErrorText.bind(this);
     this.renderTextarea = this.renderTextarea.bind(this);
-    this.renderSubmit = this.renderSubmit.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.i18nPrefix = 'components.product_feedback_form';
     // This length should match model validation for `ProductFeedback`
@@ -25,36 +24,13 @@ class ProductFeedbackForm extends React.Component {
     this.textareaRef = React.createRef();
   }
 
-  renderHeading() {
-    return (
-      <h1 key="product-feedback-form__heading" className="product-feedback-form__heading">
-        {I18n.t(`${this.i18nPrefix}.heading`)}
-      </h1>
-    );
-  }
-
-  renderSubheading() {
-    return (
-      <h3 key="product-feedback-form__subheading" className="product-feedback-form__subheading">
-        {I18n.t(`${this.i18nPrefix}.subheading`, { maxlength: this.maxLength })}
-      </h3>
-    );
-  }
-
   renderErrorText() {
-    return (
-      <div
-        key="modal-content__error"
-        className="modal-content__error">
-        {this.state.errorText}
-      </div>
-    );
+    return this.state.errorText ? <ModalError text={this.state.errorText} /> : null;
   }
 
   renderTextarea() {
     return (
       <textarea
-        key="product-feedback-form__textarea"
         className="product-feedback-form__textarea"
         name="product_feedback[body]"
         maxLength={this.maxLength}
@@ -62,18 +38,7 @@ class ProductFeedbackForm extends React.Component {
     );
   }
 
-  renderSubmit() {
-    return (
-      <input
-        key="product-feedback-form__submit"
-        className="modal-content__button modal-content__button--submit cta cta-purple"
-        value={I18n.t(`${this.i18nPrefix}.submit`)}
-        type="button"
-        onClick={this.handleSubmit} />
-    );
-  }
-
-  handleSubmit() {
+  onSubmit() {
     const self = this;
 
     const url = '/product_feedbacks.json';
@@ -87,29 +52,35 @@ class ProductFeedbackForm extends React.Component {
       }
     };
 
-    axios.post(url, data, config).
-      then((_response) => {
-
-        /*
-         * TBD: Close modal
-         * TBD: Update spec
-         */
-      }).
+    /*
+     * NOTE: `<Modal>` component automatically closes the modal
+     * after successful `onSubmit` and there's nothing else to
+     * do here, so no need to specify a `then()`.
+     */
+    return axios.post(url, data, config).
       catch((error) => {
         self.setState({
           errorText: error.response.data.error
         });
+
+        /*
+         * Return a rejected value so the promise chain remains in
+         * a rejected state
+         */
+        return Promise.reject(error);
       });
   }
 
   render() {
-    return [
-      this.renderHeading(),
-      this.renderSubheading(),
-      this.renderErrorText(),
-      this.renderTextarea(),
-      this.renderSubmit()
-    ];
+    return (
+      <Modal
+        heading={I18n.t(`${this.i18nPrefix}.heading`)}
+        subheading={I18n.t(`${this.i18nPrefix}.subheading`, { maxlength: this.maxLength })}
+        onSubmit={this.onSubmit}>
+        {this.renderErrorText()}
+        {this.renderTextarea()}
+      </Modal>
+    );
   }
 
 }

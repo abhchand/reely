@@ -24,6 +24,19 @@ input[type="submit"] {
 ::-webkit-input-placeholder { text-transform: lowercase; }
 ::-moz-placeholder { text-transform: lowercase; }
 
+textarea {
+  box-sizing: border-box;
+  padding: 5px 15px;
+  font-size: 18px;
+  line-height: 48px;
+  border: 1px solid $dark-gray;
+
+  &:focus {
+    border-color: $mustard;
+    box-shadow: 0 0 3px $mustard;
+  }
+}
+
 .cta {
   font-weight: 600;
 

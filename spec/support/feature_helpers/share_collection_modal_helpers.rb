@@ -36,12 +36,6 @@ module FeatureHelpers
       ).to eq(false)
     end
 
-    def click_share_modal_close
-      within(".collections-share-modal") do
-        page.find(".modal-content__button--close").click
-      end
-    end
-
     def displayed_sharing_url
       page.find(".share-collection__url").value
     end

@@ -139,6 +139,15 @@ en:
       <<: *shared_navigation
 
   components:
+    modal:
+      buttons:
+        submit: Submit
+        close: Close
+    delete_collection:
+      heading: Delete collection <b>%{collection_name}</b>?
+      body: This collection will be permanently deleted
+      buttons:
+        submit: Delete
     photo_manager:
       control_panel:
         add_to_collection:
@@ -197,14 +206,6 @@ en:
     card:
       delete: Delete
       share: Share
-    delete_modal:
-      heading: Delete collection <b>%{collection_name}</b>?
-      heading_default: Delete collection?
-      body: This collection will be permanently deleted
-      cancel: Cancel
-      delete: Delete
-    share_modal:
-      close: Close
     sharing_display:
       show:
         empty: There are no photos (yet!) in this collection
@@ -221,10 +222,6 @@ en:
     index:
       heading: My Photos
       empty: You have no photos
-
-  product_feedbacks:
-    create_modal:
-      close: Close
 
   shared:
     photo_count:

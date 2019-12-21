@@ -1,5 +1,5 @@
 class ProductFeedback < ApplicationRecord
-  # Should match frontend validation on textarea
+  # Should match frontend validation
   MAX_BODY_LENGTH = 500
 
   belongs_to :user

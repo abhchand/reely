@@ -8,10 +8,10 @@ RSpec.feature "Mobile Navigation", type: :feature do
   context "mobile", :mobile, js: true do
     it "user can open the menu and click a link" do
       log_in(user)
-      expect_menu_is_closed
+      expect_mobile_menu_is_closed
 
-      click_menu_icon
-      expect_menu_is_open
+      click_mobile_menu_icon
+      expect_mobile_menu_is_open
 
       click_link(t("#{@t_prefix}.links.log_out"))
       expect(page).to have_current_path(new_user_session_path)
@@ -20,13 +20,13 @@ RSpec.feature "Mobile Navigation", type: :feature do
     describe "closing the menu" do
       before do
         log_in(user)
-        click_menu_icon
-        expect_menu_is_open
+        click_mobile_menu_icon
+        expect_mobile_menu_is_open
       end
 
       it "user can close the menu by clicking the close button" do
         find(".mobile-navigation__close").click
-        expect_menu_is_closed
+        expect_mobile_menu_is_closed
       end
 
       it "user can close the menu by clicking the overlay" do
@@ -36,27 +36,8 @@ RSpec.feature "Mobile Navigation", type: :feature do
         # Manually specify a coordinate *offset* to click on
 
         find(".mobile-navigation__overlay").click(x: 200, y: 600)
-        expect_menu_is_closed
+        expect_mobile_menu_is_closed
       end
     end
-  end
-
-  def click_menu_icon
-    find(".mobile-header__menu-icon").click
-    wait_for_ajax
-  end
-
-  def expect_menu_is_closed
-    wait_for_ajax
-
-    expect(page).to have_selector(".mobile-navigation")
-    expect(page).to have_selector(".mobile-navigation__overlay", visible: false)
-  end
-
-  def expect_menu_is_open
-    wait_for_ajax
-
-    expect(page).to have_selector(".mobile-navigation")
-    expect(page).to have_selector(".mobile-navigation__overlay")
   end
 end

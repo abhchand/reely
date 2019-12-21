@@ -11,11 +11,12 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
   it "user can delete a collection" do
     click_delete_icon
-    expect(page).to have_selector(".collections-delete-modal", visible: true)
+    expect_modal_is_open
 
-    expect do
-      click_delete_modal_submit
-    end.to change { Collection.count }.by(-1)
+    old_count = Collection.count
+
+    click_modal_submit
+    wait_for { Collection.count == old_count - 1 }
 
     expect(page).to have_current_path(collections_path)
     expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
@@ -23,14 +24,14 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
   it "user can cancel the deletion" do
     click_delete_icon
-    expect(page).to have_selector(".collections-delete-modal", visible: true)
+    expect_modal_is_open
 
     expect do
-      click_delete_modal_cancel
+      click_modal_close
     end.to change { Collection.count }.by(0)
 
     expect(page).to have_current_path(collection_path(collection))
-    expect(page).to have_selector(".collections-delete-modal", visible: false)
+    expect_modal_is_closed
   end
 
   context "collection name was updated" do
@@ -55,16 +56,17 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
       click_delete_icon
 
-      heading = page.find(".collections-delete-modal .modal-content__heading")
+      heading = page.find(".modal-content__heading")
       expect(heading).to have_content(
         strip_tags(
-          t("collections.delete_modal.heading", collection_name: @new_name)
+          t("components.delete_collection.heading", collection_name: @new_name)
         )
       )
 
-      expect do
-        click_delete_modal_submit
-      end.to change { Collection.count }.by(-1)
+      old_count = Collection.count
+
+      click_modal_submit
+      wait_for { Collection.count == old_count - 1 }
 
       expect(page).to have_current_path(collections_path)
       expect do
@@ -80,18 +82,5 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
   def click_delete_icon
     page.find(".collections-show__action-bar-item--delete").click
-  end
-
-  def click_delete_modal_submit
-    within(".collections-delete-modal") do
-      page.find(".modal-content__button--submit").click
-      wait_for_ajax
-    end
-  end
-
-  def click_delete_modal_cancel
-    within(".collections-delete-modal") do
-      page.find(".modal-content__button--cancel").click
-    end
   end
 end

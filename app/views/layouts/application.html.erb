@@ -32,6 +32,7 @@
   <% end %>
 </head>
 <body id="<%= page_specific_css_id %>">
+  <%= render "application/modal" %>
   <%= content_for?(:nested_layout_content) ? yield(:nested_layout_content) : yield %>
 </body>
 </html>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import LinkSharing from './link_sharing';
 import LoadingIconEllipsis from 'components/icons/loading_icon_ellipsis';
-import ModalError from 'components/modal_error';
+import Modal from 'javascript/components/modal';
+import ModalError from 'javascript/components/modal/error';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
@@ -16,7 +17,6 @@ class ShareCollection extends React.Component {
     super(props);
 
     this.setCollection = this.setCollection.bind(this);
-    this.renderHeading = this.renderHeading.bind(this);
     this.renderLinkSharing = this.renderLinkSharing.bind(this);
 
     this.i18nPrefix = 'components.share_collection.share_collection';
@@ -45,6 +45,7 @@ class ShareCollection extends React.Component {
       then((response) => {
         // Update sharing config on collection
         const newCollection = self.state.collection;
+        // eslint-disable-next-line camelcase
         newCollection.sharing_config = response.data;
         self.setCollection(newCollection);
 
@@ -66,34 +67,32 @@ class ShareCollection extends React.Component {
     });
   }
 
-  renderHeading() {
+  renderLinkSharing() {
     return (
-      <h1 key="share-collection__heading" className="share-collection__heading">
-        {I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })}
-      </h1>
+      <LinkSharing
+        collection={this.state.collection}
+        setCollection={this.setCollection} />
     );
   }
 
-  renderLinkSharing() {
-    return (<LinkSharing
-      key="share-collection__link-sharing"
-      collection={this.state.collection}
-      setCollection={this.setCollection} />);
-  }
-
   render() {
+    let content;
+
     if (this.state.isLoading) {
-      return <LoadingIconEllipsis className="share-collection__loading-icon" />;
+      content = <LoadingIconEllipsis className="share-collection__loading-icon" />;
+    }
+    else if (this.state.fetchFailed) {
+      content = <ModalError />;
+    }
+    else {
+      content = this.renderLinkSharing();
     }
 
-    if (this.state.fetchFailed) {
-      return <ModalError />;
-    }
-
-    return [
-      this.renderHeading(),
-      this.renderLinkSharing()
-    ];
+    return (
+      <Modal heading={I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })} >
+        {content}
+      </Modal>
+    );
   }
 
 }

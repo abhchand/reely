@@ -20,11 +20,9 @@
 @import 'stylesheets/application/_desktop_navigation';
 @import 'stylesheets/application/_mobile_header';
 @import 'stylesheets/application/_mobile_navigation';
-@import 'stylesheets/application/_modal';
 
 @import 'stylesheets/collections/_card';
 @import 'stylesheets/collections/_editable_name_heading';
-@import 'stylesheets/collections/_share_modal';
 @import 'stylesheets/collections/index';
 @import 'stylesheets/collections/sharing_display/show';
 @import 'stylesheets/collections/show';
@@ -46,7 +44,8 @@
 @import 'stylesheets/components/action_notifications/index';
 @import 'stylesheets/components/action_notifications/action_notification';
 
-@import 'stylesheets/components/modal_error/index';
+@import 'stylesheets/components/modal/index';
+@import 'stylesheets/components/modal/error';
 
 @import 'stylesheets/components/icons/loading_icon_ellipsis';
 
