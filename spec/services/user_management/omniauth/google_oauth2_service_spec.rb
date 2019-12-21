@@ -58,17 +58,44 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     expect(result.log).to match(/Missing uid/)
   end
 
-  it "fails when the new User record fails validation" do
-    auth[:info][:email] = "bad-email"
+  context "User record fails validation" do
+    it "fails with a generic error" do
+      auth[:info][:email] = "bad-email"
 
-    result = nil
-    expect { result = call }.to_not(change { User.count })
+      result = nil
+      expect { result = call }.to_not(change { User.count })
 
-    expect(result.success?).to eq(false)
-    expect(result.user).to be_nil
+      expect(result.success?).to eq(false)
+      expect(result.user).to be_nil
 
-    expect(result.error).to eq(I18n.t("generic_error"))
-    expect(result.log).to match(/User validation errors/)
+      expect(result.error).to eq(I18n.t("generic_error"))
+      expect(result.log).to match(/User validation errors/)
+    end
+
+    context "failed validation is for invalid domain" do
+      before do
+        stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+      end
+
+      it "fails with the specific model error message" do
+        auth[:info][:email] = "bad-email@foo.gov"
+
+        result = nil
+        expect { result = call }.to_not(change { User.count })
+
+        expect(result.success?).to eq(false)
+        expect(result.user).to be_nil
+
+        expect(result.error).to eq(
+          validation_error_for(
+            :email,
+            :invalid_domain,
+            domain: "foo.gov"
+          )
+        )
+        expect(result.log).to match(/User validation errors/)
+      end
+    end
   end
 
   describe "attaching avatar" do

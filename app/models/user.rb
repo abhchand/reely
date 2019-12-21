@@ -30,6 +30,8 @@ class User < ApplicationRecord
   validates :sign_in_count, presence: true
   validates :provider, inclusion: { in: OMNIAUTH_PROVIDERS }, allow_blank: true
 
+  validate :email_domain
+
   with_options if: :native? do |native|
     native.validates :encrypted_password, presence: true
     native.validates :uid, absence: true
@@ -110,6 +112,18 @@ class User < ApplicationRecord
   # We only want to check password presence and confirmation for native auth
   def password_required?
     native? && super
+  end
+
+  def email_domain
+    return if ENV["REGISTRATION_EMAIL_DOMAIN_WHITELIST"].blank?
+
+    domains = ENV["REGISTRATION_EMAIL_DOMAIN_WHITELIST"].split(",").map(&:strip)
+    domain = (email || "").split("@").last
+
+    return if domain.blank?
+    return if domains.any? { |d| domain =~ /#{d}/i }
+
+    errors.add(:email, :invalid_domain, domain: domain)
   end
 
   def additional_password_requirements

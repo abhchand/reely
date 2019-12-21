@@ -85,15 +85,40 @@ module UserManagement
       end
 
       def handle_failed_creation
+        error =
+          if invalid_domain
+            I18n.t(
+              "activerecord.errors.models.user.attributes.email.invalid_domain",
+              domain: invalid_domain
+            )
+          else
+            I18n.t("generic_error")
+          end
+
         context.fail!(
           log: "#{log_tags} User validation errors: #{user.errors.messages}",
-          error: I18n.t("generic_error")
+          error: error
         )
       end
 
       def handle_failed_avatar_attachment
         context.log =
           "#{log_tags} Failed avatar attachment: #{@avatar_error.message}"
+      end
+
+      def invalid_domain
+        # Ideally we'd use `user.errors.added?(:email, :invalid_domain)` but
+        # it also matches on the `domain: ...` key used for transaltion, which
+        # we don't know beforehand (and which we don't want to try and
+        # re-scrape from the email).
+        # This is a bit hacky but it retreives the actual domain name that
+        # failed validation.
+        @invalid_domain ||=
+          user.
+          errors.
+          details[:email].
+          detect { |h| h[:error] == :invalid_domain }.
+          try(:[], :domain)
       end
 
       def log_tags

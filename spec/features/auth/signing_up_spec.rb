@@ -89,6 +89,33 @@ RSpec.feature "Signing Up", type: :feature do
     end
   end
 
+  context "registration email domain whitelisting is enabled" do
+    before do
+      stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+    end
+
+    it "allows registration when the domain is in the whitelist" do
+      user_attrs[:email] = "foo@x.yz"
+
+      expect do
+        register(user_attrs)
+      end.to(change { User.count }.by(1))
+
+      expect(page).to have_current_path(new_user_session_path)
+
+      user = User.last
+      expect(user.email).to eq(user_attrs[:email])
+    end
+
+    it "disallows registration when the domain is not in the whitelist" do
+      user_attrs[:email] = "fake@bad-domain.gov"
+
+      expect { register(user_attrs) }.to_not(change { User.count })
+
+      expect_auth_error_for(:email, :invalid_domain, domain: "bad-domain.gov")
+    end
+  end
+
   context "an account with that email already exists" do
     let(:user) { create(:user) }
 
@@ -210,6 +237,44 @@ RSpec.feature "Signing Up", type: :feature do
       end
     end
 
+    context "registration email domain whitelisting is enabled" do
+      before do
+        stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+      end
+
+      it "allows registration when the domain is in the whitelist" do
+        auth_hash[:info][:email] = "foo@x.yz"
+        mock_google_oauth2_auth_response(auth_hash)
+
+        expect do
+          log_in_with_omniauth("google_oauth2")
+        end.to(change { User.count }.by(1))
+
+        expect(page).to have_current_path(photos_path)
+
+        user = User.last
+        expect(user.email).to eq(auth_hash[:info][:email])
+      end
+
+      it "disallows registration when the domain is not in the whitelist" do
+        auth_hash[:info][:email] = "fake@bad-domain.gov"
+        mock_google_oauth2_auth_response(auth_hash)
+
+        expect do
+          log_in_with_omniauth("google_oauth2")
+        end.to_not(change { User.count })
+
+        expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_flash_message(
+          validation_error_for(
+            :email,
+            :invalid_domain,
+            domain: "bad-domain.gov"
+          )
+        )
+      end
+    end
+
     describe "tracking log ins" do
       let(:now) { Time.zone.now }
 
@@ -237,8 +302,8 @@ RSpec.feature "Signing Up", type: :feature do
     end
   end
 
-  def expect_auth_error_for(attribute, key)
+  def expect_auth_error_for(attribute, key, opts = {})
     expect(page).to have_current_path(user_registration_path)
-    expect(page).to have_auth_error(validation_error_for(attribute, key))
+    expect(page).to have_auth_error(validation_error_for(attribute, key, opts))
   end
 end

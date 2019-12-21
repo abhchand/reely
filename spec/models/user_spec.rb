@@ -46,6 +46,53 @@ RSpec.describe User do
           should_not allow_value(value).for(:email)
         end
       end
+
+      describe "registration is restricted by domain" do
+        before do
+          stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+        end
+
+        it "allows valid email domains" do
+          user.email = "me@x.yz"
+
+          expect(user).to be_valid
+        end
+
+        it "disallows invalid email domains" do
+          user.email = "me@me.gov"
+
+          expect(user).to_not be_valid
+
+          error =
+            validation_error_for(:email, :invalid_domain, domain: "me.gov")
+          expect(user.errors.messages[:email].first).to eq(error)
+        end
+
+        it "handles blank and invalid emails" do
+          user.email = ""
+
+          expect(user).to_not be_valid
+          expect(user.errors.added?(:email, :invalid_domain)).to eq(false)
+
+          user.email = "abcdefg"
+
+          expect(user).to_not be_valid
+          expect(user.errors.added?(:email, :invalid_domain)).to eq(false)
+        end
+
+        it "is case insensitive" do
+          user.email = "FOO@EXAMPLE.COM"
+
+          expect(user).to be_valid
+        end
+
+        it "handles whitespace in the whitelist" do
+          stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com, x.yz")
+          user.email = "me@x.yz"
+
+          expect(user).to be_valid
+        end
+      end
     end
 
     # NOTE: `password` is a synthetic model field tracked by Devise which

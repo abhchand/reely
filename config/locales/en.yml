@@ -57,6 +57,7 @@ en:
               invalid: Email is not a valid email
               taken: Email has already been taken
               not_found: Email not found
+              invalid_domain: The email domain '%{domain}' is not valid for registration
             encrypted_password:
               invalid: "Invalid internal password format: Please contact site administrator"
             password:
