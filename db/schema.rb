@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_19_034707) do
+ActiveRecord::Schema.define(version: 2019_12_21_211551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 2019_12_19_034707) do
     t.index ["recipient_id", "collection_id"], name: "index_shared_collection_recipients_on_recipient_and_collection"
   end
 
+  create_table "user_invitations", force: :cascade do |t|
+    t.string "email", null: false
+    t.bigint "inviter_id", null: false
+    t.bigint "invitee_id"
+    t.index ["email"], name: "index_user_invitations_on_email", unique: true
+    t.index ["invitee_id"], name: "index_user_invitations_on_invitee_id", unique: true
+    t.index ["inviter_id"], name: "index_user_invitations_on_inviter_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -142,4 +151,6 @@ ActiveRecord::Schema.define(version: 2019_12_19_034707) do
   add_foreign_key "product_feedbacks", "users"
   add_foreign_key "shared_collection_recipients", "collections"
   add_foreign_key "shared_collection_recipients", "users", column: "recipient_id"
+  add_foreign_key "user_invitations", "users", column: "invitee_id"
+  add_foreign_key "user_invitations", "users", column: "inviter_id"
 end
