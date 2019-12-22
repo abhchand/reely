@@ -36,6 +36,10 @@ FactoryBot.define do
       unconfirmed_email { "unconfirmed@xyz.com" }
     end
 
+    trait(:deactivated) do
+      deactivated_at { Time.zone.now }
+    end
+
     after(:create) do |user, e|
       if e.with_avatar
         file = File.open(Rails.root + "spec/fixtures/images/#{e.avatar_name}")
