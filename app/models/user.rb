@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :shared_collection_recipients, dependent: :destroy, inverse_of: :recipient
   has_many :received_collections, through: :shared_collection_recipients, source: :collection
 
+  has_one :invitation, class_name: "UserInvitation", foreign_key: :invitee_id, dependent: :destroy, inverse_of: :invitee
+
   has_one_attached :avatar
 
   # NOTE: Devise `authenticatable:`, `:database_authenticatable`,

@@ -6,7 +6,7 @@ RSpec.describe User do
 
   describe "Associations" do
     it { should belong_to(:inviter) }
-    it { should belong_to(:invitee).optional }
+    it { should belong_to(:invitee).inverse_of(:invitation).optional }
   end
 
   describe "Validations" do

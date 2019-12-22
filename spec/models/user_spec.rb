@@ -17,6 +17,7 @@ RSpec.describe User do
       should have_many(:received_collections).
         through(:shared_collection_recipients)
     end
+    it { should have_one(:invitation) }
   end
 
   describe "validations" do
