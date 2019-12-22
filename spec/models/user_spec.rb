@@ -591,6 +591,20 @@ RSpec.describe User do
         end
       end
     end
+
+    describe "after_commit" do
+      describe "#complete_user_invitation" do
+        context "a user invitation exists" do
+          let(:invitation) { create(:user_invitation, email: user.email) }
+
+          it "updates the invitee on the UserInvitation record" do
+            expect(invitation.invitee).to be_nil
+            user.save!
+            expect(invitation.reload.invitee).to eq(user)
+          end
+        end
+      end
+    end
   end
 
   describe "#send_reset_password_instructions" do

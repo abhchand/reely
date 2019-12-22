@@ -56,6 +56,8 @@ class User < ApplicationRecord
   # verified this.
   after_create :skip_confirmation_notification!, if: :omniauth?
 
+  after_commit :complete_user_invitation
+
   # rubocop:enable Metrics/LineLength
 
   # Override Devise's implementation of this method which relies on
@@ -148,5 +150,12 @@ class User < ApplicationRecord
     ::BCrypt::Password.new(encrypted_password)
   rescue BCrypt::Errors::InvalidHash
     errors.add(:encrypted_password, :invalid)
+  end
+
+  def complete_user_invitation
+    invitation = UserInvitation.find_by_email(self[:email].downcase)
+    return if invitation.blank?
+
+    invitation.update(invitee: self)
   end
 end
