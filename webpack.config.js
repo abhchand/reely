@@ -111,6 +111,10 @@ const config = {
       `${ASSETS_DIR}/javascript/packs/application.js`,
       `${ASSETS_DIR}/stylesheets/packs/application.scss`
     ],
+    'admin': [
+      `${ASSETS_DIR}/javascript/packs/admin.js`,
+      `${ASSETS_DIR}/stylesheets/packs/admin.scss`
+    ],
     'i18n': [`${ASSETS_DIR}/javascript/packs/i18n.js`]
   },
   'module': {

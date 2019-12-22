@@ -3,6 +3,7 @@ FactoryBot.define do
     transient do
       with_avatar { false }
       avatar_name { "avatar.png" }
+      add_admin_role { false }
     end
 
     sequence(:email) { |n| "alonzo-#{n}@lapd.gov" }
@@ -40,10 +41,18 @@ FactoryBot.define do
       deactivated_at { Time.zone.now }
     end
 
+    trait(:admin) do
+      add_admin_role { true }
+    end
+
     after(:create) do |user, e|
       if e.with_avatar
         file = File.open(Rails.root + "spec/fixtures/images/#{e.avatar_name}")
         user.avatar.attach(io: file, filename: e.avatar_name)
+      end
+
+      if e.add_admin_role
+        user.add_role(:admin)
       end
     end
   end

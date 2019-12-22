@@ -122,6 +122,12 @@ en:
         cancel: Cancel my account
         confirm_cancel: Are you sure?
 
+  admin:
+    index:
+      heading: Admin
+      pages:
+        users: Users
+
   application:
     navigation:
       shared: &shared_navigation
