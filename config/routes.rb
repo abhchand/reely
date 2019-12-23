@@ -56,6 +56,10 @@ Rails.application.routes.draw do
 
   resources :admin, only: [:index]
 
+  namespace :admin do
+    resources :users, only: [:index]
+  end
+
   resources :c, only: :show, controller: "collections/sharing_display", as: "collections_sharing_display"
 
   resources :collections, only: [:index, :show, :create, :update, :destroy] do

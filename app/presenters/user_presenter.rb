@@ -13,6 +13,17 @@ class UserPresenter < ApplicationPresenter
     transformations = User::AVATAR_SIZES[size] || {}
     variant = avatar.variant(transformations)
 
-    rails_representation_url(variant, only_path: true)
+    rails_representation_url(
+      variant,
+      disposition: "attachment",
+      only_path: true
+    )
+  end
+
+  def role
+    case
+    when has_role?(:admin)
+      :admin
+    end
   end
 end

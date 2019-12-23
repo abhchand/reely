@@ -12,7 +12,7 @@ RSpec.describe "admin/index.html.erb", type: :view do
 
     actual_links = []
     expected_links = [
-      "#"
+      admin_users_path
     ]
 
     page.all(".admin-index__link-element").each do |el|
