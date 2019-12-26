@@ -7,11 +7,11 @@ RSpec.describe "admin/users/index.html.erb", type: :view do
     @t_prefix = "admin.users.index"
   end
 
-  it "renders the user list" do
+  it "renders the user manager component" do
     render
     props = {}
     expect(page).to(
-      have_react_component("admin-user-list").including_props(props)
+      have_react_component("admin-user-manager").including_props(props)
     )
   end
 end

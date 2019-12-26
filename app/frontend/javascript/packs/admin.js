@@ -13,4 +13,4 @@ import 'javascript/application/_mobile_navigation';
 import 'javascript/application/_global_modal_close';
 import 'javascript/application/flash.js';
 
-import 'javascript/admin/users/admin_user_list';
+import 'javascript/admin/users/admin_user_manager';

@@ -1,7 +1,7 @@
-class Users::SearchService
+class UserInvitations::SearchService
   PAGE_SIZE = 20
 
-  attr_reader :page, :total_users
+  attr_reader :page, :total_user_invitations
 
   def initialize(params)
     @search = params[:search]
@@ -14,31 +14,29 @@ class Users::SearchService
   end
 
   def perform
-    @users = User.all.order("lower(first_name)")
+    @user_invitations = UserInvitation.where(invitee: nil).order("lower(email)")
 
     filter_results! if @search.present?
 
     # Compute count before we paginate
-    @total_users = @users.count
+    @total_user_invitations = @user_invitations.count
 
     paginate_results!
   end
 
   def total_pages
-    return if total_users.nil?
+    return if total_user_invitations.nil?
 
-    (total_users.to_f / @page_size).ceil
+    (total_user_invitations.to_f / @page_size).ceil
   end
 
   private
 
   def filter_results!
     search_tokens.each do |token|
-      @users = @users.where(
+      @user_invitations = @user_invitations.where(
         <<-SQL
-        lower(first_name) LIKE '%#{token}%'
-        OR lower(last_name) LIKE '%#{token}%'
-        OR lower(email) LIKE '%#{token}%'
+        lower(email) LIKE '%#{token}%'
         SQL
       )
     end
@@ -46,7 +44,7 @@ class Users::SearchService
 
   def paginate_results!
     offset = (@page - 1) * @page_size
-    @users = @users.limit(@page_size).offset(offset)
+    @user_invitations = @user_invitations.limit(@page_size).offset(offset)
   end
 
   def search_tokens
@@ -55,6 +53,6 @@ class Users::SearchService
       split(" ").
       compact.
       map(&:downcase).
-      map { |t| User.sanitize_sql_like(t) }
+      map { |t| UserInvitation.sanitize_sql_like(t) }
   end
 end

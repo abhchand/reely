@@ -1,6 +1,5 @@
 import { dateToYMD } from 'javascript/utils/date_helpers';
 import FilterTable from 'javascript/components/filter_table';
-import mountReactComponent from 'mount-react-component.jsx';
 import React from 'react';
 
 class AdminUserList extends React.Component {
@@ -92,5 +91,3 @@ class AdminUserList extends React.Component {
 }
 
 export default AdminUserList;
-
-mountReactComponent(AdminUserList, 'admin-user-list');

@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(version: 2019_12_22_041320) do
   end
 
   create_table "user_invitations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "email", null: false
     t.bigint "inviter_id", null: false
     t.bigint "invitee_id"

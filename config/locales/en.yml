@@ -149,12 +149,20 @@ en:
       <<: *shared_navigation
 
   components:
+    admin_user_invitation_list:
+      header:
+        email: Email
+        invited_at: Invited At
     admin_user_list:
       header:
         name: Name
         email: Email
         role: Role
         last_signed_in: Last Active
+    admin_user_manager:
+      tabs:
+        users: Users
+        user_invitations: Invitations
     modal:
       buttons:
         submit: Submit
