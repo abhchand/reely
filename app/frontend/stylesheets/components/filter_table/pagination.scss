@@ -1,0 +1,47 @@
+.filter-table__pagination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 24px;
+  margin-left: auto;
+
+  li {
+    margin: 5px 3px;
+
+    button {
+      @extend .clear-btn;
+
+      cursor: pointer;
+    }
+
+    &.filter-table__pagination-nav-link {
+      margin-right: 10px;
+      margin-left: 10px;
+
+      button {
+        &.inactive {
+          cursor: default;
+          opacity: 0.4;
+        }
+      }
+    }
+
+    &.filter-table__pagination-page-link {
+      button {
+        width: 24px;
+        height: 24px;
+        color: $deep-navy;
+        font-weight: 700;
+        font-size: 16px;
+        border: 1px solid $deep-navy;
+
+        &.current {
+          color: $white;
+          background: $deep-navy;
+        }
+      }
+    }
+  }
+}

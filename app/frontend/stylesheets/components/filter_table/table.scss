@@ -1,0 +1,12 @@
+.filter-table__table {
+  overflow-x: scroll;
+  white-space: nowrap;
+
+  @include breakpoint($screen-xs) {
+    overflow-x: none;
+  }
+}
+.filter-table--empty-state {
+  @extend .empty-state;
+  margin: 30px 0;
+}

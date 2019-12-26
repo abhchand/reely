@@ -1,0 +1,9 @@
+.admin-user-list__row {
+  .avatar-container {
+    @extend .profile-pic;
+
+    img {
+      border: 2px solid $leaf_green;
+    }
+  }
+}

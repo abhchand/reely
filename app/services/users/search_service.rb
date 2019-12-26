@@ -1,5 +1,5 @@
 class Users::SearchService
-  PAGE_SIZE = 20
+  PAGE_SIZE = 2
 
   attr_reader :page, :total_users
 

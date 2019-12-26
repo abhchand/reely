@@ -149,6 +149,12 @@ en:
       <<: *shared_navigation
 
   components:
+    admin_user_list:
+      header:
+        name: Name
+        email: Email
+        role: Role
+        last_signed_in: Last Active
     modal:
       buttons:
         submit: Submit
@@ -158,6 +164,13 @@ en:
       body: This collection will be permanently deleted
       buttons:
         submit: Delete
+    filter_table:
+      search_input:
+        placeholder: Search...
+      total_count:
+        heading: "%{total} users"
+      table:
+        empty_state: No users found
     photo_manager:
       control_panel:
         add_to_collection:
@@ -206,7 +219,6 @@ en:
         failure: Could not fetch new link
       share_collection:
         heading: Share "%{name}"
-
 
   collections:
     index:
