@@ -1,2 +1,10 @@
-<h1 class="admin-index__heading"><%= t(".heading") %></h1>
+<%=
+  render(
+    "admin/breadcrumb_heading",
+    breadcrumbs: [
+      { label: t("admin.index.heading"), href: admin_index_path },
+      { label: t(".heading"), href: nil }
+    ]
+  )
+%>
 <%= react_component("admin-user-manager", {}) %>

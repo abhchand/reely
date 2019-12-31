@@ -1,0 +1,35 @@
+.admin-breadcrumb-heading {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 30px 0 60px 0;
+  padding-left: 30px;
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h1, h3 {
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 24px;
+    text-transform: lowercase;
+
+    :link, :visited {
+      color: $dark_gray;
+    }
+  }
+
+  svg {
+    margin-right: 5px;
+    margin-left: 2px;
+
+    path {
+      fill: $dark_gray;
+    }
+  }
+}

@@ -133,7 +133,7 @@ class FilterTable extends React.Component {
       <div className={`filter-table ${this.props.containerClass}`}>
         <div className="filter-table__action-bar">
           <SearchInput performSearch={this.performSearch} />
-        </div>,
+        </div>
         {this.renderContent()}
       </div>
     );

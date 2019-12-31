@@ -1,0 +1,10 @@
+<div class="admin-breadcrumb-heading">
+  <% breadcrumbs.each_with_index do |crumb, i| %>
+    <% if i < (breadcrumbs.size - 1) %>
+      <h3><%= link_to(crumb[:label], crumb[:href]) %></h3>
+      <%= inline_svg_tag("icons/double-chevron-right.svg", height: "24px", width: "24px") %>
+    <% else %>
+      <h1><%= crumb[:label] %></h1>
+    <% end %>
+  <% end %>
+</div>
