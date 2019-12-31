@@ -14,7 +14,7 @@ class Users::SearchService
   end
 
   def perform
-    @users = User.all.order("lower(first_name)")
+    @users = User.all.order("lower(first_name), lower(last_name), lower(email)")
 
     filter_results! if @search.present?
 
