@@ -141,6 +141,7 @@ en:
           favorites: favorites
           collections: collections
           account: account
+          admin: admin
           product_feedback: give feedback
           log_out: log out
     desktop_navigation:

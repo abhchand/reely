@@ -28,6 +28,12 @@
       <%= link_to(t(".links.account"), account_profile_index_path) %>
     </li>
 
+    <% if can?(:read, :admin) %>
+    <li class="desktop-navigation__link-element">
+      <%= link_to(t(".links.admin"), admin_index_path) %>
+    </li>
+    <% end %>
+
     <li class="desktop-navigation__link-element desktop-navigation__link-element--product-feedback">
       <%= link_to("#") do %>
         <%= t(".links.product_feedback") %>

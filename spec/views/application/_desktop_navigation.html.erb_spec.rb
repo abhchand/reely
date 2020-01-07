@@ -4,8 +4,8 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
   let(:user) { create(:user) }
 
   before do
-    stub_current_user
     @t_prefix = "application.desktop_navigation"
+    forward_can_method_to(user)
   end
 
   it "renders the logo" do
@@ -20,7 +20,7 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
   it "renders the navigation links" do
     render
 
-    actual_links = []
+    actual_links = rendered_links
     expected_links = [
       photos_path,
       "#",
@@ -32,11 +32,23 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
       destroy_user_session_path
     ]
 
-    page.all(".desktop-navigation__link-element").each do |el|
-      link = el.find("a")
-      actual_links << link["href"]
-    end
-
     expect(expected_links).to eq(actual_links)
+  end
+
+  context "user can access admin pages" do
+    before { user.add_role(:admin) }
+
+    it "renders the admin index link" do
+      render
+      expect(rendered_links).to include(admin_index_path)
+    end
+  end
+
+  def rendered_links
+    [].tap do |links|
+      page.all(".desktop-navigation__link-element").each do |el|
+        links << el.find("a")["href"]
+      end
+    end
   end
 end
