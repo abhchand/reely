@@ -34,6 +34,10 @@ RSpec.describe PhotoPresenter, type: :presenter do
     transformations = User::AVATAR_SIZES[size] || {}
     variant = user.avatar.variant(transformations)
 
-    rails_representation_url(variant, only_path: true)
+    rails_representation_url(
+      variant,
+      disposition: "attachment",
+      only_path: true
+    )
   end
 end
