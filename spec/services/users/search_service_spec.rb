@@ -28,6 +28,13 @@ RSpec.describe Users::SearchService, type: :interactor do
       expect(results).to eq([users[2], users[0], users[1]])
     end
 
+    it "ignores deactivated users" do
+      users[0].update!(deactivated_at: Time.zone.now)
+
+      results = perform
+      expect(results).to eq([users[2], users[1]])
+    end
+
     it "falls back on last name and email for sorting" do
       # rubocop:disable Metrics/LineLength
       users[0].update_columns(first_name: "Leonardo", last_name: "EEEEEEE", email: "zzz@2.gov")

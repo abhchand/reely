@@ -60,6 +60,7 @@ class User < ApplicationRecord
 
   after_commit :complete_user_invitation
 
+  scope :active, -> { where(deactivated_at: nil) }
   scope :deactivated, -> { where.not(deactivated_at: nil) }
 
   # rubocop:enable Metrics/LineLength
