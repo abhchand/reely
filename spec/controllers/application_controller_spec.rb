@@ -29,6 +29,60 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
+  describe "#check_if_deactivated" do
+    controller(ApplicationController) do
+      before_action :check_if_deactivated
+
+      def index
+        render plain: "test"
+      end
+    end
+
+    let(:user) { create(:user, :deactivated) }
+
+    before { sign_in(user) }
+
+    it "redirects to deactivated_user_index_path" do
+      get :index
+      expect(response).to redirect_to(deactivated_user_index_path)
+    end
+
+    context "request is json format" do
+      it "renders the action" do
+        get :index, params: { format: "json" }
+        expect(JSON.parse(response.body)).
+          to eq("error" => "User is deactivated")
+      end
+    end
+
+    context "user is not signed in" do
+      controller(ApplicationController) do
+        skip_before_action :authenticate_user!
+        before_action :check_if_deactivated
+
+        def index
+          render plain: "test"
+        end
+      end
+
+      before { sign_out(user) }
+
+      it "renders the action" do
+        get :index
+        expect(response.body).to eq("test")
+      end
+    end
+
+    context "user is not deactivated" do
+      before { user.update!(deactivated_at: nil) }
+
+      it "renders the action" do
+        get :index
+        expect(response.body).to eq("test")
+      end
+    end
+  end
+
   describe "#ensure_json_request" do
     controller(ApplicationController) do
       before_action :ensure_json_request
