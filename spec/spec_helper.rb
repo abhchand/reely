@@ -25,21 +25,21 @@ RSpec.configure do |config|
 
   config.around(:each, :mobile, type: :feature) do |example|
     # rack-test has no concept of a window so need to use
-    # :selenium_chrome_headless for mobile responsive tests
-    Capybara.current_driver = :selenium_chrome_headless
+    # :headless_chrome for mobile responsive tests
+    Capybara.current_driver = :headless_chrome
 
     resize_window_to_mobile
 
     example.run
 
-    # Once the window is changed, :selenium_chrome_headless preserves the
+    # Once the window is changed, :headless_chrome preserves the
     # window size across specs, even when switching Capybara drivers
     # So we need to reset it to the default window after each spec.
     # Unfortunately, `example.run` automatically resets the Capybara driver
     # to the default driver (rack-test) after running the example, so we have
-    # to once again switch back to :selenium_chrome_headless and then back
+    # to once again switch back to :headless_chrome and then back
     # to default.
-    Capybara.current_driver = :selenium_chrome_headless
+    Capybara.current_driver = :headless_chrome
     resize_window_default
     Capybara.use_default_driver
   end
