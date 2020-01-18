@@ -36,4 +36,10 @@ module FeatureHelpers
     wait_for { sleep(0.25); true }
     # rubocop:enable Style/Semicolon
   end
+
+  def click_filter_table_deactivate_for(user)
+    page.find(
+      ".admin-user-list__row[data-id='#{user.synthetic_id}'] .deactivate-user"
+    ).click
+  end
 end

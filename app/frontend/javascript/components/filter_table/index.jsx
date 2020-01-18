@@ -12,12 +12,9 @@ import TotalCount from './total_count';
 class FilterTable extends React.Component {
 
   static propTypes = {
-    items: PropTypes.array.isRequired,
-    // eslint-disable-next-line react/no-unused-prop-types
-    updateItems: PropTypes.func.isRequired,
-
-    tableHeader: PropTypes.node.isRequired,
-    tableBody: PropTypes.node.isRequired,
+    renderHeader: PropTypes.func.isRequired,
+    renderBody: PropTypes.func.isRequired,
+    refreshAt: PropTypes.number,
 
     fetchUrl: PropTypes.string.isRequired,
     containerClass: PropTypes.string
@@ -25,6 +22,26 @@ class FilterTable extends React.Component {
 
   static defaultProps = {
     containerClass: ''
+  };
+
+  // eslint-disable-next-line padded-blocks
+  static getDerivedStateFromProps(props, state) {
+
+    /*
+     * If the parent passes in a `refreshAt` prop
+     * that's more recent than our latest refresh, then
+     * trigger a refresh. This functionality allows any
+     * parent component an easy way force a data
+     * refresh here.
+     */
+
+    if (state.lastRefreshedAt !== null &&
+      props.refreshAt !== null &&
+      props.refreshAt > state.lastRefreshedAt) {
+      return { shouldRefresh: true };
+    }
+
+    return null;
   }
 
   constructor(props) {
@@ -32,19 +49,23 @@ class FilterTable extends React.Component {
 
     this.fetchItems = this.fetchItems.bind(this);
     this.renderContent = this.renderContent.bind(this);
+    this.refresh = this.refresh.bind(this);
     this.performSearch = this.performSearch.bind(this);
     this.updatePage = this.updatePage.bind(this);
 
     this.i18nPrefix = 'components.filter_table';
 
     this.state = {
+      displayedItems: [],
       currentPage: 1,
       currentSearch: '',
       totalPages: 0,
       // eslint-disable-next-line react/no-unused-state
       totalItems: 0,
       isLoading: true,
-      fetchFailed: false
+      fetchFailed: false,
+      lastRefreshedAt: null,
+      shouldRefresh: true
     };
   }
 
@@ -73,28 +94,34 @@ class FilterTable extends React.Component {
     axios.get(url, config).
       then((response) => {
         self.setState({
+          displayedItems: response.data.items,
           totalItems: response.data.total_items,
           currentPage: params.page,
           totalPages: response.data.total_pages,
           currentSearch: params.search,
           isLoading: false,
-          fetchFailed: false
+          fetchFailed: false,
+          lastRefreshedAt: Date.now(),
+          shouldRefresh: false
         });
-
-        self.props.updateItems(response.data.items);
       }).
       catch((_error) => {
         self.setState({
+          displayedItems: [],
           totalItems: null,
           currentPage: 1,
           totalPages: null,
           currentSearch: params.search,
           isLoading: false,
-          fetchFailed: true
+          fetchFailed: true,
+          lastRefreshedAt: Date.now(),
+          shouldRefresh: false
         });
-
-        self.props.updateItems([]);
       });
+  }
+
+  refresh() {
+    this.fetchItems({ page: 1, search: '' });
   }
 
   performSearch(searchString) {
@@ -122,13 +149,17 @@ class FilterTable extends React.Component {
       </div>,
       <Table
         key="filter-table__table"
-        thead={this.props.tableHeader}
-        tbody={this.props.tableBody}
-        itemCount={this.props.items.length} />
+        thead={this.props.renderHeader(this.state.displayedItems)}
+        tbody={this.props.renderBody(this.state.displayedItems)}
+        itemCount={this.state.displayedItems.length} />
     ];
   }
 
   render() {
+    if (this.state.shouldRefresh) {
+      this.refresh();
+    }
+
     return (
       <div className={`filter-table ${this.props.containerClass}`}>
         <div className="filter-table__action-bar">
