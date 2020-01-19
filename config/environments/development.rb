@@ -6,6 +6,13 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in
   # config/application.rb.
 
+  # The /rails/mailer preview tries to load all previews under the
+  # `preview_path` defined below (e.g. `require spec/mailers/preview/...`)
+  # The `Rails.root` isn't in the load and therefore it can't find the previews
+  # by default. Not sure if this is really the right workaround, but it seems
+  # to work on development without any side effects right now.
+  $LOAD_PATH.unshift(Rails.root) unless $LOAD_PATH.include?(Rails.root)
+
   # Automatically re-build JS translations file (`i18n-js` gem)
   config.middleware.use I18n::JS::Middleware
 
