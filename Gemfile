@@ -51,6 +51,7 @@ end
 
 group :development do
   gem "better_errors"
+  gem "binding_of_caller", "~> 0.8.0"
   gem "capistrano", "~> 3.5"
   gem "capistrano-bundler", "~> 1.1", ">= 1.1.4"
   gem "capistrano-rails", "~> 1.1", ">= 1.1.7"
