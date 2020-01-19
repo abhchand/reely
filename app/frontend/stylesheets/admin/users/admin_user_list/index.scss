@@ -6,4 +6,15 @@
       border: 2px solid $leaf_green;
     }
   }
+
+  .deactivate-user {
+    cursor: pointer;
+
+    button {
+      @extend .clear-btn;
+
+      width: 18px;
+      height: 18px;
+    }
+  }
 }

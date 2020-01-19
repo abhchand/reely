@@ -1,2 +1,11 @@
 .admin-user-invitation-list__row {
+  .delete-user-invitation {
+    cursor: pointer;
+
+    button {
+      @extend .clear-btn;
+      width: 18px;
+      height: 18px;
+    }
+  }
 }

@@ -39,7 +39,15 @@ module FeatureHelpers
 
   def click_filter_table_deactivate_for(user)
     page.find(
-      ".admin-user-list__row[data-id='#{user.synthetic_id}'] .deactivate-user"
+      ".admin-user-list__row[data-id='#{user.synthetic_id}'] "\
+        ".deactivate-user button"
+    ).click
+  end
+
+  def click_filter_table_delete_for(user_invitation)
+    page.find(
+      ".admin-user-invitation-list__row[data-id='#{user_invitation.id}'] "\
+        ".delete-user-invitation button"
     ).click
   end
 end

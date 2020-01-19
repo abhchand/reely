@@ -3,12 +3,20 @@ module FeatureHelpers
     within(".modal") { page.find(".modal--error").text }
   end
 
-  def expect_modal_is_open
-    expect(page).to have_selector(".modal")
+  def expect_modal_is_open(async: false)
+    if async
+      wait_for(4) { !page.all(".modal").count.zero? }
+    else
+      expect(page).to have_selector(".modal")
+    end
   end
 
-  def expect_modal_is_closed
-    expect(page).to_not have_selector(".modal")
+  def expect_modal_is_closed(async: false)
+    if async
+      wait_for(4) { page.all(".modal").count.zero? }
+    else
+      expect(page).to_not have_selector(".modal")
+    end
   end
 
   def click_modal_submit

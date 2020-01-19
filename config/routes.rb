@@ -76,11 +76,17 @@ Rails.application.routes.draw do
   resources :deactivated_user, only: :index
 
   resources :photos, only: :index
+
   resources :product_feedbacks, only: :create
 
   scope :photos do
     resources :raw_photos, only: :show, path: :file
   end
+
+  resources :users, only: [:destroy]
+
+  resources :user_invitations, only: [:destroy]
+
   # rubocop:enable Style/SymbolArray
   # rubocop:enable Metrics/LineLength
 end

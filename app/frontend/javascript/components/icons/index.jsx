@@ -332,6 +332,47 @@ class IconRemovePhoto extends React.Component {
   }
 }
 
+class IconTrash extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    fillColor: '#EEEEEE',
+    size: '32',
+    title: 'Trash Icon'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <defs></defs>
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+          <g id="Artboard-3" stroke={this.props.fillColor} strokeWidth="1.39655172">
+            <g id="Group" transform="translate(4.500000, -2.000000)">
+              <path d="M8.64379085,9.54310345 L8.64379085,33.2844828" id="Line"></path>
+              <path d="M2.92611111,8.76724138 L2.92611111,32.5086207" id="Line"></path>
+              <path d="M2.93137255,33.2844828 L20.0686275,33.2844828" id="Line"></path>
+              <path d="M14.3562092,9.54310345 L14.3562092,33.2844828" id="Line"></path>
+              <path d="M20.0738889,8.76724138 L20.0738889,32.5086207" id="Line"></path>
+              <path d="M0.0751633987,8.14655172 L22.9248366,8.14655172" id="Line"></path>
+              <path d="M0.0766666667,6.98275862 L22.9233333,6.98275862" id="Line"></path>
+              <path d="M7.21568627,5.50862069 L7.21568627,4.11206897" id="Line"></path>
+              <path d="M15.7843137,5.50862069 L15.7843137,4.11206897" id="Line"></path>
+              <path d="M8.64379085,2.71551724 L14.3562092,2.71551724" id="Line"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
 class IconX extends React.Component {
 
   static propTypes = {
@@ -365,5 +406,5 @@ class IconX extends React.Component {
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
   IconCircle, IconCopy, IconFilledCircle, IconPencilWithSquares, IconPlus,
-  IconRefresh, IconRemovePhoto, IconX
+  IconRefresh, IconRemovePhoto, IconTrash, IconX
 };

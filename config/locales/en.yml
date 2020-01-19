@@ -154,12 +154,28 @@ en:
       header:
         email: Email
         invited_at: Invited At
+        delete_user_invitation:
+          icon_title: Delete Invitation
+      delete_user_invitation:
+        heading: Confirm deletion
+        body: Delete invitation for %{email}?
+        buttons:
+          submit: Delete
+          close: Cancel
     admin_user_list:
       header:
         name: Name
         email: Email
         role: Role
         last_signed_in: Last Active
+        deactivate_user:
+          icon_title: Delete User
+      deactivate_user:
+        heading: Confirm deletion
+        body: Delete %{name}?
+        buttons:
+          submit: Delete
+          close: Cancel
     admin_user_manager:
       tabs:
         users: Users
