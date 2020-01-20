@@ -10,7 +10,13 @@ module UserInvitationHelper
   def only_editable_user_invitations
     return if can?(:manage, :admin)
 
-    handle_user_invitation_not_editable
+    handle_insufficient_permissions
+  end
+
+  def ensure_can_manage_invitations
+    return if can?(:manage, :admin)
+
+    handle_insufficient_permissions
   end
 
   def handle_user_invitation_not_found
@@ -22,11 +28,11 @@ module UserInvitationHelper
     end
   end
 
-  def handle_user_invitation_not_editable
+  def handle_insufficient_permissions
     respond_to do |format|
       format.html { redirect_to root_path }
       format.json do
-        render json: { error: "Insufficent permission" }, status: 403
+        render json: { error: "Insufficent permissions" }, status: 403
       end
     end
   end

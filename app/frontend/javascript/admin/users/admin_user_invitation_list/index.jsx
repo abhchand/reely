@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import CreateUserInvitation from './create_user_invitation';
 import { dateToYMD } from 'javascript/utils/date_helpers';
 import DeleteUserInvitationModal from './delete_user_invitation_modal';
 import FilterTable from 'javascript/components/filter_table';
@@ -15,6 +16,7 @@ class AdminUserInvitationList extends React.Component {
     this.closeDeleteUserInvitationModal = this.closeDeleteUserInvitationModal.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderBody = this.renderBody.bind(this);
+    this.renderCreateUserInvitation = this.renderCreateUserInvitation.bind(this);
     this.renderDeleteUserInvitationModal = this.renderDeleteUserInvitationModal.bind(this);
 
     this.i18nPrefix = 'components.admin_user_invitation_list';
@@ -103,6 +105,14 @@ class AdminUserInvitationList extends React.Component {
     /* eslint-enable react/jsx-max-depth */
   }
 
+  renderCreateUserInvitation() {
+    return (
+      <CreateUserInvitation
+        key="create-user-invitation"
+        refreshFilterTable={this.refreshFilterTable} />
+    );
+  }
+
   renderDeleteUserInvitationModal() {
     if (this.state.deleteUserInvitation) {
       return (
@@ -119,6 +129,7 @@ class AdminUserInvitationList extends React.Component {
 
   render() {
     return [
+      this.renderCreateUserInvitation(),
       <FilterTable
         key="filter-table"
         renderHeader={this.renderHeader}

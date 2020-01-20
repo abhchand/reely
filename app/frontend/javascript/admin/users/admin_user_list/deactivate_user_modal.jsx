@@ -18,7 +18,7 @@ class DeactivateUserModal extends React.Component {
     this.body = this.body.bind(this);
     this.deactivateUser = this.deactivateUser.bind(this);
 
-    this.i18nPrefix = 'components.admin_user_list.deactivate_user';
+    this.i18nPrefix = 'components.admin_user_list.deactivate_user_modal';
   }
 
   body() {

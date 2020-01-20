@@ -18,7 +18,7 @@ class DeleteUserInvitationModal extends React.Component {
     this.body = this.body.bind(this);
     this.deleteUserInvitation = this.deleteUserInvitation.bind(this);
 
-    this.i18nPrefix = 'components.admin_user_invitation_list.delete_user_invitation';
+    this.i18nPrefix = 'components.admin_user_invitation_list.delete_user_invitation_modal';
   }
 
   body() {
@@ -51,7 +51,7 @@ class DeleteUserInvitationModal extends React.Component {
   render() {
     return (
       <Modal
-        modalClassName="deactivate-user-invitation-modal"
+        modalClassName="delete-user-invitation-modal"
         heading={I18n.t(`${this.i18nPrefix}.heading`)}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}

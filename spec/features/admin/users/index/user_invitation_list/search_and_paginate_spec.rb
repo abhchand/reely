@@ -148,8 +148,4 @@ RSpec.feature "Search and Paginate", type: :feature, js: true do
       end
     end
   end
-
-  def click_user_invitations_tab
-    page.find(".admin-user-manager__tab button[data-id='1']").click
-  end
 end

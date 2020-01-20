@@ -85,7 +85,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:destroy]
 
-  resources :user_invitations, only: [:destroy]
+  resources :user_invitations, only: [:create, :destroy]
 
   # rubocop:enable Style/SymbolArray
   # rubocop:enable Metrics/LineLength

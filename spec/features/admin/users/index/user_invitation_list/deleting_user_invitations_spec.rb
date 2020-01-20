@@ -137,7 +137,4 @@ RSpec.feature "Deleting User Invitations", type: :feature, js: true do
     end
   end
 
-  def click_user_invitations_tab
-    page.find(".admin-user-manager__tab button[data-id='1']").click
-  end
 end

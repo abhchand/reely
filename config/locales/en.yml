@@ -75,6 +75,12 @@ en:
               blank: Please specify a provider along with a uid
             uid:
               blank: Please specify a uid along with a provider
+        user_invitation:
+          attributes:
+            email:
+              already_invited: Email has already been invited
+              already_registered: A user with that email aready exists
+              invalid_domain: "Email must be from one of the following domains: %{domains}"
 
 
   #
@@ -163,7 +169,15 @@ en:
         invited_at: Invited At
         delete_user_invitation:
           icon_title: Delete Invitation
-      delete_user_invitation:
+      create_user_invitation:
+        button_label: Invite User
+      create_user_invitation_modal:
+        heading: Invite User
+        body: Enter an email address to be invited. They will receive an email with an invitation link.
+        buttons:
+          submit: Invite
+          close: Cancel
+      delete_user_invitation_modal:
         heading: Confirm deletion
         body: Delete invitation for %{email}?
         buttons:
@@ -177,7 +191,7 @@ en:
         last_signed_in: Last Active
         deactivate_user:
           icon_title: Delete User
-      deactivate_user:
+      deactivate_user_modal:
         heading: Confirm deletion
         body: Delete %{name}?
         buttons:
