@@ -126,13 +126,14 @@ class User < ApplicationRecord
   end
 
   def email_domain
-    return if ENV["REGISTRATION_EMAIL_DOMAIN_WHITELIST"].blank?
+    return unless registration_email_domain_whitelist_enabled?
 
-    domains = ENV["REGISTRATION_EMAIL_DOMAIN_WHITELIST"].split(",").map(&:strip)
     domain = (email || "").split("@").last
 
     return if domain.blank?
-    return if domains.any? { |d| domain =~ /#{d}/i }
+    # rubocop:disable Metrics/LineLength
+    return if registration_email_whitelisted_domains.any? { |d| domain =~ /#{d}/i }
+    # rubocop:enable Metrics/LineLength
 
     errors.add(:email, :invalid_domain, domain: domain)
   end
