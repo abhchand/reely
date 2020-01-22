@@ -43,7 +43,7 @@ class Modal extends React.Component {
     return (
       <input
         type="button"
-        className="modal-content__button modal-content__button--submit cta cta-white"
+        className="modal-content__button modal-content__button--submit cta cta-purple"
         value={this.props.submitButtonLabel}
         disabled={!this.props.submitButtonEnabled}
         onClick={this.submit} />
