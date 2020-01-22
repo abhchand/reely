@@ -11,7 +11,7 @@ RSpec.describe Role, type: :model do
   describe "Validations" do
     before { stub_const("Role::RESOURCE_TYPES", %w[Photo]) }
 
-    it { should validate_inclusion_of(:name).in_array(Role::ROLES) }
+    it { should validate_inclusion_of(:name).in_array(ALL_ROLES) }
 
     it do
       should validate_inclusion_of(:resource_type).

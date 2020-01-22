@@ -14,6 +14,12 @@ en:
   form:
     disable_with: Please wait...
 
+  roles:
+    admin: Admin
+    # Below are purely to support testing
+    director: Director
+    manager: Manager
+
   generic_error: Oops, something went wrong. Please try again
 
   #
@@ -143,6 +149,9 @@ en:
     users:
       index:
         heading: Users
+    user_roles:
+      update_service:
+        invalid_roles: One or more role names are invalid
 
   application:
     navigation:
@@ -188,9 +197,18 @@ en:
         name: Name
         email: Email
         role: Role
+        update_role: ""
         last_signed_in: Last Active
         deactivate_user:
           icon_title: Delete User
+      update_user_role:
+        button_label: manage
+      update_user_role_modal:
+        heading: Manage Roles for %{first_name}
+        body: Please select the roles that apply to this user
+        buttons:
+          submit: Update
+          close: Close
       deactivate_user_modal:
         heading: Confirm deletion
         body: Delete %{name}?

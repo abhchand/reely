@@ -50,4 +50,11 @@ module FeatureHelpers
         ".delete-user-invitation button"
     ).click
   end
+
+  def click_filter_table_edit_user_roles_for(user)
+    page.find(
+      ".admin-user-list__row[data-id='#{user.synthetic_id}'] "\
+        ".update-user-role__update-btn"
+    ).click
+  end
 end

@@ -8,7 +8,7 @@ json.items @users do |user|
     :first_name,
     :last_name,
     :email,
-    :role
+    :roles
   )
   json.avatar_path user.avatar_path(size: :thumb)
   json.last_sign_in_at user.last_sign_in_at

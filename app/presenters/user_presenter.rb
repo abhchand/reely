@@ -20,10 +20,7 @@ class UserPresenter < ApplicationPresenter
     )
   end
 
-  def role
-    case
-    when has_role?(:admin)
-      :admin
-    end
+  def roles
+    model.roles.map(&:name).sort
   end
 end

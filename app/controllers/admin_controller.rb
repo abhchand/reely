@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   layout "with_responsive_navigation"
 
-  before_action :admin_only, only: [:index]
+  before_action :admin_only
   before_action :set_pack_to_admin
 
   def index

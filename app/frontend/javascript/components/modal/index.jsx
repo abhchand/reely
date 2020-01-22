@@ -85,7 +85,7 @@ class Modal extends React.Component {
     return (
       <div className={`modal ${this.props.modalClassName}`}>
         <div className="modal-content">
-          <h1 className="modal-content__heading" dangerouslySetInnerHTML={{ __html: this.props.heading }} />;
+          <h1 className="modal-content__heading" dangerouslySetInnerHTML={{ __html: this.props.heading }} />
           <h3 className="modal-content__subheading">{this.props.subheading}</h3>
 
           <div className="modal-content__body">

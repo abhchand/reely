@@ -2,9 +2,15 @@ import { dateToYMD } from 'javascript/utils/date_helpers';
 import DeactivateUserModal from './deactivate_user_modal';
 import FilterTable from 'javascript/components/filter_table';
 import { IconTrash } from 'components/icons';
+import PropTypes from 'prop-types';
 import React from 'react';
+import UpdateUserRole from './update_user_role';
 
 class AdminUserList extends React.Component {
+
+  static propTypes = {
+    roles: PropTypes.array.isRequired
+  }
 
   constructor(props) {
     super(props);
@@ -66,8 +72,11 @@ class AdminUserList extends React.Component {
         <td className="email">
           {I18n.t(`${this.i18nPrefix}.header.email`)}
         </td>
-        <td className="role">
+        <td className="roles">
           {I18n.t(`${this.i18nPrefix}.header.role`)}
+        </td>
+        <td className="update-role">
+          {I18n.t(`${this.i18nPrefix}.header.update_role`)}
         </td>
         <td className="last-signed-in">
           {I18n.t(`${this.i18nPrefix}.header.last_signed_in`)}
@@ -96,8 +105,18 @@ class AdminUserList extends React.Component {
             <td className="email">
               {user.email}
             </td>
-            <td className="role">
-              {user.role || '-'}
+            <td className="roles">
+              {
+                user.roles.map((role, _i) => {
+                  return <span key={`role-${role}`}>{I18n.t(`roles.${role}`)}</span>;
+                })
+              }
+            </td>
+            <td className="update-role">
+              <UpdateUserRole
+                user={user}
+                roles={this.props.roles}
+                refreshFilterTable={this.refreshFilterTable} />
             </td>
             <td className="last-signed-in">
               {user.last_sign_in_at ? dateToYMD(new Date(user.last_sign_in_at)) : '-'}

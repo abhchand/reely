@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :role do
-    name { Role::ROLES.first }
+    name { ALL_ROLES.first }
   end
 end

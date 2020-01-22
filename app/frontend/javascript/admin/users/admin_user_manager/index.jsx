@@ -1,9 +1,14 @@
 import AdminUserInvitationList from 'javascript/admin/users/admin_user_invitation_list';
 import AdminUserList from 'javascript/admin/users/admin_user_list';
 import mountReactComponent from 'mount-react-component.jsx';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class AdminUserManager extends React.Component {
+
+  static propTypes = {
+    roles: PropTypes.array.isRequired
+  }
 
   constructor(props) {
     super(props);
@@ -15,7 +20,7 @@ class AdminUserManager extends React.Component {
     this.i18nPrefix = 'components.admin_user_manager';
 
     this.tabs = [
-      { name: 'users', component: <AdminUserList /> },
+      { name: 'users', component: <AdminUserList roles={this.props.roles} /> },
       { name: 'user_invitations', component: <AdminUserInvitationList /> }
     ];
 

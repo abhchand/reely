@@ -7,6 +7,18 @@
     }
   }
 
+  .roles {
+    span {
+      height: 20px;
+      margin-right: 7px;
+      padding: 1px 7px;
+      color: $orange-red;
+      font-size: 14px;
+      text-transform: lowercase;
+      border: 1px $orange-red solid;
+    }
+  }
+
   .deactivate-user {
     cursor: pointer;
 

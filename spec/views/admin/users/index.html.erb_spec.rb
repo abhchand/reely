@@ -18,7 +18,7 @@ RSpec.describe "admin/users/index.html.erb", type: :view do
 
   it "renders the user manager component" do
     render
-    props = {}
+    props = { roles: ALL_ROLES }
     expect(page).to(
       have_react_component("admin-user-manager").including_props(props)
     )
