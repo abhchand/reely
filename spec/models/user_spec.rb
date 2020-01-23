@@ -657,4 +657,71 @@ RSpec.describe User do
       end
     end
   end
+
+  describe "HasAuditableRoles module" do
+    let!(:user) { create(:user) }
+    let!(:modifier) { create(:user) }
+
+    describe "#add_role" do
+      it "adds the role" do
+        user.add_role(:admin, modifier: modifier)
+
+        expect(user.roles.map(&:name)).to eq(%w[admin])
+      end
+
+      it "audits the change" do
+        expect do
+          user.add_role(:manager, modifier: modifier)
+        end.to change { Audited::Audit.count }.by(1)
+
+        audit = Audited::Audit.last
+
+        expect(audit.auditable).to eq(user)
+        expect(audit.user).to eq(modifier)
+        expect(audit.action).to eq("update")
+        expect(audit.audited_changes).to eq("audited_roles" => [nil, "manager"])
+        expect(audit.version).to eq(2)
+        expect(audit.request_uuid).to_not be_nil
+        expect(audit.remote_address).to be_nil
+      end
+
+      it "does not double audit changes for repeated additions" do
+        expect do
+          2.times { user.add_role(:manager, modifier: modifier) }
+        end.to change { Audited::Audit.count }.by(1)
+      end
+    end
+
+    describe "#remove_role" do
+      before { user.add_role(:manager) }
+
+      it "removes the role" do
+        user.remove_role(:manager, modifier: modifier)
+
+        expect(user.roles.map(&:name)).to eq([])
+      end
+
+      it "audits the change" do
+        expect do
+          user.remove_role(:manager, modifier: modifier)
+        end.to change { Audited::Audit.count }.by(1)
+
+        audit = Audited::Audit.last
+
+        expect(audit.auditable).to eq(user)
+        expect(audit.user).to eq(modifier)
+        expect(audit.action).to eq("update")
+        expect(audit.audited_changes).to eq("audited_roles" => ["manager", nil])
+        expect(audit.version).to eq(3)
+        expect(audit.request_uuid).to_not be_nil
+        expect(audit.remote_address).to be_nil
+      end
+
+      it "does not double audit changes for repeated removals" do
+        expect do
+          2.times { user.remove_role(:manager, modifier: modifier) }
+        end.to change { Audited::Audit.count }.by(1)
+      end
+    end
+  end
 end

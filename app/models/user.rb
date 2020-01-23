@@ -21,6 +21,7 @@ class User < ApplicationRecord
   rolify
 
   include HasSyntheticId
+  include HasAuditableRoles
 
   # rubocop:disable Metrics/LineLength
   has_many :photos, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner

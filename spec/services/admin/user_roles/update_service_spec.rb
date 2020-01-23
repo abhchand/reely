@@ -25,7 +25,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(result.status).to be_nil
     end
 
-    it "audits the addition of roles as an update on the User" do
+    it "audits the addition of roles" do
       call(roles: %w[admin manager director])
 
       audit = user.audits.last(2)
@@ -36,7 +36,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(audit[0].user).to eq(current_user)
       expect(audit[0].action).to eq("update")
       expect(audit[0].audited_changes).to eq("audited_roles" => [nil, "manager"])
-      expect(audit[0].version).to eq(2)
+      expect(audit[0].version).to eq(3)
       expect(audit[0].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to be_nil
 
@@ -44,7 +44,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(audit[1].user).to eq(current_user)
       expect(audit[1].action).to eq("update")
       expect(audit[1].audited_changes).to eq("audited_roles" => [nil, "director"])
-      expect(audit[1].version).to eq(3)
+      expect(audit[1].version).to eq(4)
       expect(audit[1].request_uuid).to_not be_nil
       expect(audit[1].remote_address).to be_nil
 
@@ -70,7 +70,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(result.status).to be_nil
     end
 
-    it "audits the removal of roles as an update on the User" do
+    it "audits the removal of roles" do
       call(roles: %w[])
 
       audit = user.audits.last(2)
@@ -81,7 +81,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(audit[0].user).to eq(current_user)
       expect(audit[0].action).to eq("update")
       expect(audit[0].audited_changes).to eq("audited_roles" => ["admin", nil])
-      expect(audit[0].version).to eq(2)
+      expect(audit[0].version).to eq(4)
       expect(audit[0].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to be_nil
 
@@ -89,7 +89,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(audit[1].user).to eq(current_user)
       expect(audit[1].action).to eq("update")
       expect(audit[1].audited_changes).to eq("audited_roles" => ["manager", nil])
-      expect(audit[1].version).to eq(3)
+      expect(audit[1].version).to eq(5)
       expect(audit[1].request_uuid).to_not be_nil
       expect(audit[1].remote_address).to be_nil
 
