@@ -87,6 +87,16 @@ RSpec.describe UserInvitationsController, type: :controller do
       expect(email[:method]).to eq(:invite)
       expect(email[:args][:user_invitation_id]).to eq(UserInvitation.last.id)
     end
+
+    it "audits the creation of the record" do
+      post :create, params: params
+
+      user_invitation = UserInvitation.last
+      audit = user_invitation.audits.last
+
+      expect(audit.action).to eq("create")
+      expect(audit.user).to eq(admin)
+    end
   end
 
   describe "DELETE #destroy" do
@@ -139,6 +149,15 @@ RSpec.describe UserInvitationsController, type: :controller do
 
       expect(response.status).to eq(200)
       expect(response.body).to eq("{}")
+    end
+
+    it "audits the deletion of the record" do
+      delete :destroy, params: params
+
+      audit = user_invitation.audits.last
+
+      expect(audit.action).to eq("destroy")
+      expect(audit.user).to eq(admin)
     end
   end
 end

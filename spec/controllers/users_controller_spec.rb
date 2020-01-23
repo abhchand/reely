@@ -55,6 +55,16 @@ RSpec.describe UsersController, type: :controller do
       expect(response.body).to eq("{}")
     end
 
+    it "audits the deactivation of the record" do
+      delete :destroy, params: params
+
+      audit = user.audits.last
+
+      expect(audit.action).to eq("update")
+      expect(audit.audited_changes.keys).to include("deactivated_at")
+      expect(audit.user).to eq(admin)
+    end
+
     context "user is already deactivated" do
       let(:now) { Time.zone.now }
 

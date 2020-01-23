@@ -70,6 +70,34 @@ RSpec.describe Admin::UserRolesController, type: :controller do
 
       expect(user.reload.roles.pluck(:name)).to match_array(%w[director admin])
     end
+
+    it "audits the addition and subtraction of the roles against the User" do
+      params[:roles] = %w[director]
+
+      patch :update, params: params
+
+      audit = user.audits.last(2)
+
+      # rubocop:disable Metrics/LineLength
+
+      expect(audit[0].auditable).to eq(user)
+      expect(audit[0].user).to eq(admin)
+      expect(audit[0].action).to eq("update")
+      expect(audit[0].audited_changes).to eq("audited_roles" => [nil, "director"])
+      expect(audit[0].version).to eq(2)
+      expect(audit[0].request_uuid).to_not be_nil
+      expect(audit[0].remote_address).to_not be_nil
+
+      expect(audit[1].auditable).to eq(user)
+      expect(audit[1].user).to eq(admin)
+      expect(audit[1].action).to eq("update")
+      expect(audit[1].audited_changes).to eq("audited_roles" => ["manager", nil])
+      expect(audit[1].version).to eq(3)
+      expect(audit[1].request_uuid).to_not be_nil
+      expect(audit[0].remote_address).to_not be_nil
+
+      # rubocop:enable Metrics/LineLength
+    end
   end
 
   def json_response

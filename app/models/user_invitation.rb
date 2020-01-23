@@ -1,4 +1,6 @@
 class UserInvitation < ApplicationRecord
+  audited
+
   # rubocop:disable Metrics/LineLength
   belongs_to :inviter, class_name: "User", validate: false
   belongs_to :invitee, class_name: "User", inverse_of: :invitation, validate: false, optional: true

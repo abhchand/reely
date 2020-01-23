@@ -28,6 +28,16 @@ RSpec.describe UserInvitations::CreateService, type: :interactor do
     expect(result.status).to be_nil
   end
 
+  it "audits the creation of the record" do
+    result = call
+
+    user_invitation = result.user_invitation
+    audit = user_invitation.audits.last
+
+    expect(audit.action).to eq("create")
+    expect(audit.user).to eq(admin)
+  end
+
   context "email has already been invited" do
     before { create(:user_invitation, email: params[:email]) }
 

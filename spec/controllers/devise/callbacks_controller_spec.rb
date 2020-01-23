@@ -29,6 +29,16 @@ RSpec.describe Devise::CallbacksController, type: :controller do
       expect(flash[:error]).to be_nil
     end
 
+    it "audits the creation of the record" do
+      get :google_oauth2
+
+      user = User.last
+      audit = user.audits.last
+
+      expect(audit.action).to eq("create")
+      expect(audit.user).to be_nil
+    end
+
     context "error in creating" do
       before { auth[:info][:email] = "bad-email" }
 

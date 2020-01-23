@@ -7,6 +7,7 @@ class Admin::UserRolesController < AdminController
 
   def update
     update_service = Admin::UserRoles::UpdateService.call(
+      current_user: current_user,
       user: user,
       roles: update_params[:roles]
     )
