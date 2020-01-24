@@ -209,12 +209,11 @@ en:
         name: Name
         email: Email
         role: Role
-        update_role: ""
         last_signed_in: Last Active
         deactivate_user:
           icon_title: Delete User
       update_user_role:
-        button_label: manage
+        icon_title: Edit Roles
       update_user_role_modal:
         heading: Manage Roles for %{first_name}
         body: Please select the roles that apply to this user

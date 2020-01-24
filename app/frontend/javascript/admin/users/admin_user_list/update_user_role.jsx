@@ -1,3 +1,4 @@
+import { IconUserWithKey } from 'components/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import UpdateUserRoleModal from './update_user_role_modal';
@@ -39,12 +40,17 @@ class UpdateUserRole extends React.Component {
 
   renderRolesButton() {
     return (
-      <input
+      <button
         key="update-user-role-button"
         type="button"
-        className="update-user-role__update-btn cta cta-white"
+        className="update-user-role__update-btn"
         value={I18n.t(`${this.i18nPrefix}.button_label`)}
-        onClick={this.openModal} />
+        onClick={this.openModal}>
+        <IconUserWithKey
+          size="18"
+          fillColor="#888888"
+          title={I18n.t(`${this.i18nPrefix}.icon_title`)} />
+      </button>
     );
   }
 

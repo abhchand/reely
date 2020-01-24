@@ -373,6 +373,37 @@ class IconTrash extends React.Component {
 
 }
 
+class IconUserWithKey extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string
+  };
+
+  static defaultProps = {
+    fillColor: '#EEEEEE',
+    size: '32'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <g id="icon-users" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <path d="M7,81.3559322 C7,62.0479403 19.9975977,45.7561832 37.7736624,40.646951 C31.5804942,36.7387584 27.4705882,29.8632027 27.4705882,22.0338983 C27.4705882,9.86491229 37.3993323,0 49.6470588,0 C61.8947853,0 71.8235294,9.86491229 71.8235294,22.0338983 C71.8235294,29.8632027 67.7136234,36.7387584 61.5204552,40.646951 C79.2965199,45.7561832 92.2941176,62.0479403 92.2941176,81.3559322 L92.2941176,91.5254237 C73.3398693,97.1751412 59.124183,100 49.6470588,100 C40.1699346,100 25.9542484,97.1751412 7,91.5254237 L7,81.3559322 Z" id="person" fill={this.props.fillColor}></path>
+          <circle id="bubble" stroke={this.props.fillColor} strokeWidth="3" fill="#FFFFFF" cx="22.5" cy="77.5" r="21"></circle>
+          <g id="key" transform="translate(10.000000, 65.000000)">
+            <polygon id="ridges" fill={this.props.fillColor} points="13 9 0 24 0 26 6 26 6 22 11 22 11 17 16 17 19 15"></polygon>
+            <circle id="head" fill={this.props.fillColor} cx="20" cy="8" r="8"></circle>
+            <circle id="hole" fill="#FFFFFF" cx="21" cy="7" r="2"></circle>
+          </g>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
 class IconX extends React.Component {
 
   static propTypes = {
@@ -406,5 +437,5 @@ class IconX extends React.Component {
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
   IconCircle, IconCopy, IconFilledCircle, IconPencilWithSquares, IconPlus,
-  IconRefresh, IconRemovePhoto, IconTrash, IconX
+  IconRefresh, IconRemovePhoto, IconTrash, IconUserWithKey, IconX
 };

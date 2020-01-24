@@ -1,4 +1,7 @@
 .update-user-role__update-btn {
-  width: 60px;
-  height: 20px;
+  @extend .clear-btn;
+
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }

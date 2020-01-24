@@ -75,9 +75,7 @@ class AdminUserList extends React.Component {
         <td className="roles">
           {I18n.t(`${this.i18nPrefix}.header.role`)}
         </td>
-        <td className="update-role">
-          {I18n.t(`${this.i18nPrefix}.header.update_role`)}
-        </td>
+        <td className="update-role" />
         <td className="last-signed-in">
           {I18n.t(`${this.i18nPrefix}.header.last_signed_in`)}
         </td>
