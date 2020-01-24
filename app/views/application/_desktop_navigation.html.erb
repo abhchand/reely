@@ -29,8 +29,11 @@
     </li>
 
     <% if can?(:read, :admin) %>
-    <li class="desktop-navigation__link-element">
-      <%= link_to(t(".links.admin"), admin_index_path) %>
+    <li class="desktop-navigation__link-element desktop-navigation__link-element--admin">
+      <%= link_to(admin_index_path) do %>
+        <%=t(".links.admin") %>
+        <%= inline_svg_tag("icons/lock.svg", width: "22px", height: "22px") %>
+      <% end %>
     </li>
     <% end %>
 

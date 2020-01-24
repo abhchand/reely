@@ -83,8 +83,9 @@
   }
 
   svg {
+    margin-right: 20px;
     // Give icons some breathing room
-    margin-left: 7px;
+    margin-left: auto;
   }
 
   &:hover {
@@ -119,6 +120,18 @@
 
   &.inactive {
     display: none;
+  }
+}
+
+.mobile-navigation__link-element--admin {
+  svg {
+    rect, path {
+      stroke: $mustard;
+    }
+  }
+
+  #handle {
+    fill: $mustard;
   }
 }
 
