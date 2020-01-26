@@ -7,6 +7,7 @@
 @import 'stylesheets/shared/_colors';
 @import 'stylesheets/shared/_fonts';
 @import 'stylesheets/shared/_forms';
+@import 'stylesheets/shared/_pagination_navigation';
 @import 'stylesheets/shared/_styles';
 @import 'stylesheets/shared/_tables';
 
@@ -22,6 +23,7 @@
 
 @import 'stylesheets/admin/index';
 @import 'stylesheets/admin/_breadcrumb_heading';
+@import 'stylesheets/admin/audits/index';
 @import 'stylesheets/admin/users/admin_user_invitation_list/index';
 @import 'stylesheets/admin/users/admin_user_invitation_list/create_user_invitation';
 @import 'stylesheets/admin/users/admin_user_invitation_list/create_user_invitation_modal';

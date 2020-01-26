@@ -1,5 +1,5 @@
 .admin-user-manager {
-  padding: 0 30px;
+  @extend .page-content;
 }
 .admin-user-manager__tabs {
   display: flex;

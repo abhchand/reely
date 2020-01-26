@@ -6,7 +6,7 @@ RSpec.feature "Editing User Roles", type: :feature, js: true do
 
   before { log_in(admin) }
 
-  it "admin can deactivate a user" do
+  it "admin can edit another user's roles" do
     visit admin_users_path
 
     expect_filter_table_records_to_be([user, admin])

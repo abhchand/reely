@@ -27,7 +27,7 @@ module Admin
       end
 
       def describe_created
-        t(".created", email: user_invitation.email)
+        t(".created", email: new_value_for("email"))
       end
 
       def describe_destroyed

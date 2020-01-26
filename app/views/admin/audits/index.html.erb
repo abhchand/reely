@@ -1,0 +1,46 @@
+<%=
+  render(
+    "admin/breadcrumb_heading",
+    breadcrumbs: [
+      { label: t("admin.index.heading"), href: admin_index_path },
+      { label: t(".heading"), href: nil }
+    ]
+  )
+%>
+
+<% if @modifier %>
+<div class="admin-audits--filter-enabled">
+  <span class="warning"><%= t(".filter_enabled.warning", name: @modifier.name) %></span>
+  <span class="clear"><%= link_to(t(".filter_enabled.clear"), admin_audits_path) %></span>
+</div>
+<% end %>
+
+<div class="admin-audits__audits-table-container">
+  <table class="admin-audits__audits-table">
+    <thead>
+      <tr>
+        <td class="modifier"><%= t(".header.modifier") %></td>
+        <td class="description"><%= t(".header.description") %></td>
+        <td class="created_at"><%= t(".header.created_at") %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @audits.each do |audit| %>
+      <% audit = Admin::AuditPresenter.new(audit, view: view_context) %>
+      <tr data-id="<%= audit.id %>">
+        <td class="modifier">
+          <%=
+            if audit.modifier
+              link_to(audit.modifier.name, admin_audits_path(modifier: audit.modifier.synthetic_id))
+            end
+          %>
+        </td>
+        <td class="description"><%= audit.description %></td>
+        <td class="created_at"><span title="<%= audit.created_at_alt_text %>"><%= audit.created_at %></span></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @audits %>

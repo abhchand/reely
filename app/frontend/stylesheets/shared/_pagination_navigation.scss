@@ -1,0 +1,71 @@
+// Adapted from the `will_paginate` gem's guide to styling
+// their pagination navigation
+// http://mislav.github.io/will_paginate/
+
+.pagination {
+  background: white;
+  cursor: default;
+
+  a, span, em {
+    margin-right: 1px;
+    padding: 0.2em 0.5em;
+  }
+
+  .previous_page, .next_page {
+    font-weight: 500;
+  }
+
+  .current {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    font-style: normal;
+    background: $deep-navy;
+    border: 1px solid $deep-navy;
+  }
+
+  .disabled {
+    color: $dark-gray;
+    border: 1px solid $light-gray;
+  }
+
+  a {
+    color: $deep-navy;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;;
+    border: 1px solid $deep-navy;
+  }
+
+  .page_info {
+    width: 22em;
+    margin-bottom: 0.3em;
+    padding: 0.4em 0.6em;
+    color: white;
+    text-align: center;
+    background: $deep-navy;
+
+    b {
+      padding: 0.1em 0.25em;
+      color: $black;
+      background: $deep-navy;
+    }
+  }
+
+  /* self-clearing method: */
+  &:after {
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    content: ".";
+  }
+
+  * html & {
+    height: 1%
+  }
+
+  *:first-child+html & {
+    overflow: hidden
+  }
+}

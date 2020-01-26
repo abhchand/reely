@@ -21,11 +21,21 @@ table {
 
       td {
         padding: 7px 5px;
+        word-wrap: break-word;
       }
 
       &:hover {
         background-color: $mustard-opacity;
       }
     }
+  }
+}
+
+.scrollable_mobile_table {
+  overflow-x: scroll;
+  white-space: nowrap;
+
+  @include breakpoint($screen-xs) {
+    overflow-x: initial;
   }
 }

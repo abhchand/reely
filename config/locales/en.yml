@@ -10,6 +10,14 @@ en:
       month_and_year: "%b %Y"
       # 15 Apr 2017
       day_month_and_year: "%d %b %Y"
+      # Apr 15, 2017
+      month_day_and_year: "%b %d, %Y"
+      # 2016-04-15
+      iso_date: "%Y-%m-%d"
+      # 2016-04-15 12:00:00
+      timestamp: "%Y-%m-%d %H:%M:%S"
+      # 2016-04-15 12:00:00
+      timestamp_with_zone: "%Y-%m-%d %H:%M:%S %Z"
 
   form:
     disable_with: Please wait...
@@ -142,6 +150,16 @@ en:
         confirm_cancel: Are you sure?
 
   admin:
+    audits:
+      index:
+        heading: Audits
+        header:
+          modifier: Modifier
+          description: Action
+          created_at: Modified At
+        filter_enabled:
+          warning: You are viewing audits for %{name}.
+          clear: View all
     audit:
       shared:
         unknown: Unknown action
@@ -157,6 +175,7 @@ en:
     index:
       heading: Admin
       pages:
+        audits: Audits
         users: Users
     users:
       index:

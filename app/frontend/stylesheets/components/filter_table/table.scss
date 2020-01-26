@@ -1,10 +1,5 @@
 .filter-table__table {
-  overflow-x: scroll;
-  white-space: nowrap;
-
-  @include breakpoint($screen-xs) {
-    overflow-x: none;
-  }
+  @extend .scrollable_mobile_table;
 }
 .filter-table--empty-state {
   @extend .empty-state;

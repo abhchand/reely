@@ -84,7 +84,7 @@ RSpec.describe Admin::UserRolesController, type: :controller do
       expect(audit[0].user).to eq(admin)
       expect(audit[0].action).to eq("update")
       expect(audit[0].audited_changes).to eq("audited_roles" => [nil, "director"])
-      expect(audit[0].version).to eq(2)
+      expect(audit[0].version).to eq(3)
       expect(audit[0].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to_not be_nil
 
@@ -92,7 +92,7 @@ RSpec.describe Admin::UserRolesController, type: :controller do
       expect(audit[1].user).to eq(admin)
       expect(audit[1].action).to eq("update")
       expect(audit[1].audited_changes).to eq("audited_roles" => ["manager", nil])
-      expect(audit[1].version).to eq(3)
+      expect(audit[1].version).to eq(4)
       expect(audit[1].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to_not be_nil
 

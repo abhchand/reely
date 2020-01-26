@@ -52,7 +52,7 @@ FactoryBot.define do
       end
 
       if e.add_admin_role
-        user.add_role(:admin)
+        user.add_role(:admin, modifier: user)
       end
     end
   end
