@@ -50,6 +50,33 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     )
   end
 
+  it "completing an invitation is audited" do
+    create(:user_invitation, email: "asha@singers.com")
+
+    register(
+      first_name: "Asha",
+      last_name: "Bhosle",
+      email: "asha@singers.com",
+      password: "Best!s0ngz"
+    )
+
+    admin = User.last
+
+    confirm(admin)
+    log_in(admin, password: "Best!s0ngz")
+
+    admin.add_role(:admin)
+
+    # Check if audited
+    # The most recent audits (indexes [0], [1], and [2]) will be adding the
+    # `:admin` role and confirming the email and creating the user, so we check
+    # the next audit (index [3])
+    visit admin_audits_path
+    expect(audit_table_displayed_descriptions[3]).to eq(
+      t("#{@t_prefix}.user_description.created_as_native")
+    )
+  end
+
   it "creating an account with native auth is audited" do
     register(
       first_name: "Asha",

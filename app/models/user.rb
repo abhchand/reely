@@ -175,6 +175,8 @@ class User < ApplicationRecord
     invitation = UserInvitation.find_by_email(self[:email].downcase)
     return if invitation.blank?
 
-    invitation.update(invitee: self)
+    Audited.audit_class.as_user(self) do
+      invitation.update(invitee: self)
+    end
   end
 end

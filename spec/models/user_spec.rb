@@ -603,6 +603,22 @@ RSpec.describe User do
             user.save!
             expect(invitation.reload.invitee).to eq(user)
           end
+
+          it "audits the change" do
+            invitation
+
+            expect { user.save! }.to(change { Audited::Audit.count }.by(2))
+
+            audit = Audited::Audit.last
+
+            expect(audit.auditable).to eq(invitation)
+            expect(audit.user).to eq(user)
+            expect(audit.action).to eq("update")
+            expect(audit.audited_changes).to eq("invitee_id" => [nil, user.id])
+            expect(audit.version).to eq(2)
+            expect(audit.request_uuid).to_not be_nil
+            expect(audit.remote_address).to be_nil
+          end
         end
       end
     end

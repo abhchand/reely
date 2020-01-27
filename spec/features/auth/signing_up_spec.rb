@@ -222,6 +222,19 @@ RSpec.feature "Signing Up", type: :feature do
       expect(page).to have_current_path(account_profile_index_path)
     end
 
+    context "a user invitation exists" do
+      let!(:user_invitation) do
+        create(:user_invitation, email: auth_hash[:info][:email])
+      end
+
+      it "completes the user invitation" do
+        mock_google_oauth2_auth_response(auth_hash)
+        log_in_with_omniauth("google_oauth2")
+
+        expect(user_invitation.reload.invitee).to eq(User.last)
+      end
+    end
+
     context "omniauth results in a failure" do
       before { mock_google_oauth2_auth_error(:invalid_credentials) }
 

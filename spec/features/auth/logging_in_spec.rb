@@ -28,6 +28,34 @@ RSpec.feature "Logging In", type: :feature do
     expect(page).to have_current_path(collections_path)
   end
 
+  context "first login" do
+    let(:user_attrs) do
+      {
+        first_name: "Asha",
+        last_name: "Bhosle",
+        email: "asha@singers.com",
+        password: "Best!s0ngz"
+      }
+    end
+
+    context "a user invitation exists" do
+      let!(:user_invitation) do
+        create(:user_invitation, email: user_attrs[:email])
+      end
+
+      it "completes the user invitation" do
+        register(user_attrs)
+
+        user = User.last
+
+        confirm(user)
+        log_in(user, password: user_attrs[:password])
+
+        expect(user_invitation.reload.invitee).to eq(user)
+      end
+    end
+  end
+
   context "invalid email" do
     it "displays a flash error" do
       log_in(user, email: "bad-email@ga.gov")
@@ -213,6 +241,12 @@ RSpec.feature "Logging In", type: :feature do
       expect(user.uid).to eq(original_attrs["uid"])
       expect(user.provider).to eq("google_oauth2")
       expect(user.avatar.attached?).to eq(false)
+    end
+
+    context "a user invitation exists" do
+      it "completes the user invitation" do
+        # See `signing_up_spec`
+      end
     end
 
     context "email is pending reconfirmation" do
