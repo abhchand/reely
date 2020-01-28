@@ -340,6 +340,10 @@ en:
       close: Dismiss
 
   photos:
+    import_service:
+      generic_error: Could not upload photo
+      invalid_content_type: File is not an image
+      duplicate_image: Duplicate image detected!
     index:
       heading: My Photos
       empty: You have no photos
