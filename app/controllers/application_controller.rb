@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_action :check_if_deactivated
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :append_view_paths
+  before_action :initialize_packs_list
+  before_action :set_pack_to_application
 
   helper_method :view_context
 
@@ -19,6 +21,14 @@ class ApplicationController < ActionController::Base
 
   def append_view_paths
     append_view_path "app/views/application"
+  end
+
+  def initialize_packs_list
+    @use_packs = []
+  end
+
+  def set_pack_to_application
+    @use_packs << :application
   end
 
   protected

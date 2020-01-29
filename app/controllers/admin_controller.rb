@@ -1,6 +1,8 @@
 class AdminController < ApplicationController
   layout "with_responsive_navigation"
 
+  skip_before_action :set_pack_to_application
+
   before_action :admin_only
   before_action :set_pack_to_admin
 
@@ -19,6 +21,6 @@ class AdminController < ApplicationController
   end
 
   def set_pack_to_admin
-    @use_pack = :admin
+    @use_packs << :admin
   end
 end

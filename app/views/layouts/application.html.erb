@@ -2,11 +2,13 @@
 <html>
 <head>
   <title>Reely</title>
-  <%= stylesheet_pack_tag @use_pack || "application", media: "all", "cache" => false %>
-
   <%= javascript_pack_tag "i18n" %>
   <%= javascript_include_tag "/i18n/translations.js" %>
-  <%= javascript_pack_tag @use_pack || "application" %>
+
+  <% @use_packs.each do |pack| %>
+    <%= javascript_pack_tag pack %>
+    <%= stylesheet_pack_tag pack, media: "all", "cache" => false %>
+  <% end %>
 
   <%= csrf_meta_tags %>
 
