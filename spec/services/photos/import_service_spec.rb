@@ -58,6 +58,21 @@ RSpec.describe Photos::ImportService, type: :interactor do
     end
   end
 
+  context "file size is invalid" do
+    it "does not create the Photo" do
+      result = nil
+      expect do
+        result = call(max_file_size: 1.kilobyte)
+      end.to_not(change { Photo.count })
+
+      expect(result.success?).to eq(false)
+      expect(result.log).to_not be_nil
+      expect(result.error).
+        to eq(t("#{@t_prefix}.invalid_file_size", max_file_size: "1 KB"))
+      expect(result.photo).to be_nil
+    end
+  end
+
   context "file content type is invalid" do
     let(:filepath) do
       create_import_file(owner: owner, fixture: "text/quotes.md")

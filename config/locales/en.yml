@@ -343,6 +343,7 @@ en:
     import_service:
       generic_error: Could not upload photo
       invalid_content_type: File is not an image
+      invalid_file_size: File can not be larger than %{max_file_size}
       duplicate_image: Duplicate image detected!
     index:
       heading: My Photos

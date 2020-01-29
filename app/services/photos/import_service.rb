@@ -1,11 +1,15 @@
 class Photos::ImportService
   include Interactor
+  include ActionView::Helpers::NumberHelper
+
+  MAX_FILE_SIZE = 15.megabytes.freeze
 
   def call
     @i18n_prefix = "photos.import_service"
 
     case
     when !file_exists?            then handle_missing_file
+    when !valid_file_size?        then handle_invalid_file_size
     when !valid_content_type?     then handle_invalid_content_type
     when duplicate?               then handle_duplicate_image
     when !create_photo            then handle_failed_creation
@@ -19,11 +23,19 @@ class Photos::ImportService
   end
 
   def filepath
-    @filepath = Pathname.new(context.filepath)
+    @filepath ||= Pathname.new(context.filepath)
+  end
+
+  def max_file_size
+    @max_file_size ||= context.max_file_size || MAX_FILE_SIZE
   end
 
   def file_exists?
     filepath.exist?
+  end
+
+  def valid_file_size?
+    File.size(filepath) <= max_file_size
   end
 
   def valid_content_type?
@@ -70,6 +82,16 @@ class Photos::ImportService
     context.fail!(
       log: "#{log_tags} Missing file",
       error: I18n.t("#{@i18n_prefix}.generic_error")
+    )
+  end
+
+  def handle_invalid_file_size
+    context.fail!(
+      log: "#{log_tags} File too large",
+      error: I18n.t(
+        "#{@i18n_prefix}.invalid_file_size",
+        max_file_size: number_to_human_size(max_file_size)
+      )
     )
   end
 
