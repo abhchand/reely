@@ -15,16 +15,14 @@
 //
 
 .page-content {
-  padding: 0 20px;
+  padding: 20px;
 
   @include breakpoint($screen-xs) {
-    padding: 0 30px;
+    padding: 30px;
   }
 }
 .page-heading {
-  width: 100%;
   margin: 20px 0;
-  padding-left: 20px;
   color: $dark-gray;
   font-weight: 500;
   font-size: 36px;
@@ -32,22 +30,15 @@
   text-align: left;
 
   @include breakpoint($screen-xs) {
-    padding-left: 40px;
     font-size: 48px;
   }
 }
 .page-subheading {
-  width: 100%;
   margin: 20px 0;
-  padding-left: 20px;
   color: $black;
   font-weight: 500;
   font-size: 22px;
   text-align: left;
-
-  @include breakpoint($screen-xs) {
-    padding-left: 40px;
-  }
 }
 
 //
@@ -146,12 +137,6 @@
   align-items: stretch;
   height: 40px;
   margin-right: auto;
-
-  // The first icon creates some space that makes
-  // the tray look indented. Compensate for that with
-  // negative margin - the amount here matches the one-sided
-  // width a 24px icon leaves inside a 40px div
-  margin-left: -8px;
 }
 
 .icon-tray__item {

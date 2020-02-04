@@ -9,20 +9,11 @@
   margin: 80px auto;
 }
 .collections-show__date-range {
-  margin-left: 20px;
   color: $dark-gray;
   text-align: left;
-
-  @include breakpoint($screen-xs) {
-    margin-left: 40px;
-  }
 }
 .collections-show__action-bar {
-  margin: 20px 0 5px 20px;
-
-  @include breakpoint($screen-xs) {
-    margin-left: 40px;
-  }
+  margin: 15px 0;
 }
 .collections-show__action-bar-item {
 }

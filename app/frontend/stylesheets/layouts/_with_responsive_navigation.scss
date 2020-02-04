@@ -21,5 +21,5 @@
   }
 }
 .responsive-navigation-content {
-  width: 100%;
+  @extend .page-content;
 }

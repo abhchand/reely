@@ -4,7 +4,7 @@
   <%= t(".heading").downcase %>
 </h1>
 
-<div class="collections-index-container page-content">
+<div class="collections-index-container">
   <%= button_to(collections_path, form_class: "collections-index-create", params: { "collection[name]": "Untitled" }) do %>
     <%= inline_svg_tag("icons/plus.svg", height: "32px", width: "32px") %>
   <% end %>

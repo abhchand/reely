@@ -6,17 +6,14 @@ RSpec.feature "Flash message", type: :feature do
 
     expect(page).to have_current_path(new_user_session_path)
 
-    expected_message = [
+    expect(find(".flash")).to be_visible
+    expect(find(".flash .message").text).to eq(
       t(
         "devise.failure.invalid",
         authentication_keys: User.human_attribute_name(:email)
-      ),
-      t("layouts.flash.close")
-    ].join(" ")
-
-    expect(find(".flash")).to be_visible
-    expect(find(".flash .flash__message").text).to eq(expected_message)
-    expect(find(".flash .flash__message .close").text).
+      )
+    )
+    expect(find(".flash .close").text).
       to eq(t("layouts.flash.close"))
   end
 

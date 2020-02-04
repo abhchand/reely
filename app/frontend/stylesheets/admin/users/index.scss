@@ -15,7 +15,6 @@
 }
 .admin-audits__audits-table-container {
   @extend .scrollable_mobile_table;
-  @extend .page-content;
 
   width: 1000px;
 }

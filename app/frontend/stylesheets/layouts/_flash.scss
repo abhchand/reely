@@ -1,8 +1,11 @@
-// Flash messages
 .flash {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   height: 50px;
   margin: 10px 0;
-  padding: 12px 0;
   font-weight: 700;
 
   &.active {
@@ -10,6 +13,7 @@
   }
 
   &.inactive {
+    display: none;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s 0.25s, opacity 0.25s linear;
@@ -23,19 +27,14 @@
     background: $light-green;
   }
 
-  .flash__message {
-    .close {
-
-      // Matches bootstrap a:focus color;
-      color: #337AB7;
-      font-weight: 700;
-      cursor: pointer;
-      transition: color 0.15s ease-in;
-
-      &:hover {
-        // Matches overriden bootstrap a:focus color;
-        color: #23527C;
-      }
-    }
+  .message {
   }
+  .close {
+    margin-left: 5px;
+    color: $light-blue;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+  }
+
 }

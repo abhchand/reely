@@ -1,29 +1,31 @@
-<h1 class="page-heading">
-  <%= @collection.name %>
-</h1>
+<div class="page-content">
+  <h1 class="page-heading">
+    <%= @collection.name %>
+  </h1>
 
-<%= render "shared/photo_count", photo_count: @photo_count %>
+  <%= render "shared/photo_count", photo_count: @photo_count %>
 
-<% if @date_range_label %>
-<div class="collections-sharing-display-show__date-range">
-  <%= @date_range_label %>
-</div>
-<% end %>
+  <% if @date_range_label %>
+  <div class="collections-sharing-display-show__date-range">
+    <%= @date_range_label %>
+  </div>
+  <% end %>
 
-<% if @photo_count.zero? %>
-<div class="collections-sharing-display-show__emtpy-state">
-  <%= t(".empty") %>
+  <% if @photo_count.zero? %>
+  <div class="collections-sharing-display-show__emtpy-state">
+    <%= t(".empty") %>
+  </div>
+  <% else %>
+  <div class="collections-sharing-display-show__photo-manager-container photo-manager-container">
+    <%=
+      react_component(
+        "photo-manager",
+        {
+          photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+          isReadOnly: true
+        }
+      )
+    %>
+  </div>
+  <% end %>
 </div>
-<% else %>
-<div class="collections-sharing-display-show__photo-manager-container photo-manager-container page-content">
-  <%=
-    react_component(
-      "photo-manager",
-      {
-        photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
-        isReadOnly: true
-      }
-    )
-  %>
-</div>
-<% end %>

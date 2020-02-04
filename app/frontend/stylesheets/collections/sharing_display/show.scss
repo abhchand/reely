@@ -1,18 +1,11 @@
 #collections-sharing-display-show {
-  .page-heading {
-    // There's no nav bar on this page so add a little extra
-    // space at the top of the page
-    margin-top: 50px;
+  .photo-count {
+    margin-bottom: 0;
   }
 }
 .collections-sharing-display-show__date-range {
-  margin-left: 20px;
   color: $dark-gray;
   text-align: left;
-
-  @include breakpoint($screen-xs) {
-    margin-left: 40px;
-  }
 }
 .collections-sharing-display-show__emtpy-state {
   @extend .empty-state;
