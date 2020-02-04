@@ -77,9 +77,15 @@
         background-color: $light-gray;
       }
 
-      span.highlight {
-        background-color: $mustard;
-        border-radius: 2px;
+      span {
+        overflow: hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+
+        .highlight {
+          background-color: $mustard;
+          border-radius: 2px;
+        }
       }
     }
   }
@@ -89,6 +95,7 @@
     @extend .cta-green;
 
     height: 40px;
+    padding-left: 0;
     font-weight: 700;
     line-height: 40px;
     text-align: center;
