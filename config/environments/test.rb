@@ -56,4 +56,5 @@ Rails.application.configure do
 
   # Custom Configs
   config.x.default_import_dir = "/tmp/reely/test/import"
+  config.x.default_upload_dir = "/tmp/reely/test/upload"
 end

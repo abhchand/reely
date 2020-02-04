@@ -13,8 +13,8 @@ RSpec.describe PhotoPresenter, type: :presenter do
     context "size specified" do
       it "returns the URL path to the specified size" do
         path =
-          raw_photo_path(id: photo.direct_access_key, size: :medium)
-        expect(photo.source_file_path(size: :medium)).to eq(path)
+          raw_photo_path(id: photo.direct_access_key, size: :thumb)
+        expect(photo.source_file_path(size: :thumb)).to eq(path)
       end
 
       it "ignores the size when invalid" do

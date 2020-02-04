@@ -174,6 +174,36 @@ class IconCopy extends React.Component {
 
 }
 
+class IconFile extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    secondaryColor: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    fillColor: '#EEEEEE',
+    secondaryColor: '#FFFFFF',
+    size: '32',
+    title: 'File'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <g id="icon-file" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <path d="M87.5,31.0355339 L58.9644661,2.5 L13,2.5 C12.7238576,2.5 12.5,2.72385763 12.5,3 L12.5,97 C12.5,97.2761424 12.7238576,97.5 13,97.5 L87,97.5 C87.2761424,97.5 87.5,97.2761424 87.5,97 L87.5,31.0355339 Z" id="base" stroke={this.props.fillColor} strokeWidth="5" fill={this.props.fillColor}></path>
+          <path d="M60.5,1.20710678 L60.5,27 C60.5,28.3807119 61.6192881,29.5 63,29.5 L88.7928932,29.5 L60.5,1.20710678 Z" id="fold" stroke={this.props.secondaryColor} fill={this.props.secondaryColor}></path>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
 class IconFilledCircle extends React.Component {
 
   static propTypes = {
@@ -436,6 +466,6 @@ class IconX extends React.Component {
 
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
-  IconCircle, IconCopy, IconFilledCircle, IconPencilWithSquares, IconPlus,
-  IconRefresh, IconRemovePhoto, IconTrash, IconUserWithKey, IconX
+  IconCircle, IconCopy, IconFile, IconFilledCircle, IconPencilWithSquares,
+  IconPlus, IconRefresh, IconRemovePhoto, IconTrash, IconUserWithKey, IconX
 };

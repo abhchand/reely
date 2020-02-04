@@ -1,0 +1,24 @@
+.file-uploader__upload {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 650px;
+  height: 105px;
+  padding: 5px 0;
+  border-top: 1px solid $light_gray;
+  border-bottom: 1px solid $light_gray;
+
+  @include breakpoint($screen-xs) {
+    flex-wrap: nowrap;
+    height: 75px;
+    padding: 5px 30px;
+  }
+
+  .error {
+    color: $red;
+    font-weight: 700;
+  }
+}

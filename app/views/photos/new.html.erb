@@ -1,0 +1,18 @@
+<h1 class="page-heading">
+  <%= t(".heading").downcase %>
+</h1>
+
+<div class="photos-new__file-uploader">
+  <%=
+    react_component(
+      "file-uploader",
+      {
+        url: photos_path(format: :json),
+        modelName: "photo",
+        attrName: "source_file",
+        maxFileCount: PhotosController::MAX_FILE_UPLOAD_COUNT,
+        maxFileSize: Photos::ImportService::MAX_FILE_SIZE
+      }
+    )
+  %>
+</div>

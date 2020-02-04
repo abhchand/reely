@@ -15,7 +15,7 @@ RSpec.describe RawPhotosController, type: :controller do
 
     context "source_file is not processed" do
       before do
-        transformations = Photo::SOURCE_FILE_SIZES[:medium]
+        transformations = Photo::SOURCE_FILE_SIZES[:thumb]
         variant = photo.source_file.variant(transformations)
         File.delete(variant.service.path_for(variant.key))
 
@@ -23,7 +23,7 @@ RSpec.describe RawPhotosController, type: :controller do
       end
 
       it "redirects to the root path" do
-        get :show, params: { id: photo.direct_access_key, size: "medium" }
+        get :show, params: { id: photo.direct_access_key, size: "thumb" }
         expect(response).to redirect_to(root_path)
       end
     end
@@ -43,13 +43,13 @@ RSpec.describe RawPhotosController, type: :controller do
 
       context ":size param is specified" do
         it "returns the photo source file inline" do
-          expect_file_served_for(photo, :medium)
-          get :show, params: { id: photo.direct_access_key, size: "medium" }
+          expect_file_served_for(photo, :thumb)
+          get :show, params: { id: photo.direct_access_key, size: "thumb" }
         end
 
         it ":size param is case insensitive" do
-          expect_file_served_for(photo, :medium)
-          get :show, params: { id: photo.direct_access_key, size: "MEDiUm" }
+          expect_file_served_for(photo, :thumb)
+          get :show, params: { id: photo.direct_access_key, size: "thumb" }
         end
 
         context ":size param is invalid" do
@@ -82,9 +82,9 @@ RSpec.describe RawPhotosController, type: :controller do
 
       context ":size param is specified" do
         it "returns the photo source file inline" do
-          stub_service_url(size: "medium")
-          get :show, params: { id: photo.direct_access_key, size: "medium" }
-          expect_to_redirect_to_service_url(size: :medium)
+          stub_service_url(size: "thumb")
+          get :show, params: { id: photo.direct_access_key, size: "thumb" }
+          expect_to_redirect_to_service_url(size: :thumb)
         end
       end
     end

@@ -50,6 +50,7 @@ textarea {
   transition: 0.15s ease-in-out;
 
   &:disabled {
+    cursor: default;
     opacity: 0.2;
   }
 }

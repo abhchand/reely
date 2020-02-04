@@ -2,6 +2,7 @@ class Photos::ImportService
   include Interactor
   include ActionView::Helpers::NumberHelper
 
+  # This should match any front end validation default
   MAX_FILE_SIZE = 15.megabytes.freeze
 
   def call
@@ -131,10 +132,10 @@ class Photos::ImportService
   end
 
   def file_io
-    @file_io ||= File.open(@filepath)
+    @file_io ||= File.open(filepath)
   end
 
   def exif_data
-    @exif_data ||= Exiftool.new(@filepath).to_hash
+    @exif_data ||= Exiftool.new(filepath).to_hash
   end
 end

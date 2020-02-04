@@ -25,6 +25,16 @@ module GeneralHelpers
     target_fp
   end
 
+  def create_upload_file(fixture:)
+    source_fp = fixture_path_for(fixture)
+    target_fp = Pathname.new(upload_dir).join(source_fp.basename)
+
+    FileUtils.mkdir_p(target_fp.dirname)
+    FileUtils.cp(source_fp, target_fp)
+
+    target_fp
+  end
+
   def strip_and_rewrite_exif_data(filepath:, exif_data:)
     if filepath.to_s.include?(Rails.root.join("spec").to_s)
       raise "Cant modify fixture files inside git repository!"

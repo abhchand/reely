@@ -1,0 +1,9 @@
+.photos-new__file-uploader {
+  position: relative;
+  width: 350px;
+  margin: 0 auto;
+
+  @include breakpoint($screen-xs) {
+    width: 700px;
+  }
+}

@@ -1,0 +1,37 @@
+.file-uploader {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.file-uploader__form {
+  text-align: center;
+}
+
+// See this approach to styling file inputs
+// https://stackoverflow.com/a/25825731/2490003
+// We hide the actual input button and instead
+// style the label on top of it as if it were
+// a button
+.file-uploader__select-files-input-label {
+  display: inline-block;
+  width: 200px;
+
+  // By default the text is rendered across the
+  // top of the label
+  // The top padding sets the top half height and
+  // the height sets the bottom half height - having
+  // them equal renders vertically centered text
+  // in the "button" label
+  height: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 24px;
+  cursor: pointer;
+}
+.file-uploader__select-files-input-label--disabled {
+  cursor: default;
+  opacity: 0.2;
+}
+.file-uploader__select-files-input {
+  display: none;
+}

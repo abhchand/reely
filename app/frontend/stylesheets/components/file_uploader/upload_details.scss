@@ -1,0 +1,18 @@
+.file-uploader__upload-details {
+  width: 200px;
+  min-width: 200px;
+  padding: 5px 25px;
+  text-align: left;
+
+  .filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .filesize {
+    margin-top: 3px;
+    color: $dark_gray;
+    font-size: 12px;
+  }
+}

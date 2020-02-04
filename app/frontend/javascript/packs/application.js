@@ -19,6 +19,7 @@ import 'javascript/collections/show';
 
 import 'javascript/components/action_notifications';
 import 'javascript/components/delete_collection';
+import 'javascript/components/file_uploader';
 import 'javascript/components/icons';
 import 'javascript/components/modal';
 import 'javascript/components/photo_manager';

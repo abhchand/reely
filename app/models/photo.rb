@@ -3,7 +3,7 @@ class Photo < ApplicationRecord
   include HasDirectAccessKey
 
   SOURCE_FILE_SIZES = {
-    medium: { resize: "200x200" },
+    thumb: { resize: "150x150" },
     screen: { resize: "1000x1000" }
   }.freeze
 

@@ -258,6 +258,17 @@ en:
       body: This collection will be permanently deleted
       buttons:
         submit: Delete
+    file_uploader:
+      upload: Browse files
+      upload_count:
+        heading:
+          one: "%{uploaded} of 1 file uploaded"
+          other: "%{uploaded} of %{count} files uploaded"
+      validator:
+        count:
+          one: Please select only 1 file
+          other: Please select a maximum of %{count} files
+        size: One or more files exceeds %{max_size}
     filter_table:
       search_input:
         placeholder: Search...
@@ -344,10 +355,12 @@ en:
       generic_error: Could not upload photo
       invalid_content_type: File is not an image
       invalid_file_size: File can not be larger than %{max_file_size}
-      duplicate_image: Duplicate image detected!
+      duplicate_image: This image has already been uploaded.
     index:
       heading: My Photos
       empty: You have no photos
+    new:
+      heading: Add photos
 
   shared:
     photo_count:
