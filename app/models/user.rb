@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   AVATAR_SIZES = {
+    # NOTE: Update the corresponding `blank-avatar-*.jpg` images if updating
+    # any of these sizes
     thumb: { resize: "75x75" },
     medium: { resize: "200x200" }
   }.freeze

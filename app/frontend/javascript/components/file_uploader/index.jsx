@@ -105,7 +105,7 @@ class FileUploader extends React.Component {
   onUploadCompletion(file, response) {
     // eslint-disable-next-line no-magic-numbers
     this.updateProgress(file, 100);
-    this.setUploadPreview(file, response.data.paths.thumb);
+    this.setUploadPreview(file, response.data.paths.tile);
 
     if (!this.uploadNextQueuedFile()) {
       this.setState({ isUploading: false });

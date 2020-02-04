@@ -80,12 +80,12 @@ RSpec.describe PhotosController, type: :controller do
       end.to change { Photo.count }.by(1)
 
       photo = Photo.last
-      thumb_path =
-        PhotoPresenter.new(photo, view: nil).source_file_path(size: :thumb)
+      tile_path =
+        PhotoPresenter.new(photo, view: nil).source_file_path(size: :tile)
 
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)).
-        to eq("paths" => { "thumb" => thumb_path })
+        to eq("paths" => { "tile" => tile_path })
 
       expect(photo.owner).to eq(user)
       expect(photo.source_file.attached?).to eq(true)

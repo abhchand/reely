@@ -123,12 +123,12 @@ RSpec.feature "uploading photos", :js, type: :feature do
     end
   end
 
-  def thumbnail_path_for(photo)
-    PhotoPresenter.new(photo, view: nil).source_file_path(size: :thumb)
+  def tile_path_for(photo)
+    PhotoPresenter.new(photo, view: nil).source_file_path(size: :tile)
   end
 
   def expect_uploaded_photo(photo, file_index:)
-    url = thumbnail_path_for(photo)
+    url = tile_path_for(photo)
     upload = page.find("li[data-id='#{file_index}']")
 
     expect(upload.find(".file-uploader__upload-preview")["style"]).

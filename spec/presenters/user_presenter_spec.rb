@@ -16,6 +16,12 @@ RSpec.describe PhotoPresenter, type: :presenter do
         to eq(avatar_path_for(user, size: :thumb))
     end
 
+    it "raises an error when size is invalid" do
+      expect do
+        user.avatar_path(size: :foo)
+      end.to raise_error(/Unknown avatar size/)
+    end
+
     context "no avatar attached" do
       let(:model) { create(:user) }
 

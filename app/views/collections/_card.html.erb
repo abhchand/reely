@@ -7,7 +7,7 @@
       <% photo = PhotoPresenter.new(cover_photos[photo_idx], view: view_context) %>
 
       <% if photo.model %>
-        <div class="collections-card__cover-photo" data-id="<%= photo_idx %>" style="background-image: url(<%= photo.source_file_path(size: :medium) %>);transform: rotate(<%= photo.photo_manager_props[:rotate] %>deg)">
+        <div class="collections-card__cover-photo" data-id="<%= photo_idx %>" style="background-image: url(<%= photo.source_file_path(size: :tile) %>);transform: rotate(<%= photo.photo_manager_props[:rotate] %>deg)">
         </div>
       <% else %>
         <div class="collections-card__cover-photo collections-card__cover-photo--blank" data-id="<%= photo_idx %>">

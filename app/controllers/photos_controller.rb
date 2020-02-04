@@ -23,7 +23,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if import.success?
         format.json do
-          render json: { paths: { thumb: thumb_path } }, status: 200
+          render json: { paths: { tile: tile_path } }, status: 200
         end
       else
         format.json do
@@ -52,8 +52,8 @@ class PhotosController < ApplicationController
     )
   end
 
-  def thumb_path
-    @thumb_path ||=
-      PhotoPresenter.new(import.photo, view: nil).source_file_path(size: :thumb)
+  def tile_path
+    @tile_path ||=
+      PhotoPresenter.new(import.photo, view: nil).source_file_path(size: :tile)
   end
 end

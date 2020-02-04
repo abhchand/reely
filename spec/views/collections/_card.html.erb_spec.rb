@@ -26,7 +26,7 @@ RSpec.describe "collections/_card.html.erb", type: :view do
         photo = PhotoPresenter.new(photos[photo_idx], view: nil)
 
         expect(photo_el["style"]).
-          to have_content(photo.source_file_path(size: :medium))
+          to have_content(photo.source_file_path(size: :tile))
       end
     end
 

@@ -2,6 +2,8 @@ class UserPresenter < ApplicationPresenter
   include WebpackHelper
 
   def avatar_path(size: nil)
+    raise "Unknown avatar size: #{size}" unless valid_avatar_size?(size)
+
     unless avatar.attached?
       return image_path("blank-avatar-#{size&.downcase || :medium}.jpg")
     end
@@ -22,5 +24,14 @@ class UserPresenter < ApplicationPresenter
 
   def roles
     model.roles.map(&:name).sort
+  end
+
+  private
+
+  def valid_avatar_size?(size)
+    return true if size.nil?
+    return true if Rails.env.production?
+
+    User::AVATAR_SIZES.key?(size)
   end
 end

@@ -26,7 +26,7 @@ class Photo extends React.Component {
   }
 
   photoUrl() {
-    return this.props.photo.mediumUrl;
+    return this.props.photo.tileUrl;
   }
 
   applyRotation(style) {

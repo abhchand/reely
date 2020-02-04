@@ -14,7 +14,7 @@
 # This flow poses a few problems for Reely:
 #
 # 1. We don't want to redirect for every image request. It introduces a lag
-#    over hundreds of served thumbnails and images
+#    over hundreds of served images
 #
 # 2. We only care about the DiskService (not serving images from S3, etc..) so
 #    we don't need the flexibility of providing a stable URL in front of a
