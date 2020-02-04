@@ -1,8 +1,11 @@
 .collections-editable-name-heading {
 }
 .collections-editable-name-heading__textarea {
+  @extend .page-heading;
+
   width: 80%;
-  height: 55px;
+  height: 75px;
+  padding-left: 0;
   overflow: hidden;
   border: none;
   resize: none;
