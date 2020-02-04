@@ -193,6 +193,7 @@ en:
           people: people
           favorites: favorites
           collections: collections
+          new_photo: add photos
           account: account
           admin: admin
           product_feedback: give feedback

@@ -26,6 +26,7 @@ RSpec.describe "application/_desktop_navigation.html.erb", type: :view do
       "#",
       "#",
       "#",
+      new_photo_path,
       collections_path,
       account_profile_index_path,
       "#",
