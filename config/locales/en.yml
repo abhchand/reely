@@ -307,6 +307,9 @@ en:
           heading:
             one: "%{count} Photo Selected"
             other: "%{count} Photos Selected"
+      empty:
+        heading: You have no photos (yet!)
+        add_photos: add photos
     product_feedback_form:
       heading: Tell us what you think
       subheading: "Please use this to suggest any improvements or features you may find useful (max: %{maxlength} characters)"
@@ -359,7 +362,6 @@ en:
       duplicate_image: This image has already been uploaded.
     index:
       heading: My Photos
-      empty: You have no photos
     new:
       heading: Add photos
 

@@ -189,6 +189,10 @@ RSpec.feature "photo manager remove from collection", type: :feature do
   end
 
   def validate_photo_display(photos)
-    expect(displayed_photo_ids).to match_array(photos.map(&:synthetic_id))
+    if photos.count.positive?
+      expect(displayed_photo_ids).to match_array(photos.map(&:synthetic_id))
+    else
+      expect(page).to have_selector(".photo-manager--emtpy")
+    end
   end
 end

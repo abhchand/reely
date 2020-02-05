@@ -1,4 +1,5 @@
 import ControlPanel from './control_panel';
+import Empty from './empty';
 import mountReactComponent from 'mount-react-component.jsx';
 import PhotoCarousel from './carousel';
 import PhotoGrid from './photo_grid';
@@ -47,8 +48,7 @@ class PhotoManager extends React.Component {
   removeSelectedPhotos() {
     this.setState((prevState) => {
       const idsToRemove = prevState.selectedPhotoIds;
-      let newPhotoData = prevState.photoData.filter(
-        (photo) => (idsToRemove.indexOf(photo.id) < 0));
+      const newPhotoData = prevState.photoData.filter((photo) => idsToRemove.indexOf(photo.id) < 0);
 
       return { photoData: newPhotoData };
     });
@@ -136,6 +136,10 @@ class PhotoManager extends React.Component {
   render() {
     const enabledClass = this.state.selectionModeEnabled ? ' photo-grid--selection-mode-enabled' : '';
 
+    if (this.state.photoData.length === 0) {
+      return <Empty />;
+    }
+
     return (
       <div className={`photo-manager${enabledClass}`} tabIndex="-1" role="presentation">
         {this.renderControlPanel()}
@@ -144,6 +148,7 @@ class PhotoManager extends React.Component {
       </div>
     );
   }
+
 }
 
 export default PhotoManager;

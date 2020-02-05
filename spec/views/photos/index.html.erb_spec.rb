@@ -48,22 +48,4 @@ RSpec.describe "photos/index.html.erb", type: :view do
 
     expect(page).to have_react_component("photo-manager").including_props(props)
   end
-
-  context "no photos exist" do
-    before do
-      assign(:photos, [])
-      assign(:photo_count, 0)
-    end
-
-    it "displays the empty state" do
-      render
-
-      expect(page.find(".photos-index__emtpy-state")).
-        to have_content(t("#{@t_prefix}.empty"))
-
-      expect(rendered).to_not have_content("_stubbed_photo_count")
-      expect(rendered).
-        to_not have_content(".photos-index__photo-manager-container")
-    end
-  end
 end
