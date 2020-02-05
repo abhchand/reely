@@ -19,6 +19,7 @@ class PhotoCarousel extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.currentPhoto = this.currentPhoto.bind(this);
     this.applyRotation = this.applyRotation.bind(this);
+    this.setPhotoUrl = this.setPhotoUrl.bind(this);
     this.navigateNext = this.navigateNext.bind(this);
     this.navigatePrev = this.navigatePrev.bind(this);
 
@@ -69,6 +70,10 @@ class PhotoCarousel extends React.Component {
     style.transform = `rotate(${degrees}deg)`;
   }
 
+  setPhotoUrl(style) {
+    style.backgroundImage = `url(${this.currentPhoto().url})`;
+  }
+
   navigateNext() {
     let newIndex = this.state.currentPhotoIndex + 1;
     if (newIndex >= this.props.photoData.length) {
@@ -90,11 +95,11 @@ class PhotoCarousel extends React.Component {
   render() {
     const imgStyle = {};
     this.applyRotation(imgStyle);
+    this.setPhotoUrl(imgStyle);
 
     return (
       <div className="photo-carousel">
-        <div className="photo-carousel__current-photo-container" data-id={this.currentPhoto().id}>
-          <img className="photo-carousel__current-photo" src={this.currentPhoto().url} style={imgStyle} />
+        <div className="photo-carousel__current-photo" data-id={this.currentPhoto().id} style={imgStyle}>
         </div>
 
         <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
