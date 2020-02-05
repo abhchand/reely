@@ -30,21 +30,14 @@
 
   .photo-carousel__navigation {
     background-color: $white-opacity-10;
-
-    @include breakpoint($screen-xs) {
-      // display: none;
-      visibility: hidden;
-      opacity: 0;
-    }
+    visibility: hidden;
+    opacity: 0;
   }
 
   &:hover .photo-carousel__navigation {
-    @include breakpoint($screen-xs) {
-      // display: initial;
-      visibility: visible;
-      opacity: 1;
-      transition: visibility 0s, opacity 0.4s linear
-    }
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.4s linear
   }
 
   // Previous/Next specific alignment
