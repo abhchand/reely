@@ -1,6 +1,7 @@
 .photo-grid-photo__container {
   position: relative;
   flex: auto;
+  box-sizing: border-box;
 
   // Widths dictate the maximun number of photos per row (e.g. 25% = 4 photos)
   // Setting padding-bottom equal to the widths maintains the square aspect
