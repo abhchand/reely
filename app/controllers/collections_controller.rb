@@ -5,8 +5,8 @@ class CollectionsController < ApplicationController
 
   # rubocop:disable Metrics/LineLength
   before_action :ensure_json_request, only: %i[update add_photos remove_photos destroy]
-  before_action :collection, only: %i[show update add_photos remove_photos destroy]
-  before_action :only_my_collection, only: %i[show update add_photos remove_photos destroy]
+  before_action :set_collection, only: %i[show update add_photos remove_photos destroy]
+  before_action :only_if_my_collection, only: %i[show update add_photos remove_photos destroy]
   # rubocop:enable Metrics/LineLength
 
   def index

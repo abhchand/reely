@@ -1,4 +1,12 @@
 module CollectionHelper
+  def set_collection
+    collection
+  end
+
+  def set_shared_collection
+    shared_collection
+  end
+
   def collection
     @collection ||= begin
       id = params[:collection_id] || params[:id]
@@ -19,7 +27,7 @@ module CollectionHelper
   end
   # rubocop:enable Naming/MemoizedInstanceVariableName
 
-  def only_my_collection
+  def only_if_my_collection
     return if current_user.owns_collection?(@collection)
     handle_not_my_collection
   end

@@ -7,8 +7,8 @@ class Collections::SharingConfigController < ApplicationController
   include CollectionHelper
 
   before_action :ensure_json_request
-  before_action :collection
-  before_action :only_my_collection
+  before_action :set_collection
+  before_action :only_if_my_collection
 
   def show
     render json: sharing_config.as_json, status: 200

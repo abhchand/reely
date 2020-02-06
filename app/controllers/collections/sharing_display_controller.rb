@@ -3,7 +3,7 @@ class Collections::SharingDisplayController < ApplicationController
 
   layout "application"
 
-  before_action :shared_collection
+  before_action :set_shared_collection
   skip_before_action :authenticate_user!
 
   def show
