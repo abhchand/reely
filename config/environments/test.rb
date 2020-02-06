@@ -55,6 +55,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Custom Configs
-  config.x.default_import_dir = "/tmp/reely/test/import"
-  config.x.default_upload_dir = "/tmp/reely/test/upload"
+  config.x.default_import_dir = Pathname.new("/tmp/reely/test/import")
+  config.x.default_upload_dir = Pathname.new("/tmp/reely/test/upload")
 end

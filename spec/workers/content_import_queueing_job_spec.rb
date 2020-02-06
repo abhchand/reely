@@ -39,7 +39,7 @@ RSpec.describe ContentImportQueueingJob, type: :worker do
   end
 
   context "REELY_IMPORT_DIR is set" do
-    let(:import_dir) { Rails.configuration.x.default_import_dir + "/abcdef" }
+    let(:import_dir) { Rails.configuration.x.default_import_dir.join("abcdef") }
 
     before { stub_env("REELY_IMPORT_DIR" => import_dir) }
 
