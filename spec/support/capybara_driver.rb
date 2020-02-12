@@ -18,9 +18,16 @@ Capybara.register_driver :headless_chrome do |app|
   ]
   chrome_args.each { |arg| opts.add_argument(arg) }
 
+  profile = Selenium::WebDriver::Chrome::Profile.new
+  profile["default_content_settings.popups"] = 0
+  profile["download.default_directory"] = FeatureHelpers::BROWSER_DOWNLOAD_PATH.to_s
+  profile["download.directory_upgrade"] = true
+  profile["download.prompt_for_download"] = true
+
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
+    profile: profile,
     options: opts,
     desired_capabilities: caps
   )
