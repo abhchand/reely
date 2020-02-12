@@ -36,6 +36,6 @@ class BundleFilesJob < ApplicationWorker
   end
 
   def bundle_name
-    [@collection.name.gsub(" ", "-"), "zip"].join(".")
+    [@collection.name.gsub(" ", "-"), "zip"].join(".").shellescape
   end
 end

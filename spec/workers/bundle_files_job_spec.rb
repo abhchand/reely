@@ -74,5 +74,14 @@ RSpec.describe BundleFilesJob, type: :worker do
       bundle_filepath = Pathname.new(Dir[download_dir.join("*.zip")][0])
       expect(bundle_filepath.basename.to_s).to eq("Name-with-Spaces.zip")
     end
+
+    it "escapes characters to work with shell naming" do
+      collection.update!(name: "Name'that;`ls`;esc#aped")
+
+      BundleFilesJob.new.perform(collection.id, uuid)
+
+      bundle_filepath = Pathname.new(Dir[download_dir.join("*.zip")][0])
+      expect(bundle_filepath.basename.to_s).to eq("Name'that;`ls`;esc#aped.zip")
+    end
   end
 end
