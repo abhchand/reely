@@ -1,4 +1,6 @@
 <div class="page-content">
+  <%= render "layouts/flash", flash: flash %>
+
   <h1 class="page-heading">
     <%= @collection.name %>
   </h1>
@@ -10,6 +12,17 @@
     <%= @date_range_label %>
   </div>
   <% end %>
+
+  <div class="collections-sharing-display-show__download-files-container">
+    <%=
+      react_component(
+        "collections-sharing-display-download-files",
+        {
+          collection: @collection.as_json(include: %[share_id])
+        }
+      )
+    %>
+  </div>
 
   <% if @photo_count.zero? %>
   <div class="collections-sharing-display-show__emtpy-state">

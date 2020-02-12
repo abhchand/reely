@@ -70,6 +70,10 @@ Rails.application.routes.draw do
     put "add-photos" => "collections#add_photos"
     put "remove-photos" => "collections#remove_photos"
 
+    resources :downloads, controller: "collections/downloads", only: [:show, :create] do
+      get :status
+    end
+
     resource :sharing_config, only: [:show, :update], controller: "collections/sharing_config" do
       post "renew-link" => "collections/sharing_config#renew_link"
     end

@@ -50,6 +50,8 @@
 @import 'stylesheets/components/action_notifications/index';
 @import 'stylesheets/components/action_notifications/action_notification';
 
+@import 'stylesheets/components/file_downloader/index';
+
 @import 'stylesheets/components/file_uploader/index';
 @import 'stylesheets/components/file_uploader/file_error';
 @import 'stylesheets/components/file_uploader/upload';
@@ -63,6 +65,7 @@
 @import 'stylesheets/components/modal/error';
 
 @import 'stylesheets/components/icons/loading_icon_ellipsis';
+@import 'stylesheets/components/icons/loading_icon_spinner';
 
 @import 'stylesheets/components/photo_manager/index';
 @import 'stylesheets/components/photo_manager/control_panel/index';

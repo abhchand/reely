@@ -19,8 +19,10 @@ class Collection < ApplicationRecord
     end
   end
 
-  def as_json(_options = {})
-    super(only: %i[id owner_id name]).tap do |obj|
+  def as_json(options = {})
+    fields = %i[id owner_id name].concat([options[:include]]).flatten.compact
+
+    super(only: fields).tap do |obj|
       # Only ever expose the `synthetic_id` externally
       obj["id"] = synthetic_id
     end
@@ -28,5 +30,9 @@ class Collection < ApplicationRecord
 
   def cover_photos
     @cover_photos ||= photos.order(:created_at).first(4)
+  end
+
+  def sharing_enabled?
+    sharing_config["link_sharing_enabled"].present?
   end
 end

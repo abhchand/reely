@@ -6,7 +6,7 @@ class Collections::SharingConfigService
   def as_json
     {
       via_link: {
-        enabled: link_sharing_enabled?,
+        enabled: @collection.sharing_enabled?,
         url: link_sharing_url
       }
     }
@@ -20,10 +20,6 @@ class Collections::SharingConfigService
   end
 
   private
-
-  def link_sharing_enabled?
-    @collection.sharing_config["link_sharing_enabled"].present?
-  end
 
   def link_sharing_url
     Rails.application.routes.url_helpers.collections_sharing_display_url(

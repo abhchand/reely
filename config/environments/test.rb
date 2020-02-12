@@ -57,4 +57,5 @@ Rails.application.configure do
   # Custom Configs
   config.x.default_import_dir = Pathname.new("/tmp/reely/test/import")
   config.x.default_upload_dir = Pathname.new("/tmp/reely/test/upload")
+  config.x.default_download_dir = Pathname.new("/tmp/reely/test/download")
 end

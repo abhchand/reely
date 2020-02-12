@@ -15,9 +15,15 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
     assign(:date_range_label, @date_range_label)
 
     stub_view_context
+    stub_template("layouts/_flash.html.erb" => "_stubbed_flash")
     stub_template("shared/_photo_count.html.erb" => "_stubbed_photo_count")
 
     @t_prefix = "collections.sharing_display.show"
+  end
+
+  it "renders the flash" do
+    render
+    expect(rendered).to have_content("_stubbed_flash")
   end
 
   it "renders a static non-editable heading" do
@@ -30,6 +36,15 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
     render
 
     expect(page).to have_content("_stubbed_photo_count")
+  end
+
+  it "renders the file download component" do
+    render
+
+    component = "collections-sharing-display-download-files"
+    props = { collection: @collection.as_json(include: %(share_id)) }
+
+    expect(page).to have_react_component(component).including_props(props)
   end
 
   it "renders the photo manager" do

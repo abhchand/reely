@@ -48,6 +48,7 @@ module Reely
     config.x.email_format = /\A.*@.+\..+\z/
     config.x.allowed_photo_types = %w[image/bmp image/jpeg image/png image/tiff]
     config.x.default_import_dir = Rails.root.join("import")
+    config.x.default_download_dir = Rails.root.join("tmp", "downloads")
     config.x.default_url_options =
       case
       when Rails.env.test?

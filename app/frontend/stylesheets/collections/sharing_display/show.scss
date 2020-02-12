@@ -7,6 +7,15 @@
   color: $dark-gray;
   text-align: left;
 }
+.collections-sharing-display-show__download-files-container {
+  // This container wraps the button which wraps the svg
+  // Without a width/height the div is full screen width and
+  // the button gets centered automatically.
+  width: 24px;
+  height: 24px;
+
+  margin-top: 10px;
+}
 .collections-sharing-display-show__emtpy-state {
   @extend .empty-state;
 

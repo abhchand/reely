@@ -174,6 +174,34 @@ class IconCopy extends React.Component {
 
 }
 
+class IconDownload extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    size: "32",
+    fillColor: "#EEEEEE",
+    title: "Download"
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <g id="icon-download" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <polygon id="base" fill={this.props.fillColor} points="100 65 100 100 0 100 0 65 10 65 10 90 90 90 90 65"></polygon>
+          <polygon id="arrow" fill={this.props.fillColor} points="58 47 78 47 50 79 22 47 42 47 42 0 58 0"></polygon>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
 class IconFile extends React.Component {
 
   static propTypes = {
@@ -228,6 +256,34 @@ class IconFilledCircle extends React.Component {
               <circle stroke={this.props.strokeColor} strokeWidth="1" cx="16" cy="16" r="15.5" />
             </g>
           </g>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
+class IconLoading extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    backgroundFillColor: PropTypes.string,
+    foregroundFillColor: PropTypes.string
+  };
+
+  static defaultProps = {
+    size: '32',
+    backgroundFillColor: '#D8D8D8',
+    foregroundFillColor: '#979797'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <g id="icon-loading" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <path d="M50,100 C22.3857625,100 0,77.6142375 0,50 C0,22.3857625 22.3857625,0 50,0 C77.6142375,0 100,22.3857625 100,50 C100,77.6142375 77.6142375,100 50,100 Z M50,90 C72.09139,90 90,72.09139 90,50 C90,27.90861 72.09139,10 50,10 C27.90861,10 10,27.90861 10,50 C10,72.09139 27.90861,90 50,90 Z" id="base" fill={this.props.backgroundFillColor}></path>
+          <path d="M15,14.6446609 C24.0482203,5.59644063 36.5482203,-7.10542736e-15 50.3553391,-7.10542736e-15 C64.1624578,-7.10542736e-15 76.6624578,5.59644063 85.7106781,14.6446609 L78.6396103,21.7157288 C71.4010341,14.4771525 61.4010341,10 50.3553391,10 C39.3096441,10 29.3096441,14.4771525 22.0710678,21.7157288 L15,14.6446609 Z" id="rotator" fill={this.props.foregroundFillColor}></path>
         </g>
       </svg>
     );
@@ -466,6 +522,7 @@ class IconX extends React.Component {
 
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
-  IconCircle, IconCopy, IconFile, IconFilledCircle, IconPencilWithSquares,
-  IconPlus, IconRefresh, IconRemovePhoto, IconTrash, IconUserWithKey, IconX
+  IconCircle, IconCopy, IconDownload, IconFile, IconFilledCircle, IconLoading,
+  IconPencilWithSquares, IconPlus, IconRefresh, IconRemovePhoto, IconTrash,
+  IconUserWithKey, IconX
 };

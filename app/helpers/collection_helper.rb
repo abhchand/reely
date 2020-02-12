@@ -32,6 +32,12 @@ module CollectionHelper
     handle_not_my_collection
   end
 
+  def only_if_sharing_enabled
+    return if collection.sharing_enabled?
+
+    handle_collection_not_shared
+  end
+
   def handle_collection_not_found
     respond_to do |format|
       format.html { redirect_to root_path }
@@ -40,6 +46,13 @@ module CollectionHelper
   end
 
   def handle_not_my_collection
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { render json: {}, status: 400 }
+    end
+  end
+
+  def handle_collection_not_shared
     respond_to do |format|
       format.html { redirect_to root_path }
       format.json { render json: {}, status: 400 }

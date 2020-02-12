@@ -31,6 +31,12 @@ class ApplicationController < ActionController::Base
     @use_packs << :application
   end
 
+  def verifier
+    @verifier ||= ActiveSupport::MessageVerifier.new(
+      Rails.application.secrets[:secret_key_base]
+    )
+  end
+
   protected
 
   def check_if_deactivated
