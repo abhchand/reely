@@ -65,6 +65,17 @@ RSpec.describe BundleFilesJob, type: :worker do
     expect(files).to match_array(["atlanta.jpg", "chennai.jpg"])
   end
 
+  it "schedules the deletion job" do
+    freeze_time do
+      expect do
+        BundleFilesJob.new.perform(collection.id, uuid)
+      end.to(change { DeleteFileBundleJob.jobs.size }.by(1))
+
+      job = DeleteFileBundleJob.jobs.last
+      expect(job["at"]).to eq(BundleFilesJob::TTL.from_now.to_i)
+    end
+  end
+
   describe "bundle name" do
     it "replaces the collection name with spaces" do
       collection.update!(name: "Name with Spaces")
