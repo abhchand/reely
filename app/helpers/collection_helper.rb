@@ -41,21 +41,21 @@ module CollectionHelper
   def handle_collection_not_found
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: {}, status: 400 }
+      format.json { render json: {}, status: 404 }
     end
   end
 
   def handle_not_my_collection
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: {}, status: 400 }
+      format.json { render json: {}, status: 403 }
     end
   end
 
   def handle_collection_not_shared
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: {}, status: 400 }
+      format.json { render json: {}, status: 403 }
     end
   end
 end

@@ -127,22 +127,22 @@ RSpec.describe Collections::DownloadsController, type: :controller do
     context "collection is not found" do
       before { params[:collection_id] = "abcde" }
 
-      it "returns a 400 Error JSON response" do
+      it "returns a 404 Error JSON response" do
         post :create, params: params
 
         expect(JSON.parse(response.body)).to eq({})
-        expect(response.code).to eq("400")
+        expect(response.code).to eq("404")
       end
     end
 
     context "collection is not shared" do
       before { service.update(link_sharing_enabled: false) }
 
-      it "returns a 400 Error JSON response" do
+      it "returns a 403 Error JSON response" do
         post :create, params: params
 
         expect(JSON.parse(response.body)).to eq({})
-        expect(response.code).to eq("400")
+        expect(response.code).to eq("403")
       end
     end
 
@@ -217,22 +217,22 @@ RSpec.describe Collections::DownloadsController, type: :controller do
     context "collection is not found" do
       before { params[:collection_id] = "abcde" }
 
-      it "returns a 400 Error JSON response" do
+      it "returns a 404 Error JSON response" do
         get :status, params: params
 
         expect(JSON.parse(response.body)).to eq({})
-        expect(response.code).to eq("400")
+        expect(response.code).to eq("404")
       end
     end
 
     context "collection is not shared" do
       before { service.update(link_sharing_enabled: false) }
 
-      it "returns a 400 Error JSON response" do
+      it "returns a 403 Error JSON response" do
         get :status, params: params
 
         expect(JSON.parse(response.body)).to eq({})
-        expect(response.code).to eq("400")
+        expect(response.code).to eq("403")
       end
     end
 

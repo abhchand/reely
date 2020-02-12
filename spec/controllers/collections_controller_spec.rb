@@ -148,7 +148,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :update, params: params.merge(id: "abcde")
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(response.body).to eq("{}")
       end
     end
@@ -159,7 +159,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :update, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(response.body).to eq("{}")
       end
     end
@@ -216,7 +216,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :add_photos, params: params.merge(collection_id: "abcde")
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(response.body).to eq("{}")
       end
     end
@@ -227,7 +227,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :add_photos, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(response.body).to eq("{}")
       end
     end
@@ -290,7 +290,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :remove_photos, params: params.merge(collection_id: "abcde")
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(response.body).to eq("{}")
       end
     end
@@ -301,7 +301,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         put :remove_photos, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(response.body).to eq("{}")
       end
     end
@@ -361,7 +361,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         delete :destroy, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(response.body).to eq("{}")
       end
     end
@@ -372,7 +372,7 @@ RSpec.describe CollectionsController, type: :controller do
       it "redirects to the root path" do
         delete :destroy, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(response.body).to eq("{}")
       end
     end

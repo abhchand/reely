@@ -35,10 +35,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection is not found" do
       before { params[:collection_id] = "abcde" }
 
-      it "returns a 400 JSON response" do
+      it "returns a 404 JSON response" do
         get :show, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(parsed_response).to eq({})
       end
     end
@@ -46,10 +46,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection does not belong to the logged in user" do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 400 JSON response" do
+      it "returns a 403 JSON response" do
         get :show, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(parsed_response).to eq({})
       end
     end
@@ -98,10 +98,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection is not found" do
       before { params[:collection_id] = "abcde" }
 
-      it "returns a 400 JSON response" do
+      it "returns a 404 JSON response" do
         post :update, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(parsed_response).to eq({})
       end
     end
@@ -109,10 +109,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection does not belong to the logged in user" do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 400 JSON response" do
+      it "returns a 403 JSON response" do
         post :update, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(parsed_response).to eq({})
       end
     end
@@ -179,10 +179,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection is not found" do
       before { params[:collection_id] = "abcde" }
 
-      it "returns a 400 JSON response" do
+      it "returns a 404 JSON response" do
         post :renew_link, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
         expect(parsed_response).to eq({})
       end
     end
@@ -190,10 +190,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     context "collection does not belong to the logged in user" do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 400 JSON response" do
+      it "returns a 403 JSON response" do
         post :renew_link, params: params
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(403)
         expect(parsed_response).to eq({})
       end
     end
