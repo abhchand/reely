@@ -13,10 +13,7 @@ module HasSyntheticId
 
   def generate_synthetic_id
     self[:synthetic_id] ||= loop do
-      # TODO: Instead of downcasing, use `base36` after upgrading to Rails 6
-      # TODO: Ensure everywhere we find by `synthetic_id` that `downcase` the
-      # search string first
-      token = SecureRandom.base58(28).downcase
+      token = SecureRandom.base58(10)
       break token unless self.class.exists?(synthetic_id: token)
     end
   end

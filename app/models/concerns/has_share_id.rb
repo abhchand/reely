@@ -9,10 +9,7 @@ module HasShareId
 
   def generate_share_id
     self[:share_id] ||= loop do
-      # TODO: Instead of downcasing, use `base36` after upgrading to Rails 6
-      # TODO: Ensure everywhere we find by `share_id` that `downcase` the
-      # search string first
-      token = SecureRandom.base58(28).downcase
+      token = SecureRandom.base58(10)
       break token unless self.class.exists?(share_id: token)
     end
   end
