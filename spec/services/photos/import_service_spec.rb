@@ -42,6 +42,20 @@ RSpec.describe Photos::ImportService, type: :interactor do
     exif_data.each { |key, value| expect(photo.exif_data[key]).to eq(value) }
   end
 
+  context "an explicit filename is specified" do
+    it "create the Photo using the specified filneame" do
+      reset_exif_data
+
+      result = nil
+      expect do
+        result = call(filename: "foo.jpg")
+      end.to(change { Photo.count }.by(1))
+
+      photo = Photo.last
+      expect(photo.source_file_blob.filename).to eq("foo.jpg")
+    end
+  end
+
   context "file does not exist" do
     before { @bad_filepath = Pathname.new(filepath.to_s + ".foo") }
 

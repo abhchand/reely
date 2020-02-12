@@ -48,7 +48,8 @@ class PhotosController < ApplicationController
   def import
     @import ||= Photos::ImportService.call(
       owner: current_user,
-      filepath: create_params[:source_file].tempfile.path
+      filepath: create_params[:source_file].tempfile.path,
+      filename: create_params["source_file"].original_filename
     )
   end
 

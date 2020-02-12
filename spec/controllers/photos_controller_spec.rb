@@ -89,6 +89,7 @@ RSpec.describe PhotosController, type: :controller do
 
       expect(photo.owner).to eq(user)
       expect(photo.source_file.attached?).to eq(true)
+      expect(photo.source_file_blob.filename).to eq("atlanta.jpg")
     end
   end
 end

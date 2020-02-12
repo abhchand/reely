@@ -72,7 +72,7 @@ class Photos::ImportService
       context.photo = Photo.create!(owner: @owner, exif_data: exif_data)
       context.photo.source_file.attach(
         io: file_io,
-        filename: @filepath.basename
+        filename: context.filename || filepath.basename
       )
     end
   rescue StandardError

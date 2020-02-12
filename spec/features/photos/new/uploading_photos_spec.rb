@@ -43,6 +43,7 @@ RSpec.feature "uploading photos", :js, type: :feature do
     expect(photo.owner).to eq(user)
     exif_data.each { |key, value| expect(photo.exif_data[key]).to eq(value) }
     expect(photo.source_file.attached?).to eq(true)
+    expect(photo.source_file_blob.filename).to eq("chennai.jpg")
 
     expect_uploaded_photo(photo, file_index: 0)
 
