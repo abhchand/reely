@@ -17,6 +17,7 @@
   @extend .collections-card;
 
   position:relative;
+  box-sizing: border-box;
 
   // This element expands its height to match the generated
   // height of the collections cards. When no cards exist, its
