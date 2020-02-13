@@ -1,9 +1,9 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import ActionNotifications from 'components/action_notifications';
-import CopyLink from 'components/share_collection/copy_link';
+import CopyLink from 'collections/share_modal/copy_link';
 import React from 'react';
 
-const i18nPrefix = 'components.share_collection.copy_link';
+const i18nPrefix = 'collections.share_modal.copy_link';
 
 beforeEach(() => {
   // Mock document.* calls

@@ -19,7 +19,7 @@ class RenewLink extends React.Component {
     this.renderButtonContents = this.renderButtonContents.bind(this);
     this.renderLoading = this.renderLoading.bind(this);
 
-    this.i18nPrefix = 'components.share_collection.renew_link';
+    this.i18nPrefix = 'collections.share_modal.renew_link';
 
     this.state = {
       isRenewingLink: false

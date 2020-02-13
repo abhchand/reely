@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import { stripHtmlTags } from 'test_utils/utils';
 import ActionNotifications from 'components/action_notifications';
 import axios from 'axios';
-import LinkSharingToggle from 'components/share_collection/link_sharing_toggle';
+import LinkSharingToggle from 'collections/share_modal/link_sharing_toggle';
 import React from 'react';
 
 jest.mock('axios');
@@ -10,7 +10,7 @@ jest.mock('axios');
 let collection;
 let setCollection;
 let actionNotifications;
-const i18nPrefix = 'components.share_collection.link_sharing_toggle';
+const i18nPrefix = 'collections.share_modal.link_sharing_toggle';
 
 beforeEach(() => {
   collection = {

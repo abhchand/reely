@@ -24,8 +24,15 @@
 @import 'stylesheets/application/_mobile_header';
 @import 'stylesheets/application/_mobile_navigation';
 
+@import 'stylesheets/collections/share_modal/index';
+@import 'stylesheets/collections/share_modal/url';
+@import 'stylesheets/collections/share_modal/copy_link';
+@import 'stylesheets/collections/share_modal/renew_link';
+@import 'stylesheets/collections/share_modal/link_sharing_toggle';
+@import 'stylesheets/collections/share_modal/link_sharing';
 @import 'stylesheets/collections/_card';
 @import 'stylesheets/collections/_editable_name_heading';
+@import 'stylesheets/collections/delete_modal';
 @import 'stylesheets/collections/index';
 @import 'stylesheets/collections/sharing_display/show';
 @import 'stylesheets/collections/show';
@@ -76,19 +83,14 @@
 @import 'stylesheets/components/photo_manager/control_panel/actions/remove_from_collection';
 @import 'stylesheets/components/photo_manager/control_panel/actions/add_to_collection';
 @import 'stylesheets/components/photo_manager/control_panel/actions/close_button';
+@import 'stylesheets/components/photo_manager/control_panel/actions/delete_collection';
+@import 'stylesheets/components/photo_manager/control_panel/actions/share_collection';
 @import 'stylesheets/components/photo_manager/carousel/index';
 @import 'stylesheets/components/photo_manager/empty';
 @import 'stylesheets/components/photo_manager/photo_grid/index';
 @import 'stylesheets/components/photo_manager/photo_grid/photo';
 
 @import 'stylesheets/components/product_feedback_form/index';
-
-@import 'stylesheets/components/share_collection/index';
-@import 'stylesheets/components/share_collection/url';
-@import 'stylesheets/components/share_collection/copy_link';
-@import 'stylesheets/components/share_collection/renew_link';
-@import 'stylesheets/components/share_collection/link_sharing_toggle';
-@import 'stylesheets/components/share_collection/link_sharing';
 
 // * { background-color: rgba(255,0,0,.2); }
 // * * { background-color: rgba(0,255,0,.2); }

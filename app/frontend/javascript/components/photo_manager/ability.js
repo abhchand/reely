@@ -18,6 +18,16 @@ class Ability {
     return this.canEdit() && allowAddingToCollection;
   }
 
+  canDeleteCollection() {
+    let { allowDeletingCollection } = this.permissions;
+
+    if (typeof allowDeletingCollection == 'undefined') {
+      allowDeletingCollection = false;
+    }
+
+    return this.canEdit() && allowDeletingCollection;
+  }
+
   canEdit() {
     let { isEditable } = this.permissions;
 
@@ -36,6 +46,16 @@ class Ability {
     }
 
     return this.canEdit() && allowRemovingFromCollection;
+  }
+
+  canShareCollection() {
+    let { allowSharingCollection } = this.permissions;
+
+    if (typeof allowSharingCollection == 'undefined') {
+      allowSharingCollection = false;
+    }
+
+    return this.canEdit() && allowSharingCollection;
   }
 
 }

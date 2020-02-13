@@ -1,11 +1,11 @@
 import { cleanup, render } from '@testing-library/react';
-import LinkSharing from 'components/share_collection/link_sharing';
+import LinkSharing from 'collections/share_modal/link_sharing';
 import React from 'react';
 
 let collection;
 let setCollection;
 // eslint-disable-next-line no-unused-vars
-const i18nPrefix = 'components.share_collection.link_sharing';
+const i18nPrefix = 'collections.share_modal.link_sharing';
 
 beforeEach(() => {
   collection = {

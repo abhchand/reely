@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import Url from 'components/share_collection/url';
+import Url from 'collections/share_modal/url';
 
 let collection;
 

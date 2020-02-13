@@ -8,7 +8,7 @@ class CopyLink extends React.Component {
 
     this.onClick = this.onClick.bind(this);
 
-    this.i18nPrefix = 'components.share_collection.copy_link';
+    this.i18nPrefix = 'collections.share_modal.copy_link';
   }
 
   onClick() {

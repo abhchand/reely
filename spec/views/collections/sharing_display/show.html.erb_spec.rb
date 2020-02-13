@@ -55,6 +55,7 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
       photos: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
       permissions: {
         allowAddingToCollection: false,
+        allowDeletingCollection: false,
         allowRemovingFromCollection: false,
         isEditable: false
       }

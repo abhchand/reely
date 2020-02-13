@@ -1,16 +1,17 @@
 import axios from 'axios';
 import LinkSharing from './link_sharing';
 import LoadingIconEllipsis from 'components/icons/loading_icon_ellipsis';
-import Modal from 'javascript/components/modal';
+import Modal from 'components/modal';
 import ModalError from 'javascript/components/modal/error';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
-class ShareCollection extends React.Component {
+class ShareCollectionModal extends React.Component {
 
   static propTypes = {
-    collection: PropTypes.object.isRequired
+    collection: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -19,7 +20,7 @@ class ShareCollection extends React.Component {
     this.setCollection = this.setCollection.bind(this);
     this.renderLinkSharing = this.renderLinkSharing.bind(this);
 
-    this.i18nPrefix = 'components.share_collection.share_collection';
+    this.i18nPrefix = 'collections.share_modal';
 
     this.state = {
       isLoading: true,
@@ -89,7 +90,9 @@ class ShareCollection extends React.Component {
     }
 
     return (
-      <Modal heading={I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })} >
+      <Modal
+        heading={I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })}
+        onClose={this.props.onClose}>
         {content}
       </Modal>
     );
@@ -97,4 +100,4 @@ class ShareCollection extends React.Component {
 
 }
 
-export default ShareCollection;
+export default ShareCollectionModal;

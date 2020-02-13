@@ -68,7 +68,12 @@ class ControlPanel extends React.Component {
   }
 
   renderClosed() {
-    return <ClosedPanel openPanel={this.openPanel} />;
+    return (
+      <ClosedPanel
+        openPanel={this.openPanel}
+        currentCollection={this.props.currentCollection}
+        ability={this.props.ability} />
+    );
   }
 
   renderOpen() {

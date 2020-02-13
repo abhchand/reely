@@ -2,14 +2,14 @@ import { cleanup, fireEvent, render, wait, waitForElement, waitForElementToBeRem
 import ActionNotifications from 'components/action_notifications';
 import axios from 'axios';
 import React from 'react';
-import ShareCollection from 'components/share_collection';
+import ShareCollectionModal from 'collections/share_modal';
 
 jest.mock('axios');
 
 let collection;
 let data;
 let actionNotifications;
-const i18nPrefix = 'components.share_collection';
+const i18nPrefix = 'collections.share_modal';
 
 beforeEach(() => {
   collection = {
@@ -30,7 +30,7 @@ beforeEach(() => {
 afterEach(cleanup);
 afterEach(() => { jest.clearAllMocks(); });
 
-describe('<ShareCollection />', () => {
+describe('<ShareCollectionModal />', () => {
   describe('before initial data fetch', () => {
     it('renders the component with loading state', () => {
 

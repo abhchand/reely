@@ -8,7 +8,7 @@
       <%= inline_svg_tag("icons/arrow-left.svg", height: "24px", width: "24px") %>
     <% end %>
   </li>
-  <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--delete icon-tray__item">
+<li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--delete icon-tray__item">
     <%= inline_svg_tag("icons/trash.svg", height: "24px", width: "24px") %>
   </li>
   <li tabindex="0" class="collections-show__action-bar-item collections-show__action-bar-item--share icon-tray__item">
@@ -44,7 +44,9 @@
         collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_manager_props),
         permissions: {
           allowAddingToCollection: true,
+          allowDeletingCollection: true,
           allowRemovingFromCollection: true,
+          allowSharingCollection: true,
           isEditable: true
         }
       }

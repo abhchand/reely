@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
-class DeleteCollection extends React.Component {
+class DeleteCollectionModal extends React.Component {
 
   static propTypes = {
-    collection: PropTypes.object.isRequired
+    collection: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -18,7 +19,7 @@ class DeleteCollection extends React.Component {
     this.errorText = this.errorText.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    this.i18nPrefix = 'components.delete_collection';
+    this.i18nPrefix = 'collections.delete_modal';
 
     this.state = {
       submitButtonEnabled: true,
@@ -83,6 +84,7 @@ class DeleteCollection extends React.Component {
         heading={this.heading()}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         onSubmit={this.onSubmit}
+        onClose={this.props.onClose}
         submitButtonEnabled={this.state.submitButtonEnabled}>
         {this.errorText()}
         {I18n.t(`${this.i18nPrefix}.body`)}
@@ -92,4 +94,4 @@ class DeleteCollection extends React.Component {
 
 }
 
-export default DeleteCollection;
+export default DeleteCollectionModal;

@@ -418,6 +418,42 @@ class IconRemovePhoto extends React.Component {
   }
 }
 
+class IconShare extends React.Component {
+
+  static propTypes = {
+    size: PropTypes.string,
+    fillColor: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    fillColor: '#EEEEEE',
+    size: '32',
+    title: 'Share Icon'
+  }
+
+  render() {
+    return (
+      <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <title>{this.props.title}</title>
+        <defs></defs>
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g id="Artboard">
+            <g id="Group" transform="translate(16.000000, 15.750000) rotate(-90.000000) translate(-16.000000, -15.750000) translate(0.000000, 0.250000)">
+              <path d="M18.1818182,8.11904762 L28.3636364,25.8333333" id="Line" stroke={this.props.fillColor} strokeWidth="1.45454545" strokeLinecap="square"></path>
+              <path d="M13.8181818,8.11904762 L3.63636364,25.8333333" id="Line" stroke={this.props.fillColor} strokeWidth="1.45454545" strokeLinecap="square"></path>
+              <ellipse id="Oval" fill={this.props.fillColor} cx="4.15584416" cy="26.2946429" rx="4.15584416" ry="4.15178571"></ellipse>
+              <ellipse id="Oval" fill={this.props.fillColor} cx="27.4285714" cy="26.2946429" rx="4.15584416" ry="4.15178571"></ellipse>
+              <ellipse id="Oval" fill={this.props.fillColor} cx="15.7922078" cy="4.15178571" rx="4.15584416" ry="4.15178571"></ellipse>
+            </g>
+          </g>
+        </g>
+      </svg>
+    );
+  }
+
+}
+
 class IconTrash extends React.Component {
 
   static propTypes = {
@@ -525,6 +561,6 @@ class IconX extends React.Component {
 export {
   IconCollection, IconArrowThickLeft, IconArrowThickRight, IconCheckMark,
   IconCircle, IconCopy, IconDownload, IconFile, IconFilledCircle, IconLoading,
-  IconPencilWithSquares, IconPlus, IconRefresh, IconRemovePhoto, IconTrash,
+  IconPencilWithSquares, IconPlus, IconRefresh, IconRemovePhoto, IconShare, IconTrash,
   IconUserWithKey, IconX
 };

@@ -41,6 +41,7 @@ RSpec.feature "share collections show page", type: :feature do
       including_props(
         "permissions" => {
           "allowAddingToCollection" => false,
+          "allowDeletingCollection" => false,
           "allowRemovingFromCollection" => false,
           "isEditable" => false
         }

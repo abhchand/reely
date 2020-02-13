@@ -19,7 +19,7 @@ class LinkSharingToggle extends React.Component {
     this.label = this.label.bind(this);
     this.onClick = this.onClick.bind(this);
 
-    this.i18nPrefix = 'components.share_collection.link_sharing_toggle';
+    this.i18nPrefix = 'collections.share_modal.link_sharing_toggle';
 
     this.state = {
       isUpdating: false

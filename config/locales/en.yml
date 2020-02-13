@@ -254,11 +254,6 @@ en:
       buttons:
         submit: Submit
         close: Close
-    delete_collection:
-      heading: Delete collection <b>%{collection_name}</b>?
-      body: This collection will be permanently deleted
-      buttons:
-        submit: Delete
     file_uploader:
       upload: Browse files
       upload_count:
@@ -316,20 +311,6 @@ en:
       heading: Tell us what you think
       subheading: "Please use this to suggest any improvements or features you may find useful (max: %{maxlength} characters)"
       submit: Submit
-    share_collection:
-      copy_link:
-        label: Copy
-        success: Link copied to clipboard
-      link_sharing_toggle:
-        enabled: Link sharing is <b>on</b>
-        disabled: Link sharing is <b>off</b>
-        failure: Could not update preference
-      renew_link:
-        label: Regenerate
-        loading: generating...
-        failure: Could not fetch new link
-      share_collection:
-        heading: Share "%{name}"
 
   deactivated_user:
     index:
@@ -344,8 +325,26 @@ en:
     card:
       delete: Delete
       share: Share
+    delete_modal:
+      heading: Delete collection <b>%{collection_name}</b>?
+      body: This collection will be permanently deleted
+      buttons:
+        submit: Delete
     downloads:
       not_found: Invalid link
+    share_modal:
+      heading: Share "%{name}"
+      copy_link:
+        label: Copy
+        success: Link copied to clipboard
+      link_sharing_toggle:
+        enabled: Link sharing is <b>on</b>
+        disabled: Link sharing is <b>off</b>
+        failure: Could not update preference
+      renew_link:
+        label: Regenerate
+        loading: generating...
+        failure: Could not fetch new link
     sharing_display:
       show:
         empty: There are no photos (yet!) in this collection

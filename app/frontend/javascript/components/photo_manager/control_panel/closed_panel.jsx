@@ -1,29 +1,29 @@
-import OpenButton from './actions/open_button';
+import {
+  actionDeleteCollection,
+  actionOpenPanel,
+  actionShareCollection
+} from './closed_panel_actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 class ClosedPanel extends React.Component {
 
   static propTypes = {
-    openPanel: PropTypes.func.isRequired
+    /* eslint-disable react/no-unused-prop-types */
+    openPanel: PropTypes.func.isRequired,
+    currentCollection: PropTypes.object,
+    ability: PropTypes.object.isRequired
+    /* eslint-enable react/no-unused-prop-types */
   };
 
-  constructor(props) {
-    super(props);
-
-    this.renderActions = this.renderActions.bind(this);
-  }
-
-  renderActions() {
+  render() {
     return (
       <ul className="icon-tray">
-        <OpenButton onClick={this.props.openPanel} />
+        {actionOpenPanel(this.props)}
+        {actionDeleteCollection(this.props)}
+        {actionShareCollection(this.props)}
       </ul>
     );
-  }
-
-  render() {
-    return this.renderActions();
   }
 
 }

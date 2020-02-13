@@ -2,14 +2,14 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import ActionNotifications from 'components/action_notifications';
 import axios from 'axios';
 import React from 'react';
-import RenewLink from 'components/share_collection/renew_link';
+import RenewLink from 'collections/share_modal/renew_link';
 
 jest.mock('axios');
 
 let collection;
 let setCollection;
 let actionNotifications;
-const i18nPrefix = 'components.share_collection.renew_link';
+const i18nPrefix = 'collections.share_modal.renew_link';
 
 beforeEach(() => {
   collection = {

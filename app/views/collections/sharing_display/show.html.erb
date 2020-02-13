@@ -37,7 +37,9 @@
           photos: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
           permissions: {
             allowAddingToCollection: false,
+            allowDeletingCollection: false,
             allowRemovingFromCollection: false,
+            allowSharingCollection: false,
             isEditable: false
           }
         }

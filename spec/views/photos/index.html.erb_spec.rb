@@ -45,6 +45,7 @@ RSpec.describe "photos/index.html.erb", type: :view do
       collections: CollectionPresenter.wrap(collections, view: view_context).map(&:photo_manager_props),
       permissions: {
         allowAddingToCollection: true,
+        allowDeletingCollection: false,
         allowRemovingFromCollection: false,
         isEditable: true
       }
