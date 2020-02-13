@@ -1,14 +1,14 @@
-import { keyCodes, parseKeyCode } from 'utils/keys';
 import { IconArrowThickLeft, IconArrowThickRight, IconX } from 'components/icons';
+import { keyCodes, parseKeyCode } from 'utils/keys';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 class PhotoCarousel extends React.Component {
 
   static propTypes = {
-    photoData: PropTypes.array.isRequired,
+    photos: PropTypes.array.isRequired,
     clickedPhotoIndex: PropTypes.number.isRequired,
-    closeCarousel: PropTypes.func.isRequired
+    close: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -39,7 +39,7 @@ class PhotoCarousel extends React.Component {
   handleKeyDown(e) {
     switch (parseKeyCode(e)) {
       case keyCodes.ESCAPE:
-        this.props.closeCarousel();
+        this.props.close();
         break;
       case keyCodes.ARROW_LEFT:
         this.navigatePrev();
@@ -57,7 +57,7 @@ class PhotoCarousel extends React.Component {
   }
 
   currentPhoto() {
-    return this.props.photoData[this.state.currentPhotoIndex];
+    return this.props.photos[this.state.currentPhotoIndex];
   }
 
   applyRotation(style) {
@@ -76,7 +76,7 @@ class PhotoCarousel extends React.Component {
 
   navigateNext() {
     let newIndex = this.state.currentPhotoIndex + 1;
-    if (newIndex >= this.props.photoData.length) {
+    if (newIndex >= this.props.photos.length) {
       newIndex = 0;
     }
 
@@ -86,7 +86,7 @@ class PhotoCarousel extends React.Component {
   navigatePrev() {
     let newIndex = this.state.currentPhotoIndex - 1;
     if (newIndex < 0) {
-      newIndex = this.props.photoData.length - 1;
+      newIndex = this.props.photos.length - 1;
     }
 
     this.setState({ currentPhotoIndex: newIndex });
@@ -99,10 +99,9 @@ class PhotoCarousel extends React.Component {
 
     return (
       <div className="photo-carousel">
-        <div className="photo-carousel__current-photo" data-id={this.currentPhoto().id} style={imgStyle}>
-        </div>
+        <div className="photo-carousel__current-photo" data-id={this.currentPhoto().id} style={imgStyle} />
 
-        <div className="photo-carousel__close" onClick={this.props.closeCarousel}>
+        <div className="photo-carousel__close" onClick={this.props.close}>
           <IconX size="16" />
         </div>
 

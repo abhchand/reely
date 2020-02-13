@@ -4,21 +4,10 @@
       fill: $white;
     }
     #mountains, #sun {
-      fill: $dark-gray;
+      fill: $dark_purple;
     }
     #outer-circle, #x-1, #x-2 {
       fill: $orange-red;
-    }
-  }
-
-  &:hover {
-    svg {
-      #mountains, #sun {
-        fill: $dark-purple;
-      }
-      #outer-circle, #x-1, #x-2 {
-        fill: $orange-red;
-      }
     }
   }
 }

@@ -143,32 +143,10 @@
   position: relative;
   width: 40px;
   height: 100%;
+  margin: 0 2px;
   background-color: $white;
   cursor: pointer;
   transition: background-color 0.15s ease-in;
-
-  // Below are defaults for all SVG icons in the icon tray
-  // Each individual icon can be overridden based on its CSS id
-
-  svg {
-
-    // Vertically centering 24px SVG inside 40px div
-    margin-top: 8px;
-
-    g, path, ellipse, rect {
-      fill: $dark-gray;
-      stroke: $dark-gray;
-    }
-  }
-
-  &:hover {
-    svg {
-      g, path, ellipse, rect {
-        fill: $dark-purple;
-        stroke: $dark-purple;
-      }
-    }
-  }
 }
 
 //

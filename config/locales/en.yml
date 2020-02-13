@@ -297,6 +297,8 @@ en:
           new:
             success: Created collection <a href="%{href}">%{name}</a>
             error: An error occurred while creating the collection
+        close_button:
+          alt: Close
         remove_from_collection:
           error: An error occurred while removing photos from the collection
           tooltip: Remove from Collection
@@ -305,8 +307,8 @@ en:
               other: "Removed %{count} photos from collection"
         selected_photo_count:
           heading:
-            one: "%{count} Photo Selected"
-            other: "%{count} Photos Selected"
+            one: "%{count} Selected"
+            other: "%{count} Selected"
       empty:
         heading: You have no photos (yet!)
         add_photos: add photos

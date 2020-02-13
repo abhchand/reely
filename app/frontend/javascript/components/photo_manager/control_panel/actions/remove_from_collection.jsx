@@ -10,7 +10,7 @@ class RemoveFromCollection extends React.Component {
     photoIdsToRemove: PropTypes.array.isRequired,
     currentCollection: PropTypes.object.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    afterRemoval: PropTypes.func.isRequired
+    onComplete: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -54,7 +54,7 @@ class RemoveFromCollection extends React.Component {
         self.updateDateRangeLabel(response.data.date_range_label);
         self.updatePhotoCount(response.data.photo_count);
         self.addNotification(notification);
-        self.props.afterRemoval();
+        self.props.onComplete();
       }).
       catch((_err) => {
         const content = I18n.t(`${self.i18nPrefix}.error`);
@@ -72,7 +72,7 @@ class RemoveFromCollection extends React.Component {
     const el = document.querySelector('.collections-show__date-range');
 
     if (label === null) {
-      while (el.firstChild) el.removeChild(el.firstChild);
+      while (el.firstChild) { el.removeChild(el.firstChild); }
     }
     else if (typeof label !== 'string' || label.length === 0) {
       // Nothing
@@ -94,7 +94,7 @@ class RemoveFromCollection extends React.Component {
   render() {
     return (
       <li className="icon-tray__item icon-tray__item--remove-from-collection" onClick={this.removeFromCollection}>
-        <IconRemovePhoto size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />
+        <IconRemovePhoto size="20" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />
       </li>
     );
   }

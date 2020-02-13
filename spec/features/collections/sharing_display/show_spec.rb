@@ -38,6 +38,12 @@ RSpec.feature "share collections show page", type: :feature do
         ".collections-sharing-display-show__photo-manager-container"
       )
     expect(page).to have_react_component("photo-manager").
-      including_props("isReadOnly" => true)
+      including_props(
+        "permissions" => {
+          "allowAddingToCollection" => false,
+          "allowRemovingFromCollection" => false,
+          "isEditable" => false
+        }
+      )
   end
 end

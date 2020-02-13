@@ -9,7 +9,10 @@ const CloseButton = (props) => {
       className="icon-tray__item icon-tray__item--close-control-panel"
       onClick={props.onClick}
       onKeyPress={props.onClick}>
-      <IconX size="24" fillColor="#888888" />
+      <IconX
+        size="18"
+        fillColor="#888888"
+        title={I18n.t('components.photo_manager.control_panel.close_button.alt')} />
     </li>
   );
 };

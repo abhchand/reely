@@ -61,9 +61,14 @@ RSpec.describe "collections/show.html.erb", type: :view do
 
     # rubocop:disable Metrics/LineLength
     props = {
-      photoData: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+      photos: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
       currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props,
-      collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_manager_props)
+      collections: CollectionPresenter.wrap(@collections, view: view_context).map(&:photo_manager_props),
+      permissions: {
+        allowAddingToCollection: true,
+        allowRemovingFromCollection: true,
+        isEditable: true
+      }
     }
     # rubocop:enable Metrics/LineLength
 

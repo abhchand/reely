@@ -1,0 +1,16 @@
+.icon-tray__item--close-control-panel {
+  svg {
+    // Sigh... hate to use `!important` here but
+    // this needs to override the more specifc rule
+    // for control panel icon tray
+
+    // Vertically centering 18px SVG inside 40px div
+    margin-top: 11px !important;
+
+    g, path, ellipse, rect {
+      fill: $black !important;
+      stroke: $black !important;
+      stroke-width: 3px;
+    }
+  }
+}

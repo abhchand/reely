@@ -3,10 +3,13 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  height: 40px;
+  height: 60px;
 }
 
 .photo-grid-control-panel--open {
+  @extend .soft-shadow;
+
+  padding: 0 20px;
 }
 
 .photo-grid-control-panel--closed {

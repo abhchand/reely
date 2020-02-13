@@ -1,4 +1,11 @@
 .react-select-or-create {
+  // By default the inherited with of the open menu is 250px
+  // and it opens to the right
+  // We want it to open to the left, so offset each relevant
+  // component by the necessary amount, also accounting for
+  // the existing width of the icon tray item (40px)
+  $relative_offset: -210px;
+
   height: 100%;
   font-size: 16px;
 
@@ -8,6 +15,7 @@
     z-index: 99;
 
     height: 40px;
+    margin-left: $relative_offset;
     line-height: 40px;
   }
 
@@ -19,24 +27,17 @@
     border: none;
 
     svg {
-      // Match SVG styling here with `.icon-try__item svg`.
+      // Match SVG styling here with `.photo-grid-control-panel__icon-tray .icon-tray__item svg`.
       // This element is a bit different because it's wrapped
       // in a `.open-menu-btn` container, but we disguise it
       // to have the same behavior
 
-      // Vertically centering 24px SVG inside 40px div
-      margin-top: 8px;
+      // Vertically centering 20px SVG inside 40px div
+      margin-top: 10px;
 
       g, path, ellipse, rect {
-        fill: $dark-gray;
-        stroke: $dark-gray;
-      }
-
-      &:hover {
-        g, path, ellipse, rect {
-          fill: $dark-purple;
-          stroke: $dark-purple;
-        }
+        fill: $dark_purple;
+        stroke: $dark_purple;
       }
     }
   }
@@ -44,6 +45,8 @@
   .dropdown-menu {
     @extend .soft-shadow;
     z-index: 99;
+    box-sizing: border-box;
+    margin-left: $relative_offset;
 
     color: $dark-gray;
     background-color: $white;

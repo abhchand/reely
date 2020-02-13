@@ -6,7 +6,7 @@ import React from 'react';
 class PhotoGrid extends React.Component {
 
   static propTypes = {
-    photoData: PropTypes.array.isRequired,
+    photos: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
     selectionModeEnabled: PropTypes.bool.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
@@ -23,7 +23,7 @@ class PhotoGrid extends React.Component {
     event.persist();
 
     const service = new PhotoSelectionService(
-      this.props.photoData,
+      this.props.photos,
       this.props.selectedPhotoIds,
       photoIndex,
       event
@@ -37,7 +37,7 @@ class PhotoGrid extends React.Component {
     return (
       <div className="photo-grid">
         {
-          this.props.photoData.map((photo, photoIndex) => {
+          this.props.photos.map((photo, photoIndex) => {
             return (
               <Photo
                 key={`photo_${photo.id}`}
@@ -53,6 +53,7 @@ class PhotoGrid extends React.Component {
       </div>
     );
   }
+
 }
 
 export default PhotoGrid;

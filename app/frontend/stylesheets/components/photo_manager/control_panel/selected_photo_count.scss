@@ -1,7 +1,11 @@
 .photo-grid-control-panel__selected-photo-count {
-  margin-left: 40px;
-  overflow: hidden;
-  font-size: 20px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  width: 160px;
+  margin-left: 15px;
+  color: $dark-gray;
+  font-size: 18px;
+  text-align: left;
+
+  span {
+    line-height: 40px;
+  }
 }

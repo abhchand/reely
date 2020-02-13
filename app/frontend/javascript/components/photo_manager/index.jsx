@@ -1,3 +1,4 @@
+import Ability from './ability.js';
 import ControlPanel from './control_panel';
 import Empty from './empty';
 import mountReactComponent from 'mount-react-component.jsx';
@@ -9,17 +10,14 @@ import React from 'react';
 class PhotoManager extends React.Component {
 
   static propTypes = {
-    photoData: PropTypes.array.isRequired,
+    photos: PropTypes.array.isRequired,
     collections: PropTypes.array,
     currentCollection: PropTypes.object,
-    isReadOnly: PropTypes.bool,
-    allowAddingToCollection: PropTypes.bool,
-    allowRemovingFromCollection: PropTypes.bool
+    permissions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
-    collections: [],
-    isReadOnly: false
+    collections: []
   }
 
   constructor(props) {
@@ -36,8 +34,10 @@ class PhotoManager extends React.Component {
     this.renderPhotoGrid = this.renderPhotoGrid.bind(this);
     this.renderCarousel = this.renderCarousel.bind(this);
 
+    this.ability = new Ability(this.props.permissions);
+
     this.state = {
-      photoData: this.props.photoData,
+      photos: this.props.photos,
       collections: this.props.collections,
       showCarousel: false,
       selectionModeEnabled: false,
@@ -48,9 +48,9 @@ class PhotoManager extends React.Component {
   removeSelectedPhotos() {
     this.setState((prevState) => {
       const idsToRemove = prevState.selectedPhotoIds;
-      const newPhotoData = prevState.photoData.filter((photo) => idsToRemove.indexOf(photo.id) < 0);
+      const newPhotoData = prevState.photos.filter((photo) => idsToRemove.indexOf(photo.id) < 0);
 
-      return { photoData: newPhotoData };
+      return { photos: newPhotoData };
     });
   }
 
@@ -102,11 +102,9 @@ class PhotoManager extends React.Component {
         currentCollection={this.props.currentCollection}
         updateCollections={this.updateCollections}
         selectedPhotoIds={this.state.selectedPhotoIds}
+        ability={this.ability}
         onOpen={this.enableSelectionMode}
         onClose={this.disableSelectionMode}
-        isReadOnly={this.props.isReadOnly}
-        allowAddingToCollection={this.props.allowAddingToCollection}
-        allowRemovingFromCollection={this.props.allowRemovingFromCollection}
         onRemovingFromCollection={this.removeSelectedPhotos} />
     );
   }
@@ -114,7 +112,7 @@ class PhotoManager extends React.Component {
   renderPhotoGrid() {
     return (
       <PhotoGrid
-        photoData={this.state.photoData}
+        photos={this.state.photos}
         onClick={this.enableCarousel}
         selectionModeEnabled={this.state.selectionModeEnabled}
         selectedPhotoIds={this.state.selectedPhotoIds}
@@ -126,17 +124,19 @@ class PhotoManager extends React.Component {
     if (this.state.showCarousel) {
       return (
         <PhotoCarousel
-          photoData={this.state.photoData}
+          photos={this.state.photos}
           clickedPhotoIndex={this.state.clickedPhotoIndex}
-          closeCarousel={this.disableCarousel} />
+          close={this.disableCarousel} />
       );
     }
+
+    return null;
   }
 
   render() {
     const enabledClass = this.state.selectionModeEnabled ? ' photo-grid--selection-mode-enabled' : '';
 
-    if (this.state.photoData.length === 0) {
+    if (this.state.photos.length === 0) {
       return <Empty />;
     }
 

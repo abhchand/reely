@@ -13,7 +13,7 @@ class AddToCollection extends React.Component {
     updateCollections: PropTypes.func.isRequired,
     selectedPhotoIds: PropTypes.array.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    onAddToExistingCollection: PropTypes.func.isRequired
+    onComplete: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -57,14 +57,14 @@ class AddToCollection extends React.Component {
         const notification = { id: id, content: content, type: 'success' };
 
         self.addNotification(notification);
-        self.props.onAddToExistingCollection();
+        self.props.onComplete();
       }).
       catch((_err) => {
         const content = I18n.t(`${self.i18nPrefix}.existing.error`);
         const notification = { id: id, content: content, type: 'error' };
 
         self.addNotification(notification);
-        self.props.onAddToExistingCollection();
+        self.props.onComplete();
       });
   }
 
@@ -121,7 +121,7 @@ class AddToCollection extends React.Component {
 
   render() {
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
-    const textForOpenMenuButton = () => <IconPlus size="24" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />;
+    const textForOpenMenuButton = () => <IconPlus size="20" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />;
     const textForEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForNoSearchResults = I18n.t(`${this.i18nPrefix}.no_results`);
     const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);

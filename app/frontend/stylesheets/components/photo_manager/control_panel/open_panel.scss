@@ -1,0 +1,22 @@
+.photo-grid-control-panel__icon-tray--open {
+  width: 100%;
+
+  .icon-tray__item {
+    border-radius: 50%;
+
+    svg {
+
+      // Vertically centering 20px SVG inside 40px div
+      margin-top: 10px;
+
+      g, path, ellipse, rect {
+        fill: $dark_purple;
+        stroke: $dark_purple;
+      }
+    }
+
+    &:hover {
+      background-color: $lightest-gray;
+    }
+  }
+}

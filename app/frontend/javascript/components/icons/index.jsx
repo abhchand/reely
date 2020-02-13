@@ -494,18 +494,20 @@ class IconX extends React.Component {
 
   static propTypes = {
     size: PropTypes.string,
-    fillColor: PropTypes.string
+    fillColor: PropTypes.string,
+    title: PropTypes.string
   };
 
   static defaultProps = {
     fillColor: '#EEEEEE',
-    size: '32'
+    size: '32',
+    title: 'X Icon'
   }
 
   render() {
     return (
       <svg width={this.props.size} height={this.props.size} viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <title>Close Icon</title>
+        <title>{this.props.title}</title>
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
           <g id="Artboard-2" stroke={this.props.fillColor} strokeWidth="2">
             <g id="Group" transform="translate(3.000000, 2.000000)">
