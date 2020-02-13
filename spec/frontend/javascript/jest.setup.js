@@ -19,7 +19,7 @@ const yaml = require('js-yaml');
 const fs   = require('fs');
 const path = require('path');
 
-const configPath = path.join(__dirname, "..", "..", "config", "locales", "en.yml");
+const configPath = path.join(__dirname, "..", "..", "..", "config", "locales", "en.yml");
 
 try {
   const translations = yaml.safeLoad(fs.readFileSync(configPath, "utf8"));
