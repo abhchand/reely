@@ -1,6 +1,6 @@
 #collections-show {
   .photo-count {
-    margin-bottom: 0;
+    margin: 0;
   }
 }
 .collections-show__emtpy-state {
@@ -11,30 +11,4 @@
 .collections-show__date-range {
   color: $dark-gray;
   text-align: left;
-}
-.collections-show__action-bar {
-  margin: 15px 0;
-}
-.collections-show__action-bar-item {
-}
-.collections-show__action-bar-item--back {
-  svg {
-    polygon {
-      fill: $dark-gray;
-      stroke: $dark-gray;
-    }
-  }
-
-  &:hover {
-    svg {
-      polygon {
-        fill: $dark-purple;
-        stroke: $dark-purple;
-      }
-    }
-  }
-}
-.collections-show__action-bar-item--delete {
-}
-.collections-show__action-bar-item--share {
 }

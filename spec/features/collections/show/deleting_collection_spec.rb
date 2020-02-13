@@ -81,6 +81,6 @@ RSpec.feature "deleting collection", :js, type: :feature do
   end
 
   def click_delete_icon
-    page.find(".collections-show__action-bar-item--delete").click
+    page.find(".icon-tray__item--delete-collection button").click
   end
 end

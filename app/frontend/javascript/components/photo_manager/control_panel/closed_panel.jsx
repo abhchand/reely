@@ -18,7 +18,7 @@ class ClosedPanel extends React.Component {
 
   render() {
     return (
-      <ul className="icon-tray">
+      <ul className="icon-tray photo-grid-control-panel__icon-tray--closed">
         {actionOpenPanel(this.props)}
         {actionDeleteCollection(this.props)}
         {actionShareCollection(this.props)}

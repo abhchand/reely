@@ -37,7 +37,7 @@ RSpec.feature "sharing collection", :js, type: :feature do
   end
 
   def click_share_menu
-    page.find(".collections-show__action-bar-item--share").click
+    page.find(".icon-tray__item--share-collection button").click
     wait_for_ajax
     expect(page).to have_selector(".modal-content__heading")
   end

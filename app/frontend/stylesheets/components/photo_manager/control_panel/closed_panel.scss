@@ -1,0 +1,27 @@
+.photo-grid-control-panel__icon-tray--closed {
+  width: 100%;
+
+  .icon-tray__item {
+    border-radius: 50%;
+
+    button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    svg {
+      g, path, ellipse, rect {
+        fill: $dark_gray;
+        stroke: $dark_gray;
+      }
+    }
+
+    &:hover {
+      background-color: $lightest-gray;
+    }
+  }
+}

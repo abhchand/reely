@@ -4,12 +4,10 @@ import React from 'react';
 
 const OpenButton = (props) => {
   return (
-    <li
-      tabIndex={0}
-      className="icon-tray__item icon-tray__item--open-control-panel"
-      onClick={props.onClick}
-      onKeyPress={props.onClick}>
-      <IconCheckMark size="24" fillColor="#888888" />
+    <li className="icon-tray__item icon-tray__item--open-control-panel">
+      <button type="button" onClick={props.onClick}>
+        <IconCheckMark size="20" fillColor="#888888" />
+      </button>
     </li>
   );
 };

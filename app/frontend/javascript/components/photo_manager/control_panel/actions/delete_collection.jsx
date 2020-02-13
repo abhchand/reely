@@ -39,7 +39,7 @@ class DeleteCollection extends React.Component {
     return (
       <li className="icon-tray__item icon-tray__item--delete-collection">
         <button type="button" onClick={this.toggleModal}>
-          <IconTrash size="18" fillColor="#888888" />
+          <IconTrash size="20" fillColor="#888888" />
         </button>
         {this.renderModal()}
       </li>
