@@ -14,7 +14,7 @@ ENV RAILS_ENV=$RAILS_ENV
 
 # NodeJS
 RUN mkdir -p /usr/local/nvm
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 RUN node -v
 RUN npm -v
