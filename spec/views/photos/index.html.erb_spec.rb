@@ -47,6 +47,7 @@ RSpec.describe "photos/index.html.erb", type: :view do
         allowAddingToCollection: true,
         allowDeletingCollection: false,
         allowRemovingFromCollection: false,
+        allowSharingCollection: false,
         isEditable: true
       }
     }

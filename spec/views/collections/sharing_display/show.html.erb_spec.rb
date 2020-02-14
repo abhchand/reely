@@ -57,6 +57,7 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
         allowAddingToCollection: false,
         allowDeletingCollection: false,
         allowRemovingFromCollection: false,
+        allowSharingCollection: false,
         isEditable: false
       }
     }

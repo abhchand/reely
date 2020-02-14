@@ -37,14 +37,6 @@ RSpec.feature "share collections show page", type: :feature do
       to have_selector(
         ".collections-sharing-display-show__photo-manager-container"
       )
-    expect(page).to have_react_component("photo-manager").
-      including_props(
-        "permissions" => {
-          "allowAddingToCollection" => false,
-          "allowDeletingCollection" => false,
-          "allowRemovingFromCollection" => false,
-          "isEditable" => false
-        }
-      )
+    expect(page).to have_react_component("photo-manager")
   end
 end
