@@ -1,3 +1,4 @@
+import { keyCodes, parseKeyCode } from 'utils/keys';
 import { IconCheckMark } from 'components/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -19,6 +20,7 @@ class Photo extends React.Component {
     this.photoUrl = this.photoUrl.bind(this);
     this.applyRotation = this.applyRotation.bind(this);
     this.applyAntiRotation = this.applyAntiRotation.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
     this.renderOverlayWhenSelectionModeEnabled = this.renderOverlayWhenSelectionModeEnabled.bind(this);
@@ -39,6 +41,7 @@ class Photo extends React.Component {
     style.transform = `rotate(${degrees}deg)`;
   }
 
+  // eslint-disable-next-line padded-blocks
   applyAntiRotation(style) {
 
     /*
@@ -54,6 +57,17 @@ class Photo extends React.Component {
     }
 
     style.transform = `rotate(${-1 * degrees}deg)`;
+  }
+
+  handleKeyDown(e) {
+    switch (parseKeyCode(e)) {
+      case keyCodes.ENTER: {
+        this.handleClick(e);
+        break;
+      }
+
+      // eslint skip default
+    }
   }
 
   handleClick(e) {
@@ -108,7 +122,10 @@ class Photo extends React.Component {
       <div
         data-id={this.props.photo.id}
         className={`photo-grid-photo__container${selectedClass}`}
-        onClick={this.handleClick}>
+        tabIndex="0"
+        role="button"
+        onClick={this.handleClick}
+        onKeyDown={this.handleKeyDown}>
 
         <div className="photo-grid-photo covered-background" style={divStyle}>
           {this.renderOverlay()}
