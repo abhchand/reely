@@ -57,6 +57,7 @@ RSpec.describe "collections/show.html.erb", type: :view do
       permissions: {
         allowAddingToCollection: true,
         allowDeletingCollection: true,
+        allowDownloadingCollection: true,
         allowRemovingFromCollection: true,
         allowSharingCollection: true,
         isEditable: true

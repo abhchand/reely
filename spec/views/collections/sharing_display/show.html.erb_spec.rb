@@ -38,15 +38,6 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
     expect(page).to have_content("_stubbed_photo_count")
   end
 
-  it "renders the file download component" do
-    render
-
-    component = "collections-sharing-display-download-files"
-    props = { collection: @collection.as_json(include: %(share_id)) }
-
-    expect(page).to have_react_component(component).including_props(props)
-  end
-
   it "renders the photo manager" do
     render
 
@@ -56,6 +47,7 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
       permissions: {
         allowAddingToCollection: false,
         allowDeletingCollection: false,
+        allowDownloadingCollection: true,
         allowRemovingFromCollection: false,
         allowSharingCollection: false,
         isEditable: false

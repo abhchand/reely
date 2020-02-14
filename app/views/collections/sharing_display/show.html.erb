@@ -13,17 +13,6 @@
   </div>
   <% end %>
 
-  <div class="collections-sharing-display-show__download-files-container">
-    <%=
-      react_component(
-        "collections-sharing-display-download-files",
-        {
-          collection: @collection.as_json(include: %[share_id])
-        }
-      )
-    %>
-  </div>
-
   <% if @photo_count.zero? %>
   <div class="collections-sharing-display-show__emtpy-state">
     <%= t(".empty") %>
@@ -35,9 +24,11 @@
         "photo-manager",
         {
           photos: PhotoPresenter.wrap(@photos, view: view_context).map(&:photo_manager_props),
+          currentCollection: CollectionPresenter.new(@collection, view: view_context).photo_manager_props,
           permissions: {
             allowAddingToCollection: false,
             allowDeletingCollection: false,
+            allowDownloadingCollection: true,
             allowRemovingFromCollection: false,
             allowSharingCollection: false,
             isEditable: false

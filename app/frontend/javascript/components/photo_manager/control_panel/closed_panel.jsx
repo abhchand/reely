@@ -1,5 +1,6 @@
 import {
   actionDeleteCollection,
+  actionDownloadCollection,
   actionOpenPanel,
   actionShareCollection
 } from './closed_panel_actions';
@@ -20,8 +21,9 @@ class ClosedPanel extends React.Component {
     return (
       <ul className="icon-tray photo-grid-control-panel__icon-tray--closed">
         {actionOpenPanel(this.props)}
-        {actionDeleteCollection(this.props)}
         {actionShareCollection(this.props)}
+        {actionDownloadCollection(this.props)}
+        {actionDeleteCollection(this.props)}
       </ul>
     );
   }

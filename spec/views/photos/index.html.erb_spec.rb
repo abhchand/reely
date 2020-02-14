@@ -46,6 +46,7 @@ RSpec.describe "photos/index.html.erb", type: :view do
       permissions: {
         allowAddingToCollection: true,
         allowDeletingCollection: false,
+        allowDownloadingCollection: false,
         allowRemovingFromCollection: false,
         allowSharingCollection: false,
         isEditable: true

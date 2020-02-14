@@ -1,8 +1,5 @@
 class CollectionPresenter < ApplicationPresenter
   def photo_manager_props
-    {
-      id: synthetic_id,
-      name: name
-    }
+    as_json(include: %(share_id))
   end
 end

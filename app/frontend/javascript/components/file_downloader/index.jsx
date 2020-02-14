@@ -97,7 +97,7 @@ class FileDownloader extends React.Component {
 
   render() {
     if (this.state.isDownloading) {
-      return <div className="file-downloader"><LoadingIconSpinner /></div>;
+      return <button type="button" className="file-downloader"><LoadingIconSpinner /></button>;
     }
 
     return (

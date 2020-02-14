@@ -1,10 +1,9 @@
 import FileDownloader from 'components/file_downloader';
 import { IconDownload } from 'components/icons';
-import mountReactComponent from 'mount-react-component.jsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-class CollectionsSharingDisplayDownloadFiles extends React.Component {
+class DownloadCollection extends React.Component {
 
   static propTypes = {
     collection: PropTypes.object.isRequired
@@ -27,18 +26,24 @@ class CollectionsSharingDisplayDownloadFiles extends React.Component {
     return `/collections/${share_id}/downloads/${downloadId}/status.json`;
   }
 
+  // eslint-disable-next-line padded-blocks
   render() {
+
+    /*
+     * NOTE: FileDownloader already wraps the content in a `<button>` so no
+     * need to specify a button here
+     */
     return (
-      <FileDownloader
-        generateCreateDownloadPath={this.generateCreateDownloadPath}
-        generateFetchStatusPath={this.generateFetchStatusPath}>
-        <IconDownload size="24" fillColor="#888888" />
-      </FileDownloader>
+      <li className="icon-tray__item icon-tray__item--download-collection">
+        <FileDownloader
+          generateCreateDownloadPath={this.generateCreateDownloadPath}
+          generateFetchStatusPath={this.generateFetchStatusPath}>
+          <IconDownload size="20" fillColor="#888888" />
+        </FileDownloader>
+      </li>
     );
   }
 
 }
 
-export default CollectionsSharingDisplayDownloadFiles;
-
-mountReactComponent(CollectionsSharingDisplayDownloadFiles, 'collections-sharing-display-download-files');
+export default DownloadCollection;

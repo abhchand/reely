@@ -3,10 +3,4 @@
   background: transparent;
   border: none;
   cursor: pointer;
-
-  &:hover svg {
-    polygon {
-      fill: $dark_purple;
-    }
-  }
 }

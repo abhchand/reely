@@ -4,8 +4,11 @@ class Ability {
     this.permissions = permissions;
 
     this.canAddToCollection = this.canAddToCollection.bind(this);
+    this.canDeleteCollection = this.canDeleteCollection.bind(this);
+    this.canDownloadCollection = this.canDownloadCollection.bind(this);
     this.canEdit = this.canEdit.bind(this);
     this.canRemoveFromCollection = this.canRemoveFromCollection.bind(this);
+    this.canShareCollection = this.canShareCollection.bind(this);
   }
 
   canAddToCollection() {
@@ -26,6 +29,16 @@ class Ability {
     }
 
     return this.canEdit() && allowDeletingCollection;
+  }
+
+  canDownloadCollection() {
+    let { allowDownloadingCollection } = this.permissions;
+
+    if (typeof allowDownloadingCollection == 'undefined') {
+      allowDownloadingCollection = false;
+    }
+
+    return allowDownloadingCollection;
   }
 
   canEdit() {

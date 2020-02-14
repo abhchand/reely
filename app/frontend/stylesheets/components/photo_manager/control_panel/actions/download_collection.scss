@@ -1,0 +1,25 @@
+.icon-tray__item--download-collection {
+
+  // The loading icon is unique in that it's not just SVG, but instead
+  // a div.loading-icon wrapping an SVG
+  // We need to expand the div to be full width/height within the button
+  // and horizontally center the SVG. Vertical centering happens
+  // automatically
+  .loading-icon {
+    box-sizing: border-box;
+    // 40px
+    width: 100%;
+    height: 100%;
+
+    // Vertically center 20px svg inside 40px div
+    // Pad it from both sides to ensure it spins
+    // around it's center. The box sizing ensures
+    // the padding gets removed from the overal height
+    padding: 10px 0;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
