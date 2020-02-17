@@ -29,9 +29,6 @@ describe('<CopyLink />', () => {
 
     const icon = button.querySelector('svg');
     expect(icon).not.toBeNull();
-
-    const content = button.querySelector('span');
-    expect(content).toHaveTextContent(I18n.t(`${i18nPrefix}.label`));
   });
 
   describe('button onClick event', () => {

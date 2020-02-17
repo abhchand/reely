@@ -42,10 +42,7 @@ class CopyLink extends React.Component {
         type="button"
         className="share-collection__link-sharing-copy"
         onClick={this.onClick}>
-        <div className="button-contents">
-          <IconCopy size="22px" fillColor="#000000" />
-          <span>{I18n.t(`${this.i18nPrefix}.label`)}</span>
-        </div>
+        <IconCopy size="22px" fillColor="#000000" title={I18n.t(`${this.i18nPrefix}.alt`)} />
       </button>
     );
   }

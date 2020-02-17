@@ -335,14 +335,14 @@ en:
     share_modal:
       heading: Share "%{name}"
       copy_link:
-        label: Copy
+        alt: Copy Link
         success: Link copied to clipboard
       link_sharing_toggle:
         enabled: Link sharing is <b>on</b>
         disabled: Link sharing is <b>off</b>
         failure: Could not update preference
       renew_link:
-        label: Regenerate
+        label: Regenerate link
         loading: generating...
         failure: Could not fetch new link
     sharing_display:

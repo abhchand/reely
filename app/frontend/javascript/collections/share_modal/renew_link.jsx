@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { IconRefresh } from 'components/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
@@ -16,7 +15,7 @@ class RenewLink extends React.Component {
     super(props);
 
     this.onClick = this.onClick.bind(this);
-    this.renderButtonContents = this.renderButtonContents.bind(this);
+    this.renderLink = this.renderLink.bind(this);
     this.renderLoading = this.renderLoading.bind(this);
 
     this.i18nPrefix = 'collections.share_modal.renew_link';
@@ -76,33 +75,19 @@ class RenewLink extends React.Component {
       });
   }
 
-  renderButtonContents() {
-    return (
-      <div className="button-contents">
-        <IconRefresh size="22px" fillColor="#000000" />
-        <span>{I18n.t(`${this.i18nPrefix}.label`)}</span>
-      </div>
-    );
+  renderLink() {
+    return <a data-testid="renew-link" onClick={this.onClick}>{I18n.t(`${this.i18nPrefix}.label`)}</a>;
   }
 
   renderLoading() {
-    return (
-      <div className="button-contents loading">
-        <IconRefresh size="22px" fillColor="#888888" />
-        <span>{I18n.t(`${this.i18nPrefix}.loading`)}</span>
-      </div>
-    );
+    return <span className="loading">{I18n.t(`${this.i18nPrefix}.loading`)}</span>;
   }
 
   render() {
     return (
-      <button
-        data-testid="renew-link"
-        type="button"
-        className="share-collection__link-sharing-renew"
-        onClick={this.onClick}>
-        {this.state.isRenewingLink ? this.renderLoading() : this.renderButtonContents()}
-      </button>
+      <div className="share-collection__link-sharing-renew">
+        {this.state.isRenewingLink ? this.renderLoading() : this.renderLink()}
+      </div>
     );
   }
 

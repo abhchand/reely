@@ -30,14 +30,12 @@ class LinkSharing extends React.Component {
 
     return (
       <div data-testid="link-sharing-content" className="share-collection__link-sharing-content">
-        <Url collection={this.props.collection} />
-
-        <div className="share-collection__link-sharing-actions">
+        <div className="share-collection__link-sharing-url">
+          <Url collection={this.props.collection} />
           <CopyLink />
-          <RenewLink
-            collection={this.props.collection}
-            setCollection={this.props.setCollection} />
         </div>
+
+        <RenewLink collection={this.props.collection} setCollection={this.props.setCollection} />
       </div>
     );
   }

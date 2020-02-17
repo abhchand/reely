@@ -1,6 +1,10 @@
 .share-collection__link-sharing-renew {
-  width: 40%;
-  border-bottom-right-radius: 3px;
+  width: 100%;
+  margin: 5px 0;
+  color: $dark-purple;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: left;
 
   .loading {
     color: $dark-gray;

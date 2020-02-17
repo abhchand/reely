@@ -34,28 +34,23 @@ describe('<RenewLink />', () => {
   it('renders the component', () => {
     const rendered = renderComponent();
 
-    const button = rendered.getByTestId('renew-link');
-    expect(button).toHaveAttribute('type', 'button');
+    const link = rendered.getByTestId('renew-link');
 
-    const loading = button.querySelector('loading');
+    const loading = rendered.container.querySelector('loading');
     expect(loading).toBeNull();
 
-    const icon = button.querySelector('svg');
-    expect(icon).not.toBeNull();
-
-    const content = button.querySelector('span');
-    expect(content).toHaveTextContent(I18n.t(`${i18nPrefix}.label`));
+    expect(link).toHaveTextContent(I18n.t(`${i18nPrefix}.label`));
   });
 
   it('does not render the loading state', () => {
     const rendered = renderComponent();
-    const button = rendered.getByTestId('renew-link');
+    const link = rendered.getByTestId('renew-link');
 
-    const loading = button.querySelector('loading');
+    const loading = link.querySelector('loading');
     expect(loading).toBeNull();
   });
 
-  describe('button onClick event', () => {
+  describe('link onClick event', () => {
     let data;
 
     beforeEach(() => {
@@ -69,29 +64,29 @@ describe('<RenewLink />', () => {
        * assert the loading state is enabled
        */
       axios.post.mockImplementation(async() => {
-        await expect(button.querySelector('loading')).not.toBeNull();
-        expect(button).toHaveTextContent(I18n.t(`${i18nPrefix}.loading`));
+        await expect(link.querySelector('loading')).not.toBeNull();
+        expect(link).toHaveTextContent(I18n.t(`${i18nPrefix}.loading`));
 
         Promise.resolve({ data: data });
       });
 
       const rendered = renderComponent();
 
-      const button = rendered.getByTestId('renew-link');
-      fireEvent.click(button);
+      const link = rendered.getByTestId('renew-link');
+      fireEvent.click(link);
     });
 
-    it('disables the button during the loading state', () => {
+    it('disables the link during the loading state', () => {
 
       /*
        * Use the long form of mocking implementation so we can
        * assert the loading state is enabled
        */
       axios.post.mockImplementation(async() => {
-        await expect(button.querySelector('loading')).not.toBeNull();
+        await expect(link.querySelector('loading')).not.toBeNull();
 
         // Click again while loading state is active
-        fireEvent.click(button);
+        fireEvent.click(link);
         await expect(axios.post).not.toHaveBeenCalled();
 
         Promise.resolve({ data: data });
@@ -99,29 +94,29 @@ describe('<RenewLink />', () => {
 
       const rendered = renderComponent();
 
-      const button = rendered.getByTestId('renew-link');
-      fireEvent.click(button);
+      const link = rendered.getByTestId('renew-link');
+      fireEvent.click(link);
     });
 
     describe('on success', () => {
       let rendered;
-      let button;
+      let link;
 
       beforeEach(() => {
         axios.post.mockResolvedValue({ data: data });
 
         rendered = renderComponent();
-        button = rendered.getByTestId('renew-link');
+        link = rendered.getByTestId('renew-link');
       });
 
       it('no longer displays the loading state', async() => {
-        fireEvent.click(button);
+        fireEvent.click(link);
 
-        await expect(button.querySelector('loading')).toBeNull();
+        await expect(link.querySelector('loading')).toBeNull();
       });
 
       it('calls the setCollection() handler', async() => {
-        fireEvent.click(button);
+        fireEvent.click(link);
 
         await expect(axios.post).toHaveBeenCalledTimes(1);
         await expect(setCollection).toHaveBeenCalled();
@@ -130,30 +125,30 @@ describe('<RenewLink />', () => {
 
     describe('on fail', () => {
       let rendered;
-      let button;
+      let link;
 
       beforeEach(() => {
         axios.post.mockRejectedValue('Some error');
 
         rendered = renderComponent();
-        button = rendered.getByTestId('renew-link');
+        link = rendered.getByTestId('renew-link');
       });
 
       it('no longer displays the loading state', async() => {
-        fireEvent.click(button);
+        fireEvent.click(link);
 
-        await expect(button.querySelector('loading')).toBeNull();
+        await expect(link.querySelector('loading')).toBeNull();
       });
 
       it('does not call the setCollection() handler', async() => {
-        fireEvent.click(button);
+        fireEvent.click(link);
 
         await expect(axios.post).toHaveBeenCalledTimes(1);
         await expect(setCollection).not.toHaveBeenCalled();
       });
 
       it('displays the action notification', async() => {
-        fireEvent.click(button);
+        fireEvent.click(link);
 
         /*
          * <hack>

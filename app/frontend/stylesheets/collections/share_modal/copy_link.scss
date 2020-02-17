@@ -1,5 +1,11 @@
 .share-collection__link-sharing-copy {
-  width: 60%;
-  border-right-width: 0;
-  border-bottom-left-radius: 3px;
+  min-width: 45px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid $dark-gray;
+  border-left-width: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
 }
