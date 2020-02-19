@@ -1,0 +1,15 @@
+<% if user.blank? %>
+<div class="auth-prompt">
+  <%= link_to(new_user_registration_path) do %>
+    <button class="cta cta-purple" type="button"><%= t(".register") %></button>
+  <% end %>
+
+  <%= link_to(new_user_session_path) do %>
+    <button class="cta cta-white" type="button"><%= t(".log_in") %></button>
+  <% end %>
+
+  <button class="close" type="button">
+    <%= inline_svg_tag("icons/x.svg", height: "24px", width: "24px") %>
+  </button>
+</div>
+<% end %>

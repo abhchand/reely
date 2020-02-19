@@ -16,6 +16,14 @@ RSpec.feature "share collections show page", type: :feature do
       visit collections_sharing_display_path(id: collection.share_id)
       expect_show_page_for(collection)
     end
+
+    it "user can see and can dissmiss the auth prompt", :js do
+      visit collections_sharing_display_path(id: collection.share_id)
+      expect(page).to have_selector(".auth-prompt")
+
+      page.find(".auth-prompt .close").click
+      expect(page).to_not have_selector(".auth-prompt")
+    end
   end
 
   it "user can not add to a collection", :js do

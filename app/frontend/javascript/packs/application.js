@@ -15,6 +15,7 @@ import 'javascript/application/flash.js';
 
 import 'javascript/collections/_card';
 import 'javascript/collections/_editable_name_heading.js';
+import 'javascript/collections/sharing_display/_auth_form.js';
 
 import 'javascript/components/action_notifications';
 import 'javascript/components/file_uploader';

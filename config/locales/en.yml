@@ -346,6 +346,9 @@ en:
         loading: generating...
         failure: Could not fetch new link
     sharing_display:
+      auth_prompt:
+        log_in: Log In
+        register: Sign Up
       show:
         empty: There are no photos (yet!) in this collection
     show:

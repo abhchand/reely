@@ -1,0 +1,26 @@
+.auth-prompt {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 75px;
+  padding: 0 30px;
+  border-bottom: 1px solid $dark-purple;
+
+  button {
+    width: 100px;
+    height: 48px;
+    margin-right: 10px;
+    font-size: 18px;
+
+    &.close {
+      margin-right: 0;
+      margin-left: auto;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
