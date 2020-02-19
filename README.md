@@ -1,6 +1,6 @@
 # reely
 
-[![Build Status](https://gitlab.com/reely/reely/badges/master/build.svg)](https://gitlab.com/reely/reely/pipelines)
+[![Build Status](https://github.com/abhchand/reely/badges/master/build.svg)](https://github.com/abhchand/reely/pipelines)
 
 
 # Development / Test Setup
@@ -125,7 +125,7 @@ docker-compose stop
 
 # Production (Automated)
 
-The above production build and deploy can be automated with the [reely-ansible](https://gitlab.com/reely/reely-ansible) repo.
+The above production build and deploy can be automated with the [reely-ansible](https://github.com/abhchand/reely-ansible) repo.
 
 Follow the instructions in there to provision the server.
 
