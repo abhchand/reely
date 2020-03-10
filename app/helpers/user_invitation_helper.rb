@@ -8,7 +8,7 @@ module UserInvitationHelper
   end
 
   def only_editable_user_invitations
-    return if can?(:edit, user_invitation)
+    return if can?(:write, user_invitation)
 
     handle_insufficient_permissions
   end
