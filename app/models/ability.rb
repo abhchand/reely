@@ -2,17 +2,36 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    (%w[all] + ALL_ROLES).each do |role|
-      send("set_abilities_for_#{role.downcase}") if user.has_role?(role)
+    @user = user
+
+    can :read, :admin do
+      admin?
+    end
+
+    can :write, :admin do
+      admin?
+    end
+
+    can :read, :mailer_previews do
+      admin?
+    end
+
+    can :write, :sidekiq do
+      admin?
+    end
+
+    can :edit, User do |_user|
+      admin?
+    end
+
+    can :edit, UserInvitation do |_user_invitation|
+      admin?
     end
   end
 
   private
 
-  def set_abilities_for_all
-  end
-
-  def set_abilities_for_admin
-    can :manage, :all
+  def admin?
+    @user.has_role?("admin")
   end
 end

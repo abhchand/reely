@@ -5,7 +5,7 @@ module Admin
 
       return false unless user_id
       user = User.find_by_id(user_id)
-      user && Ability.new(user).can?(:manage, :mailer_previews)
+      user && Ability.new(user).can?(:read, :mailer_previews)
     end
   end
 end

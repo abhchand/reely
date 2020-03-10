@@ -8,13 +8,13 @@ module UserInvitationHelper
   end
 
   def only_editable_user_invitations
-    return if can?(:manage, :admin)
+    return if can?(:edit, user_invitation)
 
     handle_insufficient_permissions
   end
 
   def ensure_can_manage_invitations
-    return if can?(:manage, :admin)
+    return if can?(:write, :admin)
 
     handle_insufficient_permissions
   end

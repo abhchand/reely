@@ -8,7 +8,7 @@ module UserHelper
   end
 
   def only_editable_users
-    return if can?(:manage, :admin)
+    return if can?(:edit, user)
 
     handle_user_not_editable
   end
