@@ -43,4 +43,11 @@ RSpec.configure do |config|
     resize_window_default
     Capybara.use_default_driver
   end
+
+  config.before(:each, type: :controller) do
+    # Set RSpec controller host to match the application's URL host
+    # See: https://stackoverflow.com/a/49788110/2490003
+    opts = Rails.application.routes.default_url_options
+    @request.host = [opts[:host], opts[:port]].join(":")
+  end
 end

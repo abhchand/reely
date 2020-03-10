@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/fast-jsonapi/fast_jsonapi
+  revision: 990c0acd18137c96d0c3e4a3168cc71fd3b912c2
+  specs:
+    fast_jsonapi (1.6.0)
+      activesupport (>= 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -357,6 +364,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7, >= 2.7.5)
   exiftool (~> 1.0)
   factory_bot_rails (~> 4.5)
+  fast_jsonapi (~> 1.6.0)!
   foreman (~> 0.86.0)
   highline (~> 2.0)
   i18n-js (>= 3.0.0.rc11)
