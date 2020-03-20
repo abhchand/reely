@@ -75,4 +75,19 @@ module ApplicationHelper
   def to_bool(value)
     ActiveRecord::Type::Boolean.new.deserialize(value)
   end
+
+  # Useful for translating param `:id` values from :synthetic_id to :id.
+  # Raises `ActiveRecord::RecordNotFound` if not found
+  def translate_synthetic_id!(id, klass = User)
+    return if id.blank?
+
+    klass.find_by_synthetic_id(id).tap do |record|
+      if record.nil?
+        raise(
+          ActiveRecord::RecordNotFound,
+          "Couldn't find #{klass} with 'synthetic_id'=#{id}"
+        )
+      end
+    end.id
+  end
 end
