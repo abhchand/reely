@@ -75,6 +75,31 @@ module Admin
       def unknown_audit_type
         I18n.t("admin.audit.shared.unknown")
       end
+
+      def fetch_or_reconstruct_associated_record(id, klass)
+        # Try to fetch the existing record if it exists
+        record = klass.find_by_id(id)
+        return record if record
+
+        # If it does not exist, it was deleted at some point. Find the
+        # audit record from its deletion.
+        last_audit =
+          Audited::Audit.
+          auditable_finder(id, klass.name).
+          where(action: "destroy").
+          last
+
+        return unless last_audit
+
+        # Reconstruct a fake / temp record based on its most recently
+        # known attributes
+        record = klass.new
+        record.id = id
+        record.attributes = last_audit.audited_changes
+        record.errors.add(:base, :fake_error_to_block_accidental_save)
+
+        record
+      end
     end
   end
 end
