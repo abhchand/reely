@@ -31,11 +31,12 @@ class ModalPrompt extends React.Component {
     modalClassName: PropTypes.string,
 
     // ModalPrompt props
-    bodyText: PropTypes.string,
     submitUrl: PropTypes.string.isRequired,
     httpMethod: PropTypes.string.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    onSubmitSuccess: PropTypes.func
+    onSubmitSuccess: PropTypes.func,
+
+    children: PropTypes.node.isRequired
   };
 
   static defaultProps = Modal.defaultProps;
@@ -110,7 +111,7 @@ class ModalPrompt extends React.Component {
 
         {this.renderErrorText()}
         <div className="modal-content__body">
-          {this.props.bodyText}
+          {this.props.children}
         </div>
       </Modal>
     );

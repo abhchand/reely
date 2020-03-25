@@ -26,11 +26,12 @@ class ModalForm extends React.Component {
     modalClassName: PropTypes.string,
 
     // ModalForm props
-    formContent: PropTypes.node.isRequired,
     formUrl: PropTypes.string.isRequired,
     httpMethod: PropTypes.string.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    onSubmitSuccess: PropTypes.func
+    onSubmitSuccess: PropTypes.func,
+
+    children: PropTypes.node.isRequired
   };
 
   static defaultProps = Modal.defaultProps;
@@ -107,7 +108,7 @@ class ModalForm extends React.Component {
 
         {this.renderErrorText()}
         <div className="modal-with-form__form-container">
-          {this.props.formContent}
+          {this.props.children}
         </div>
       </Modal>
     );
