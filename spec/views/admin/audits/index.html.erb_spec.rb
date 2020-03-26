@@ -10,6 +10,7 @@ RSpec.describe "admin/audits/index.html.erb", type: :view do
     # rubocop:disable Metrics/LineLength
     stub_view_context
     stub_template "admin/_breadcrumb_heading.html.erb" => "_stubbed_breadcrumb_heading"
+    stub_template "admin/_filter_warning.html.erb" => "_stubbed_filter_warning"
     expect(view).to receive(:will_paginate) { "_stubbed_will_paginate" }
     # rubocop:enable Metrics/LineLength
 
@@ -53,24 +54,16 @@ RSpec.describe "admin/audits/index.html.erb", type: :view do
     it "does not render a filter message" do
       render
 
-      expect(page).to_not have_selector(".admin-audits--filter-enabled")
+      expect(page).to_not have_content("_stubbed_filter_warning")
     end
 
     context "filtering by a modifier" do
       before { assign(:modifier, admin) }
 
-      it "renders a filter message warning and clear link" do
+      it "renders a filter warning" do
         render
 
-        msg = page.find(".admin-audits--filter-enabled")
-
-        expect(msg.find(".warning").text).to eq(
-          t("#{@t_prefix}.filter_enabled.warning", name: admin.name)
-        )
-        expect(msg.find(".clear")).to have_link(
-          t("#{@t_prefix}.filter_enabled.clear"),
-          href: admin_audits_path
-        )
+        expect(page).to have_content("_stubbed_filter_warning")
       end
     end
   end

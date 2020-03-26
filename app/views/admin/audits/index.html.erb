@@ -9,10 +9,7 @@
 %>
 
 <% if @modifier %>
-<div class="admin-audits--filter-enabled">
-  <span class="warning"><%= t(".filter_enabled.warning", name: @modifier.name) %></span>
-  <span class="clear"><%= link_to(t(".filter_enabled.clear"), admin_audits_path) %></span>
-</div>
+<%= render("admin/filter_warning", path: admin_audits_path, name: @modifier.name) %>
 <% end %>
 
 <div class="admin-audits__audits-table-container">

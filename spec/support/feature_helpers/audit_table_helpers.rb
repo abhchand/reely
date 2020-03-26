@@ -8,7 +8,7 @@ module FeatureHelpers
   end
 
   def clear_audit_table_modifier_filter
-    page.find(".admin-audits--filter-enabled .clear a").click
+    page.find(".admin__filter-warning .clear a").click
   end
 
   def expect_audit_table_records_to_be(records)

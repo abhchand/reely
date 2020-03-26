@@ -1,18 +1,3 @@
-.admin-audits--filter-enabled {
-  display: inline-block;
-  margin: 10px 0;
-  padding: 5px 10px;
-  background: $canary-yellow;
-
-  .clear {
-    color: $deep-navy;
-    font-weight: 700;
-
-    &:visited {
-      color: $deep-navy;
-    }
-  }
-}
 .admin-audits__audits-table-container {
   @extend .scrollable_mobile_table;
 

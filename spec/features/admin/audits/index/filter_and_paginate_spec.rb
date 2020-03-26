@@ -38,7 +38,7 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
         audits[0]   # `admin` user creation
       ]
     )
-    expect(page).to have_selector(".admin-audits--filter-enabled")
+    expect(page).to have_selector(".admin__filter-warning")
 
     # Clear the filter
 

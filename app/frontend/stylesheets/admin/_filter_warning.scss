@@ -1,0 +1,16 @@
+.admin__filter-warning {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 5px 10px;
+  background: $canary-yellow;
+
+  .clear {
+    display: block;
+    color: $deep-navy;
+    font-weight: 700;
+
+    &:visited {
+      color: $deep-navy;
+    }
+  }
+}
