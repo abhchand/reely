@@ -4,7 +4,7 @@ class Admin::AuditPresenter < ApplicationPresenter
   end
 
   def description
-    description_service_class.call(audit).html_safe
+    @description ||= fetch_description
   end
 
   def created_at
@@ -16,6 +16,18 @@ class Admin::AuditPresenter < ApplicationPresenter
   end
 
   private
+
+  def fetch_description
+    {
+      error: false,
+      text: description_service_class.call(audit).html_safe
+    }
+  rescue Admin::Audit::BaseDescriptionService::DescriptionError => e
+    {
+      error: true,
+      text: e.message
+    }
+  end
 
   def audit
     model

@@ -32,7 +32,9 @@
             end
           %>
         </td>
-        <td class="description"><%= audit.description %></td>
+        <td class="description <%= 'description--error' if audit.description[:error] %>">
+          <%= audit.description[:text] %>
+        </td>
         <td class="created_at"><span title="<%= audit.created_at_alt_text %>"><%= audit.created_at %></span></td>
       </tr>
       <% end %>

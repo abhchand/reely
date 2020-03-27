@@ -160,6 +160,7 @@ en:
     audit:
       shared:
         unknown: Unknown action
+        error_constructing_description: "Error describing Audit (id: %{id}): action '%{action}' on %{auditable_type}#%{auditable_id}"
       user_description:
         created_as_native: Created account via Email registration
         created_as_omniauth: Created account via OmniAuth (%{provider})

@@ -14,6 +14,10 @@
 
   td.description {
     width: 600px;
+
+    &.description--error {
+      color: $red;
+    }
   }
 }
 

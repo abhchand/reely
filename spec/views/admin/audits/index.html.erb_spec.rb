@@ -95,7 +95,7 @@ RSpec.describe "admin/audits/index.html.erb", type: :view do
         admin.name,
         href: admin_audits_path(modifier: admin.synthetic_id)
       )
-      expect(last_row.find(".description").text).to eq(
+      expect(last_row.find(".description").text.strip).to eq(
         t(
           "admin.audit.user_description.updated_to_add_role",
           name: other.name,
@@ -108,6 +108,32 @@ RSpec.describe "admin/audits/index.html.erb", type: :view do
       expect(last_row.find(".created_at span")["title"]).to eq(
         @audits[0].created_at.strftime(t("time.formats.timestamp_with_zone"))
       )
+    end
+
+    context "error rendering description" do
+      before do
+        # The first audit records audits creating an admin, which goes through
+        # the `UserDescriptionService` for this display. Make sure that
+        # encounters an error while rendering a description
+        expect_any_instance_of(User).to receive(:native?).and_raise("💣")
+
+        # Also render only with the first audit record so the above
+        # `expect` mock doesn't apply to multiple records, which raises a
+        # warning
+        assign(:audits, [@audits.first])
+      end
+
+      it "adds the error CSS class" do
+        render
+
+        # Corresponds to `@audits[2]` - admin updating other's role
+        first_row = page.first("tbody tr")
+
+        description = first_row.find(".description")
+
+        expect(description.text).to match(/Error describing Audit/)
+        expect(description["class"]).to match(/description--error/)
+      end
     end
 
     context "a modifier exists for a particular audit record" do
