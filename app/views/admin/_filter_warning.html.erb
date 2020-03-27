@@ -1,4 +1,8 @@
 <div class="admin__filter-warning">
-  <span class="warning"><%= t(".warning", name: name) %></span>
-  <span class="clear"><%= link_to(t(".clear"), path) %></span>
+  <span class="warning">
+    <%= (opts[:warning_msg] || t(".warning", name: name)).html_safe %>
+  </span>
+  <span class="clear">
+    <%= link_to(opts[:clear_msg] || t(".clear"), path) %>
+  </span>
 </div>

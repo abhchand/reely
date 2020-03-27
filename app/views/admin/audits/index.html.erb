@@ -9,7 +9,7 @@
 %>
 
 <% if @modifier %>
-<%= render("admin/filter_warning", path: admin_audits_path, name: @modifier.name) %>
+<%= render("admin/filter_warning", path: admin_audits_path, name: @modifier.name, opts: {}) %>
 <% end %>
 
 <div class="admin-audits__audits-table-container">
