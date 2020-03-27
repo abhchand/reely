@@ -4,7 +4,7 @@ class Admin::AuditPresenter < ApplicationPresenter
   end
 
   def description
-    description_service_class.call(audit)
+    description_service_class.call(audit).html_safe
   end
 
   def created_at

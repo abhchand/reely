@@ -39,7 +39,13 @@ module Admin
       end
 
       def subject
-        audit.auditable
+        @subject ||= begin
+          audit.auditable ||
+            fetch_or_reconstruct_associated_record(
+              audit.auditable_id,
+              audit.auditable_type.constantize
+            )
+        end
       end
 
       def modified?(attribute)
