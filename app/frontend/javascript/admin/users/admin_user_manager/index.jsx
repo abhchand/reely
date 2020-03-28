@@ -4,6 +4,7 @@ import AdminUserList from 'javascript/admin/users/admin_user_list';
 import mountReactComponent from 'mount-react-component.jsx';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Tabnav from 'javascript/components/tabnav';
 
 class AdminUserManager extends React.Component {
 
@@ -15,7 +16,6 @@ class AdminUserManager extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.renderTabs = this.renderTabs.bind(this);
     this.renderContent = this.renderContent.bind(this);
 
     this.i18nPrefix = 'components.admin_user_manager';
@@ -31,30 +31,10 @@ class AdminUserManager extends React.Component {
     };
   }
 
-  handleClick(e) {
+  handleClick(index) {
     this.setState({
-      currentTabIndex: parseInt(e.currentTarget.dataset.id, 10)
+      currentTabIndex: index
     });
-  }
-
-  renderTabs() {
-    const tabs = [];
-
-    for (let n = 0; n < this.tabs.length; n++) {
-      const btnClass = n === this.state.currentTabIndex ? 'active' : '';
-
-      // eslint-disable-next-line function-paren-newline
-      tabs.push(
-        <li key={`tab-${n}`} className="admin-user-manager__tab">
-          <button data-id={n} className={btnClass} type="button" onClick={this.handleClick}>
-            {I18n.t(`${this.i18nPrefix}.tabs.${this.tabs[n].name}`)}
-          </button>
-        </li>
-      // eslint-disable-next-line function-paren-newline
-      );
-    }
-
-    return <ul className="admin-user-manager__tabs">{tabs}</ul>;
   }
 
   renderContent() {
@@ -68,7 +48,10 @@ class AdminUserManager extends React.Component {
   render() {
     return (
       <div className="admin-user-manager">
-        {this.renderTabs()}
+        <Tabnav
+          tabLabels={this.tabs.map((t) => t.label)}
+          currentTabIndex={this.state.currentTabIndex}
+          onClick={this.handleClick} />
         {this.renderContent()}
       </div>
     );

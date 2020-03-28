@@ -1,0 +1,9 @@
+<ul class="tabnav">
+  <% tabs.each_with_index do |tab, i| %>
+  <li class="tabnav__tab">
+    <button data-id="<%= i %>" class="<%= 'active' if tab[:current] %>" type="button">
+      <%= link_to(tab[:label], tab[:href]) %>
+    </button>
+  </li>
+  <% end %>
+</ul>

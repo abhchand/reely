@@ -1,0 +1,37 @@
+.tabnav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 300px;
+  border-bottom: 1px solid $leaf_green;
+  cursor: pointer;
+
+  @include breakpoint($screen-xs) {
+    width: 100%;
+  }
+}
+.tabnav__tab {
+  width: 250px;
+  height: 40px;
+  margin-right: 5px;
+
+  button {
+    @extend .clear-btn;
+
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    line-height: 40px;
+    border: 1px solid $leaf_green;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    cursor: pointer;
+
+    &.active {
+      background-color: $leaf-green-opacity;
+      border-bottom: 3px solid $leaf_green;
+    }
+  }
+}
