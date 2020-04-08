@@ -249,8 +249,9 @@ en:
           close: Cancel
     admin_user_manager:
       tabs:
-        users: Users
-        user_invitations: Invitations
+        users: Active
+        user_invitations: Invited
+        deactivated_users: Deactivated
     modal:
       buttons:
         submit: Submit
