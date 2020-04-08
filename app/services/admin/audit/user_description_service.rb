@@ -8,6 +8,7 @@ module Admin
         when created_as_native?       then describe_created_as_native
         when created_as_omniauth?     then describe_created_as_omniauth
         when updated_to_deactivated?  then describe_updated_to_deactivated
+        when updated_to_activated?    then describe_updated_to_activated
         when updated_to_add_role?     then describe_updated_to_add_role
         when updated_to_remove_role?  then describe_updated_to_remove_role
         else
@@ -34,6 +35,13 @@ module Admin
           modified?("deactivated_at") &&
           old_value_for("deactivated_at").blank? &&
           new_value_for("deactivated_at").present?
+      end
+
+      def updated_to_activated?
+        update_action? &&
+          modified?("deactivated_at") &&
+          old_value_for("deactivated_at").present? &&
+          new_value_for("deactivated_at").blank?
       end
 
       def updated_to_add_role?
@@ -66,6 +74,10 @@ module Admin
 
       def describe_updated_to_deactivated
         t(".updated_to_deactivated", email: user.email)
+      end
+
+      def describe_updated_to_activated
+        t(".updated_to_activated", email: user.email)
       end
 
       def describe_updated_to_add_role

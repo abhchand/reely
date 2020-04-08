@@ -33,6 +33,17 @@ RSpec.describe Admin::Audit::UserDescriptionService do
     end
   end
 
+  context "user updated to activated" do
+    let(:user) { create(:user, :deactivated) }
+
+    before { user.update!(deactivated_at: nil) }
+
+    it "returns the correct description" do
+      description = t("#{@i18n_prefix}.updated_to_activated", email: user.email)
+      expect(call).to eq(description)
+    end
+  end
+
   context "user updated to add role" do
     before { user.add_role(:director) }
 

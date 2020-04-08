@@ -165,6 +165,7 @@ en:
         created_as_native: Created account via Email registration
         created_as_omniauth: Created account via OmniAuth (%{provider})
         updated_to_deactivated: Deactivated account %{email}
+        updated_to_activated: Activated account %{email}
         updated_to_add_role: "Added role to %{name}: '%{role}'"
         updated_to_remove_role: "Removed role from %{name}: '%{role}'"
       user_invitation_description:
@@ -225,6 +226,19 @@ en:
         buttons:
           submit: Delete
           close: Cancel
+    admin_deactivated_user_list:
+      header:
+        name: Name
+        email: Email
+        last_signed_in: Last Active
+        activate_user:
+          icon_title: Re-activate User
+      activate_user_modal:
+        heading: Confirm re-activation
+        body: Re-activate %{name}?
+        buttons:
+          submit: Re-activate
+          close: Cancel
     admin_user_list:
       header:
         name: Name
@@ -249,8 +263,8 @@ en:
           close: Cancel
     admin_user_manager:
       tabs:
-        users: Active
-        user_invitations: Invited
+        users: Users
+        user_invitations: Invitations
         deactivated_users: Deactivated
     modal:
       buttons:

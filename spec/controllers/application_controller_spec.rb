@@ -42,9 +42,9 @@ RSpec.describe ApplicationController, type: :controller do
 
     before { sign_in(user) }
 
-    it "redirects to deactivated_user_index_path" do
+    it "redirects to deactivated_users_path" do
       get :index
-      expect(response).to redirect_to(deactivated_user_index_path)
+      expect(response).to redirect_to(deactivated_users_path)
     end
 
     context "request is json format" do

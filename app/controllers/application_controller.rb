@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.json { render json: { error: "User is deactivated" }, status: 403 }
-      format.html { redirect_to(deactivated_user_index_path) }
+      format.html { redirect_to(deactivated_users_path) }
     end
   end
 

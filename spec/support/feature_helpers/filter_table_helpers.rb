@@ -37,6 +37,13 @@ module FeatureHelpers
     # rubocop:enable Style/Semicolon
   end
 
+  def click_filter_table_activate_for(user)
+    page.find(
+      ".admin-deactivated-user-list__row[data-id='#{user.synthetic_id}'] "\
+        ".activate-user button"
+    ).click
+  end
+
   def click_filter_table_deactivate_for(user)
     page.find(
       ".admin-user-list__row[data-id='#{user.synthetic_id}'] "\

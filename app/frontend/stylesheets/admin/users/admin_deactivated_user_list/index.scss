@@ -1,0 +1,20 @@
+.admin-deactivated-user-list__row {
+  .avatar-container {
+    @extend .profile-pic;
+
+    img {
+      border: 2px solid $leaf_green;
+    }
+  }
+
+  .activate-user {
+    cursor: pointer;
+
+    button {
+      @extend .clear-btn;
+
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

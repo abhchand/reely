@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :audits, only: [:index]
+    resources :deactivated_users, only: [:index]
     resources :users, only: [:index]
     resources :user_invitations, only: [:index]
     resources :user_roles, only: [:update]
@@ -79,7 +80,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :deactivated_user, only: :index
+  namespace :api, defaults: { format: "json" } do
+    scope path: "v1", module: :v1, as: :v1 do
+      resources :users, only: [:update]
+    end
+  end
+
+  resources :deactivated_users, only: [:index, :destroy]
 
   resources :photos, only: [:index, :create, :new]
 

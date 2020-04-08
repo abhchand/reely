@@ -1,3 +1,4 @@
+import AdminDeactivatedUserList from 'javascript/admin/users/admin_deactivated_user_list';
 import AdminUserInvitationList from 'javascript/admin/users/admin_user_invitation_list';
 import AdminUserList from 'javascript/admin/users/admin_user_list';
 import mountReactComponent from 'mount-react-component.jsx';
@@ -20,8 +21,9 @@ class AdminUserManager extends React.Component {
     this.i18nPrefix = 'components.admin_user_manager';
 
     this.tabs = [
-      { name: 'users', component: <AdminUserList roles={this.props.roles} /> },
-      { name: 'user_invitations', component: <AdminUserInvitationList /> }
+      { label: I18n.t(`${this.i18nPrefix}.tabs.users`), component: <AdminUserList roles={this.props.roles} /> },
+      { label: I18n.t(`${this.i18nPrefix}.tabs.user_invitations`), component: <AdminUserInvitationList /> },
+      { label: I18n.t(`${this.i18nPrefix}.tabs.deactivated_users`), component: <AdminDeactivatedUserList /> }
     ];
 
     this.state = {

@@ -9,10 +9,10 @@ RSpec.feature "Deactivated User", type: :feature do
     it "user can log in and is redirected to the deactivated user page" do
       log_in(user)
 
-      expect(page).to have_current_path(deactivated_user_index_path)
+      expect(page).to have_current_path(deactivated_users_path)
 
       visit collections_path
-      expect(page).to have_current_path(deactivated_user_index_path)
+      expect(page).to have_current_path(deactivated_users_path)
     end
 
     it "user can log out using the provided link" do
@@ -33,8 +33,8 @@ RSpec.feature "Deactivated User", type: :feature do
       # changes TO photos_path (target of root_path redirect)
       visit collections_path
 
-      visit deactivated_user_index_path
-      expect(page).to have_current_path(photos_path)
+      visit deactivated_users_path
+      expect(page).to have_current_path(users_path)
     end
   end
 end
