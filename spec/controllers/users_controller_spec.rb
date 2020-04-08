@@ -46,23 +46,59 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    it "deactivates the user and responds as success" do
-      expect do
-        delete :destroy, params: params
-      end.to change { user.reload.deactivated? }.from(false).to(true)
+    describe "deactivation" do
+      it "deactivates the user and responds as success" do
+        expect do
+          delete :destroy, params: params
+        end.to change { user.reload.deactivated? }.from(false).to(true)
 
-      expect(response.status).to eq(200)
-      expect(response.body).to eq("{}")
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("{}")
+      end
+
+      it "audits the deactivation of the record" do
+        delete :destroy, params: params
+
+        audit = user.audits.last
+
+        expect(audit.action).to eq("update")
+        expect(audit.audited_changes.keys).to include("deactivated_at")
+        expect(audit.user).to eq(admin)
+      end
     end
 
-    it "audits the deactivation of the record" do
-      delete :destroy, params: params
+    describe "removing roles" do
+      before do
+        user.add_role(:director)
+        user.add_role(:manager)
+      end
 
-      audit = user.audits.last
+      it "removes all of the user's roles" do
+        expect do
+          delete :destroy, params: params
+        end.to change { user.reload.roles.count }.from(2).to(0)
 
-      expect(audit.action).to eq("update")
-      expect(audit.audited_changes.keys).to include("deactivated_at")
-      expect(audit.user).to eq(admin)
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("{}")
+      end
+
+      it "audits the removal of the roles" do
+        delete :destroy, params: params
+
+        # The order of audits will be
+        #   - Removing role `director`
+        #   - Removing role `manager`
+        #   - Deactivating user
+        audit = user.audits.last(3)
+
+        expect(audit[0].action).to eq("update")
+        expect(audit[0].audited_changes.keys).to include("audited_roles")
+        expect(audit[0].user).to eq(admin)
+
+        expect(audit[1].action).to eq("update")
+        expect(audit[1].audited_changes.keys).to include("audited_roles")
+        expect(audit[1].user).to eq(admin)
+      end
     end
 
     context "user is already deactivated" do

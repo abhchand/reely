@@ -14,6 +14,9 @@ RSpec.feature "Deactivating Users", type: :feature, js: true do
   before { log_in(admin) }
 
   it "admin can deactivate a user" do
+    # Also test that any roles get removed
+    users[2].add_role(:director)
+
     visit admin_users_path
 
     expect_filter_table_total_count_to_be(4)
@@ -35,6 +38,7 @@ RSpec.feature "Deactivating Users", type: :feature, js: true do
     expect_filter_table_total_count_to_be(3)
     expect_filter_table_records_to_be([admin, users[1], users[0]])
     expect(users[2].reload.deactivated?).to eq(true)
+    expect(users[2].roles).to eq([])
   end
 
   describe "Pagination" do

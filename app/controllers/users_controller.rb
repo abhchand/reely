@@ -17,6 +17,9 @@ class UsersController < ApplicationController
   # end
 
   def destroy
+    # Remove all roles
+    user.roles.pluck(:name).each { |role| user.remove_role(role) }
+
     # Soft deletion
     user.update!(deactivated_at: Time.zone.now) unless user.deactivated?
 
