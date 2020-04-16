@@ -1,3 +1,11 @@
+// Some form elements don't inherit font properties by
+// default
+// See: https://stackoverflow.com/a/2875030/2490003
+textarea, input, button, select {
+   font-size: inherit;
+   font-family: inherit;
+}
+
 input {
   box-sizing: border-box;
   width: 300px;
@@ -37,10 +45,9 @@ select {
 
 textarea {
   box-sizing: border-box;
+  width: 300px;
   padding: 5px 15px;
   font-size: 18px;
-  font-family: $heading-font;
-  line-height: 48px;
   border: 1px solid $dark-gray;
 
   &:focus {
