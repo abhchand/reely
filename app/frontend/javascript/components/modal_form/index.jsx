@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Modal from 'javascript/components/modal';
 import ModalError from 'javascript/components/modal/error';
+import { parseJsonApiError } from 'utils/errors';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
@@ -68,14 +69,14 @@ class ModalForm extends React.Component {
     });
 
     return axios(config).
-      then((_response) => {
+      then((response) => {
         if (self.props.onSubmitSuccess) {
-          self.props.onSubmitSuccess();
+          self.props.onSubmitSuccess(response);
         }
       }).
       catch((error) => {
         self.setState({
-          errorText: error.response.data.errors[0].description
+          errorText: parseJsonApiError(error)
         });
 
         /*
