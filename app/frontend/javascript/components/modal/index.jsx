@@ -10,6 +10,7 @@ class Modal extends React.Component {
     subheading: PropTypes.string,
     onSubmit: PropTypes.func,
     onClose: PropTypes.func,
+    closeModal: PropTypes.func,
     submitButtonLabel: PropTypes.string,
     closeButtonLabel: PropTypes.string,
     submitButtonEnabled: PropTypes.bool,
@@ -69,8 +70,10 @@ class Modal extends React.Component {
      */
     const result = this.props.onSubmit ? this.props.onSubmit() : Promise.resolve();
 
+    const self = this;
+
     // Automatically close the modal after running `onSubmit`
-    result.then(() => { closeModal(); });
+    result.then(() => { self.close(); });
   }
 
   close() {
@@ -78,7 +81,21 @@ class Modal extends React.Component {
       this.props.onClose();
     }
 
-    closeModal();
+    /*
+     * We have two ways of closing modals -
+     *
+     *  a. Call the handler passed in by the parent that knows how to close
+     *     this modal using it's own internal state
+     *  b. A default helper that closes the modal by unmounting the react
+     *     component on the `#modal` DOM node
+     *
+     * (b) is used more often when rendering the react modal from vanilla JS
+     * instead of rendering it through another component. It's not a great
+     * approach and should probably be phased out over time.
+     */
+
+    // eslint-disable-next-line no-unused-expressions
+    this.props.closeModal ? this.props.closeModal() : closeModal();
   }
 
   render() {

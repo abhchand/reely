@@ -21,6 +21,7 @@ class ModalPrompt extends React.Component {
      * onSubmit: PropTypes.func,
      */
     onClose: PropTypes.func,
+    closeModal: PropTypes.func,
     submitButtonLabel: PropTypes.string,
     closeButtonLabel: PropTypes.string,
 
@@ -105,6 +106,7 @@ class ModalPrompt extends React.Component {
         subheading={this.props.subheading}
         onSubmit={this.onSubmit}
         onClose={this.props.onClose}
+        closeModal={this.props.closeModal}
         submitButtonLabel={this.props.submitButtonLabel}
         closeButtonLabel={this.props.closeButtonLabel}
         submitButtonEnabled
