@@ -206,6 +206,9 @@ en:
       <<: *shared_navigation
 
   components:
+    accordion_table:
+      row:
+        arrow_title: Expand
     admin_user_invitation_list:
       header:
         email: Email

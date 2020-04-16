@@ -1,0 +1,10 @@
+.accordion-table-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 25px;
+  font-size: 14px;
+}

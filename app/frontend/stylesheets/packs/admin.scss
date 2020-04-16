@@ -46,6 +46,11 @@
 @import 'stylesheets/components/filter_table/table';
 @import 'stylesheets/components/filter_table/total_count';
 
+@import 'stylesheets/components/accordion_table/index';
+@import 'stylesheets/components/accordion_table/header';
+@import 'stylesheets/components/accordion_table/row';
+@import 'stylesheets/components/accordion_table/row_descendants';
+
 @import 'stylesheets/components/modal/index';
 @import 'stylesheets/components/modal/error';
 
