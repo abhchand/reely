@@ -94,7 +94,7 @@ class CreateUserInvitationModal extends React.Component {
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.createUserInvitation}
-        onClose={this.props.closeModal}>
+        closeModal={this.props.closeModal}>
 
         {I18n.t(`${this.i18nPrefix}.body`)}
         {this.renderErrorText()}

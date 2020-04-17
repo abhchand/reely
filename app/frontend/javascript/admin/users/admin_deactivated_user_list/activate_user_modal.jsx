@@ -56,7 +56,7 @@ class ActivateUserModal extends React.Component {
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.activateUser}
-        onClose={this.props.closeModal}>
+        closeModal={this.props.closeModal}>
         {this.body()}
       </Modal>
     );
