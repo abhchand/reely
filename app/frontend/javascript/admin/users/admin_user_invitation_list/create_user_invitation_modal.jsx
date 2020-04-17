@@ -58,6 +58,12 @@ class CreateUserInvitationModal extends React.Component {
         self.setState({
           errorText: error.response.data.error
         });
+
+        /*
+         * Return a rejected value so the promise chain remains in
+         * a rejected state
+         */
+        return Promise.reject(error);
       });
   }
 
