@@ -23,10 +23,16 @@ en:
     disable_with: Please wait...
 
   roles:
-    admin: Admin
+    admin:
+      label: Admin
+      description: Able to access and edit all data
     # Below are purely to support testing
-    director: Director
-    manager: Manager
+    director:
+      label: Director
+      description: Is a director
+    manager:
+      label: Manager
+      description: Is a manager
 
   generic_error: Oops, something went wrong. Please try again
 

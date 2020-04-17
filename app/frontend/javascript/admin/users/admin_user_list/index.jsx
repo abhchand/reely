@@ -106,7 +106,7 @@ class AdminUserList extends React.Component {
             <td className="roles">
               {
                 user.roles.map((role, _i) => {
-                  return <span key={`role-${role}`}>{I18n.t(`roles.${role}`)}</span>;
+                  return <span key={`role-${role}`}>{I18n.t(`roles.${role}.label`)}</span>;
                 })
               }
             </td>

@@ -19,6 +19,7 @@ class UpdateUserRoleModal extends React.Component {
     super(props);
 
     this.labelFor = this.labelFor.bind(this);
+    this.descriptionFor = this.descriptionFor.bind(this);
     this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.updateUserRole = this.updateUserRole.bind(this);
     this.renderErrorText = this.renderErrorText.bind(this);
@@ -33,7 +34,11 @@ class UpdateUserRoleModal extends React.Component {
   }
 
   labelFor(role) {
-    return I18n.t(`roles.${role}`);
+    return I18n.t(`roles.${role}.label`);
+  }
+
+  descriptionFor(role) {
+    return I18n.t(`roles.${role}.description`);
   }
 
   toggleCheckbox(e) {
@@ -99,16 +104,19 @@ class UpdateUserRoleModal extends React.Component {
         {
           this.props.roles.map((role, _i) => {
             return (
-              <label key={`user-role-label-${role}`} htmlFor={`user_role_${role}`}>
-                <input
-                  id={`user_role_${role}`}
-                  data-id={role}
-                  name="user[role]"
-                  type="checkbox"
-                  checked={this.state.selectedRoles.indexOf(role) > -1}
-                  onChange={this.toggleCheckbox} />
-                <span>{this.labelFor(role)}</span>
-              </label>
+              <div className="update-user-role-modal__role">
+                <label key={`user-role-label-${role}`} htmlFor={`user_role_${role}`}>
+                  <input
+                    id={`user_role_${role}`}
+                    data-id={role}
+                    name="user[role]"
+                    type="checkbox"
+                    checked={this.state.selectedRoles.indexOf(role) > -1}
+                    onChange={this.toggleCheckbox} />
+                  <span>{this.labelFor(role)}</span>
+                </label>
+                <p>{this.descriptionFor(role)}</p>
+              </div>
             );
           })
         }
