@@ -16,7 +16,7 @@ class ModalPrompt extends React.Component {
     /*
      * `onSubmit` for the modal is not configurable. The submit behavior
      * is pre-defined in the `onSubmit` function below. However, this
-     * module does offer an `onSubmitSuccess` to be executed after
+     * module does offer an `afterSubmit` to be executed after
      * submit.
      * onSubmit: PropTypes.func,
      */
@@ -36,7 +36,7 @@ class ModalPrompt extends React.Component {
     submitUrl: PropTypes.string.isRequired,
     httpMethod: PropTypes.string.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    onSubmitSuccess: PropTypes.func,
+    afterSubmit: PropTypes.func,
 
     children: PropTypes.node.isRequired
   };
@@ -74,8 +74,8 @@ class ModalPrompt extends React.Component {
 
     return axios(config).
       then((response) => {
-        if (self.props.onSubmitSuccess) {
-          self.props.onSubmitSuccess(response);
+        if (self.props.afterSubmit) {
+          self.props.afterSubmit(response);
         }
       }).
       catch((error) => {
