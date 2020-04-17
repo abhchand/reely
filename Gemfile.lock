@@ -146,6 +146,8 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
+    faker (2.11.0)
+      i18n (>= 1.6, < 2)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.3)
@@ -364,6 +366,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7, >= 2.7.5)
   exiftool (~> 1.0)
   factory_bot_rails (~> 4.5)
+  faker (~> 2.10, >= 2.10.1)
   fast_jsonapi (~> 1.6.0)!
   foreman (~> 0.86.0)
   highline (~> 2.0)

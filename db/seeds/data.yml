@@ -1,0 +1,8 @@
+---
+
+users:
+  - with_avatar: yes
+    first_name: Sindhu
+    last_name: Iyer
+    email: test@example.com
+    password: testAccount#01
