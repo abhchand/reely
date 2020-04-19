@@ -31,6 +31,10 @@ module Reely
     # Disable the built-in asset pipeline
     config.assets.enabled = false
 
+    # Tell the Zeitwerk autoloader to ignore the entire app/frontend folder.
+    # Ain't no ruby files there
+    Rails.autoloaders.main.ignore(Rails.root.join("app/frontend"))
+
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false
 
