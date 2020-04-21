@@ -1,4 +1,6 @@
 /* eslint-disable react/no-danger */
+import { registerAsyncProcess, unregisterAsyncProcess } from 'utils/async-registration';
+
 import { closeModal } from './close';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -64,16 +66,39 @@ class Modal extends React.Component {
   // eslint-disable-next-line padded-blocks
   submit() {
 
+    registerAsyncProcess('modal-submit');
+
     /*
-     * Call `onSubmit` if it was specified. Assumption here is that submit will
-     * always return a Promise
+     * Call `onSubmit` if it was specified. There's a few assumptions here
+     *
+     *    1. `onSubmit`` will return a thenable object (specificaly a Promise)
+     *
+     *    2. Any error handling that `onSubmit` does with a `catch()` block will
+     *       re-raise that error so that the promise chain remains in a rejected
+     *       state
+     *       Example:
+     *
+     *           return axios(config).
+     *            then((response) => {
+     *              // Do stuff
+     *            }).
+     *            catch((error) => {
+     *              // Do stuff
+     *
+     *              // Keep the promise chain in a rejected state
+     *              return Promise.reject(error);
+     *            });
      */
     const result = this.props.onSubmit ? this.props.onSubmit() : Promise.resolve();
 
     const self = this;
 
-    // Automatically close the modal after running `onSubmit`
-    result.then(() => { self.close(); });
+    // Automatically close the modal and unregister the async process
+    // after running `onSubmit` (regardless of success or error)
+    result.
+      then(() => { self.close(); }).
+      then(() => unregisterAsyncProcess('modal-submit')).
+      catch(() => unregisterAsyncProcess('modal-submit'));
   }
 
   close() {
