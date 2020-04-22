@@ -76,6 +76,19 @@ module ApplicationHelper
     ActiveRecord::Type::Boolean.new.deserialize(value)
   end
 
+  # Serialize a collection of objects using an existing serializer
+  #
+  # e.g.
+  #   -> serialize(Foo)
+  #   -> serialize(Foo, collection: Foo.where("id < ?", 10))
+  def serialize(klass, collection: nil)
+    collection = klass.order(:id) if collection.nil?
+    serializer = "#{klass}Serializer".constantize
+    json = serializer.new(collection).serializable_hash
+
+    json[:data]
+  end
+
   # Useful for translating param `:id` values from :synthetic_id to :id.
   # Raises `ActiveRecord::RecordNotFound` if not found
   def translate_synthetic_id!(id, klass = User)
