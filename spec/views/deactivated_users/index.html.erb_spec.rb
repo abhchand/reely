@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe "deactivated_user/index.html.erb", type: :view do
+RSpec.describe "deactivated_users/index.html.erb", type: :view do
   let(:user) { create(:user) }
 
   before do
     # stub_view_context
-    @t_prefix = "deactivated_user.index"
+    @t_prefix = "deactivated_users.index"
   end
 
   it "renders the body" do

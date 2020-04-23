@@ -34,7 +34,7 @@ RSpec.feature "Deactivated User", type: :feature do
       visit collections_path
 
       visit deactivated_users_path
-      expect(page).to have_current_path(users_path)
+      expect(page).to have_current_path(photos_path)
     end
   end
 end

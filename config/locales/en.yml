@@ -337,7 +337,7 @@ en:
       subheading: "Please use this to suggest any improvements or features you may find useful (max: %{maxlength} characters)"
       submit: Submit
 
-  deactivated_user:
+  deactivated_users:
     index:
       body: This account has been deactivated.
       log_out: Sign in with a different account
