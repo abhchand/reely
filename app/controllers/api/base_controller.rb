@@ -49,6 +49,21 @@ class Api::BaseController < ApplicationController
     raise NotImplementedError
   end
 
+  def user
+    @user ||= begin
+      id = params[:id] || params[:user_id]
+
+      User.find_by_synthetic_id(id).tap do |user|
+        if user.nil?
+          raise(
+            ActiveRecord::RecordNotFound,
+            "Couldn't find User with 'id'=#{id}"
+          )
+        end
+      end
+    end
+  end
+
   def paginate(collection)
     default = Api::Response::PaginationLinksService::PAGE_SIZE
 

@@ -31,6 +31,14 @@ class Ability
       admin?
     end
 
+    can :read, :users do
+      true
+    end
+
+    can :read, User do |u|
+      admin? || observer? || manages?(u)
+    end
+
     can :write, User do |_user|
       admin?
     end
