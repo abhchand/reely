@@ -58,7 +58,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :audits, only: [:index]
-    resources :deactivated_users, only: [:index]
     resources :users, only: [:index]
     resources :user_roles, only: [:update]
   end

@@ -4,8 +4,7 @@ class Api::V1::UsersController < Api::BaseController
   def index
     authorize! :read, :users
 
-    users =
-      User.active.order("lower(first_name), lower(last_name), lower(email)")
+    users = fetch_users
     users = search(users)
     users = paginate(users)
     users = UserPresenter.wrap(users, view: view_context)
@@ -38,6 +37,14 @@ class Api::V1::UsersController < Api::BaseController
       :first_name,
       :last_name
     )
+  end
+
+  def fetch_users
+    active = params[:active].present? ? to_bool(params[:active]) : true
+
+    User.
+      send(active ? :active : :deactivated).
+      order("lower(first_name), lower(last_name), lower(email)")
   end
 
   def search(users)

@@ -139,22 +139,68 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
-      it "ignores deactivated users" do
-        users[1].update(deactivated_at: Time.zone.now)
+      describe "scope" do
+        it "only returns active users by default" do
+          users[1].update(deactivated_at: Time.zone.now)
 
-        get :index, params: params
+          get :index, params: params
 
-        expect(response.status).to eq(200)
+          expect(response.status).to eq(200)
 
-        data = JSON.parse(response.body)["data"]
-        actual = data.map { |d| d["id"] }
-        expected = [
-          users[0],
-          users[2],
-          users[3]
-        ].map(&:synthetic_id).map(&:to_s)
+          data = JSON.parse(response.body)["data"]
+          actual = data.map { |d| d["id"] }
+          expected = [
+            users[0],
+            users[2],
+            users[3]
+          ].map(&:synthetic_id).map(&:to_s)
 
-        expect(actual).to match_array(expected)
+          expect(actual).to match_array(expected)
+        end
+
+        context "`active` param is specified as false" do
+          before { params[:active] = false }
+
+          it "only returns deactivated users" do
+            users[1].update(deactivated_at: Time.zone.now)
+            users[2].update(deactivated_at: Time.zone.now)
+
+            get :index, params: params
+
+            expect(response.status).to eq(200)
+
+            data = JSON.parse(response.body)["data"]
+            actual = data.map { |d| d["id"] }
+            expected = [
+              users[1],
+              users[2]
+            ].map(&:synthetic_id).map(&:to_s)
+
+            expect(actual).to match_array(expected)
+          end
+        end
+
+        context "`active` param is specified as true" do
+          before { params[:active] = true }
+
+          it "only returns active users" do
+            users[1].update(deactivated_at: Time.zone.now)
+
+            get :index, params: params
+
+            expect(response.status).to eq(200)
+
+            data = JSON.parse(response.body)["data"]
+            actual = data.map { |d| d["id"] }
+            expected = [
+              users[0],
+              users[2],
+              users[3]
+            ].map(&:synthetic_id).map(&:to_s)
+
+            expect(actual).to match_array(expected)
+          end
+        end
       end
 
       it "filters by the search string" do
