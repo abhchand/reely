@@ -1,13 +1,6 @@
 require "rails_helper"
 
 RSpec.describe UserInvitations::SearchService, type: :interactor do
-  let(:params) do
-    {
-      page: 1,
-      search: nil
-    }
-  end
-
   let(:user_invitation_attributes) do
     [
       { email: "leonardo.davinci@artist.gov" },
@@ -25,146 +18,54 @@ RSpec.describe UserInvitations::SearchService, type: :interactor do
   end
 
   describe "#perform" do
-    it "returns a list of all UserInvitations ordered by email" do
-      results = perform
-      expect(results).to eq(
-        [
-          user_invitations[2],
-          user_invitations[0],
-          user_invitations[1]
-        ]
-      )
+    it "searches by email" do
+      results = perform(UserInvitation.all, "leonardo.davinci@artist.gov")
+      expect(results).to eq([user_invitations[0]])
     end
 
-    it "excludes any invitations where the user has already signed up" do
-      user_invitations[0].update!(invitee: create(:user))
-
-      results = perform
-      expect(results).to eq([user_invitations[2], user_invitations[1]])
+    it "searches by partial token match" do
+      results = perform(UserInvitation.all, "Leo")
+      expect(results).to eq([user_invitations[0]])
     end
 
-    it "orders case insensitively" do
-      user_invitation_attributes[0][:email] = "LEONARDO.davinci@artist.gov"
-
-      results = perform
-      expect(results).to eq(
-        [
-          user_invitations[2],
-          user_invitations[0],
-          user_invitations[1]
-        ]
-      )
+    it "searches case insensitively" do
+      results = perform(UserInvitation.all, "LeOnArDo")
+      expect(results).to eq([user_invitations[0]])
     end
 
-    describe "searching" do
-      it "searches by email" do
-        results = perform(search: "leonardo.davinci@artist.gov")
-        expect(results).to eq([user_invitations[0]])
+    context "multiple search tokens" do
+      it "searches by AND across all fields" do
+        user_invitations[0].update!(email: "xxxyyy")
+        user_invitations[1].update!(email: "xxyy")
+        user_invitations[2].update!(email: "xxx")
+
+        results = perform(UserInvitation.all, "yy xx")
+        expect(results).to eq([user_invitations[0], user_invitations[1]])
       end
 
-      it "searches by partial token match" do
-        results = perform(search: "Leo")
-        expect(results).to eq([user_invitations[0]])
-      end
+      it "handles multiple spaces between tokens" do
+        user_invitations[0].update!(email: "xxxyyy")
+        user_invitations[1].update!(email: "xxyy")
+        user_invitations[2].update!(email: "xxx")
 
-      it "searches case insensitively" do
-        results = perform(search: "LeOnArDo")
-        expect(results).to eq([user_invitations[0]])
-      end
-
-      context "multiple search tokens" do
-        it "searches by AND across all fields" do
-          user_invitations[0].update!(email: "xxxyyy")
-          user_invitations[1].update!(email: "xxyy")
-          user_invitations[2].update!(email: "xxx")
-
-          results = perform(search: "yy xx")
-          expect(results).to eq([user_invitations[0], user_invitations[1]])
-        end
-
-        it "handles multiple spaces between tokens" do
-          user_invitations[0].update!(email: "xxxyyy")
-          user_invitations[1].update!(email: "xxyy")
-          user_invitations[2].update!(email: "xxx")
-
-          results = perform(search: "yy   xx")
-          expect(results).to eq([user_invitations[0], user_invitations[1]])
-        end
+        results = perform(UserInvitation.all, "yy   xx")
+        expect(results).to eq([user_invitations[0], user_invitations[1]])
       end
     end
 
-    describe "pagination" do
-      before { params[:page_size] = 2 }
-
-      it "paginates the result set" do
-        results = perform
-        expect(results).to eq([user_invitations[2], user_invitations[0]])
-
-        results = perform(page: 2)
-        expect(results).to eq([user_invitations[1]])
-
-        results = perform(page: 3)
-        expect(results).to eq([])
-      end
-
-      describe "searching paginated results" do
-        it "paginates the result set" do
-          # Add a 4th so we have enough user_invitations to test a scenario
-          # where we filter some out and are still left with at least one page
-          # Luckily, there's a 4th ninja turtle!
-          user_invitations << create(:user_invitation, email: "raphael@jkl.it")
-
-          # Everyone except "Leonardo" have an "el"
-
-          results = perform(search: "el")
-          expect(results).to eq([user_invitations[2], user_invitations[1]])
-
-          results = perform(search: "el", page: 2)
-          expect(results).to eq([user_invitations[3]])
-        end
+    context "search is blank" do
+      it "does not filter the results in any way" do
+        results = perform(UserInvitation.all, "").to_a
+        expect(results).to eq(user_invitations)
       end
     end
   end
 
-  describe "#total_user_invitations" do
-    it "returns the full user_invitation count, even when paginated" do
-      params[:page_size] = 4
-
-      search_service = service
-      search_service.perform
-      expect(search_service.total_user_invitations).to eq(3)
-
-      params[:page_size] = 2
-
-      search_service = service
-      search_service.perform
-
-      expect(search_service.total_user_invitations).to eq(3)
-    end
+  def perform(user_invitations, search)
+    service(user_invitations, search).perform
   end
 
-  describe "#total_pages" do
-    it "returns the full user_invitation count, even when paginated" do
-      params[:page_size] = 4
-
-      search_service = service
-      search_service.perform
-      expect(search_service.total_pages).to eq(1)
-
-      params[:page_size] = 2
-
-      search_service = service
-      search_service.perform
-
-      expect(search_service.total_pages).to eq(2)
-    end
-  end
-
-  def perform(opts = {})
-    service(opts).perform
-  end
-
-  def service(opts = {})
-    UserInvitations::SearchService.new(params.merge(opts))
+  def service(user_invitations, search)
+    UserInvitations::SearchService.new(user_invitations, search)
   end
 end

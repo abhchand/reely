@@ -43,6 +43,10 @@ class Ability
       admin?
     end
 
+    can :read, :user_invitations do
+      admin? || observer?
+    end
+
     can :write, UserInvitation do |_user_invitation|
       admin?
     end

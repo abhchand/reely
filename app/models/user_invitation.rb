@@ -11,4 +11,6 @@ class UserInvitation < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   before_save { self[:email].downcase! if self[:email].present? }
+
+  scope :pending, -> { where(invitee: nil) }
 end
