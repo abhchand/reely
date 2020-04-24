@@ -48,7 +48,7 @@ RSpec.feature "Deactivating Users", type: :feature, js: true do
       users << create(:user, name: "User Fifteen", email: "15@test.com")
 
       # Paginate 5 users across 3 pages
-      stub_const("Users::SearchService::PAGE_SIZE", 2)
+      stub_const("Api::Response::PaginationLinksService::PAGE_SIZE", 2)
     end
 
     it "handles deactivating a user from a paginated set" do

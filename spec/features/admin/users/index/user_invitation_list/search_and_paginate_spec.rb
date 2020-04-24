@@ -81,7 +81,7 @@ RSpec.feature "Search and Paginate", type: :feature, js: true do
       # rubocop:enable Metrics/LineLength
 
       # Paginate 4 invitations across 2 pages
-      stub_const("UserInvitations::SearchService::PAGE_SIZE", 2)
+      stub_const("Api::Response::PaginationLinksService::PAGE_SIZE", 2)
     end
 
     it "admin can paginate through records" do

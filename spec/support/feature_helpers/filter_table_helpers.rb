@@ -1,9 +1,7 @@
 module FeatureHelpers
   def search_filter_table_for(str)
     page.find(".filter-table__search-input").base.send_keys(str)
-    # rubocop:disable Style/Semicolon
-    wait_for { sleep(0.5); true }
-    # rubocop:enable Style/Semicolon
+    wait_for_async_process("filter-table-fetch-items", delay: 0.5)
   end
 
   def expect_filter_table_total_count_to_be(count)
@@ -25,16 +23,12 @@ module FeatureHelpers
 
   def click_filter_table_pagination_next
     page.find(".filter-table__pagination-nav-link--next").click
-    # rubocop:disable Style/Semicolon
-    wait_for { sleep(0.25); true }
-    # rubocop:enable Style/Semicolon
+    wait_for_async_process("filter-table-fetch-items", delay: 0.2)
   end
 
   def click_filter_table_pagination_prev
     page.find(".filter-table__pagination-nav-link--prev").click
-    # rubocop:disable Style/Semicolon
-    wait_for { sleep(0.25); true }
-    # rubocop:enable Style/Semicolon
+    wait_for_async_process("filter-table-fetch-items", delay: 0.2)
   end
 
   def click_filter_table_activate_for(user)

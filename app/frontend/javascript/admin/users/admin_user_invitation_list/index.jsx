@@ -81,16 +81,16 @@ class AdminUserInvitationList extends React.Component {
         return (
           <tr key={userInvitation.id} className="admin-user-invitation-list__row" data-id={userInvitation.id}>
             <td className="email">
-              {userInvitation.email}
+              {userInvitation.attributes.email}
             </td>
             <td className="invited-at">
-              {dateToYMD(new Date(userInvitation.invited_at))}
+              {dateToYMD(new Date(userInvitation.attributes.invitedAt))}
             </td>
             <td className="delete-user-invitation">
               <button
                 type="button"
                 data-id={userInvitation.id}
-                data-email={userInvitation.email}
+                data-email={userInvitation.attributes.email}
                 onClick={this.openDeleteUserInvitationModal}>
                 <IconTrash
                   size="18"
@@ -135,7 +135,7 @@ class AdminUserInvitationList extends React.Component {
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/admin/user_invitations.json"
+        fetchUrl="/api/v1/user_invitations"
         containerClass="admin-user_invitation-list" />,
       this.renderDeleteUserInvitationModal()
     ];

@@ -78,23 +78,23 @@ class AdminDeactivatedUserList extends React.Component {
     /* eslint-disable react/jsx-max-depth */
     return (
       users.map((user) => {
-        const name = `${user.first_name} ${user.last_name}`;
+        const name = `${user.attributes.firstName} ${user.attributes.lastName}`;
 
         return (
           <tr key={user.id} className="admin-deactivated-user-list__row" data-id={user.id}>
             <td className="avatar">
               <div className="avatar-container">
-                <img alt={name} src={user.avatar_path} />
+                <img alt={name} src={user.attributes.avatarPath} />
               </div>
             </td>
             <td className="name">
               {name}
             </td>
             <td className="email">
-              {user.email}
+              {user.attributes.email}
             </td>
             <td className="last-signed-in">
-              {user.last_sign_in_at ? dateToYMD(new Date(user.last_sign_in_at)) : '-'}
+              {user.attributes.lastSignInAt ? dateToYMD(new Date(user.attributes.lastSignInAt)) : '-'}
             </td>
             <td className="activate-user">
               <button
@@ -136,7 +136,7 @@ class AdminDeactivatedUserList extends React.Component {
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/admin/deactivated_users.json"
+        fetchUrl="/api/v1/users?active=false"
         containerClass="admin-deactivated-users-list" />,
       this.renderActivateUserModal()
     ];

@@ -1,3 +1,5 @@
+import { registerAsyncProcess, unregisterAsyncProcess } from 'utils/async-registration';
+
 import axios from 'axios';
 import Error from './error';
 import Loading from './loading';
@@ -91,19 +93,26 @@ class FilterTable extends React.Component {
       params: params
     };
 
+    registerAsyncProcess('filter-table-fetch-items');
+
     axios.get(url, config).
       then((response) => {
+        const collection = response.data;
+        const pageParam = (collection.links.last || '').match(/page=(\d+)/i) || [null, 0];
+
         self.setState({
-          displayedItems: response.data.items,
-          totalItems: response.data.total_items,
+          displayedItems: collection.data,
+          totalItems: collection.meta.totalCount,
           currentPage: params.page,
-          totalPages: response.data.total_pages,
+          totalPages: parseInt(pageParam[1], 10),
           currentSearch: params.search,
           isLoading: false,
           fetchFailed: false,
           lastRefreshedAt: Date.now(),
           shouldRefresh: false
         });
+
+        unregisterAsyncProcess('filter-table-fetch-items');
       }).
       catch((_error) => {
         self.setState({
@@ -117,6 +126,8 @@ class FilterTable extends React.Component {
           lastRefreshedAt: Date.now(),
           shouldRefresh: false
         });
+
+        unregisterAsyncProcess('filter-table-fetch-items');
       });
   }
 

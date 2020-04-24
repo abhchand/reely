@@ -68,7 +68,7 @@ RSpec.feature "Search and Paginate", type: :feature, js: true do
       # rubocop:enable Metrics/LineLength
 
       # Paginate 5 users across 3 pages
-      stub_const("DeactivatedUsers::SearchService::PAGE_SIZE", 2)
+      stub_const("Api::Response::PaginationLinksService::PAGE_SIZE", 2)
     end
 
     it "admin can paginate through records" do

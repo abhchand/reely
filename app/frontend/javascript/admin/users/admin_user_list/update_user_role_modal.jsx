@@ -28,7 +28,7 @@ class UpdateUserRoleModal extends React.Component {
     this.i18nPrefix = 'components.admin_user_list.update_user_role_modal';
 
     this.state = {
-      selectedRoles: this.props.user.roles,
+      selectedRoles: this.props.user.attributes.roles,
       errorText: null
     };
   }
@@ -110,8 +110,8 @@ class UpdateUserRoleModal extends React.Component {
         {
           this.props.roles.map((role, _i) => {
             return (
-              <div className="update-user-role-modal__role">
-                <label key={`user-role-label-${role}`} htmlFor={`user_role_${role}`}>
+              <div key={`user-role-label-${role}`} className="update-user-role-modal__role">
+                <label htmlFor={`user_role_${role}`}>
                   <input
                     id={`user_role_${role}`}
                     data-id={role}
@@ -134,7 +134,7 @@ class UpdateUserRoleModal extends React.Component {
     return (
       <Modal
         modalClassName="update-user-role-modal"
-        heading={I18n.t(`${this.i18nPrefix}.heading`, { first_name: this.props.user.first_name })}
+        heading={I18n.t(`${this.i18nPrefix}.heading`, { first_name: this.props.user.attributes.firstName })}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.updateUserRole}

@@ -88,24 +88,24 @@ class AdminUserList extends React.Component {
     /* eslint-disable react/jsx-max-depth */
     return (
       users.map((user) => {
-        const name = `${user.first_name} ${user.last_name}`;
+        const name = `${user.attributes.firstName} ${user.attributes.lastName}`;
 
         return (
           <tr key={user.id} className="admin-user-list__row" data-id={user.id}>
             <td className="avatar">
               <div className="avatar-container">
-                <img alt={name} src={user.avatar_path} />
+                <img alt={name} src={user.attributes.avatarPath} />
               </div>
             </td>
             <td className="name">
               {name}
             </td>
             <td className="email">
-              {user.email}
+              {user.attributes.email}
             </td>
             <td className="roles">
               {
-                user.roles.map((role, _i) => {
+                user.attributes.roles.map((role, _i) => {
                   return <span key={`role-${role}`}>{I18n.t(`roles.${role}.label`)}</span>;
                 })
               }
@@ -117,7 +117,7 @@ class AdminUserList extends React.Component {
                 refreshFilterTable={this.refreshFilterTable} />
             </td>
             <td className="last-signed-in">
-              {user.last_sign_in_at ? dateToYMD(new Date(user.last_sign_in_at)) : '-'}
+              {user.attributes.last_sign_in_at ? dateToYMD(new Date(user.attributes.last_sign_in_at)) : '-'}
             </td>
             <td className="deactivate-user">
               <button
@@ -159,7 +159,7 @@ class AdminUserList extends React.Component {
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/admin/users.json"
+        fetchUrl="/api/v1/users"
         containerClass="admin-user-list" />,
       this.renderDeactivateUserModal()
     ];
