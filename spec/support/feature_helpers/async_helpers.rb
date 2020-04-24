@@ -17,12 +17,16 @@ module FeatureHelpers
     end
   end
 
-  def wait_for_async_process(name)
+  def wait_for_async_process(name, delay: 0)
     return unless @javascript_enabled
 
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until finished_async_process?(name)
     end
+
+    # rubocop:disable Style/Semicolon
+    wait_for { sleep(delay); true }
+    # rubocop:enable Style/Semicolon
   end
 
   def finished_all_xhr_requests?
