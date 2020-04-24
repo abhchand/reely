@@ -145,6 +145,30 @@ RSpec.describe Api::V1::UserInvitationsController, type: :controller do
       end
     end
 
+    describe "meta" do
+      let(:meta) { JSON.parse(response.body)["meta"] }
+
+      it "includes the totalCount count in the meta information" do
+        get :index, params: params
+
+        expect(meta["totalCount"]).to eq(UserInvitation.count)
+      end
+
+      context "a search string is present" do
+        it "the totalCount is count after searching records" do
+          user_invitations[0].update(email: "Georgia")
+          user_invitations[1].update(email: "Virginia")
+          user_invitations[2].update(email: "California")
+
+          params[:search] = "nia"
+
+          get :index, params: params
+
+          expect(meta["totalCount"]).to eq(2)
+        end
+      end
+    end
+
     describe "relationships" do
       let(:relationships) do
         JSON.parse(response.body)["data"][0]["relationships"]

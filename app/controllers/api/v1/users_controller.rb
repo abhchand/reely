@@ -6,10 +6,19 @@ class Api::V1::UsersController < Api::BaseController
 
     users = fetch_users
     users = search(users)
-    users = paginate(users)
-    users = UserPresenter.wrap(users, view: view_context)
 
-    json = serialize(users, links: pagination_links(users))
+    # Order matters! We need to determine meta data *before* we
+    # paginate the actual data set
+    total = users.count
+    links = pagination_links(users)
+
+    users = paginate(users)
+
+    json = serialize(
+      UserPresenter.wrap(users, view: view_context),
+      links: links,
+      meta: { totalCount: total }
+    )
 
     render json: json, status: :ok
   end

@@ -223,6 +223,31 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
+    describe "meta" do
+      let(:meta) { JSON.parse(response.body)["meta"] }
+
+      it "includes the totalCount count in the meta information" do
+        get :index, params: params
+
+        expect(meta["totalCount"]).to eq(User.count)
+      end
+
+      context "a search string is present" do
+        it "the totalCount is count after searching records" do
+          users[0].update(first_name: "Georgia")
+          users[1].update(first_name: "Virginia")
+          users[2].update(first_name: "California")
+          users[3].update(first_name: "Florida")
+
+          params[:search] = "nia"
+
+          get :index, params: params
+
+          expect(meta["totalCount"]).to eq(2)
+        end
+      end
+    end
+
     describe "relationships" do
       let(:relationships) do
         JSON.parse(response.body)["data"][0]["relationships"]
