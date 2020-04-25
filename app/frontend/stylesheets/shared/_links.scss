@@ -1,0 +1,7 @@
+// TODO: Consider applying this to all links globally, overriding layouts/_applications.scss
+.standard-link {
+  color: $light-blue;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+}
