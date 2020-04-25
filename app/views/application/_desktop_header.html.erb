@@ -1,4 +1,7 @@
 <div class="desktop-header">
+  <div class="desktop-header__profile">
+    <span><%= current_user.first_name.downcase %></span>
+  </div>
   <div class="desktop-header__profile-pic">
     <%= link_to(root_path) do %>
       <%= image_tag(current_user_presenter.avatar_path) %>

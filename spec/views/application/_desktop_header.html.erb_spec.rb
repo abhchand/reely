@@ -9,8 +9,15 @@ RSpec.describe "application/_desktop_header.html.erb", type: :view do
     stub_current_user
   end
 
-  it "renders the profile pic" do
+  it "renders the profile" do
     render
+
+    # Profile
+
+    expect(page.find(".desktop-header__profile")).
+      to have_content(user.first_name.downcase)
+
+    # Profile Pic
 
     expect(page.find(".desktop-header__profile-pic > a")["href"]).
       to eq(root_path)
