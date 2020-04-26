@@ -40,9 +40,7 @@ gem "will_paginate", "~> 3.2", ">= 3.2.1"
 gem "nokogiri", ">= 1.10.4"     # https://nvd.nist.gov/vuln/detail/CVE-2019-5477
 gem "rubyzip", ">= 1.3.0"       # https://nvd.nist.gov/vuln/detail/CVE-2019-16892
 
-group :development, :production do
-  gem "aws-sdk-s3", "~> 1.48", require: false
-  gem "foreman", "~> 0.86.0"
+group :production do
 end
 
 group :development, :test do
@@ -51,6 +49,11 @@ group :development, :test do
   gem "pry-rails"
   gem 'rspec-rails', "~> 4.0.0.beta3"
   gem "rubocop", "~> 0.76.0"
+end
+
+group :development, :production do
+  gem "aws-sdk-s3", "~> 1.48", require: false
+  gem "foreman", "~> 0.86.0"
 end
 
 group :development do
