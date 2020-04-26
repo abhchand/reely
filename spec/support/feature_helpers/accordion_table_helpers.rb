@@ -18,12 +18,6 @@ module FeatureHelpers
     within(scope) { yield }
   end
 
-  def click_accordion_table_create(type)
-    page.
-      find(".accordion-table--#{type} .admin-rubric-editor__button--create").
-      click
-  end
-
   def toggle_accordion_row(record)
     accordion_table_row_for(record).
       find(".accordion-table-row__expand-arrow").
