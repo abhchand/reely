@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "admin/_breadcrumb_heading.html.erb", type: :view do
+RSpec.describe "shared/_breadcrumb_heading.html.erb", type: :view do
   let(:breadcrumbs) do
     [
       { label: "One", href: "/one" },
@@ -15,7 +15,7 @@ RSpec.describe "admin/_breadcrumb_heading.html.erb", type: :view do
 
     render_partial
 
-    page.all(".admin-breadcrumb-heading h3 a").each do |el|
+    page.all(".breadcrumb-heading h3 a").each do |el|
       actual << { label: el.text, href: el["href"] }
     end
 
@@ -25,12 +25,12 @@ RSpec.describe "admin/_breadcrumb_heading.html.erb", type: :view do
   it "renderst the last item as the current page heading" do
     render_partial
 
-    expect(page.find(".admin-breadcrumb-heading h1")).to have_content("Three")
+    expect(page.find(".breadcrumb-heading h1")).to have_content("Three")
   end
 
   def render_partial
     render(
-      partial: "admin/breadcrumb_heading",
+      partial: "shared/breadcrumb_heading",
       locals: {
         breadcrumbs: breadcrumbs
       }

@@ -7,7 +7,7 @@ RSpec.describe "admin/users/index.html.erb", type: :view do
     @t_prefix = "admin.users.index"
 
     # rubocop:disable Metrics/LineLength
-    stub_template "admin/_breadcrumb_heading.html.erb" => "_stubbed_breadcrumb_heading"
+    stub_template "shared/_breadcrumb_heading.html.erb" => "_stubbed_breadcrumb_heading"
     # rubocop:enable Metrics/LineLength
   end
 

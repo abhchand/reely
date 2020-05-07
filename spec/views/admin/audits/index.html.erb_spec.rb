@@ -9,7 +9,7 @@ RSpec.describe "admin/audits/index.html.erb", type: :view do
 
     # rubocop:disable Metrics/LineLength
     stub_view_context
-    stub_template "admin/_breadcrumb_heading.html.erb" => "_stubbed_breadcrumb_heading"
+    stub_template "shared/_breadcrumb_heading.html.erb" => "_stubbed_breadcrumb_heading"
     stub_template "admin/_filter_warning.html.erb" => "_stubbed_filter_warning"
     expect(view).to receive(:will_paginate) { "_stubbed_will_paginate" }
     # rubocop:enable Metrics/LineLength

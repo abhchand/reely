@@ -1,10 +1,12 @@
 @charset 'utf-8';
 
 // Shared
+@import 'stylesheets/shared/_colors';
+
 @import 'stylesheets/shared/_vars';
+@import 'stylesheets/shared/_breadcrumb_heading';
 @import 'stylesheets/shared/_breakpoints';
 @import 'stylesheets/shared/_buttons';
-@import 'stylesheets/shared/_colors';
 @import 'stylesheets/shared/_fonts';
 @import 'stylesheets/shared/_forms';
 @import 'stylesheets/shared/_links';
