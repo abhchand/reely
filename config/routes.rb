@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   devise_for(
     :users,
     controllers: {
-      omniauth_callbacks: "devise/callbacks"
+      confirmations: "devise/custom/confirmations",
+      omniauth_callbacks: "devise/custom/omniauth_callbacks",
+      passwords: "devise/custom/passwords",
+      registrations: "devise/custom/registrations",
+      sessions: "devise/custom/sessions"
     },
     path_names: {
       sign_in:  "log-in",
@@ -36,19 +40,6 @@ Rails.application.routes.draw do
     },
     sign_out_via: :get
   )
-
-  # Devise generates an "edit" route for user registrations and there doesn't
-  # seem to be a clean way to remove a single generated route, so just redirect.
-  #   See: https://stackoverflow.com/a/6883757/2490003
-  #
-  # Note: This overrides but does not replace the original route created by
-  # by Devise:
-  #  get(
-  #    "/users/registrations/edit",
-  #    to: "devise/registrations#edit",
-  #    as: "edit_user_registration"
-  #  )
-  get "/users/registrations/edit", to: redirect("/account/profile")
 
   namespace :account do
     resources :profile, only: :index

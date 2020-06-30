@@ -9,6 +9,7 @@
 
   <%= render "users/shared/error_messages", user: @user %>
 
+  <% if native_auth_enabled? %>
   <%= form_for(@user, as: :user, url: user_session_path, html: { class: "auth__form" }) do |f| %>
     <div class="auth__form-input">
       <%= f.email_field(:email, autofocus: true, autocomplete: "email", placeholder: User.human_attribute_name(:email)) %>
@@ -27,7 +28,10 @@
   <% end %>
 
   <div class="auth__action-conditional"><%= t(".or") %></div>
+  <% end %>
 
   <%= render "users/shared/omniauth_links" %>
+  <% if native_auth_enabled? %>
   <%= render "users/shared/native_links" %>
+  <% end %>
 </div>

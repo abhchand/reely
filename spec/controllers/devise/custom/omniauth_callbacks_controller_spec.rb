@@ -1,6 +1,9 @@
 require "rails_helper"
 
-RSpec.describe Devise::CallbacksController, type: :controller do
+# Devise already tests this controller. This spec exists purely to test
+# any additional functionality provided by the application.
+
+RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
   describe "GET #google_oauth2" do
     let(:auth) do
       OmniAuth::AuthHash.new(

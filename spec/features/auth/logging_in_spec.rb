@@ -285,6 +285,20 @@ RSpec.feature "Logging In", type: :feature do
       end
     end
 
+    context "native auth is disabled" do
+      before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
+
+      it "user can still log in" do
+        mock_google_oauth2_auth_response(auth_hash)
+
+        expect do
+          log_in_with_omniauth("google_oauth2")
+        end.to_not(change { User.count })
+
+        expect(page).to have_current_path(photos_path)
+      end
+    end
+
     it "preserves the user's original destination" do
       visit account_profile_index_path
 

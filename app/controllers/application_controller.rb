@@ -42,16 +42,6 @@ class ApplicationController < ActionController::Base
   def check_if_deactivated
     return unless user_signed_in? && current_user.deactivated?
 
-    # Need to skip this action when logging out, otherwise it just redirects
-    # back to the same page. Ideally we'd do this by inserting a
-    # `skip_before_action` but this controller is implemented by Devise and
-    # we'd have to set up a fully subclassed controller just to skip this.
-    # This is a workaround but if we have more exceptions we should consider
-    # implementing this the proper way.
-    # rubocop:disable Metrics/LineLength
-    return if params[:controller] == "devise/sessions" && params[:action] == "destroy"
-    # rubocop:enable Metrics/LineLength
-
     respond_to do |format|
       format.json { render json: { error: "User is deactivated" }, status: 403 }
       format.html { redirect_to(deactivated_users_path) }

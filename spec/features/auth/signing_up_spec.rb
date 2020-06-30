@@ -288,6 +288,20 @@ RSpec.feature "Signing Up", type: :feature do
       end
     end
 
+    context "native auth is disabled" do
+      before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
+
+      it "user can still log in and create an account" do
+        mock_google_oauth2_auth_response(auth_hash)
+
+        expect do
+          log_in_with_omniauth("google_oauth2")
+        end.to(change { User.count }.by(1))
+
+        expect(page).to have_current_path(photos_path)
+      end
+    end
+
     describe "tracking log ins" do
       let(:now) { Time.zone.now }
 

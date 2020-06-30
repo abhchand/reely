@@ -379,6 +379,11 @@ en:
     show:
       empty: You have no photos (yet!) in this collection
 
+  helpers:
+    devise:
+      auth_helper:
+        error: Email login is disabled - please login via Google
+
   layouts:
     action_notifications:
       close: Dismiss

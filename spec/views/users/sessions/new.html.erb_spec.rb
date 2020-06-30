@@ -66,4 +66,20 @@ RSpec.describe "users/sessions/new.html.erb", type: :view do
     expect(submit["value"]).to eq(t("#{@t_prefix}.form.submit"))
     expect(submit["data-disable-with"]).to eq(t("form.disable_with"))
   end
+
+  context "native auth is disabled" do
+    before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
+
+    it "does not render the form" do
+      render
+
+      expect(page).to_not have_selector(".auth__form")
+    end
+
+    it "does not render the native links" do
+      render
+
+      is_expected.to_not have_content("_stubbed_users_native_links")
+    end
+  end
 end
