@@ -26,7 +26,7 @@ RSpec.describe "collections/sharing_display/show.html.erb", type: :view do
 
   it "renders the auth prompt" do
     render
-    expect(rendered).to have_content("_stubbed_auth_prompt)")
+    expect(rendered).to have_content("_stubbed_auth_prompt")
   end
 
   it "renders the flash" do
