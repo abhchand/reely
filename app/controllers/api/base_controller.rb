@@ -51,7 +51,13 @@ class Api::BaseController < ApplicationController
 
   def user
     @user ||= begin
-      id = params[:id] || params[:user_id]
+      # Order matters here. For nested resources there may be another
+      # resource identified by `:id`
+      #
+      # e.g. /users/:user_id/foo/:id
+      #
+      # This method won't work in general if User is a nested child resource
+      id = params[:user_id] || params[:id]
 
       User.find_by_synthetic_id(id).tap do |user|
         if user.nil?
