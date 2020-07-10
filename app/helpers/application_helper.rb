@@ -36,6 +36,9 @@ module ApplicationHelper
     render template: layout
   end
 
+  # Creates a DOM node on which a React component can be mounted. Encodes
+  # props into the `data-react-props` attribute so they can be parsed and
+  # passed into the component by client-side JS
   def react_component(mount_id, props)
     id = "react-mount-#{mount_id}"
 

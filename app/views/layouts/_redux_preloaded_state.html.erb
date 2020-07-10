@@ -1,0 +1,13 @@
+<!--
+  Defines a global preloaded state for a single Redux Store to read from in
+  the client-side JS
+
+  Adapted from recommended approach here:
+  https://redux.js.org/recipes/server-rendering#inject-initial-component-html-and-state
+
+  Also see the following for security issues around embedding JSON in HTML
+  https://redux.js.org/recipes/server-rendering/#security-considerations
+ -->
+<script>
+  window.__REDUX_PRELOADED_STATE__ = <%= raw json_escape(state.to_json) %>
+</script>

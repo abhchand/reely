@@ -2,6 +2,12 @@
 <html>
 <head>
   <title>Reely</title>
+
+  <!-- Set the Redux state first sinc the JS components below depend on it -->
+  <% if @redux_preloaded_state %>
+    <%= render "layouts/redux_preloaded_state", state: @redux_preloaded_state %>
+  <% end %>
+
   <%= javascript_pack_tag "i18n" %>
   <%= javascript_include_tag "/i18n/translations.js" %>
 
