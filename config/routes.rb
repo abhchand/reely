@@ -71,7 +71,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: "json" } do
     scope path: "v1", module: :v1, as: :v1 do
-      resources :users, only: [:index, :update]
+      resources :users, only: [:index, :show, :update]
       resources :user_invitations, only: [:index]
     end
   end

@@ -36,7 +36,7 @@ class Ability
     end
 
     can :read, User do |u|
-      admin? || observer? || manages?(u)
+      admin? || observer?
     end
 
     can :write, User do |_user|

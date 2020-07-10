@@ -299,6 +299,100 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    let(:params) do
+      {
+        format: "json",
+        id: user.synthetic_id
+      }
+    end
+
+    before do
+      sign_in(user)
+      stub_can_ability(:read, User)
+    end
+
+    context "user is not signed in" do
+      before { sign_out(user) }
+
+      it "responds with an error" do
+        get :show, params: params
+
+        expect(response.status).to eq(401)
+        expect(JSON.parse(response.body)["error"]).
+          to eq(t("devise.failure.unauthenticated"))
+      end
+    end
+
+    context "request is not json format" do
+      before { params[:format] = "html" }
+
+      it "redirects to the root_path" do
+        get :show, params: params
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "user does not have permissions to read User" do
+      before { stub_cannot_ability(:read, User) }
+
+      it "responds with an error" do
+        get :show, params: params
+
+        expect(response.status).to eq(403)
+        expect(JSON.parse(response.body)["errors"]).
+          to eq([{ "title" => "Insufficient Permissions", "status" => "403" }])
+      end
+    end
+
+    describe "record is not found" do
+      before { params[:id] = -1 }
+
+      it "responds with an error" do
+        get :show, params: params
+
+        expect(response.status).to eq(404)
+        expect(JSON.parse(response.body)["errors"]).
+          to eq(
+            [
+              {
+                "title" => "Record Not Found",
+                "description" => "Couldn't find User with 'id'=-1",
+                "status" => "404"
+              }
+            ]
+          )
+      end
+    end
+
+    describe "data" do
+      it "responds with the data" do
+        get :show, params: params
+
+        expect(response.status).to eq(200)
+
+        data = JSON.parse(response.body)["data"]
+
+        actual = data["id"]
+        expected = user.synthetic_id.to_s
+
+        expect(actual).to eq(expected)
+      end
+    end
+
+    describe "relationships" do
+      let(:relationships) do
+        JSON.parse(response.body)["data"]["relationships"]
+      end
+
+      it "responds with no relationships" do
+        get :show, params: params
+        expect(relationships).to be_nil
+      end
+    end
+  end
+
   describe "PATCH #update" do
     let(:user) do
       create(:user, :admin, first_name: "Dante", last_name: "Basco")

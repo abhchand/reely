@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::BaseController
-  before_action :user, only: %i[update]
+  before_action :user, only: %i[show update]
 
   def index
     authorize! :read, :users
@@ -19,6 +19,14 @@ class Api::V1::UsersController < Api::BaseController
       links: links,
       meta: { totalCount: total }
     )
+
+    render json: json, status: :ok
+  end
+
+  def show
+    authorize! :read, user
+
+    json = serialize(UserPresenter.new(user, view: view_context))
 
     render json: json, status: :ok
   end
