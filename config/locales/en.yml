@@ -18,6 +18,9 @@ en:
       timestamp: "%Y-%m-%d %H:%M:%S"
       # 2016-04-15 12:00:00
       timestamp_with_zone: "%Y-%m-%d %H:%M:%S %Z"
+    connectors:
+      # Apr 15, 2017 *at* 12:00
+      at: at
 
   form:
     disable_with: Please wait...
