@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import ActionNotifications from 'components/action_notifications';
+import ActionNotifications from 'javascript/components/action_notifications';
 import CopyLink from 'collections/share_modal/copy_link';
 import React from 'react';
 

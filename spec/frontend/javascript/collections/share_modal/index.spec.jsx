@@ -1,8 +1,8 @@
 import { cleanup, fireEvent, render, wait, waitForElement, waitForElementToBeRemoved } from '@testing-library/react';
-import ActionNotifications from 'components/action_notifications';
+import ActionNotifications from 'javascript/components/action_notifications';
 import axios from 'axios';
 import React from 'react';
-import ShareCollectionModal from 'collections/share_modal';
+import ShareCollectionModal from 'javascript/collections/share_modal';
 
 jest.mock('axios');
 
@@ -246,5 +246,5 @@ const renderComponent = (additionalProps = {}) => {
   const fixedProps = { collection: collection };
   const props = { ...fixedProps, ...additionalProps };
 
-  return render(<ShareCollection {...props} />);
+  return render(<ShareCollectionModal {...props} />);
 };

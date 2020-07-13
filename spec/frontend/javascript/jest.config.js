@@ -11,8 +11,8 @@ module.exports = {
   ],
   "moduleDirectories": [
     "node_modules",
-    "app/frontend/javascript",
-    "spec/frontend/javascript"
+    "app/frontend",
+    "spec/frontend"
   ],
   "setupFilesAfterEnv": [
     "<rootDir>/spec/frontend/javascript/jest.setup.js"
