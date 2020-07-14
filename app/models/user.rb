@@ -69,8 +69,6 @@ class User < ApplicationRecord
   # verified this.
   after_create :skip_confirmation_notification!, if: :omniauth?
 
-  after_commit :complete_user_invitation
-
   scope :active, -> { where(deactivated_at: nil) }
   scope :deactivated, -> { where.not(deactivated_at: nil) }
 
@@ -171,14 +169,5 @@ class User < ApplicationRecord
     ::BCrypt::Password.new(encrypted_password)
   rescue BCrypt::Errors::InvalidHash
     errors.add(:encrypted_password, :invalid)
-  end
-
-  def complete_user_invitation
-    invitation = UserInvitation.find_by_email(self[:email].downcase)
-    return if invitation.blank?
-
-    Audited.audit_class.as_user(self) do
-      invitation.update(invitee: self)
-    end
   end
 end

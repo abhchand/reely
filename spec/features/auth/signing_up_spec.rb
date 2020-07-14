@@ -160,6 +160,18 @@ RSpec.feature "Signing Up", type: :feature do
     end
   end
 
+  context "a user invitation exists" do
+    let!(:invitation) { create(:user_invitation, email: user_attrs[:email]) }
+
+    it "marks the user invitation as complete" do
+      expect(invitation.invitee).to be_nil
+
+      register(user_attrs)
+
+      expect(invitation.reload.invitee.email).to eq(user_attrs[:email])
+    end
+  end
+
   describe "accessing the edit registrations page" do
     let(:user) { create(:user) }
 
@@ -223,15 +235,17 @@ RSpec.feature "Signing Up", type: :feature do
     end
 
     context "a user invitation exists" do
-      let!(:user_invitation) do
+      let!(:invitation) do
         create(:user_invitation, email: auth_hash[:info][:email])
       end
 
-      it "completes the user invitation" do
+      it "marks the user invitation as complete" do
+        expect(invitation.invitee).to be_nil
+
         mock_google_oauth2_auth_response(auth_hash)
         log_in_with_omniauth("google_oauth2")
 
-        expect(user_invitation.reload.invitee).to eq(User.last)
+        expect(invitation.reload.invitee.email).to eq(auth_hash[:info][:email])
       end
     end
 

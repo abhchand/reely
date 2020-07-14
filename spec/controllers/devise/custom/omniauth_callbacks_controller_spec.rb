@@ -53,5 +53,32 @@ RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
         expect(flash[:error]).to eq(t("generic_error"))
       end
     end
+
+    context "a UserInvitation record exists with this email" do
+      let!(:invitation) do
+        create(:user_invitation, email: auth[:info][:email])
+      end
+
+      it "marks the invitation as complete" do
+        expect(invitation.invitee).to be_nil
+
+        get :google_oauth2
+
+        invitation.reload
+        expect(invitation.invitee.email).to eq(auth[:info][:email])
+      end
+
+      context "user record failed to create" do
+        before { auth[:uid] = nil }
+
+        it "does not update the invitation" do
+          expect do
+            get :google_oauth2
+          end.to_not(change { User.count })
+
+          expect(invitation.reload.invitee).to be_nil
+        end
+      end
+    end
   end
 end

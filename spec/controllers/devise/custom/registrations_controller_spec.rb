@@ -108,6 +108,35 @@ RSpec.describe Devise::Custom::RegistrationsController, type: :controller do
       expect(audit.user).to be_nil
     end
 
+    context "a UserInvitation record exists with this email" do
+      let!(:invitation) do
+        create(:user_invitation, email: params[:user][:email])
+      end
+
+      it "marks the invitation as complete" do
+        expect(invitation.invitee).to be_nil
+
+        post :create, params: params
+
+        invitation.reload
+        expect(invitation.invitee.email).to eq(params[:user][:email])
+      end
+
+      context "user record failed to create" do
+        # Should cause failure when calling `resource.save` in
+        # `registrations#create` in Devise
+        before { expect_any_instance_of(User).to receive(:save) { false } }
+
+        it "does not update the invitation" do
+          expect do
+            post :create, params: params
+          end.to_not(change { User.count })
+
+          expect(invitation.reload.invitee).to be_nil
+        end
+      end
+    end
+
     context "native auth is disabled" do
       before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
 

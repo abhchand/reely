@@ -1,3 +1,4 @@
+
 require "rails_helper"
 # rubocop:disable Metrics/LineLength
 require Rails.root.join("spec/support/shared_examples/models/concerns/has_synthetic_id").to_s
@@ -588,36 +589,6 @@ RSpec.describe User do
             expect do
               user.update!(email: "something-else@foo.com")
             end.to_not(change { mailer_queue.size })
-          end
-        end
-      end
-    end
-
-    describe "after_commit" do
-      describe "#complete_user_invitation" do
-        context "a user invitation exists" do
-          let(:invitation) { create(:user_invitation, email: user.email) }
-
-          it "updates the invitee on the UserInvitation record" do
-            expect(invitation.invitee).to be_nil
-            user.save!
-            expect(invitation.reload.invitee).to eq(user)
-          end
-
-          it "audits the change" do
-            invitation
-
-            expect { user.save! }.to(change { Audited::Audit.count }.by(2))
-
-            audit = Audited::Audit.last
-
-            expect(audit.auditable).to eq(invitation)
-            expect(audit.user).to eq(user)
-            expect(audit.action).to eq("update")
-            expect(audit.audited_changes).to eq("invitee_id" => [nil, user.id])
-            expect(audit.version).to eq(2)
-            expect(audit.request_uuid).to_not be_nil
-            expect(audit.remote_address).to be_nil
           end
         end
       end

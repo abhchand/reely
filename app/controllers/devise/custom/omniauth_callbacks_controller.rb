@@ -10,6 +10,7 @@ class Devise::Custom::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
 
     if service.success?
       user = service.user
+      after_registration(user)
       sign_in_and_redirect(user)
     else
       flash[:error] = service.error
@@ -21,5 +22,9 @@ class Devise::Custom::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
 
   def auth
     @auth ||= request.env["omniauth.auth"]
+  end
+
+  def after_registration(new_user)
+    UserInvitations::MarkAsComplete.call(new_user)
   end
 end
