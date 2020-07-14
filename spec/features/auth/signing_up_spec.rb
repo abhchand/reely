@@ -163,12 +163,17 @@ RSpec.feature "Signing Up", type: :feature do
   context "a user invitation exists" do
     let!(:invitation) { create(:user_invitation, email: user_attrs[:email]) }
 
-    it "marks the user invitation as complete" do
+    it "marks the user invitation as complete and notifies the inviter" do
       expect(invitation.invitee).to be_nil
 
       register(user_attrs)
 
       expect(invitation.reload.invitee.email).to eq(user_attrs[:email])
+
+      email = mailer_queue.last
+      expect(email[:klass]).to eq(UserInvitationMailer)
+      expect(email[:method]).to eq(:notify_inviter_of_completion)
+      expect(email[:args][:user_invitation_id]).to eq(invitation.id)
     end
   end
 
@@ -239,13 +244,18 @@ RSpec.feature "Signing Up", type: :feature do
         create(:user_invitation, email: auth_hash[:info][:email])
       end
 
-      it "marks the user invitation as complete" do
+      it "marks the user invitation as complete and notifies the inviter" do
         expect(invitation.invitee).to be_nil
 
         mock_google_oauth2_auth_response(auth_hash)
         log_in_with_omniauth("google_oauth2")
 
         expect(invitation.reload.invitee.email).to eq(auth_hash[:info][:email])
+
+        email = mailer_queue.last
+        expect(email[:klass]).to eq(UserInvitationMailer)
+        expect(email[:method]).to eq(:notify_inviter_of_completion)
+        expect(email[:args][:user_invitation_id]).to eq(invitation.id)
       end
     end
 

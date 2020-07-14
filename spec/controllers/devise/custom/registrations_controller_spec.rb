@@ -122,6 +122,18 @@ RSpec.describe Devise::Custom::RegistrationsController, type: :controller do
         expect(invitation.invitee.email).to eq(params[:user][:email])
       end
 
+      it "notifies the inviter of completion" do
+        # mailer_queue changes by 2 since we send confirmation email as well
+        expect do
+          post :create, params: params
+        end.to(change { mailer_queue.count }.by(2))
+
+        email = mailer_queue.last
+        expect(email[:klass]).to eq(UserInvitationMailer)
+        expect(email[:method]).to eq(:notify_inviter_of_completion)
+        expect(email[:args][:user_invitation_id]).to eq(invitation.id)
+      end
+
       context "user record failed to create" do
         # Should cause failure when calling `resource.save` in
         # `registrations#create` in Devise

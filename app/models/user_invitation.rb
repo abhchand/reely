@@ -13,4 +13,5 @@ class UserInvitation < ApplicationRecord
   before_save { self[:email].downcase! if self[:email].present? }
 
   scope :pending, -> { where(invitee: nil) }
+  scope :completed, -> { where.not(invitee: nil) }
 end

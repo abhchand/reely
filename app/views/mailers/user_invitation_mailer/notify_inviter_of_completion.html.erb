@@ -1,0 +1,9 @@
+<% @body.each do |line| %>
+  <p><%= raw(line) %></p>
+<% end %>
+
+<ul>
+<% @todos.each do |todo| %>
+  <li><%= raw(todo) %></li>
+<% end %>
+</ul>

@@ -68,6 +68,17 @@ RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
         expect(invitation.invitee.email).to eq(auth[:info][:email])
       end
 
+      it "notifies the inviter of completion" do
+        expect do
+          get :google_oauth2
+        end.to(change { mailer_queue.count }.by(1))
+
+        email = mailer_queue.last
+        expect(email[:klass]).to eq(UserInvitationMailer)
+        expect(email[:method]).to eq(:notify_inviter_of_completion)
+        expect(email[:args][:user_invitation_id]).to eq(invitation.id)
+      end
+
       context "user record failed to create" do
         before { auth[:uid] = nil }
 

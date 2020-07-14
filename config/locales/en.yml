@@ -135,6 +135,13 @@ en:
       body:
         - "%{inviter} has invited you to join Reely."
         - Click the below link to create a new account
+    notify_inviter_of_completion:
+      subject: "%{invitee_name} has joined Reely! Here's some next steps."
+      body:
+        - "You previously invited %{invitee_name} to join Reely."
+        - Now that they have joined, you may want to do the following from the <a href="%{admin_index_url}">admin panel</a>.
+      todos:
+        - Grant them any <b>roles</b>
 
   #
   # Frontend Components

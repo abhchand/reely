@@ -28,6 +28,13 @@ RSpec.describe UserInvitations::MarkAsComplete do
     expect(audit.remote_address).to be_nil
   end
 
+  it "calls UserInvitations::NotifyInviterOfCompletion" do
+    invitation
+
+    expect(UserInvitations::NotifyInviterOfCompletion).to receive(:call)
+    call
+  end
+
   context "no invitation exists" do
     it "does nothing" do
       user
@@ -35,6 +42,11 @@ RSpec.describe UserInvitations::MarkAsComplete do
       expect do
         call
       end.to_not(change { Audited::Audit.count })
+    end
+
+    it "does not call UserInvitations::NotifyInviterOfCompletion" do
+      expect(UserInvitations::NotifyInviterOfCompletion).to_not receive(:call)
+      call
     end
   end
 

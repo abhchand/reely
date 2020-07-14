@@ -1,4 +1,4 @@
-class UserInvitations::MarkAsComplete
+class UserInvitations::NotifyInviterOfCompletion
   def self.call(user)
     new(user).call
   end
@@ -11,10 +11,6 @@ class UserInvitations::MarkAsComplete
     invitation = UserInvitation.find_by_email(@user[:email].downcase)
     return if invitation.blank?
 
-    Audited.audit_class.as_user(@user) do
-      invitation.update(invitee: @user)
-    end
-
-    UserInvitations::NotifyInviterOfCompletion.call(@user)
+    UserInvitationMailer.delay.notify_inviter_of_completion(invitation.id)
   end
 end
