@@ -5,6 +5,12 @@ class UsersController < ApplicationController
   before_action :user, only: %i[destroy]
   before_action :only_editable_users, only: %i[destroy]
 
+  # Dummy controller action because Devise tries to redirect to <resource>_url
+  # (e.g. `users_url`) when a registration action fails
+  def index
+    redirect_to(root_path)
+  end
+
   # No action points here, this is just for clarity / documentation. If you're
   # here looking for how users are created, it's handled as follows:
   #

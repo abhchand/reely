@@ -86,7 +86,7 @@ Rails.application.routes.draw do
     resources :raw_photos, only: :show, path: :file
   end
 
-  resources :users, only: [:destroy]
+  resources :users, only: [:index, :destroy]
 
   resources :user_invitations, only: [:create, :destroy]
 

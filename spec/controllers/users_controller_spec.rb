@@ -6,6 +6,13 @@ RSpec.describe UsersController, type: :controller do
 
   before { sign_in(admin) }
 
+  describe "GET #index" do
+    it "redirects to the root_path" do
+      get :index
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
   describe "DELETE #destroy" do
     let(:params) do
       {
