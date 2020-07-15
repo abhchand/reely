@@ -8,10 +8,14 @@ module GeneralHelpers
 
       params = klass.instance_method(method_name).parameters.map { |p| p[1] }
 
+      at = nil
+      at = Time.zone.at(job["at"]) if job["at"]
+
       {
         klass: klass,
         method: method_name,
-        args: Hash[params.zip(args)]
+        args: Hash[params.zip(args)],
+        at: at
       }
     end
   end
