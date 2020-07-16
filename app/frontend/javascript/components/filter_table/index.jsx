@@ -19,11 +19,13 @@ class FilterTable extends React.Component {
     refreshAt: PropTypes.number,
 
     fetchUrl: PropTypes.string.isRequired,
-    containerClass: PropTypes.string
+    containerClass: PropTypes.string,
+    mapResponseDataToItems: PropTypes.func
   };
 
   static defaultProps = {
-    containerClass: ''
+    containerClass: '',
+    mapResponseDataToItems: (collection) => collection.data
   };
 
   // eslint-disable-next-line padded-blocks
@@ -99,9 +101,10 @@ class FilterTable extends React.Component {
       then((response) => {
         const collection = response.data;
         const pageParam = (collection.links.last || '').match(/page=(\d+)/i) || [null, 0];
+        const displayedItems = self.props.mapResponseDataToItems(collection);
 
         self.setState({
-          displayedItems: collection.data,
+          displayedItems: displayedItems,
           totalItems: collection.meta.totalCount,
           currentPage: params.page,
           totalPages: parseInt(pageParam[1], 10),
