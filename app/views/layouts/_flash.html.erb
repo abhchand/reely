@@ -8,6 +8,6 @@
 
 <div class="flash <%= classes %>">
   <% unless flash.empty? %>
-   <span class="message"><%= flash_hash.values.first %></span> <span class="close"><%= t(".close") %></span>
+   <span class="message"><%= raw flash_hash.values.first %></span> <span class="close"><%= t(".close") %></span>
   <% end %>
 </div>
