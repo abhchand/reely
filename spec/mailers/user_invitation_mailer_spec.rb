@@ -21,9 +21,18 @@ RSpec.describe UserInvitationMailer do
       expect(mail.body).to have_content(@user_invitation.inviter.name)
     end
 
-    it "displays the url" do
+    it "displays the new registration url" do
       url = new_user_registration_url
       expect(mail.body).to have_link(url, href: url)
+    end
+
+    context "native auth is disabled" do
+      before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
+
+      it "displays the new session url" do
+        url = new_user_session_url
+        expect(mail.body).to have_link(url, href: url)
+      end
     end
   end
 

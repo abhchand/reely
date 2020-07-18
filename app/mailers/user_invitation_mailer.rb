@@ -5,7 +5,8 @@ class UserInvitationMailer < BaseSendgridMailer
     @recipient = @user_invitation.email
     @subject = t(".subject")
     @body = t(".body", inviter: @user_invitation.inviter.name)
-    @url = new_user_registration_url
+    @url =
+      native_auth_enabled? ? new_user_registration_url : new_user_session_url
 
     send_mail
   end
