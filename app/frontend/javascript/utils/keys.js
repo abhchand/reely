@@ -5,6 +5,7 @@ const keyCodes = Object.freeze({
   ARROW_UP:    38,
   ENTER:       13,
   ESCAPE:      27,
+  LETTER_B:    66,
   LETTER_J:    74,
   LETTER_K:    75
 });

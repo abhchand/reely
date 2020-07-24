@@ -11,6 +11,8 @@ import SearchInput from './search_input';
 import Table from './table';
 import TotalCount from './total_count';
 
+import './focus-search-on-keypress';
+
 class FilterTable extends React.Component {
 
   static propTypes = {

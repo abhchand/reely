@@ -302,7 +302,11 @@ en:
         size: One or more files exceeds %{max_size}
     filter_table:
       search_input:
-        placeholder: Search...
+        placeholder: Search users (%{meta_key}+B)
+        meta_key:
+          windows: ⊞
+          osx: ⌘
+          other: Super
       total_count:
         heading: "%{total} users"
       table:
