@@ -13,6 +13,13 @@ class UserSerializer < ApplicationSerializer
     end
   end
 
+  attribute :current_user_abilities do |user, params|
+    ability = params[:current_ability]
+    next unless ability
+
+    ability.user_abilities_for(user)
+  end
+
   # Below attributes are only available when the `user` is wrapped in
   # a `UserPresenter`
   attributes :roles, if: proc { |user, _params| user.respond_to?(:roles) }
