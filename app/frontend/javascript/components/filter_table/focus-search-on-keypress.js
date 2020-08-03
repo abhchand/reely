@@ -7,6 +7,8 @@ import { keyCodes, parseKeyCode } from 'javascript/utils/keys';
 document.addEventListener('keydown', (event) => {
   if (event.metaKey && parseKeyCode(event) === keyCodes.LETTER_B) {
     event.preventDefault();
-    document.getElementsByClassName('filter-table__search-input')[0].focus();
+
+    const element = document.getElementsByClassName('filter-table__search-input')[0];
+    if (element) element.focus();
   }
 });

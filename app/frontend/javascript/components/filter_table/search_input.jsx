@@ -1,4 +1,4 @@
-import { os } from 'javascript/utils/os';
+import { metaKeyLabel } from 'javascript/utils/keys';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -22,15 +22,13 @@ class SearchInput extends React.Component {
   }
 
   render() {
-    const meta_key = I18n.t(`${this.i18nPrefix}.meta_key.${os()}`);
-
     return (
       <input
         className="filter-table__search-input"
         type="text"
         name="search"
         autoComplete="off"
-        placeholder={I18n.t(`${this.i18nPrefix}.placeholder`, { meta_key: meta_key })}
+        placeholder={I18n.t(`${this.i18nPrefix}.placeholder`, { meta_key: metaKeyLabel() })}
         onChange={this.onChange} />
     );
   }

@@ -303,10 +303,6 @@ en:
     filter_table:
       search_input:
         placeholder: Search users (%{meta_key}+B)
-        meta_key:
-          windows: ⊞
-          osx: ⌘
-          other: Super
       total_count:
         heading: "%{total} users"
       table:
@@ -459,3 +455,10 @@ en:
         or: Or
         form:
           submit: Log In
+
+  utils:
+    keys:
+      meta_key:
+        windows: ⊞
+        osx: ⌘
+        other: Super
