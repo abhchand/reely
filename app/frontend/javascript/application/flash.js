@@ -7,7 +7,7 @@ $(document).ready(() => {
    *
    */
 
-  $('body').on('click', '.flash', (e) => {
+  $('body').on('click', '.flash .close', (e) => {
     e.preventDefault();
 
     const flash = $('.flash');

@@ -23,7 +23,7 @@ RSpec.feature "Flash message", type: :feature do
     expect(page).to have_current_path(new_user_session_path)
 
     expect(page).to have_selector(".flash")
-    find(".flash").click
+    find(".flash .close").click
     expect(page).to_not have_selector(".flash")
   end
 end
