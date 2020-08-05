@@ -57,13 +57,6 @@ const config = {
   resolveLoader: {
     modules: ['node_modules']
   },
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  },
   devtool: 'cheap-module-source-map',
   devServer: {
     clientLogLevel: 'none',
@@ -221,13 +214,15 @@ const config = {
       filename: '[name]-[contenthash].css',
       chunkFilename: '[name]-[contenthash].chunk.css'
     }),
-    new CopyPlugin([
-      {
-        from: '**/*',
-        context: `${ASSETS_DIR}/images`,
-        to: IMAGES_DIR
-      }
-    ]),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: '**/*',
+          context: `${ASSETS_DIR}/images`,
+          to: IMAGES_DIR
+        }
+      ]
+    }),
     new WebpackAssetsManifest({
       integrity: false,
       entrypoints: false,
