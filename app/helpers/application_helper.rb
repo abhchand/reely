@@ -25,7 +25,8 @@ module ApplicationHelper
   end
 
   def page_specific_css_id
-    "#{params[:controller]}-#{params[:action]}".tr("_", "-").tr("/", "-")
+    @page_specific_css_id ||=
+      "#{params[:controller]}-#{params[:action]}".tr("_", "-").tr("/", "-")
   end
 
   def render_inside(opts = {}, &block)
