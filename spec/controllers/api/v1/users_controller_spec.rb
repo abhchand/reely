@@ -21,7 +21,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     before do
       sign_in(user)
-      stub_can_ability(:read, :users)
+      stub_ability(user).can(:read, :users)
     end
 
     context "user is not signed in" do
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     context "user does not have permissions to read  users" do
-      before { stub_cannot_ability(:read, :users) }
+      before { stub_ability(user).cannot(:read, :users) }
 
       it "responds with an error" do
         get :index, params: params
@@ -309,7 +309,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     before do
       sign_in(user)
-      stub_can_ability(:read, User)
+      stub_ability(user).can(:read, User)
     end
 
     context "user is not signed in" do
@@ -335,7 +335,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     context "user does not have permissions to read User" do
-      before { stub_cannot_ability(:read, User) }
+      before { stub_ability(user).cannot(:read, User) }
 
       it "responds with an error" do
         get :show, params: params
@@ -411,7 +411,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     before do
       sign_in(user)
-      stub_can_ability(:write, User)
+      stub_ability(user).can(:write, User)
     end
 
     context "user is not signed in" do
@@ -437,7 +437,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     context "user does not have permissions to write the user" do
-      before { stub_cannot_ability(:write, User) }
+      before { stub_ability(user).cannot(:write, User) }
 
       it "responds with an error" do
         patch :update, params: params

@@ -14,7 +14,7 @@ RSpec.describe Api::V1::UserInvitationsController, type: :controller do
 
     before do
       sign_in(user)
-      stub_can_ability(:read, :user_invitations)
+      stub_ability(user).can(:read, :user_invitations)
     end
 
     context "user is not signed in" do
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::UserInvitationsController, type: :controller do
     end
 
     context "user does not have permissions to read user invitations" do
-      before { stub_cannot_ability(:read, :user_invitations) }
+      before { stub_ability(user).cannot(:read, :user_invitations) }
 
       it "responds with an error" do
         get :index, params: params
