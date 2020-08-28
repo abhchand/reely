@@ -114,6 +114,7 @@
       rules: {
         max-lines:                          "off",
         max-lines-per-function:             "off",
+        no-magic-numbers:                   "off",
         no-use-before-define:               "off",
         react/jsx-props-no-spreading:       "off"
       }
