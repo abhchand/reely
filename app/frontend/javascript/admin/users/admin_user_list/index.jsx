@@ -1,5 +1,6 @@
 import { dateToYMD } from 'javascript/utils/date_helpers';
 import DeactivateUserModal from './deactivate_user_modal';
+import { extractUsersFromResponse } from './response';
 import FilterTable from 'javascript/components/filter_table';
 import { IconTrash } from 'components/icons';
 import PropTypes from 'prop-types';
@@ -15,13 +16,14 @@ class AdminUserList extends React.Component {
   constructor(props) {
     super(props);
 
+    this.i18nPrefix = 'components.admin_user_list';
+
+    // Function Bindings
     this.refreshFilterTable = this.refreshFilterTable.bind(this);
     this.openDeactivateUserModal = this.openDeactivateUserModal.bind(this);
     this.closeDeactivateUserModal = this.closeDeactivateUserModal.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderBody = this.renderBody.bind(this);
-
-    this.i18nPrefix = 'components.admin_user_list';
 
     this.state = {
       deactivateUser: null,
@@ -88,27 +90,28 @@ class AdminUserList extends React.Component {
     /* eslint-disable react/jsx-max-depth */
     return (
       users.map((user) => {
-        const name = `${user.attributes.firstName} ${user.attributes.lastName}`;
-
         return (
-          <tr key={user.id} className="admin-user-list__row" data-id={user.id}>
+          <tr key={user.id()} className="admin-user-list__row" data-id={user.id()}>
             <td className="avatar">
               <div className="avatar-container">
                 <img alt={name} src={user.attributes.avatarPath} />
               </div>
             </td>
             <td className="name">
-              {name}
+              {user.name()}
             </td>
             <td className="email">
               {user.attributes.email}
             </td>
             <td className="roles">
               {
-                user.attributes.roles.map((role, _i) => {
+                user.roles().map((role, _i) => {
                   return <span key={`role-${role}`}>{I18n.t(`roles.${role}.label`)}</span>;
                 })
               }
+            </td>
+            <td className="last-signed-in">
+              {user.lastSignInAt() ? dateToYMD(new Date(user.lastSignInAt())) : '-'}
             </td>
             <td className="update-role">
               <UpdateUserRole
@@ -122,8 +125,8 @@ class AdminUserList extends React.Component {
             <td className="deactivate-user">
               <button
                 type="button"
-                data-id={user.id}
-                data-name={name}
+                data-id={user.id()}
+                data-name={user.name()}
                 onClick={this.openDeactivateUserModal}>
                 <IconTrash
                   size="18"
@@ -160,7 +163,8 @@ class AdminUserList extends React.Component {
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
         fetchUrl="/api/v1/users"
-        containerClass="admin-user-list" />,
+        containerClass="admin-user-list"
+        mapResponseDataToItems={extractUsersFromResponse} />,
       this.renderDeactivateUserModal()
     ];
   }

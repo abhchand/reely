@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Tabnav from 'javascript/components/tabnav';
 
+/**
+ * Parent component that renders tabs and content on
+ * /admin/users
+ */
 class AdminUserManager extends React.Component {
 
   static propTypes = {
@@ -15,16 +19,18 @@ class AdminUserManager extends React.Component {
   constructor(props) {
     super(props);
 
+    this._i18nPrefix = 'components.admin_user_manager';
+    this._tabs = [
+      { label: I18n.t(`${this._i18nPrefix}.tabs.users`), component: <AdminUserList roles={this.props.roles} /> },
+      { label: I18n.t(`${this._i18nPrefix}.tabs.user_invitations`), component: <AdminUserInvitationList /> },
+      { label: I18n.t(`${this._i18nPrefix}.tabs.deactivated_users`), component: <AdminDeactivatedUserList /> }
+    ];
+
+    /*
+     * Function Bindings
+     */
     this.handleClick = this.handleClick.bind(this);
     this.renderContent = this.renderContent.bind(this);
-
-    this.i18nPrefix = 'components.admin_user_manager';
-
-    this.tabs = [
-      { label: I18n.t(`${this.i18nPrefix}.tabs.users`), component: <AdminUserList roles={this.props.roles} /> },
-      { label: I18n.t(`${this.i18nPrefix}.tabs.user_invitations`), component: <AdminUserInvitationList /> },
-      { label: I18n.t(`${this.i18nPrefix}.tabs.deactivated_users`), component: <AdminDeactivatedUserList /> }
-    ];
 
     this.state = {
       currentTabIndex: 0
@@ -40,7 +46,7 @@ class AdminUserManager extends React.Component {
   renderContent() {
     return (
       <div className="admin-user-manager__content">
-        {this.tabs[this.state.currentTabIndex].component}
+        {this._tabs[this.state.currentTabIndex].component}
       </div>
     );
   }
@@ -49,7 +55,7 @@ class AdminUserManager extends React.Component {
     return (
       <div className="admin-user-manager">
         <Tabnav
-          tabLabels={this.tabs.map((t) => t.label)}
+          tabLabels={this._tabs.map((t) => t.label)}
           currentTabIndex={this.state.currentTabIndex}
           onClick={this.handleClick} />
         {this.renderContent()}
