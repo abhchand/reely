@@ -26,7 +26,7 @@ class AccordionTable extends React.Component {
           this.props.data.map((item) => {
             return (
               <Row
-                key={`accordion-table-row-element-${item.type}-${item.id}`}
+                key={`accordion-table-row-element-${item.type()}-${item.id()}`}
                 data={item}
                 type={props.name}
                 renderContent={props.renderRowContent}

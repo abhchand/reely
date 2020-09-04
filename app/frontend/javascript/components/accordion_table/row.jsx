@@ -82,7 +82,7 @@ class Row extends React.Component {
     return (
       <div
         key={`accordion-table-row-${data.type}-${data.id}`}
-        data-id={data.id} className="accordion-table-row"
+        data-id={data.id()} className="accordion-table-row"
         data-type={type}>
         {this.renderArrow()}
         <div className="accordion-table-row__content">
