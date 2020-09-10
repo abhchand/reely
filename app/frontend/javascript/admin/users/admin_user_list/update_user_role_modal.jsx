@@ -111,7 +111,7 @@ class UpdateUserRoleModal extends React.Component {
           this.props.roles.map((role, _i) => {
             return (
               <div key={`user-role-label-${role}`} className="update-user-role-modal__role">
-                <label htmlFor={`user_role_${role}`}>
+                <label htmlFor={`user_role_${role}`} className="checkbox-label">
                   <input
                     id={`user_role_${role}`}
                     data-id={role}
