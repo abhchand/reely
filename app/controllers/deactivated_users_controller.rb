@@ -6,6 +6,7 @@ class DeactivatedUsersController < ApplicationController
   before_action :ensure_json_request, only: %i[destroy]
   before_action :user, only: %i[destroy]
   before_action :only_editable_users, only: %i[destroy]
+  before_action { @use_packs << 'auth' }
 
   def index
     # In case someone visits this URL directly without truly

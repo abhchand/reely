@@ -1,0 +1,18 @@
+@charset 'utf-8';
+
+// A shared set of SCSS styles that every pack
+// in this directory should import.
+// Ideally these styles would only be included once,
+// (in `common.scss`) but they contain variables
+// (e.g. breakpoints, colors) and other shared
+// definitions required to compile each SCSS
+// file independently
+@import 'stylesheets/shared/index';
+
+@import 'stylesheets/deactivated_user/index';
+@import 'stylesheets/users/confirmations/new';
+@import 'stylesheets/users/passwords/new';
+@import 'stylesheets/users/registrations/new';
+@import 'stylesheets/users/sessions/new';
+@import 'stylesheets/users/shared/_native_links';
+@import 'stylesheets/users/shared/_omniauth_links';

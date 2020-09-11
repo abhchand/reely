@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :ensure_json_request, only: %i[destroy]
   before_action :user, only: %i[destroy]
   before_action :only_editable_users, only: %i[destroy]
+  before_action(only: %[index]) { @use_packs << 'users-index' }
+  before_action(only: %[show]) { @use_packs << 'users-show' }
 
   # Dummy controller action because Devise tries to redirect to <resource>_url
   # (e.g. `users_url`) when a registration action fails

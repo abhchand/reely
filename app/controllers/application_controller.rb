@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :append_view_paths
   before_action :initialize_packs_list
-  before_action :set_pack_to_application
+  before_action :set_default_pack
 
   helper_method :view_context
 
@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
     @use_packs = []
   end
 
-  def set_pack_to_application
-    @use_packs << :application
+  def set_default_pack
+    @use_packs << 'common'
   end
 
   def verifier

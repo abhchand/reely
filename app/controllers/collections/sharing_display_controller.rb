@@ -4,6 +4,7 @@ class Collections::SharingDisplayController < ApplicationController
   layout 'application'
 
   before_action :set_shared_collection
+  before_action(only: %i[show]) { @use_packs << 'collections' }
   skip_before_action :authenticate_user!
 
   def show

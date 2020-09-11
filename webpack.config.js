@@ -106,15 +106,39 @@ const config = {
     }
   },
   entry: {
-    application: [
-      `${ASSETS_DIR}/javascript/packs/application.js`,
-      `${ASSETS_DIR}/stylesheets/packs/application.scss`
+    admin: {
+      import: [
+        `${ASSETS_DIR}/javascript/packs/admin.js`,
+        `${ASSETS_DIR}/stylesheets/packs/admin.scss`
+      ],
+      dependOn: 'common'
+    },
+    auth: {
+      import: [
+        `${ASSETS_DIR}/javascript/packs/auth.js`,
+        `${ASSETS_DIR}/stylesheets/packs/auth.scss`
+      ],
+      dependOn: 'common'
+    },
+    common: [
+      `${ASSETS_DIR}/javascript/packs/common.js`,
+      `${ASSETS_DIR}/stylesheets/packs/common.scss`
     ],
-    admin: [
-      `${ASSETS_DIR}/javascript/packs/admin.js`,
-      `${ASSETS_DIR}/stylesheets/packs/admin.scss`
-    ],
-    i18n: [`${ASSETS_DIR}/javascript/packs/i18n.js`]
+    collections: {
+      import: [
+        `${ASSETS_DIR}/javascript/packs/collections.js`,
+        `${ASSETS_DIR}/stylesheets/packs/collections.scss`
+      ],
+      dependOn: 'common'
+    },
+    i18n: [`${ASSETS_DIR}/javascript/packs/i18n.js`],
+    'users-index': {
+      import: [
+        `${ASSETS_DIR}/javascript/packs/users-index.js`,
+        `${ASSETS_DIR}/stylesheets/packs/users-index.scss`
+      ],
+      dependOn: 'common'
+    }
   },
   module: {
     strictExportPresence: true,

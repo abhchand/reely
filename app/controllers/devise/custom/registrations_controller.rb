@@ -2,6 +2,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   include Devise::AuthHelper
 
   prepend_before_action :ensure_native_auth_enabled
+  before_action { @use_packs << 'auth' }
 
   def create
     super do |new_user|

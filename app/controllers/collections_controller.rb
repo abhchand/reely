@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
                 only: %i[show update add_photos remove_photos destroy]
   before_action :only_if_my_collection,
                 only: %i[show update add_photos remove_photos destroy]
+  before_action(only: %i[index show create]) { @use_packs << 'collections' }
   # rubocop:enable Metrics/LineLength
 
   def index

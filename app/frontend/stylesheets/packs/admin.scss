@@ -1,66 +1,41 @@
 @charset 'utf-8';
 
-// Shared
-@import 'stylesheets/shared/_colors';
+// A shared set of SCSS styles that every pack
+// in this directory should import.
+// Ideally these styles would only be included once,
+// (in `common.scss`) but they contain variables
+// (e.g. breakpoints, colors) and other shared
+// definitions required to compile each SCSS
+// file independently
+@import 'stylesheets/shared/index';
 
-@import 'stylesheets/shared/_vars';
-@import 'stylesheets/shared/_breadcrumb_heading';
-@import 'stylesheets/shared/_breakpoints';
-@import 'stylesheets/shared/_buttons';
-@import 'stylesheets/shared/_fonts';
-@import 'stylesheets/shared/_forms';
-@import 'stylesheets/shared/_links';
-@import 'stylesheets/shared/_pagination_navigation';
-@import 'stylesheets/shared/_styles';
-@import 'stylesheets/shared/_tables';
-@import 'stylesheets/shared/_tabnav';
-
-// Views
-@import 'stylesheets/application/_desktop_header';
-@import 'stylesheets/application/_desktop_navigation';
-@import 'stylesheets/application/_mobile_header';
-@import 'stylesheets/application/_mobile_navigation';
-
-@import 'stylesheets/layouts/_application';
-@import 'stylesheets/layouts/_flash';
-@import 'stylesheets/layouts/_with_responsive_navigation';
-
-@import 'stylesheets/admin/index';
 @import 'stylesheets/admin/_filter_warning';
 @import 'stylesheets/admin/audits/index';
-
+@import 'stylesheets/admin/index';
 @import 'stylesheets/admin/users/admin_deactivated_user_list/index';
-@import 'stylesheets/admin/users/admin_user_invitation_list/index';
 @import 'stylesheets/admin/users/admin_user_invitation_list/create_user_invitation';
 @import 'stylesheets/admin/users/admin_user_invitation_list/create_user_invitation_modal';
 @import 'stylesheets/admin/users/admin_user_invitation_list/delete_user_invitation_modal';
+@import 'stylesheets/admin/users/admin_user_invitation_list/index';
 @import 'stylesheets/admin/users/admin_user_list/index';
 @import 'stylesheets/admin/users/admin_user_list/update_user_role';
 @import 'stylesheets/admin/users/admin_user_list/update_user_role_modal';
 @import 'stylesheets/admin/users/admin_user_manager/index';
 @import 'stylesheets/admin/users/index';
-
-// Components
+@import 'stylesheets/components/accordion_table/header';
+@import 'stylesheets/components/accordion_table/index';
+@import 'stylesheets/components/accordion_table/row';
+@import 'stylesheets/components/accordion_table/row_descendants';
 @import 'stylesheets/components/filter_table/index';
 @import 'stylesheets/components/filter_table/loading';
 @import 'stylesheets/components/filter_table/pagination';
 @import 'stylesheets/components/filter_table/search_input';
 @import 'stylesheets/components/filter_table/table';
 @import 'stylesheets/components/filter_table/total_count';
-
-@import 'stylesheets/components/accordion_table/index';
-@import 'stylesheets/components/accordion_table/header';
-@import 'stylesheets/components/accordion_table/row';
-@import 'stylesheets/components/accordion_table/row_descendants';
-
-@import 'stylesheets/components/modal/index';
-@import 'stylesheets/components/modal/error';
-
-@import 'stylesheets/components/modal_form/index';
-
-@import 'stylesheets/components/modal_prompt/index';
-
 @import 'stylesheets/components/icons/loading_icon_ellipsis';
 @import 'stylesheets/components/icons/loading_icon_spinner';
-
+@import 'stylesheets/components/modal/error';
+@import 'stylesheets/components/modal/index';
+@import 'stylesheets/components/modal_form/index';
+@import 'stylesheets/components/modal_prompt/index';
 @import 'stylesheets/components/product_feedback_form/index';

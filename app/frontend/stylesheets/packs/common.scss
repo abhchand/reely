@@ -1,0 +1,23 @@
+@charset 'utf-8';
+
+// A shared set of SCSS styles that every pack
+// in this directory should import.
+// Ideally these styles would only be included once,
+// (in `common.scss`) but they contain variables
+// (e.g. breakpoints, colors) and other shared
+// definitions required to compile each SCSS
+// file independently
+@import 'stylesheets/shared/index';
+
+@import 'stylesheets/application/_desktop_header';
+@import 'stylesheets/application/_desktop_navigation';
+@import 'stylesheets/application/_mobile_header';
+@import 'stylesheets/application/_mobile_navigation';
+@import 'stylesheets/components/modal/error';
+@import 'stylesheets/components/modal/index';
+@import 'stylesheets/components/modal_form/index';
+@import 'stylesheets/components/modal_prompt/index';
+@import 'stylesheets/components/product_feedback_form/index';
+@import 'stylesheets/layouts/_application';
+@import 'stylesheets/layouts/_flash';
+@import 'stylesheets/layouts/_with_responsive_navigation';

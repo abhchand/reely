@@ -6,4 +6,6 @@ class Devise::Custom::SessionsController < Devise::SessionsController
   # Need to skip this action when logging out, otherwise it just redirects
   # back to the same deactivated page.
   skip_before_action :check_if_deactivated, only: %i[destroy]
+
+  before_action { @use_packs << 'auth' }
 end

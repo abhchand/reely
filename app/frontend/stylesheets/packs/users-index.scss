@@ -1,0 +1,18 @@
+@charset 'utf-8';
+
+// A shared set of SCSS styles that every pack
+// in this directory should import.
+// Ideally these styles would only be included once,
+// (in `common.scss`) but they contain variables
+// (e.g. breakpoints, colors) and other shared
+// definitions required to compile each SCSS
+// file independently
+@import 'stylesheets/shared/index';
+
+@import 'stylesheets/components/filter_table/index';
+@import 'stylesheets/components/filter_table/loading';
+@import 'stylesheets/components/filter_table/pagination';
+@import 'stylesheets/components/filter_table/search_input';
+@import 'stylesheets/components/filter_table/table';
+@import 'stylesheets/components/filter_table/total_count';
+@import 'stylesheets/components/icons/loading_icon_ellipsis';
