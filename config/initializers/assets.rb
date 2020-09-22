@@ -1,15 +1,12 @@
 # rubocop:disable Metrics/LineLength
 
+image_folder = Rails.env.test? ? 'images-test' : 'images'
+
 WEBPACK_PACKS_DIR =
   Rails.root.join('public', Rails.env.test? ? 'packs-test' : 'packs').freeze
 WEBPACK_MANIFEST_FILE = WEBPACK_PACKS_DIR.join('manifest.json').freeze
-WEBPACK_IMAGE_URL_PREFIX = Pathname.new('/assets/images').freeze
-WEBPACK_IMAGE_DIR =
-  Rails.root.join(
-    'public',
-    'assets',
-    Rails.env.test? ? 'images-test' : 'images'
-  )
+WEBPACK_IMAGE_URL_PREFIX = Pathname.new('/assets').join(image_folder).freeze
+WEBPACK_IMAGE_DIR = Rails.root.join('public', 'assets', image_folder)
 WEBPACK_DEV_SERVER_HOST = 'http://localhost:3035'.freeze
 
 #
