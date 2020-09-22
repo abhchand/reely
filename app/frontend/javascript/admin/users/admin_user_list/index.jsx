@@ -1,6 +1,5 @@
 import { dateToYMD } from 'javascript/utils/date_helpers';
 import DeactivateUserModal from './deactivate_user_modal';
-import { extractUsersFromResponse } from './response';
 import FilterTable from 'javascript/components/filter_table';
 import { IconTrash } from 'components/icons';
 import PropTypes from 'prop-types';
@@ -10,6 +9,10 @@ import UpdateUserRole from './update_user_role';
 class AdminUserList extends React.Component {
 
   static propTypes = {
+    /**
+     * An array of all possible roles for assignment
+     * @type {array}
+     */
     roles: PropTypes.array.isRequired
   }
 
@@ -91,7 +94,7 @@ class AdminUserList extends React.Component {
     return (
       users.map((user) => {
         return (
-          <tr key={user.id()} className="admin-user-list__row" data-id={user.id()}>
+          <tr key={user.id} className="admin-user-list__row" data-id={user.id}>
             <td className="avatar">
               <div className="avatar-container">
                 <img alt={name} src={user.attributes.avatarPath} />
@@ -105,13 +108,13 @@ class AdminUserList extends React.Component {
             </td>
             <td className="roles">
               {
-                user.roles().map((role, _i) => {
+                user.roles.map((role, _i) => {
                   return <span key={`role-${role}`}>{I18n.t(`roles.${role}.label`)}</span>;
                 })
               }
             </td>
             <td className="last-signed-in">
-              {user.lastSignInAt() ? dateToYMD(new Date(user.lastSignInAt())) : '-'}
+              {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
             </td>
             <td className="update-role">
               <UpdateUserRole
@@ -125,7 +128,7 @@ class AdminUserList extends React.Component {
             <td className="deactivate-user">
               <button
                 type="button"
-                data-id={user.id()}
+                data-id={user.id}
                 data-name={user.name()}
                 onClick={this.openDeactivateUserModal}>
                 <IconTrash
@@ -163,8 +166,7 @@ class AdminUserList extends React.Component {
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
         fetchUrl="/api/v1/users"
-        containerClass="admin-user-list"
-        mapResponseDataToItems={extractUsersFromResponse} />,
+        containerClass="admin-user-list" />,
       this.renderDeactivateUserModal()
     ];
   }

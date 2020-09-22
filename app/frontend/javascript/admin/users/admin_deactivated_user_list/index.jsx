@@ -1,6 +1,5 @@
 import ActivateUserModal from './activate_user_modal';
 import { dateToYMD } from 'javascript/utils/date_helpers';
-import { extractUsersFromResponse } from './response';
 import FilterTable from 'javascript/components/filter_table';
 import { IconRefresh } from 'components/icons';
 import React from 'react';
@@ -81,7 +80,7 @@ class AdminDeactivatedUserList extends React.Component {
     return (
       users.map((user) => {
         return (
-          <tr key={user.id()} className="admin-deactivated-user-list__row" data-id={user.id()}>
+          <tr key={user.id} className="admin-deactivated-user-list__row" data-id={user.id}>
             <td className="avatar">
               <div className="avatar-container">
                 <img alt={user.name()} src={user.avatarPath('thumb')} />
@@ -91,15 +90,15 @@ class AdminDeactivatedUserList extends React.Component {
               {user.name()}
             </td>
             <td className="email">
-              {user.email()}
+              {user.email}
             </td>
             <td className="last-signed-in">
-              {user.lastSignInAt() ? dateToYMD(new Date(user.lastSignInAt())) : '-'}
+              {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
             </td>
             <td className="activate-user">
               <button
                 type="button"
-                data-id={user.id()}
+                data-id={user.id}
                 data-name={user.name()}
                 onClick={this.openActivateUserModal}>
                 <IconRefresh
@@ -137,8 +136,7 @@ class AdminDeactivatedUserList extends React.Component {
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
         fetchUrl="/api/v1/users?active=false"
-        containerClass="admin-deactivated-users-list"
-        mapResponseDataToItems={extractUsersFromResponse} />,
+        containerClass="admin-deactivated-users-list" />,
       this.renderActivateUserModal()
     ];
   }

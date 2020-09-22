@@ -28,7 +28,7 @@ class UpdateUserRoleModal extends React.Component {
     this.i18nPrefix = 'components.admin_user_list.update_user_role_modal';
 
     this.state = {
-      selectedRoles: this.props.user.roles(),
+      selectedRoles: this.props.user.roles,
       errorText: null
     };
   }
@@ -61,7 +61,7 @@ class UpdateUserRoleModal extends React.Component {
   updateUserRole() {
     const self = this;
 
-    const url = `/admin/user_roles/${this.props.user.id()}.json`;
+    const url = `/admin/user_roles/${this.props.user.id}.json`;
     const data = {
       roles: this.state.selectedRoles
     };
@@ -134,7 +134,7 @@ class UpdateUserRoleModal extends React.Component {
     return (
       <Modal
         modalClassName="update-user-role-modal"
-        heading={I18n.t(`${this.i18nPrefix}.heading`, { first_name: this.props.user.firstName() })}
+        heading={I18n.t(`${this.i18nPrefix}.heading`, { first_name: this.props.user.firstName })}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.updateUserRole}

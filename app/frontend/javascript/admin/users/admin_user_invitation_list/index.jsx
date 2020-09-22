@@ -2,7 +2,6 @@
 import CreateUserInvitation from './create_user_invitation';
 import { dateToYMD } from 'javascript/utils/date_helpers';
 import DeleteUserInvitationModal from './delete_user_invitation_modal';
-import { extractUserInvitationsFromResponse } from './response';
 import FilterTable from 'javascript/components/filter_table';
 import { IconTrash } from 'components/icons';
 import React from 'react';
@@ -81,18 +80,18 @@ class AdminUserInvitationList extends React.Component {
     return (
       userInvitations.map((userInvitation) => {
         return (
-          <tr key={userInvitation.id()} className="admin-user-invitation-list__row" data-id={userInvitation.id()}>
+          <tr key={userInvitation.id} className="admin-user-invitation-list__row" data-id={userInvitation.id}>
             <td className="email">
-              {userInvitation.email()}
+              {userInvitation.email}
             </td>
             <td className="invited-at">
-              {dateToYMD(new Date(userInvitation.invitedAt()))}
+              {dateToYMD(new Date(userInvitation.invitedAt))}
             </td>
             <td className="delete-user-invitation">
               <button
                 type="button"
-                data-id={userInvitation.id()}
-                data-email={userInvitation.email()}
+                data-id={userInvitation.id}
+                data-email={userInvitation.email}
                 onClick={this.openDeleteUserInvitationModal}>
                 <IconTrash
                   size="18"
@@ -138,8 +137,7 @@ class AdminUserInvitationList extends React.Component {
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
         fetchUrl="/api/v1/user_invitations"
-        containerClass="admin-user_invitation-list"
-        mapResponseDataToItems={extractUserInvitationsFromResponse} />,
+        containerClass="admin-user_invitation-list" />,
       this.renderDeleteUserInvitationModal()
     ];
   }
