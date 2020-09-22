@@ -1,12 +1,12 @@
-import Base from './base';
+import BaseModel from './framework/base-model';
 
 /**
  * Models a single `User` record
  */
-class User extends Base {
+class User extends BaseModel {
 
-  constructor(userJson) {
-    super(userJson);
+  constructor(id) {
+    super('user', id);
 
     // Function Bindings
     this.email = this.email.bind(this);
@@ -17,6 +17,7 @@ class User extends Base {
     this.roles = this.roles.bind(this);
     this.avatarPath = this.avatarPath.bind(this);
     this.hasAbility = this.hasAbility.bind(this);
+    this.name = this.name.bind(this);
   }
 
   /**
@@ -53,15 +54,18 @@ class User extends Base {
 
   avatarPath(size = null) {
     const _size = size || 'thumb';
-
-    return this.attr('avatarPaths')[_size];
+    return this.avatarPaths[_size];
   }
 
   hasAbility(ability) {
-    const allAbilities = this.attr('currentUserAbilities');
+    const allAbilities = this.currentUserAbilities;
     if (!allAbilities) { return null; }
 
     return allAbilities[ability];
+  }
+
+  name() {
+    return `${this.firstName} ${this.lastName}`;
   }
 
 }

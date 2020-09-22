@@ -1,4 +1,4 @@
-import User from 'javascript/models/user';
+import { initFromJsonApiData } from 'javascript/support/utils/json-api';
 
 let id = 1;
 
@@ -6,21 +6,7 @@ let id = 1;
  * @class Creates a new `User` object for testing
  */
 class UserFactory {
-}
-
-/**
- * @function
- * @static
- *
- * Creates a new `User` instance based of specified attributes.
- *
- * @param {object} [attributes] Any custom attributes to be set
- * @param {function} [callback] A callback to be invoked before
- *        creating the `User` object. Will receive the object
- *        that will be passed to `new User()` as the only arg.
- */
-UserFactory.create = (attributes = null, callback = null) => {
-  const defaultAttributes = {
+  static defaultAttributes = {
     firstName: 'Devi',
     lastName: 'Vishwakumar',
     avatarPaths: {
@@ -28,22 +14,30 @@ UserFactory.create = (attributes = null, callback = null) => {
       medium: '/foo/bar-medium.jpg'
     }
   };
+}
 
-  // NOTE: This is a shallow merge!
-  const finalAttributes = { ...defaultAttributes, ...attributes };
+/**
+ * Creates a new `User` instance based of specified attributes.
+ */
+UserFactory.create = (attributes = {}, relationships = {}) => {
 
-  let json = {
-    id: id.toString(),
-    type: 'user',
-    attributes: finalAttributes
+  // NOTE: These are shallow merges!
+  const finalAttributes = { ...UserFactory.defaultAttributes, ...attributes };
+  const finalRelationships = { ...relationships };
+
+  const json = {
+    data: {
+      id: id.toString(),
+      type: 'user',
+      attributes: finalAttributes,
+      relationships: finalRelationships
+    }
   };
-
-  if (callback) { json = callback(json); }
 
   // Increment our id for the next factory generated
   id += 1;
 
-  return new User(json);
+  return initFromJsonApiData(json);
 };
 
 export default UserFactory;

@@ -1,24 +1,18 @@
-import Base from './base';
+import BaseModel from './framework/base-model';
 
 /**
  * Models a single `UserInvitation` record
  */
-class UserInvitation extends Base {
+class UserInvitation extends BaseModel {
 
-  constructor(userInvitationJson) {
-    super(userInvitationJson);
+  constructor(id) {
+    super('userInvitation', id);
 
     // Function Bindings
     this.setInviter = this.setInviter.bind(this);
     this.removeInviter = this.removeInviter.bind(this);
-    this.inviter = this.inviter.bind(this);
     this.setInvitee = this.setInvitee.bind(this);
     this.removeInvitee = this.removeInvitee.bind(this);
-    this.invitee = this.invitee.bind(this);
-    this.email = this.email.bind(this);
-    this.invitedAt = this.invitedAt.bind(this);
-    this.inviterId = this.inviterId.bind(this);
-    this.inviteeId = this.inviteeId.bind(this);
   }
 
   /**
@@ -26,47 +20,19 @@ class UserInvitation extends Base {
    */
 
   setInviter(inviter) {
-    this.setAssociation('inviter', [inviter]);
+    this.setRelationship('inviter', inviter);
   }
 
   removeInviter() {
-    this.setAssociation('inviter', []);
-  }
-
-  inviter() {
-    return this.association('inviter')[0];
+    this.setRelationship('inviter', null);
   }
 
   setInvitee(invitee) {
-    this.setAssociation('invitee', [invitee]);
+    this.setRelationship('invitee', invitee);
   }
 
   removeInvitee() {
-    this.setAssociation('invitee', []);
-  }
-
-  invitee() {
-    return this.association('invitee')[0];
-  }
-
-  /**
-   * Attributes
-   */
-
-  email() {
-    return this.attr('email');
-  }
-
-  invitedAt() {
-    return this.attr('invitedAt');
-  }
-
-  inviterId() {
-    return this.attr('inviterId');
-  }
-
-  inviteeId() {
-    return this.attr('inviteeId');
+    this.setRelationship('invitee', null);
   }
 
 }
