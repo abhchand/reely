@@ -1,6 +1,7 @@
 import { registerAsyncProcess, unregisterAsyncProcess } from 'utils/async-registration';
 
 import axios from 'axios';
+import dataStore from 'javascript/models';
 import Error from './error';
 import Loading from './loading';
 import Pagination from './pagination';
@@ -27,7 +28,7 @@ class FilterTable extends React.Component {
 
   static defaultProps = {
     containerClass: '',
-    mapResponseDataToItems: (collection) => collection.data
+    mapResponseDataToItems: (data, _dataStore) => dataStore.sync(data)
   };
 
   // eslint-disable-next-line padded-blocks
@@ -103,7 +104,7 @@ class FilterTable extends React.Component {
       then((response) => {
         const collection = response.data;
         const pageParam = (collection.links.last || '').match(/page=(\d+)/i) || [null, 0];
-        const displayedItems = self.props.mapResponseDataToItems(collection);
+        const displayedItems = self.props.mapResponseDataToItems(collection, dataStore);
 
         self.setState({
           displayedItems: displayedItems,
