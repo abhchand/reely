@@ -85,12 +85,13 @@ module ApplicationHelper
   # e.g.
   #   -> serialize(Foo)
   #   -> serialize(Foo, collection: Foo.where("id < ?", 10))
-  def serialize(klass, collection: nil)
-    collection = klass.order(:id) if collection.nil?
+  def serialize(klass, opts = {})
+    collection = opts[:collection] || klass.order(:id)
     serializer = "#{klass}Serializer".constantize
-    json = serializer.new(collection).serializable_hash
 
-    json[:data]
+    options = { params: {} }.deep_merge(opts)
+
+    serializer.new(collection, options).serializable_hash
   end
 
   # Useful for translating param `:id` values from :synthetic_id to :id.
