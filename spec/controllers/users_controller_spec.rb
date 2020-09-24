@@ -105,7 +105,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'user is already deactivated' do
-      let(:now) { Time.zone.now }
+      let(:now) { Time.zone.now.change(nsec: 0) }
 
       before { user.update!(deactivated_at: now) }
 

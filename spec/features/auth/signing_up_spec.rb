@@ -120,13 +120,15 @@ RSpec.feature 'Signing Up', type: :feature do
       it 'displays an auth error' do
         user_attrs[:email] = user.email
 
-        before_attrs = user.attributes
+        before_updated_at = user.updated_at.change(nsec: 0)
         clear_mailer_queue
 
         expect { register(user_attrs) }.to_not(change { User.count })
 
         expect_auth_error_for(:email, :taken)
-        expect(user.reload.attributes).to eq(before_attrs)
+
+        after_updated_at = user.reload.updated_at.change(nsec: 0)
+        expect(after_updated_at).to eq(before_updated_at)
 
         expect(mailer_queue.count).to eq(0)
       end
