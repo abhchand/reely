@@ -20,7 +20,6 @@ class UserFactory {
  * Creates a new `User` instance based of specified attributes.
  */
 UserFactory.create = (attributes = {}, relationships = {}) => {
-
   // NOTE: These are shallow merges!
   const finalAttributes = { ...UserFactory.defaultAttributes, ...attributes };
   const finalRelationships = { ...relationships };

@@ -1,5 +1,4 @@
 class PhotoSelectionService {
-
   constructor(photoData, selectedPhotoIds, clickedPhotoIndex, clickEvent) {
     this.photoData = photoData;
     this.selectedPhotoIds = selectedPhotoIds;
@@ -11,11 +10,17 @@ class PhotoSelectionService {
   }
 
   performSelection() {
-    this.isBulkSelection() ? this.performBulkSelection() : this.toggleClickedPhoto();
+    this.isBulkSelection()
+      ? this.performBulkSelection()
+      : this.toggleClickedPhoto();
   }
 
   isBulkSelection() {
-    return Boolean(this.clickEvent) && this.clickEvent.shiftKey && this.selectedPhotoIds.length > 0;
+    return (
+      Boolean(this.clickEvent) &&
+      this.clickEvent.shiftKey &&
+      this.selectedPhotoIds.length > 0
+    );
   }
 
   /*
@@ -55,7 +60,9 @@ class PhotoSelectionService {
   }
 
   toggleClickedPhoto() {
-    this.isClickedPhotoSelected() ? this.unselectClickedPhoto() : this.selectClickedPhoto();
+    this.isClickedPhotoSelected()
+      ? this.unselectClickedPhoto()
+      : this.selectClickedPhoto();
   }
 
   isClickedPhotoSelected() {
@@ -65,14 +72,15 @@ class PhotoSelectionService {
   unselectClickedPhoto() {
     // Unselect photo by removing it from array
     const index = this.selectedPhotoIds.indexOf(this.clickedPhotoId);
-    if (index !== -1) { this.selectedPhotoIds.splice(index, 1); }
+    if (index !== -1) {
+      this.selectedPhotoIds.splice(index, 1);
+    }
   }
 
   selectClickedPhoto() {
     // Select photo by adding it to array
     this.selectedPhotoIds.push(this.clickedPhotoId);
   }
-
 }
 
 export default PhotoSelectionService;

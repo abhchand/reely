@@ -11,16 +11,16 @@ class DateRangeLabelService
 
     case
     when same_day?
-      [@s_day, @s_month, @s_year].join(" ")
+      [@s_day, @s_month, @s_year].join(' ')
     when same_month?
-      ["#{@s_day} - #{@e_day}", @s_month, @s_year].join(" ")
+      ["#{@s_day} - #{@e_day}", @s_month, @s_year].join(' ')
     when same_year?
-      ["#{@s_day} #{@s_month} - #{@e_day} #{@e_month}", @s_year].join(" ")
+      ["#{@s_day} #{@s_month} - #{@e_day} #{@e_month}", @s_year].join(' ')
     else
       [
-        [@s_day, @s_month, @s_year].join(" "),
-        [@e_day, @e_month, @e_year].join(" ")
-      ].join(" - ")
+        [@s_day, @s_month, @s_year].join(' '),
+        [@e_day, @e_month, @e_year].join(' ')
+      ].join(' - ')
     end
   end
 
@@ -47,7 +47,7 @@ class DateRangeLabelService
   end
 
   def parse_date(date)
-    date.strftime(I18n.t("time.formats.day_month_and_year")).split
+    date.strftime(I18n.t('time.formats.day_month_and_year')).split
   end
 
   def same_day?

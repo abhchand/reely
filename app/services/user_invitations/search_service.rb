@@ -16,11 +16,10 @@ class UserInvitations::SearchService
     return user_invitations if @search.blank?
 
     search_tokens.each do |token|
-      user_invitations = user_invitations.where(
-        <<-SQL
+      user_invitations =
+        user_invitations.where(<<-SQL)
         lower(email) LIKE '%#{token}%'
         SQL
-      )
     end
 
     user_invitations
@@ -30,10 +29,8 @@ class UserInvitations::SearchService
 
   def search_tokens
     @search_tokens ||=
-      @search.
-      split(" ").
-      compact.
-      map(&:downcase).
-      map { |t| UserInvitation.sanitize_sql_like(t) }
+      @search.split(' ').compact.map(&:downcase).map do |t|
+        UserInvitation.sanitize_sql_like(t)
+      end
   end
 end

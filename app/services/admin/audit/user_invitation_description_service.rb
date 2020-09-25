@@ -1,12 +1,14 @@
 module Admin
   module Audit
     class UserInvitationDescriptionService < BaseDescriptionService
-      AUDITABLE_TYPE = "UserInvitation".freeze
+      AUDITABLE_TYPE = 'UserInvitation'.freeze
 
       def description
         case
-        when created?       then describe_created
-        when destroyed?     then describe_destroyed
+        when created?
+          describe_created
+        when destroyed?
+          describe_destroyed
         else
           unknown_audit_type
         end
@@ -27,11 +29,11 @@ module Admin
       end
 
       def describe_created
-        t(".created", email: new_value_for("email"))
+        t('.created', email: new_value_for('email'))
       end
 
       def describe_destroyed
-        t(".destroyed", email: old_value_for("email"))
+        t('.destroyed', email: old_value_for('email'))
       end
     end
   end

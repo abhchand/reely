@@ -6,17 +6,16 @@
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
 Rails.application.config.content_security_policy do |policy|
-  # policy.default_src :self, :https
-  # policy.font_src    :self, :https, :data
-  # policy.img_src     :self, :https, :data
-  # policy.object_src  :none
-  # policy.script_src  :self, :https
-  # policy.style_src   :self, :https
-
-  if Rails.env.development?
+  if # policy.object_src  :none
+     # policy.script_src  :self, :https
+     # policy.style_src   :self, :https
+     Rails.env.development?
     # Allow connections from webpack-dev-server
     # Port must match with definition in Webpack config file
-    policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035"
+    policy.connect_src :self,
+                       :https,
+                       'http://localhost:3035',
+                       'ws://localhost:3035'
   end
 
   # Specify URI for violation reports

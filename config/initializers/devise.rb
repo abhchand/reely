@@ -12,16 +12,15 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '4bc202380aba300c49a057c26e849854f37576700b1c6c308dd627746f3738f5018ce79c1e8e945f4a12d94183bd53f980bcf1421a6311b618271eb2473f86f6'
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
-
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender =
+    'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -33,7 +32,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -55,12 +54,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = %i[email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = %i[email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -91,7 +90,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = %i[http_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -117,7 +116,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  config.pepper = ENV["AUTH_PEPPER"]
+  config.pepper = ENV['AUTH_PEPPER']
 
   # Send a notification to the original email when the user's email is changed.
   config.send_email_changed_notification = false
@@ -265,11 +264,11 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth(
     :google_oauth2,
-    ENV.fetch("GOOGLE_APP_ID"),
-    ENV.fetch("GOOGLE_APP_SECRET"),
-    scope: "userinfo.email, userinfo.profile",
-    prompt: "consent select_account",
-    image_aspect_ratio: "square",
+    ENV.fetch('GOOGLE_APP_ID'),
+    ENV.fetch('GOOGLE_APP_SECRET'),
+    scope: 'userinfo.email, userinfo.profile',
+    prompt: 'consent select_account',
+    image_aspect_ratio: 'square',
     image_size: 200
   )
 

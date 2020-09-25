@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class ControlPanel extends React.Component {
-
   static propTypes = {
     collections: PropTypes.array.isRequired,
     currentCollection: PropTypes.object,
@@ -17,7 +16,7 @@ class ControlPanel extends React.Component {
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     onRemovingFromCollection: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -72,7 +71,8 @@ class ControlPanel extends React.Component {
       <ClosedPanel
         openPanel={this.openPanel}
         currentCollection={this.props.currentCollection}
-        ability={this.props.ability} />
+        ability={this.props.ability}
+      />
     );
   }
 
@@ -86,7 +86,8 @@ class ControlPanel extends React.Component {
         ability={this.props.ability}
         closePanel={this.closePanel}
         afterAdditionToCollection={this.closePanel}
-        afterRemovalFromCollection={this.onRemovingFromCollection} />
+        afterRemovalFromCollection={this.onRemovingFromCollection}
+      />
     );
   }
 
@@ -96,14 +97,13 @@ class ControlPanel extends React.Component {
 
     return (
       <div
-        role="presentation"
+        role='presentation'
         className={`photo-grid-control-panel photo-grid-control-panel--${state}`}
         onKeyDown={this.handleKeyDown}>
         {content}
       </div>
     );
   }
-
 }
 
 export default ControlPanel;

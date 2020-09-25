@@ -5,12 +5,11 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class DeactivateUserModal extends React.Component {
-
   static propTypes = {
     user: PropTypes.object.isRequired,
     closeModal: PropTypes.func.isRequired,
     refreshFilterTable: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -30,20 +29,23 @@ class DeactivateUserModal extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       },
       params: {}
     };
 
-    return axios.delete(url, config).
-      then((_response) => {
+    return axios
+      .delete(url, config)
+      .then((_response) => {
         this.props.refreshFilterTable();
         this.props.closeModal();
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         // eslint-disable-next-line no-console
-        console.error(`Error deleting user - HTTP ${error.response.status}: '${error.response.data.error}'`);
+        console.error(
+          `Error deleting user - HTTP ${error.response.status}: '${error.response.data.error}'`
+        );
         this.props.closeModal();
       });
   }
@@ -51,7 +53,7 @@ class DeactivateUserModal extends React.Component {
   render() {
     return (
       <Modal
-        modalClassName="deactivate-user-modal"
+        modalClassName='deactivate-user-modal'
         heading={I18n.t(`${this.i18nPrefix}.heading`)}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
@@ -61,7 +63,6 @@ class DeactivateUserModal extends React.Component {
       </Modal>
     );
   }
-
 }
 
 export default DeactivateUserModal;

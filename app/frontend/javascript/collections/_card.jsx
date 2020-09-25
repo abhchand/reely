@@ -8,7 +8,7 @@ import ShareCollectionModal from 'javascript/collections/share_modal';
 
 $(document).ready(() => {
   function closeAllMenus() {
-    $('.collections-card--menu-open').each(function() {
+    $('.collections-card--menu-open').each(function () {
       $(this).removeClass('collections-card--menu-open');
     });
   }
@@ -27,32 +27,49 @@ $(document).ready(() => {
 
   // Close Card Menu (Click)
   $('body#collections-index').click((e) => {
-    const isClickOutsideCollectionsCardMenu = $(e.target).closest('.collections-card__menu').length === 0;
-    if (isClickOutsideCollectionsCardMenu) { closeAllMenus(); }
+    const isClickOutsideCollectionsCardMenu =
+      $(e.target).closest('.collections-card__menu').length === 0;
+    if (isClickOutsideCollectionsCardMenu) {
+      closeAllMenus();
+    }
   });
 
   // Close Card Menu (Keyboard)
   $('body#collections-index').keyup((e) => {
-    if (parseKeyCode(e) === keyCodes.ESCAPE) { closeAllMenus(); }
+    if (parseKeyCode(e) === keyCodes.ESCAPE) {
+      closeAllMenus();
+    }
   });
 
   // Delete Collection Option
-  $('.collections-card').on('click', '.collections-card__menu-item--delete', function() {
-    const card = $(this).parents('.collections-card');
+  $('.collections-card').on(
+    'click',
+    '.collections-card__menu-item--delete',
+    function () {
+      const card = $(this).parents('.collections-card');
 
-    const dataId = $(card).attr('data-id');
-    const dataName = $(card).attr('data-name');
+      const dataId = $(card).attr('data-id');
+      const dataName = $(card).attr('data-name');
 
-    openModal(<DeleteCollectionModal collection={{ id: dataId, name: dataName }} />);
-  });
+      openModal(
+        <DeleteCollectionModal collection={{ id: dataId, name: dataName }} />
+      );
+    }
+  );
 
   // Share Collection Option
-  $('.collections-card').on('click', '.collections-card__menu-item--share', function() {
-    const card = $(this).parents('.collections-card');
+  $('.collections-card').on(
+    'click',
+    '.collections-card__menu-item--share',
+    function () {
+      const card = $(this).parents('.collections-card');
 
-    const dataId = $(card).attr('data-id');
-    const dataName = $(card).attr('data-name');
+      const dataId = $(card).attr('data-id');
+      const dataName = $(card).attr('data-name');
 
-    openModal(<ShareCollectionModal collection={{ id: dataId, name: dataName }} />);
-  });
+      openModal(
+        <ShareCollectionModal collection={{ id: dataId, name: dataName }} />
+      );
+    }
+  );
 });

@@ -1,5 +1,5 @@
 class RootController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new]
+  skip_before_action :authenticate_user!, only: %i[new]
 
   # The controller action mapped to `root_path`
   #

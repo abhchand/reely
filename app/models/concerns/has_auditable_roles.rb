@@ -39,7 +39,7 @@ module HasAuditableRoles
     Audited::Audit.create(
       auditable: self,
       user: modifier,
-      action: "update",
+      action: 'update',
       audited_changes: audited_changes_for(role, action),
       version: max_audit_version + 1,
       request_uuid: ::Audited.store[:current_request_uuid] || SecureRandom.uuid,
@@ -48,26 +48,30 @@ module HasAuditableRoles
   end
 
   def count_roles
-    self.class.connection.query(
-      <<-SQL
-      SELECT COUNT(*)
-      FROM users_roles
-      WHERE user_id = #{self[:id]}
+    response =
+      self.class.connection.query(<<-SQL)
+        SELECT COUNT(*)
+        FROM users_roles
+        WHERE user_id = #{
+        self[:id]
+      }
       SQL
-    )[0][0]
+
+    response[0][0]
   end
 
   def max_audit_version
-    Audited::Audit.auditable_finder(
-      self[:id],
-      self.class.name
-    ).maximum(:version) || 0
+    Audited::Audit.auditable_finder(self[:id], self.class.name).maximum(
+      :version
+    ) || 0
   end
 
   def audited_changes_for(role, action)
     case action
-    when :add_role    then { "audited_roles" => [nil, role] }
-    when :remove_role then { "audited_roles" => [role, nil] }
+    when :add_role
+      { 'audited_roles' => [nil, role] }
+    when :remove_role
+      { 'audited_roles' => [role, nil] }
     end
   end
 end

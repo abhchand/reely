@@ -4,7 +4,6 @@ import BaseModel from './framework/base-model';
  * Models a single `UserInvitation` record
  */
 class UserInvitation extends BaseModel {
-
   constructor(id) {
     super('userInvitation', id);
 
@@ -34,7 +33,6 @@ class UserInvitation extends BaseModel {
   removeInvitee() {
     this.setRelationship('invitee', null);
   }
-
 }
 
 export default UserInvitation;

@@ -1,19 +1,19 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
   let(:current_user) { create(:user, :admin) }
   let(:user) { create(:user) }
 
   before do
-    stub_const("ALL_ROLES", %w[manager director admin])
+    stub_const('ALL_ROLES', %w[manager director admin])
 
-    @i18n_prefix = "admin.user_roles.update_service"
+    @i18n_prefix = 'admin.user_roles.update_service'
   end
 
-  describe "adding roles" do
+  describe 'adding roles' do
     before { user.add_role(:admin) }
 
-    it "adds any necessary roles to the user" do
+    it 'adds any necessary roles to the user' do
       result = call(roles: %w[admin manager])
 
       expect(result.success?).to eq(true)
@@ -25,7 +25,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(result.status).to be_nil
     end
 
-    it "audits the addition of roles" do
+    it 'audits the addition of roles' do
       call(roles: %w[admin manager director])
 
       audit = user.audits.last(2)
@@ -34,16 +34,20 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
 
       expect(audit[0].auditable).to eq(user)
       expect(audit[0].user).to eq(current_user)
-      expect(audit[0].action).to eq("update")
-      expect(audit[0].audited_changes).to eq("audited_roles" => [nil, "manager"])
+      expect(audit[0].action).to eq('update')
+      expect(audit[0].audited_changes).to eq(
+        'audited_roles' => [nil, 'manager']
+      )
       expect(audit[0].version).to eq(3)
       expect(audit[0].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to be_nil
 
       expect(audit[1].auditable).to eq(user)
       expect(audit[1].user).to eq(current_user)
-      expect(audit[1].action).to eq("update")
-      expect(audit[1].audited_changes).to eq("audited_roles" => [nil, "director"])
+      expect(audit[1].action).to eq('update')
+      expect(audit[1].audited_changes).to eq(
+        'audited_roles' => [nil, 'director']
+      )
       expect(audit[1].version).to eq(4)
       expect(audit[1].request_uuid).to_not be_nil
       expect(audit[1].remote_address).to be_nil
@@ -52,13 +56,13 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
     end
   end
 
-  describe "removing roles" do
+  describe 'removing roles' do
     before do
       user.add_role(:admin)
       user.add_role(:manager)
     end
 
-    it "removes any necessary roles to the user" do
+    it 'removes any necessary roles to the user' do
       result = call(roles: %w[manager])
 
       expect(result.success?).to eq(true)
@@ -70,7 +74,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
       expect(result.status).to be_nil
     end
 
-    it "audits the removal of roles" do
+    it 'audits the removal of roles' do
       call(roles: %w[])
 
       audit = user.audits.last(2)
@@ -79,16 +83,18 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
 
       expect(audit[0].auditable).to eq(user)
       expect(audit[0].user).to eq(current_user)
-      expect(audit[0].action).to eq("update")
-      expect(audit[0].audited_changes).to eq("audited_roles" => ["admin", nil])
+      expect(audit[0].action).to eq('update')
+      expect(audit[0].audited_changes).to eq('audited_roles' => ['admin', nil])
       expect(audit[0].version).to eq(4)
       expect(audit[0].request_uuid).to_not be_nil
       expect(audit[0].remote_address).to be_nil
 
       expect(audit[1].auditable).to eq(user)
       expect(audit[1].user).to eq(current_user)
-      expect(audit[1].action).to eq("update")
-      expect(audit[1].audited_changes).to eq("audited_roles" => ["manager", nil])
+      expect(audit[1].action).to eq('update')
+      expect(audit[1].audited_changes).to eq(
+        'audited_roles' => ['manager', nil]
+      )
       expect(audit[1].version).to eq(5)
       expect(audit[1].request_uuid).to_not be_nil
       expect(audit[1].remote_address).to be_nil
@@ -97,7 +103,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
     end
   end
 
-  it "can remove all roles if needed" do
+  it 'can remove all roles if needed' do
     user.add_role(:admin)
     user.add_role(:manager)
     result = call(roles: %w[])
@@ -111,7 +117,7 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
     expect(result.status).to be_nil
   end
 
-  it "correctly handles duplicate roles" do
+  it 'correctly handles duplicate roles' do
     user.add_role(:admin)
 
     result = call(roles: %w[admin manager manager])
@@ -125,8 +131,8 @@ RSpec.describe Admin::UserRoles::UpdateService, type: :interactor do
     expect(result.status).to be_nil
   end
 
-  context "one ore more roles are invalid" do
-    it "does not update any roles" do
+  context 'one ore more roles are invalid' do
+    it 'does not update any roles' do
       user.add_role(:admin)
 
       result = call(roles: %w[admin manager foo])

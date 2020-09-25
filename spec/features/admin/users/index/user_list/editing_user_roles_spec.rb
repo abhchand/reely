@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Editing User Roles", type: :feature, js: true do
+RSpec.feature 'Editing User Roles', type: :feature, js: true do
   let(:admin) { create(:user, :admin) }
   let!(:user) { create(:user) }
 
@@ -40,18 +40,18 @@ RSpec.feature "Editing User Roles", type: :feature, js: true do
     expect(user.reload.roles.pluck(:name)).to eq(%w[admin])
   end
 
-  context "there is an error in updating the user roles" do
+  context 'there is an error in updating the user roles' do
     before do
-      service = double("Admin::UserRoles::UpdateService")
+      service = double('Admin::UserRoles::UpdateService')
       allow(Admin::UserRoles::UpdateService).to receive(:call) { service }
 
       allow(service).to receive(:success?) { false }
       allow(service).to receive(:status) { 400 }
-      allow(service).to receive(:error) { "Some error to display" }
-      allow(service).to receive(:log) { "Some error to display" }
+      allow(service).to receive(:error) { 'Some error to display' }
+      allow(service).to receive(:log) { 'Some error to display' }
     end
 
-    it "admin can view error in modal" do
+    it 'admin can view error in modal' do
       visit admin_users_path
 
       click_filter_table_edit_user_roles_for(user)
@@ -65,7 +65,7 @@ RSpec.feature "Editing User Roles", type: :feature, js: true do
 
   def displayed_roles_for(user)
     row = page.find(".admin-user-list__row[data-id='#{user.synthetic_id}']")
-    row.all(".roles > span").map(&:text)
+    row.all('.roles > span').map(&:text)
   end
 
   def toggle_role(role_name)

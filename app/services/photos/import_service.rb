@@ -6,14 +6,19 @@ class Photos::ImportService
   MAX_FILE_SIZE = 15.megabytes.freeze
 
   def call
-    @i18n_prefix = "photos.import_service"
+    @i18n_prefix = 'photos.import_service'
 
     case
-    when !file_exists?            then handle_missing_file
-    when !valid_file_size?        then handle_invalid_file_size
-    when !valid_content_type?     then handle_invalid_content_type
-    when duplicate?               then handle_duplicate_image
-    when !create_photo            then handle_failed_creation
+    when !file_exists?
+      handle_missing_file
+    when !valid_file_size?
+      handle_invalid_file_size
+    when !valid_content_type?
+      handle_invalid_content_type
+    when duplicate?
+      handle_duplicate_image
+    when !create_photo
+      handle_failed_creation
     end
   end
 
@@ -40,9 +45,9 @@ class Photos::ImportService
   end
 
   def valid_content_type?
-    Marcel::MimeType.
-      for(filepath, name: filepath.basename.to_s).
-      start_with?("image")
+    Marcel::MimeType.for(filepath, name: filepath.basename.to_s).start_with?(
+      'image'
+    )
   end
 
   def duplicate?
@@ -51,8 +56,7 @@ class Photos::ImportService
 
     safe_checksum = ActiveRecord::Base.connection.quote(checksum)
 
-    ActiveRecord::Base.connection.execute(
-      <<-SQL
+    ActiveRecord::Base.connection.execute(<<-SQL)
       SELECT
         asb.id
       FROM active_storage_blobs asb
@@ -60,19 +64,19 @@ class Photos::ImportService
         ON asa.blob_id = asb.id
       JOIN photos p
         ON asa.record_type = 'Photo' and asa.record_id = p.id
-      WHERE p.owner_id = #{owner.id}
+      WHERE p.owner_id = #{
+      owner.id
+    }
         AND asb.checksum = #{safe_checksum}
       LIMIT 1
-      SQL
-    ).to_a.any?
+      SQL.to_a.any?
   end
 
   def create_photo
     ActiveRecord::Base.transaction do
       context.photo = Photo.create!(owner: @owner, exif_data: exif_data)
       context.photo.source_file.attach(
-        io: file_io,
-        filename: context.filename || filepath.basename
+        io: file_io, filename: context.filename || filepath.basename
       )
     end
   rescue StandardError
@@ -89,10 +93,11 @@ class Photos::ImportService
   def handle_invalid_file_size
     context.fail!(
       log: "#{log_tags} File too large",
-      error: I18n.t(
-        "#{@i18n_prefix}.invalid_file_size",
-        max_file_size: number_to_human_size(max_file_size)
-      )
+      error:
+        I18n.t(
+          "#{@i18n_prefix}.invalid_file_size",
+          max_file_size: number_to_human_size(max_file_size)
+        )
     )
   end
 
@@ -125,10 +130,8 @@ class Photos::ImportService
     # ActiveStorage already computes a checksum which it stores in the
     # ActiveStorage::Blob record. Re-use that logic here so we don't have to
     # implement and store something separate
-    @checksum ||= ActiveStorage::Blob.new.send(
-      :compute_checksum_in_chunks,
-      file_io
-    )
+    @checksum ||=
+      ActiveStorage::Blob.new.send(:compute_checksum_in_chunks, file_io)
   end
 
   def file_io

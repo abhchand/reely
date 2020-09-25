@@ -11,9 +11,7 @@ class UserInvitations::MarkAsComplete
     invitation = UserInvitation.find_by_email(@user[:email].downcase)
     return if invitation.blank?
 
-    Audited.audit_class.as_user(@user) do
-      invitation.update(invitee: @user)
-    end
+    Audited.audit_class.as_user(@user) { invitation.update(invitee: @user) }
 
     UserInvitations::NotifyInviterOfCompletion.call(@user)
   end

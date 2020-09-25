@@ -8,7 +8,6 @@ import React from 'react';
 import SelectedPhotoCount from './selected_photo_count';
 
 class OpenPanel extends React.Component {
-
   static propTypes = {
     /* eslint-disable react/no-unused-prop-types */
     collections: PropTypes.array.isRequired,
@@ -36,7 +35,7 @@ class OpenPanel extends React.Component {
 
   render() {
     return (
-      <ul className="icon-tray photo-grid-control-panel__icon-tray--open">
+      <ul className='icon-tray photo-grid-control-panel__icon-tray--open'>
         {actionClosePanel(this.props)}
         {this.renderSelectedPhotoCount()}
         {actionAddToCollection(this.props)}
@@ -44,7 +43,6 @@ class OpenPanel extends React.Component {
       </ul>
     );
   }
-
 }
 
 export default OpenPanel;

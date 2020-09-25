@@ -6,13 +6,18 @@ let onClose;
 let notification;
 
 const defaultDuration = ActionNotification.defaultProps.duration;
-const defaultCloseButtonLabel = ActionNotification.defaultProps.closeButtonLabel;
+const defaultCloseButtonLabel =
+  ActionNotification.defaultProps.closeButtonLabel;
 
 beforeEach(() => {
   jest.useFakeTimers();
 
   onClose = jest.fn();
-  notification = { id: 'abcde', content: <div className="content">content</div>, type: 'error' };
+  notification = {
+    id: 'abcde',
+    content: <div className='content'>content</div>,
+    type: 'error'
+  };
 });
 
 afterEach(cleanup);
@@ -126,7 +131,9 @@ describe('<ActionNotification />', () => {
     it('does not render a close button when set to false', () => {
       const rendered = renderComponent({ isDismissable: false });
 
-      const closeButton = rendered.queryByTestId('notification-abcde-close-btn');
+      const closeButton = rendered.queryByTestId(
+        'notification-abcde-close-btn'
+      );
       expect(closeButton).toBeNull();
     });
 
@@ -145,12 +152,13 @@ describe('<ActionNotification />', () => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 
-
     describe('closeButtonLabel prop', () => {
       it('overrides the default close button label when present', () => {
         const rendered = renderComponent({ closeButtonLabel: 'Foo' });
 
-        const closeButton = rendered.getByTestId('notification-abcde-close-btn');
+        const closeButton = rendered.getByTestId(
+          'notification-abcde-close-btn'
+        );
         expect(closeButton).toHaveTextContent('Foo');
       });
     });
@@ -178,7 +186,9 @@ describe('<ActionNotification />', () => {
 });
 
 const mockDateOnceAs = (unixTime) => {
-  jest.spyOn(global.Date, 'now').mockImplementation(() => new Date(unixTime).valueOf());
+  jest
+    .spyOn(global.Date, 'now')
+    .mockImplementation(() => new Date(unixTime).valueOf());
 };
 
 const renderComponent = (additionalProps = {}) => {

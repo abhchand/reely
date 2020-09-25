@@ -1,22 +1,23 @@
-require "rails_helper"
+require 'rails_helper'
 
 # rubocop:disable Metrics/LineLength
-RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor do
+RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
+               type: :interactor do
   # rubocop:enable Metrics/LineLength
 
   let(:auth) do
     OmniAuth::AuthHash.new(
-      uid: "some-fake-uid",
+      uid: 'some-fake-uid',
       info: {
-        first_name: "Srinivasa",
-        last_name: "Ramanujan",
-        email: "srini@math.com",
-        image: fixture_path_for("images/chennai.jpg")
+        first_name: 'Srinivasa',
+        last_name: 'Ramanujan',
+        email: 'srini@math.com',
+        image: fixture_path_for('images/chennai.jpg')
       }
     )
   end
 
-  it "creates a new user from the auth data" do
+  it 'creates a new user from the auth data' do
     result = nil
     expect { result = call }.to(change { User.count }.by(1))
 
@@ -26,7 +27,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     expect(user.first_name).to eq(auth[:info][:first_name])
     expect(user.last_name).to eq(auth[:info][:last_name])
     expect(user.email).to eq(auth[:info][:email])
-    expect(user.provider).to eq("google_oauth2")
+    expect(user.provider).to eq('google_oauth2')
     expect(user.uid).to_not eq(auth[:info][:uid])
     expect(user.avatar.attached?).to eq(true)
 
@@ -34,13 +35,13 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     expect(result.log).to be_nil
   end
 
-  it "audits the creation of the record" do
+  it 'audits the creation of the record' do
     result = call
 
     user = result.user
     audit = user.audits.last
 
-    expect(audit.action).to eq("create")
+    expect(audit.action).to eq('create')
     expect(audit.user).to be_nil
   end
 
@@ -51,7 +52,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     expect(result.success?).to eq(false)
     expect(result.user).to be_nil
 
-    expect(result.error).to eq(I18n.t("generic_error"))
+    expect(result.error).to eq(I18n.t('generic_error'))
     expect(result.log).to match(/Missing auth/)
   end
 
@@ -64,13 +65,13 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     expect(result.success?).to eq(false)
     expect(result.user).to be_nil
 
-    expect(result.error).to eq(I18n.t("generic_error"))
+    expect(result.error).to eq(I18n.t('generic_error'))
     expect(result.log).to match(/Missing uid/)
   end
 
-  context "User record fails validation" do
-    it "fails with a generic error" do
-      auth[:info][:email] = "bad-email"
+  context 'User record fails validation' do
+    it 'fails with a generic error' do
+      auth[:info][:email] = 'bad-email'
 
       result = nil
       expect { result = call }.to_not(change { User.count })
@@ -78,17 +79,17 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
       expect(result.success?).to eq(false)
       expect(result.user).to be_nil
 
-      expect(result.error).to eq(I18n.t("generic_error"))
+      expect(result.error).to eq(I18n.t('generic_error'))
       expect(result.log).to match(/User validation errors/)
     end
 
-    context "failed validation is for invalid domain" do
+    context 'failed validation is for invalid domain' do
       before do
-        stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+        stub_env('REGISTRATION_EMAIL_DOMAIN_WHITELIST' => 'example.com,x.yz')
       end
 
-      it "fails with the specific model error message" do
-        auth[:info][:email] = "bad-email@foo.gov"
+      it 'fails with the specific model error message' do
+        auth[:info][:email] = 'bad-email@foo.gov'
 
         result = nil
         expect { result = call }.to_not(change { User.count })
@@ -97,19 +98,15 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
         expect(result.user).to be_nil
 
         expect(result.error).to eq(
-          validation_error_for(
-            :email,
-            :invalid_domain,
-            domain: "foo.gov"
-          )
+          validation_error_for(:email, :invalid_domain, domain: 'foo.gov')
         )
         expect(result.log).to match(/User validation errors/)
       end
     end
   end
 
-  describe "attaching avatar" do
-    it "succeeds when no avatar exists" do
+  describe 'attaching avatar' do
+    it 'succeeds when no avatar exists' do
       auth[:info][:image] = nil
 
       result = nil
@@ -123,8 +120,8 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
       expect(result.log).to be_nil
     end
 
-    it "succeeds even when avatar attachment fails" do
-      auth[:info][:image] = fixture_path_for("images/does-not-exist.png")
+    it 'succeeds even when avatar attachment fails' do
+      auth[:info][:image] = fixture_path_for('images/does-not-exist.png')
 
       result = nil
       expect { result = call }.to(change { User.count }.by(1))
@@ -138,12 +135,12 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
     end
   end
 
-  context "user already exists" do
-    let(:existing) { create(:user, :omniauth, provider: "google_oauth2") }
+  context 'user already exists' do
+    let(:existing) { create(:user, :omniauth, provider: 'google_oauth2') }
 
     before { auth[:uid] = existing.uid }
 
-    it "retrieves the existing user from the auth data" do
+    it 'retrieves the existing user from the auth data' do
       result = nil
       expect { result = call }.to_not(change { User.count })
 
@@ -156,10 +153,10 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service, type: :interactor 
       expect(result.log).to be_nil
     end
 
-    it "does not overwrite any existing attributes" do
+    it 'does not overwrite any existing attributes' do
       existing.avatar.attach(
-        io: File.open(fixture_path_for("images/atlanta.jpg")),
-        filename: "atlanta.jpg"
+        io: File.open(fixture_path_for('images/atlanta.jpg')),
+        filename: 'atlanta.jpg'
       )
       expect(existing.avatar.attached?).to eq(true)
 

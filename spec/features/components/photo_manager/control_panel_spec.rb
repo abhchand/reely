@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "photo manager control panel", type: :feature do
+RSpec.feature 'photo manager control panel', type: :feature do
   let(:user) { create(:user) }
 
   let!(:photos) do
@@ -9,11 +9,9 @@ RSpec.feature "photo manager control panel", type: :feature do
     end
   end
 
-  before do
-    @t_prefix = "components.photo_manager.control_panel"
-  end
+  before { @t_prefix = 'components.photo_manager.control_panel' }
 
-  it "user can open and close the control panel", :js do
+  it 'user can open and close the control panel', :js do
     log_in(user)
     visit photos_path
 
@@ -21,7 +19,7 @@ RSpec.feature "photo manager control panel", type: :feature do
     disable_selection_mode
   end
 
-  it "photo selection count updates as the user selects photos", :js do
+  it 'photo selection count updates as the user selects photos', :js do
     log_in(user)
     visit photos_path
 
@@ -42,7 +40,7 @@ RSpec.feature "photo manager control panel", type: :feature do
   end
 
   def expect_photo_selection_count_to_be(count)
-    element = page.find(".photo-grid-control-panel__selected-photo-count")
+    element = page.find('.photo-grid-control-panel__selected-photo-count')
     expect(element).to have_content(
       t("#{@t_prefix}.selected_photo_count.heading", count: count)
     )

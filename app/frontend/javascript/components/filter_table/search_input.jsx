@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class SearchInput extends React.Component {
-
   static propTypes = {
     performSearch: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -24,15 +23,17 @@ class SearchInput extends React.Component {
   render() {
     return (
       <input
-        className="filter-table__search-input"
-        type="text"
-        name="search"
-        autoComplete="off"
-        placeholder={I18n.t(`${this.i18nPrefix}.placeholder`, { meta_key: metaKeyLabel() })}
-        onChange={this.onChange} />
+        className='filter-table__search-input'
+        type='text'
+        name='search'
+        autoComplete='off'
+        placeholder={I18n.t(`${this.i18nPrefix}.placeholder`, {
+          meta_key: metaKeyLabel()
+        })}
+        onChange={this.onChange}
+      />
     );
   }
-
 }
 
 export default SearchInput;

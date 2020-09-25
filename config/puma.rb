@@ -1,26 +1,26 @@
 # Set Environment
-rails_env = ENV["RAILS_ENV"] || "development"
+rails_env = ENV['RAILS_ENV'] || 'development'
 is_remote = !%w[test development].include?(rails_env)
 environment(rails_env)
 
 # Directories
-app_root = File.expand_path("..", __dir__)
+app_root = File.expand_path('..', __dir__)
 tmp_dir = "#{app_root}/tmp"
 
 # Load dotenv file(s) manually
-require "dotenv"
+require 'dotenv'
 Dotenv.load("#{app_root}/.env.#{rails_env}", "#{app_root}/.env")
 
 # Change to match your CPU core count
-workers Integer(ENV["PUMA_WORKERS"] || 2)
+workers Integer(ENV['PUMA_WORKERS'] || 2)
 
 # Min and Max threads per worker
-threads 1, Integer(ENV["PUMA_MAX_THREADS"] || 5)
+threads 1, Integer(ENV['PUMA_MAX_THREADS'] || 5)
 
 # Socket
 if is_remote
-  socket_dir = tmp_dir + "/sockets"
-  system "mkdir", "-p", socket_dir
+  socket_dir = tmp_dir + '/sockets'
+  system 'mkdir', '-p', socket_dir
   bind "unix://#{socket_dir}/puma.sock"
 end
 
@@ -35,18 +35,22 @@ if is_remote
 end
 
 # PID
-pid_dir = tmp_dir + "/pids"
-system "mkdir", "-p", pid_dir
+pid_dir = tmp_dir + '/pids'
+system 'mkdir', '-p', pid_dir
 pidfile "#{pid_dir}/puma.pid"
 state_path "#{pid_dir}/puma.state"
 activate_control_app
 
 # Workers
 on_worker_boot do
-  require "active_record"
+  require 'active_record'
 
   # rubocop:disable Metrics/LineLength, Style/RescueModifier
-  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  begin
+    ActiveRecord::Base.connection.disconnect!
+  rescue StandardError
+    ActiveRecord::ConnectionNotEstablished
+  end
   # rubocop:enable Metrics/LineLength, Style/RescueModifier
 
   configs = ActiveRecord::Base.configurations[rails_env]

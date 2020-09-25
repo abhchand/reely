@@ -4,12 +4,11 @@ import React from 'react';
 import UpdateUserRoleModal from './update_user_role_modal';
 
 class UpdateUserRole extends React.Component {
-
   static propTypes = {
     user: PropTypes.object.isRequired,
     roles: PropTypes.array.isRequired,
     refreshFilterTable: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -41,15 +40,16 @@ class UpdateUserRole extends React.Component {
   renderRolesButton() {
     return (
       <button
-        key="update-user-role-button"
-        type="button"
-        className="update-user-role__update-btn"
+        key='update-user-role-button'
+        type='button'
+        className='update-user-role__update-btn'
         value={I18n.t(`${this.i18nPrefix}.button_label`)}
         onClick={this.openModal}>
         <IconUserWithKey
-          size="18"
-          fillColor="#888888"
-          title={I18n.t(`${this.i18nPrefix}.icon_title`)} />
+          size='18'
+          fillColor='#888888'
+          title={I18n.t(`${this.i18nPrefix}.icon_title`)}
+        />
       </button>
     );
   }
@@ -58,11 +58,12 @@ class UpdateUserRole extends React.Component {
     if (this.state.isModalOpen) {
       return (
         <UpdateUserRoleModal
-          key="update-user-role-modal"
+          key='update-user-role-modal'
           user={this.props.user}
           roles={this.props.roles}
           closeModal={this.closeModal}
-          refreshFilterTable={this.props.refreshFilterTable} />
+          refreshFilterTable={this.props.refreshFilterTable}
+        />
       );
     }
 
@@ -70,12 +71,8 @@ class UpdateUserRole extends React.Component {
   }
 
   render() {
-    return [
-      this.renderRolesButton(),
-      this.renderModal()
-    ];
+    return [this.renderRolesButton(), this.renderModal()];
   }
-
 }
 
 export default UpdateUserRole;

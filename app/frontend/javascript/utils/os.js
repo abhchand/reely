@@ -4,13 +4,10 @@ function os() {
 
   if (osName.match(/windows/iu)) {
     return 'windows';
-  }
-  else if (osName.match(/os x/iu)) {
+  } else if (osName.match(/os x/iu)) {
     return 'osx';
   }
   return 'other';
 }
 
-export {
-  os
-};
+export { os };

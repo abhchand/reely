@@ -10,13 +10,14 @@ class ApplicationRecord < ActiveRecord::Base
       # Also, ActiveRecord generates `full_messages` by concatenating
       # the field name with the message, so the first word should always
       # be the field name
-      errors_json << {
-        title: "Invalid #{message.split(' ').first}",
-        description: message,
-        status: "403"
-      }
+      errors_json <<
+        {
+          title: "Invalid #{message.split(' ').first}",
+          description: message,
+          status: '403'
+        }
     end
 
-    { errors: errors_json, status: "403" }
+    { errors: errors_json, status: '403' }
   end
 end

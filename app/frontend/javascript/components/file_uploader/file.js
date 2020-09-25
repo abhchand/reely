@@ -2,15 +2,12 @@ import axios from 'axios';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class File {
-
   static headers() {
-    return (
-      {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-Token': ReactOnRails.authenticityToken()
-      }
-    );
+    return {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'X-CSRF-Token': ReactOnRails.authenticityToken()
+    };
   }
 
   constructor(id, fileNamespace, fileObj) {
@@ -55,7 +52,6 @@ class File {
   hasStarted() {
     return this.progress > 0;
   }
-
 }
 
 export default File;

@@ -5,7 +5,7 @@ const RowDescendants = (props) => {
   const { ancestor, renderContent } = props;
 
   return (
-    <div className="accordion-table-row-descendants">
+    <div className='accordion-table-row-descendants'>
       {renderContent(ancestor)}
     </div>
   );

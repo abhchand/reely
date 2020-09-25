@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class Pagination extends React.Component {
-
   static propTypes = {
     currentPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     updatePage: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -44,21 +43,28 @@ class Pagination extends React.Component {
     const btnClass = this.props.currentPage === 1 ? 'inactive' : '';
 
     return (
-      <li className="filter-table__pagination-nav-link filter-table__pagination-nav-link--prev">
-        <button className={btnClass} type="button" onClick={this.jumpToPrevPage}>
-          <IconArrowThickLeft size="24" fillColor="#00335D" />
+      <li className='filter-table__pagination-nav-link filter-table__pagination-nav-link--prev'>
+        <button
+          className={btnClass}
+          type='button'
+          onClick={this.jumpToPrevPage}>
+          <IconArrowThickLeft size='24' fillColor='#00335D' />
         </button>
       </li>
     );
   }
 
   renderNextLink() {
-    const btnClass = this.props.currentPage === this.props.totalPages ? 'inactive' : '';
+    const btnClass =
+      this.props.currentPage === this.props.totalPages ? 'inactive' : '';
 
     return (
-      <li className="filter-table__pagination-nav-link filter-table__pagination-nav-link--next">
-        <button className={btnClass} type="button" onClick={this.jumpToNextPage}>
-          <IconArrowThickRight size="24" fillColor="#00335D" />
+      <li className='filter-table__pagination-nav-link filter-table__pagination-nav-link--next'>
+        <button
+          className={btnClass}
+          type='button'
+          onClick={this.jumpToNextPage}>
+          <IconArrowThickRight size='24' fillColor='#00335D' />
         </button>
       </li>
     );
@@ -77,12 +83,18 @@ class Pagination extends React.Component {
 
       // eslint-disable-next-line function-paren-newline
       pages.push(
-        <li key={`page-link-${n}`} className="filter-table__pagination-page-link">
-          <button type="button" data-id={n} className={currentClass} onClick={this.jumpToPage}>
+        <li
+          key={`page-link-${n}`}
+          className='filter-table__pagination-page-link'>
+          <button
+            type='button'
+            data-id={n}
+            className={currentClass}
+            onClick={this.jumpToPage}>
             {n}
           </button>
         </li>
-      // eslint-disable-next-line function-paren-newline
+        // eslint-disable-next-line function-paren-newline
       );
     }
 
@@ -90,17 +102,18 @@ class Pagination extends React.Component {
   }
 
   render() {
-    if (this.props.totalPages <= 1) { return null; }
+    if (this.props.totalPages <= 1) {
+      return null;
+    }
 
     return (
-      <ul className="filter-table__pagination">
+      <ul className='filter-table__pagination'>
         {this.renderPrevLink()}
         {this.renderPageLinks()}
         {this.renderNextLink()}
       </ul>
     );
   }
-
 }
 
 export default Pagination;

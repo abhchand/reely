@@ -8,14 +8,15 @@ const UploadPreview = (props) => {
   if (url) {
     return (
       <div
-        className="file-uploader__upload-preview file-uploader__upload-preview--enabled covered-background"
-        style={{ backgroundImage: `url(${url})` }} />
+        className='file-uploader__upload-preview file-uploader__upload-preview--enabled covered-background'
+        style={{ backgroundImage: `url(${url})` }}
+      />
     );
   }
 
   return (
-    <div className="file-uploader__upload-preview">
-      <IconFile size="40" fillColor="#4F14C8" secondaryColor="#DDDDDD" />
+    <div className='file-uploader__upload-preview'>
+      <IconFile size='40' fillColor='#4F14C8' secondaryColor='#DDDDDD' />
     </div>
   );
 };

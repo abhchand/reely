@@ -21,7 +21,7 @@ class Devise::Custom::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
   private
 
   def auth
-    @auth ||= request.env["omniauth.auth"]
+    @auth ||= request.env['omniauth.auth']
   end
 
   def after_registration(new_user)

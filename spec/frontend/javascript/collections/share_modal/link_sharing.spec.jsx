@@ -23,7 +23,9 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-afterEach(() => { jest.clearAllMocks(); });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('<LinkSharing />', () => {
   it('renders the component when link sharing is enabled', () => {

@@ -8,22 +8,24 @@ module CollectionHelper
   end
 
   def collection
-    @collection ||= begin
-      id = params[:collection_id] || params[:id]
-      Collection.find_by_synthetic_id(id).tap do |c|
-        handle_collection_not_found if c.blank?
+    @collection ||=
+      begin
+        id = params[:collection_id] || params[:id]
+        Collection.find_by_synthetic_id(id).tap do |c|
+          handle_collection_not_found if c.blank?
+        end
       end
-    end
   end
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def shared_collection
-    @collection ||= begin
-      id = params[:collection_id] || params[:id]
-      Collection.find_by_share_id(id).tap do |c|
-        handle_collection_not_found if c.blank?
+    @collection ||=
+      begin
+        id = params[:collection_id] || params[:id]
+        Collection.find_by_share_id(id).tap do |c|
+          handle_collection_not_found if c.blank?
+        end
       end
-    end
   end
   # rubocop:enable Naming/MemoizedInstanceVariableName
 

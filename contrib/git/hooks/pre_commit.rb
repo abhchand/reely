@@ -1,9 +1,9 @@
-require "English"
+require 'English'
 
 class Git
   class Hooks
     class PreCommit
-      RAILS_ROOT = File.expand_path("../../..", __dir__).freeze
+      RAILS_ROOT = File.expand_path('../../..', __dir__).freeze
 
       # Runs all scripts in the ./scripts sub-directory, returning the
       # exit status. Meant to be used with git hooks
@@ -15,10 +15,12 @@ class Git
 
         exitstatus = []
 
-        Dir[File.expand_path("scripts/*", __dir__)].each do |script|
-          # Run the script from the shell as they could be any
-          # type (bash, ruby, etc..)
-          system(". #{script}")
+        Dir[File.expand_path('scripts/*', __dir__)].each do |script|
+          system(
+            # Run the script from the shell as they could be any
+            # type (bash, ruby, etc..)
+            ". #{script}"
+          )
 
           exitstatus << $CHILD_STATUS.exitstatus
         end

@@ -1,7 +1,7 @@
 class Collections::SharingDisplayController < ApplicationController
   include CollectionHelper
 
-  layout "application"
+  layout 'application'
 
   before_action :set_shared_collection
   skip_before_action :authenticate_user!

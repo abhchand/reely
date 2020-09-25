@@ -5,7 +5,6 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class ProductFeedbackForm extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -25,16 +24,19 @@ class ProductFeedbackForm extends React.Component {
   }
 
   renderErrorText() {
-    return this.state.errorText ? <ModalError text={this.state.errorText} /> : null;
+    return this.state.errorText ? (
+      <ModalError text={this.state.errorText} />
+    ) : null;
   }
 
   renderTextarea() {
     return (
       <textarea
-        className="product-feedback-form__textarea"
-        name="product_feedback[body]"
+        className='product-feedback-form__textarea'
+        name='product_feedback[body]'
         maxLength={this.maxLength}
-        ref={this.textareaRef} />
+        ref={this.textareaRef}
+      />
     );
   }
 
@@ -47,7 +49,7 @@ class ProductFeedbackForm extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -57,32 +59,32 @@ class ProductFeedbackForm extends React.Component {
      * after successful `onSubmit` and there's nothing else to
      * do here, so no need to specify a `then()`.
      */
-    return axios.post(url, data, config).
-      catch((error) => {
-        self.setState({
-          errorText: error.response.data.error
-        });
-
-        /*
-         * Return a rejected value so the promise chain remains in
-         * a rejected state
-         */
-        return Promise.reject(error);
+    return axios.post(url, data, config).catch((error) => {
+      self.setState({
+        errorText: error.response.data.error
       });
+
+      /*
+       * Return a rejected value so the promise chain remains in
+       * a rejected state
+       */
+      return Promise.reject(error);
+    });
   }
 
   render() {
     return (
       <Modal
         heading={I18n.t(`${this.i18nPrefix}.heading`)}
-        subheading={I18n.t(`${this.i18nPrefix}.subheading`, { maxlength: this.maxLength })}
+        subheading={I18n.t(`${this.i18nPrefix}.subheading`, {
+          maxlength: this.maxLength
+        })}
         onSubmit={this.onSubmit}>
         {this.renderErrorText()}
         {this.renderTextarea()}
       </Modal>
     );
   }
-
 }
 
 export default ProductFeedbackForm;

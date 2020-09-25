@@ -7,14 +7,13 @@ import React from 'react';
 import UpdateUserRole from './update_user_role';
 
 class AdminUserList extends React.Component {
-
   static propTypes = {
     /**
      * An array of all possible roles for assignment
      * @type {array}
      */
     roles: PropTypes.array.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -42,7 +41,6 @@ class AdminUserList extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   openDeactivateUserModal(e) {
-
     /*
      * Store data in the `data-*` fields to avoid having to
      * make a separate request for this info.
@@ -51,7 +49,6 @@ class AdminUserList extends React.Component {
     const userName = e.currentTarget.dataset.name;
 
     this.setState({
-
       /*
        * NOTE: This format does not match the typical `user`
        * model format. It's constructed specifically for the
@@ -70,77 +67,73 @@ class AdminUserList extends React.Component {
   renderHeader(_users) {
     return (
       <tr>
-        <td className="avatar" />
-        <td className="name">
-          {I18n.t(`${this.i18nPrefix}.header.name`)}
-        </td>
-        <td className="email">
-          {I18n.t(`${this.i18nPrefix}.header.email`)}
-        </td>
-        <td className="roles">
-          {I18n.t(`${this.i18nPrefix}.header.role`)}
-        </td>
-        <td className="update-role" />
-        <td className="last-signed-in">
+        <td className='avatar' />
+        <td className='name'>{I18n.t(`${this.i18nPrefix}.header.name`)}</td>
+        <td className='email'>{I18n.t(`${this.i18nPrefix}.header.email`)}</td>
+        <td className='roles'>{I18n.t(`${this.i18nPrefix}.header.role`)}</td>
+        <td className='update-role' />
+        <td className='last-signed-in'>
           {I18n.t(`${this.i18nPrefix}.header.last_signed_in`)}
         </td>
-        <td className="deactivate-user" />
+        <td className='deactivate-user' />
       </tr>
     );
   }
 
   renderBody(users) {
     /* eslint-disable react/jsx-max-depth */
-    return (
-      users.map((user) => {
-        return (
-          <tr key={user.id} className="admin-user-list__row" data-id={user.id}>
-            <td className="avatar">
-              <div className="avatar-container">
-                <img alt={name} src={user.attributes.avatarPath} />
-              </div>
-            </td>
-            <td className="name">
-              {user.name()}
-            </td>
-            <td className="email">
-              {user.attributes.email}
-            </td>
-            <td className="roles">
-              {
-                user.roles.map((role, _i) => {
-                  return <span key={`role-${role}`}>{I18n.t(`roles.${role}.label`)}</span>;
-                })
-              }
-            </td>
-            <td className="last-signed-in">
-              {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
-            </td>
-            <td className="update-role">
-              <UpdateUserRole
-                user={user}
-                roles={this.props.roles}
-                refreshFilterTable={this.refreshFilterTable} />
-            </td>
-            <td className="last-signed-in">
-              {user.attributes.last_sign_in_at ? dateToYMD(new Date(user.attributes.last_sign_in_at)) : '-'}
-            </td>
-            <td className="deactivate-user">
-              <button
-                type="button"
-                data-id={user.id}
-                data-name={user.name()}
-                onClick={this.openDeactivateUserModal}>
-                <IconTrash
-                  size="18"
-                  fillColor="#DC0073"
-                  title={I18n.t(`${this.i18nPrefix}.header.deactivate_user.icon_title`)} />
-              </button>
-            </td>
-          </tr>
-        );
-      })
-    );
+    return users.map((user) => {
+      return (
+        <tr key={user.id} className='admin-user-list__row' data-id={user.id}>
+          <td className='avatar'>
+            <div className='avatar-container'>
+              <img alt={name} src={user.attributes.avatarPath} />
+            </div>
+          </td>
+          <td className='name'>{user.name()}</td>
+          <td className='email'>{user.attributes.email}</td>
+          <td className='roles'>
+            {user.roles.map((role, _i) => {
+              return (
+                <span key={`role-${role}`}>
+                  {I18n.t(`roles.${role}.label`)}
+                </span>
+              );
+            })}
+          </td>
+          <td className='last-signed-in'>
+            {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
+          </td>
+          <td className='update-role'>
+            <UpdateUserRole
+              user={user}
+              roles={this.props.roles}
+              refreshFilterTable={this.refreshFilterTable}
+            />
+          </td>
+          <td className='last-signed-in'>
+            {user.attributes.last_sign_in_at
+              ? dateToYMD(new Date(user.attributes.last_sign_in_at))
+              : '-'}
+          </td>
+          <td className='deactivate-user'>
+            <button
+              type='button'
+              data-id={user.id}
+              data-name={user.name()}
+              onClick={this.openDeactivateUserModal}>
+              <IconTrash
+                size='18'
+                fillColor='#DC0073'
+                title={I18n.t(
+                  `${this.i18nPrefix}.header.deactivate_user.icon_title`
+                )}
+              />
+            </button>
+          </td>
+        </tr>
+      );
+    });
     /* eslint-enable react/jsx-max-depth */
   }
 
@@ -151,7 +144,8 @@ class AdminUserList extends React.Component {
           key={`deactivate-user-modal-${this.state.deactivateUser.id}`}
           user={this.state.deactivateUser}
           closeModal={this.closeDeactivateUserModal}
-          refreshFilterTable={this.refreshFilterTable} />
+          refreshFilterTable={this.refreshFilterTable}
+        />
       );
     }
 
@@ -161,16 +155,16 @@ class AdminUserList extends React.Component {
   render() {
     return [
       <FilterTable
-        key="filter-table"
+        key='filter-table'
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/api/v1/users"
-        containerClass="admin-user-list" />,
+        fetchUrl='/api/v1/users'
+        containerClass='admin-user-list'
+      />,
       this.renderDeactivateUserModal()
     ];
   }
-
 }
 
 export default AdminUserList;

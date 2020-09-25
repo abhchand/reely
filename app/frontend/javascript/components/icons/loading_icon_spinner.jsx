@@ -4,11 +4,12 @@ import React from 'react';
 
 const LoadingIconSpinner = (props) => {
   return (
-    <div className="loading-icon loading-icon--spinner">
+    <div className='loading-icon loading-icon--spinner'>
       <IconLoading
         size={props.size}
         backgroundFillColor={props.backgroundFillColor}
-        foregroundFillColor={props.foregroundFillColor} />
+        foregroundFillColor={props.foregroundFillColor}
+      />
     </div>
   );
 };

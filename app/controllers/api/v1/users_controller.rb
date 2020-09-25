@@ -14,11 +14,11 @@ class Api::V1::UsersController < Api::BaseController
 
     users = paginate(users)
 
-    json = serialize(
-      UserPresenter.wrap(users, view: view_context),
-      links: links,
-      meta: { totalCount: total }
-    )
+    json =
+      serialize(
+        UserPresenter.wrap(users, view: view_context),
+        links: links, meta: { totalCount: total }
+      )
 
     render json: json, status: :ok
   end
@@ -50,18 +50,15 @@ class Api::V1::UsersController < Api::BaseController
   private
 
   def update_params
-    params.require(:user).permit(
-      :first_name,
-      :last_name
-    )
+    params.require(:user).permit(:first_name, :last_name)
   end
 
   def fetch_users
     active = params[:active].present? ? to_bool(params[:active]) : true
 
-    User.
-      send(active ? :active : :deactivated).
-      order("lower(first_name), lower(last_name), lower(email)")
+    User.send(active ? :active : :deactivated).order(
+      'lower(first_name), lower(last_name), lower(email)'
+    )
   end
 
   def search(users)
@@ -70,9 +67,6 @@ class Api::V1::UsersController < Api::BaseController
   end
 
   def serialize(user, opts = {})
-    UserSerializer.new(
-      user,
-      { params: {} }.deep_merge(opts)
-    ).serializable_hash
+    UserSerializer.new(user, { params: {} }.deep_merge(opts)).serializable_hash
   end
 end

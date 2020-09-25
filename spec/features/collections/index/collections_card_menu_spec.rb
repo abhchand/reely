@@ -1,11 +1,11 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "collections card menu", :js, type: :feature do
+RSpec.feature 'collections card menu', :js, type: :feature do
   let(:user) { create(:user) }
 
   before { log_in(user) }
 
-  it "user can open and close the menu" do
+  it 'user can open and close the menu' do
     collection1 = create_collection_with_photos(owner: user)
     collection2 = create_collection_with_photos(owner: user)
 
@@ -21,7 +21,7 @@ RSpec.feature "collections card menu", :js, type: :feature do
     expect_menu_is_closed(collection2)
 
     # Close menu by clicking somehwere outside the menu
-    page.find(".page-heading").click
+    page.find('.page-heading').click
     expect_menu_is_closed(collection1)
     expect_menu_is_closed(collection2)
 
@@ -31,7 +31,7 @@ RSpec.feature "collections card menu", :js, type: :feature do
     expect_menu_is_closed(collection2)
 
     # Close menu by pressing the "Escape" key
-    find("body").base.send_keys(:escape)
+    find('body').base.send_keys(:escape)
     expect_menu_is_closed(collection1)
     expect_menu_is_closed(collection2)
 
@@ -48,16 +48,20 @@ RSpec.feature "collections card menu", :js, type: :feature do
 
   def open_menu(collection)
     collection_el = find_collection(collection)
-    collection_el.find(".collections-card__menu-btn").click
+    collection_el.find('.collections-card__menu-btn').click
   end
 
   def expect_menu_is_closed(collection)
-    expect(find_collection(collection)).
-      to have_selector(".collections-card__menu", visible: false)
+    expect(find_collection(collection)).to have_selector(
+      '.collections-card__menu',
+      visible: false
+    )
   end
 
   def expect_menu_is_open(collection)
-    expect(find_collection(collection)).
-      to have_selector(".collections-card__menu", visible: true)
+    expect(find_collection(collection)).to have_selector(
+      '.collections-card__menu',
+      visible: true
+    )
   end
 end

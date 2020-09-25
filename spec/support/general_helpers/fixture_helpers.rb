@@ -9,7 +9,9 @@ module GeneralHelpers
   end
 
   # rubocop:disable Metrics/LineLength
-  def create_import_file(owner: nil, synthetic_id: nil, fixture:, target_subpath: nil)
+  def create_import_file(
+    owner: nil, synthetic_id: nil, fixture:, target_subpath: nil
+  )
     # rubocop:enable Metrics/LineLength
     namespace = owner&.synthetic_id || synthetic_id
 
@@ -46,15 +48,15 @@ module GeneralHelpers
   end
 
   def create_download_bundle(name:)
-    cmd = ["zip", "--quiet", name, "*"].join(" ")
+    cmd = ['zip', '--quiet', name, '*'].join(' ')
     Dir.chdir(download_dir) { raise unless system(cmd) }
 
     download_dir.join(name)
   end
 
   def strip_and_rewrite_exif_data(filepath:, exif_data:)
-    if filepath.to_s.include?(Rails.root.join("spec").to_s)
-      raise "Cant modify fixture files inside git repository!"
+    if filepath.to_s.include?(Rails.root.join('spec').to_s)
+      raise 'Cant modify fixture files inside git repository!'
     end
 
     # Strip the EXIF data.
@@ -69,6 +71,6 @@ module GeneralHelpers
       tags << "-\"#{tag.to_s.camelize}\"='#{value}'"
     end
 
-    `exiftool #{tags.join(" ")} #{filepath}`
+    `exiftool #{tags.join(' ')} #{filepath}`
   end
 end

@@ -1,4 +1,7 @@
-import { registerAsyncProcess, unregisterAsyncProcess } from 'utils/async-registration';
+import {
+  registerAsyncProcess,
+  unregisterAsyncProcess
+} from 'utils/async-registration';
 
 import axios from 'axios';
 import dataStore from 'javascript/models';
@@ -15,7 +18,6 @@ import TotalCount from './total_count';
 import './focus-search-on-keypress';
 
 class FilterTable extends React.Component {
-
   static propTypes = {
     renderHeader: PropTypes.func.isRequired,
     renderBody: PropTypes.func.isRequired,
@@ -33,7 +35,6 @@ class FilterTable extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   static getDerivedStateFromProps(props, state) {
-
     /*
      * If the parent passes in a `refreshAt` prop
      * that's more recent than our latest refresh, then
@@ -42,9 +43,11 @@ class FilterTable extends React.Component {
      * refresh here.
      */
 
-    if (state.lastRefreshedAt !== null &&
+    if (
+      state.lastRefreshedAt !== null &&
       props.refreshAt !== null &&
-      props.refreshAt > state.lastRefreshedAt) {
+      props.refreshAt > state.lastRefreshedAt
+    ) {
       return { shouldRefresh: true };
     }
 
@@ -92,7 +95,7 @@ class FilterTable extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       },
       params: params
@@ -100,11 +103,17 @@ class FilterTable extends React.Component {
 
     registerAsyncProcess('filter-table-fetch-items');
 
-    axios.get(url, config).
-      then((response) => {
+    axios
+      .get(url, config)
+      .then((response) => {
         const collection = response.data;
-        const pageParam = (collection.links.last || '').match(/page=(\d+)/i) || [null, 0];
-        const displayedItems = self.props.mapResponseDataToItems(collection, dataStore);
+        const pageParam = (collection.links.last || '').match(
+          /page=(\d+)/i
+        ) || [null, 0];
+        const displayedItems = self.props.mapResponseDataToItems(
+          collection,
+          dataStore
+        );
 
         self.setState({
           displayedItems: displayedItems,
@@ -119,8 +128,8 @@ class FilterTable extends React.Component {
         });
 
         unregisterAsyncProcess('filter-table-fetch-items');
-      }).
-      catch((_error) => {
+      })
+      .catch((_error) => {
         self.setState({
           displayedItems: [],
           totalItems: null,
@@ -153,22 +162,30 @@ class FilterTable extends React.Component {
   }
 
   renderContent() {
-    if (this.state.fetchFailed) { return <Error />; }
-    if (this.state.isLoading) { return <Loading />; }
+    if (this.state.fetchFailed) {
+      return <Error />;
+    }
+    if (this.state.isLoading) {
+      return <Loading />;
+    }
 
     return [
-      <div key="filter-table__pagination-bar" className="filter-table__pagination-bar">
+      <div
+        key='filter-table__pagination-bar'
+        className='filter-table__pagination-bar'>
         <TotalCount totalCount={this.state.totalItems} />
         <Pagination
           currentPage={this.state.currentPage}
           totalPages={this.state.totalPages}
-          updatePage={this.updatePage} />
+          updatePage={this.updatePage}
+        />
       </div>,
       <Table
-        key="filter-table__table"
+        key='filter-table__table'
         thead={this.props.renderHeader(this.state.displayedItems)}
         tbody={this.props.renderBody(this.state.displayedItems)}
-        itemCount={this.state.displayedItems.length} />
+        itemCount={this.state.displayedItems.length}
+      />
     ];
   }
 
@@ -179,14 +196,13 @@ class FilterTable extends React.Component {
 
     return (
       <div className={`filter-table ${this.props.containerClass}`}>
-        <div className="filter-table__action-bar">
+        <div className='filter-table__action-bar'>
           <SearchInput performSearch={this.performSearch} />
         </div>
         {this.renderContent()}
       </div>
     );
   }
-
 }
 
 export default FilterTable;

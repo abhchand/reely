@@ -6,11 +6,10 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class DeleteCollectionModal extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -36,7 +35,9 @@ class DeleteCollectionModal extends React.Component {
   }
 
   errorText() {
-    return this.state.errorText ? <ModalError text={this.state.errorText} /> : null;
+    return this.state.errorText ? (
+      <ModalError text={this.state.errorText} />
+    ) : null;
   }
 
   onSubmit() {
@@ -46,7 +47,7 @@ class DeleteCollectionModal extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -56,12 +57,13 @@ class DeleteCollectionModal extends React.Component {
       errorText: null
     });
 
-    return axios.delete(url, config).
-      then((_response) => {
+    return axios
+      .delete(url, config)
+      .then((_response) => {
         // Redirect to index page
         window.location.href = '/collections';
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         // Re-enable submit
         this.setState({ submitButtonEnabled: true });
 
@@ -91,7 +93,6 @@ class DeleteCollectionModal extends React.Component {
       </Modal>
     );
   }
-
 }
 
 export default DeleteCollectionModal;

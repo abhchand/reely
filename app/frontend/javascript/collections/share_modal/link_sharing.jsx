@@ -6,11 +6,10 @@ import RenewLink from './renew_link';
 import Url from './url';
 
 class LinkSharing extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired,
     setCollection: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -29,29 +28,36 @@ class LinkSharing extends React.Component {
     }
 
     return (
-      <div data-testid="link-sharing-content" className="share-collection__link-sharing-content">
-        <div className="share-collection__link-sharing-url">
+      <div
+        data-testid='link-sharing-content'
+        className='share-collection__link-sharing-content'>
+        <div className='share-collection__link-sharing-url'>
           <Url collection={this.props.collection} />
           <CopyLink />
         </div>
 
-        <RenewLink collection={this.props.collection} setCollection={this.props.setCollection} />
+        <RenewLink
+          collection={this.props.collection}
+          setCollection={this.props.setCollection}
+        />
       </div>
     );
   }
 
   render() {
     return (
-      <div data-testid="link-sharing" className="share-collection__link-sharing">
+      <div
+        data-testid='link-sharing'
+        className='share-collection__link-sharing'>
         <LinkSharingToggle
           collection={this.props.collection}
-          setCollection={this.props.setCollection} />
+          setCollection={this.props.setCollection}
+        />
 
         {this.renderContent()}
       </div>
     );
   }
-
 }
 
 export default LinkSharing;

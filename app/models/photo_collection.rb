@@ -14,7 +14,7 @@ class PhotoCollection < ApplicationRecord
     return if photo.owner_id == collection.owner_id
     errors.add(
       :base,
-      "Photo owner #{photo.owner_id} does not match Collection "\
+      "Photo owner #{photo.owner_id} does not match Collection " \
         "owner #{collection.owner_id}"
     )
   end

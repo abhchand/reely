@@ -7,7 +7,7 @@ class CreatePhotoCollections < ActiveRecord::Migration[4.2]
     end
 
     # Add two-way compound indexes for searching in either direction
-    add_index :photo_collections, [:photo_id, :collection_id]
-    add_index :photo_collections, [:collection_id, :photo_id]
+    add_index :photo_collections, %i[photo_id collection_id]
+    add_index :photo_collections, %i[collection_id photo_id]
   end
 end

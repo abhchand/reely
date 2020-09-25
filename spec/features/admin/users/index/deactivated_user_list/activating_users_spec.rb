@@ -1,19 +1,19 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Activating Users", type: :feature, js: true do
+RSpec.feature 'Activating Users', type: :feature, js: true do
   let(:admin) { create(:user, :admin) }
 
   let!(:users) do
     [
-      create(:user, :deactivated, name: "User Twelve", email: "12@test.com"),
-      create(:user, :deactivated, name: "User Thirteen", email: "13@test.com"),
-      create(:user, :deactivated, name: "User Fourteen", email: "14@test.com")
+      create(:user, :deactivated, name: 'User Twelve', email: '12@test.com'),
+      create(:user, :deactivated, name: 'User Thirteen', email: '13@test.com'),
+      create(:user, :deactivated, name: 'User Fourteen', email: '14@test.com')
     ]
   end
 
   before { log_in(admin) }
 
-  it "admin can deactivate a user" do
+  it 'admin can deactivate a user' do
     visit admin_users_path
     click_deactivate_users_tab
 
@@ -38,20 +38,22 @@ RSpec.feature "Activating Users", type: :feature, js: true do
     expect(users[2].reload.deactivated?).to eq(false)
   end
 
-  describe "Pagination" do
+  describe 'Pagination' do
     before do
       # rubocop:disable Metrics/LineLength
       # Add more users as users[3] and users[4]. This makes the new ordered list as
       #   -> users[4], users[3], users[2], users[1], users[0]
-      users << create(:user, :deactivated, name: "User Fifteen", email: "15b@test.com")
-      users << create(:user, :deactivated, name: "User 15", email: "15a@test.com")
+      users <<
+        create(:user, :deactivated, name: 'User Fifteen', email: '15b@test.com')
+      users <<
+        create(:user, :deactivated, name: 'User 15', email: '15a@test.com')
       # rubocop:enable Metrics/LineLength
 
       # Paginate 5 users across 3 pages
-      stub_const("Api::Response::PaginationLinksService::PAGE_SIZE", 2)
+      stub_const('Api::Response::PaginationLinksService::PAGE_SIZE', 2)
     end
 
-    it "handles deactivating a user from a paginated set" do
+    it 'handles deactivating a user from a paginated set' do
       visit admin_users_path
       click_deactivate_users_tab
 
@@ -85,14 +87,14 @@ RSpec.feature "Activating Users", type: :feature, js: true do
       expect(users[2].reload.deactivated?).to eq(false)
     end
 
-    context "Searching" do
-      it "handles deactivating a user from a paginated search result set" do
+    context 'Searching' do
+      it 'handles deactivating a user from a paginated search result set' do
         visit admin_users_path
         click_deactivate_users_tab
 
         # Search for "teen". This makes the new filtered ordered list as
         #   -> users[3], users[2], users[1]
-        search_filter_table_for("teen")
+        search_filter_table_for('teen')
 
         # Navigate to page 2 of 2
         click_filter_table_pagination_next

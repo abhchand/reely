@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class DownloadCollection extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired
   };
@@ -12,7 +11,9 @@ class DownloadCollection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.generateCreateDownloadPath = this.generateCreateDownloadPath.bind(this);
+    this.generateCreateDownloadPath = this.generateCreateDownloadPath.bind(
+      this
+    );
     this.generateFetchStatusPath = this.generateFetchStatusPath.bind(this);
   }
 
@@ -28,22 +29,20 @@ class DownloadCollection extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   render() {
-
     /*
      * NOTE: FileDownloader already wraps the content in a `<button>` so no
      * need to specify a button here
      */
     return (
-      <li className="icon-tray__item icon-tray__item--download-collection">
+      <li className='icon-tray__item icon-tray__item--download-collection'>
         <FileDownloader
           generateCreateDownloadPath={this.generateCreateDownloadPath}
           generateFetchStatusPath={this.generateFetchStatusPath}>
-          <IconDownload size="20" fillColor="#888888" />
+          <IconDownload size='20' fillColor='#888888' />
         </FileDownloader>
       </li>
     );
   }
-
 }
 
 export default DownloadCollection;

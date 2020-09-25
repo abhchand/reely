@@ -6,11 +6,10 @@ import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 import { setFlash } from 'application/flash';
 
 class FileDownloader extends React.Component {
-
   static headers() {
     return {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'X-CSRF-Token': ReactOnRails.authenticityToken()
     };
   }
@@ -54,9 +53,14 @@ class FileDownloader extends React.Component {
 
     this.setState({ isDownloading: true });
 
-    return axios.post(url, data, config).
-      then((response) => { self.startPolling(response.data.id); }).
-      catch((error) => { self.setFlash(error.response.data.error); });
+    return axios
+      .post(url, data, config)
+      .then((response) => {
+        self.startPolling(response.data.id);
+      })
+      .catch((error) => {
+        self.setFlash(error.response.data.error);
+      });
   }
 
   startPolling(downloadId) {
@@ -70,9 +74,14 @@ class FileDownloader extends React.Component {
     const url = this.props.generateFetchStatusPath(this.downloadId);
     const config = { headers: FileDownloader.headers(), params: {} };
 
-    return axios.get(url, config).
-      then((response) => { self.parseStatus(response.data.download); }).
-      catch((error) => { self.setFlash(error.response.data.error); });
+    return axios
+      .get(url, config)
+      .then((response) => {
+        self.parseStatus(response.data.download);
+      })
+      .catch((error) => {
+        self.setFlash(error.response.data.error);
+      });
   }
 
   parseStatus(download) {
@@ -97,19 +106,22 @@ class FileDownloader extends React.Component {
 
   render() {
     if (this.state.isDownloading) {
-      return <button type="button" className="file-downloader"><LoadingIconSpinner /></button>;
+      return (
+        <button type='button' className='file-downloader'>
+          <LoadingIconSpinner />
+        </button>
+      );
     }
 
     return (
       <button
-        type="button"
-        className="file-downloader"
+        type='button'
+        className='file-downloader'
         onClick={this.requestDownload}>
         {this.props.children}
       </button>
     );
   }
-
 }
 
 export default FileDownloader;

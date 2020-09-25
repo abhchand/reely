@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :photo do
     transient do
       with_source_file { true }
-      source_file_name { "atlanta.jpg" }
+      source_file_name { 'atlanta.jpg' }
     end
 
     owner factory: :user

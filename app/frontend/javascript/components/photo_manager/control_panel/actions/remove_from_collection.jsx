@@ -5,18 +5,18 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class RemoveFromCollection extends React.Component {
-
   static propTypes = {
     photoIdsToRemove: PropTypes.array.isRequired,
     currentCollection: PropTypes.object.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     onComplete: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    this.i18nPrefix = 'components.photo_manager.control_panel.remove_from_collection';
+    this.i18nPrefix =
+      'components.photo_manager.control_panel.remove_from_collection';
 
     this.removeFromCollection = this.removeFromCollection.bind(this);
     this.addNotification = this.addNotification.bind(this);
@@ -39,14 +39,17 @@ class RemoveFromCollection extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.put(url, data, config).
-      then((response) => {
-        const msg = I18n.t(`${self.i18nPrefix}.success`, { count: this.props.photoIdsToRemove.length });
+    axios
+      .put(url, data, config)
+      .then((response) => {
+        const msg = I18n.t(`${self.i18nPrefix}.success`, {
+          count: this.props.photoIdsToRemove.length
+        });
         // eslint-disable-next-line react/no-danger
         const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
         const notification = { id: id, content: content, type: 'success' };
@@ -55,8 +58,8 @@ class RemoveFromCollection extends React.Component {
         self.updatePhotoCount(response.data.photo_count);
         self.addNotification(notification);
         self.props.onComplete();
-      }).
-      catch((_err) => {
+      })
+      .catch((_err) => {
         const content = I18n.t(`${self.i18nPrefix}.error`);
         const notification = { id: id, content: content, type: 'error' };
 
@@ -72,12 +75,12 @@ class RemoveFromCollection extends React.Component {
     const el = document.querySelector('.collections-show__date-range');
 
     if (label === null) {
-      while (el.firstChild) { el.removeChild(el.firstChild); }
-    }
-    else if (typeof label !== 'string' || label.length === 0) {
+      while (el.firstChild) {
+        el.removeChild(el.firstChild);
+      }
+    } else if (typeof label !== 'string' || label.length === 0) {
       // Nothing
-    }
-    else {
+    } else {
       el.innerHTML = label;
     }
   }
@@ -93,12 +96,16 @@ class RemoveFromCollection extends React.Component {
 
   render() {
     return (
-      <li className="icon-tray__item icon-tray__item--remove-from-collection" onClick={this.removeFromCollection}>
-        <IconRemovePhoto size="20" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />
+      <li
+        className='icon-tray__item icon-tray__item--remove-from-collection'
+        onClick={this.removeFromCollection}>
+        <IconRemovePhoto
+          size='20'
+          title={I18n.t(`${this.i18nPrefix}.tooltip`)}
+        />
       </li>
     );
   }
-
 }
 
 export default RemoveFromCollection;

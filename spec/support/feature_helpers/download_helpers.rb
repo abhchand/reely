@@ -1,8 +1,8 @@
 module FeatureHelpers
-  BROWSER_DOWNLOAD_PATH = Rails.root.join("tmp/browser-downloads")
+  BROWSER_DOWNLOAD_PATH = Rails.root.join('tmp/browser-downloads')
 
   def browser_downloads
-    Dir[BROWSER_DOWNLOAD_PATH.join("*")]
+    Dir[BROWSER_DOWNLOAD_PATH.join('*')]
   end
 
   def browser_download
@@ -15,9 +15,7 @@ module FeatureHelpers
   end
 
   def wait_for_browser_download
-    Timeout.timeout(30) do
-      sleep 0.1 until browser_downloaded?
-    end
+    Timeout.timeout(30) { sleep 0.1 until browser_downloaded? }
   end
 
   def browser_downloaded?

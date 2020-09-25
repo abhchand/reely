@@ -4,7 +4,6 @@ import React from 'react';
 import RowDescendants from './row_descendants';
 
 class Row extends React.Component {
-
   static propTypes = {
     data: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
@@ -65,13 +64,14 @@ class Row extends React.Component {
 
     return (
       <button
-        type="button"
+        type='button'
         className={`accordion-table-row__expand-arrow ${className}`}
         onClick={this.onClick}>
         <IconHalfArrowRight
-          size="14"
-          fillColor="#888888"
-          title={I18n.t(`${this.i18nPrefix}.arrow_title`)} />
+          size='14'
+          fillColor='#888888'
+          title={I18n.t(`${this.i18nPrefix}.arrow_title`)}
+        />
       </button>
     );
   }
@@ -82,10 +82,11 @@ class Row extends React.Component {
     return (
       <div
         key={`accordion-table-row-${data.type}-${data.id}`}
-        data-id={data.id} className="accordion-table-row"
+        data-id={data.id}
+        className='accordion-table-row'
         data-type={type}>
         {this.renderArrow()}
-        <div className="accordion-table-row__content">
+        <div className='accordion-table-row__content'>
           {renderContent(data)}
         </div>
       </div>
@@ -103,19 +104,14 @@ class Row extends React.Component {
       <RowDescendants
         key={`accordion-table-row-descendants-${data.type}-${data.id}`}
         ancestor={data}
-        renderContent={this.props.renderDescendants} />
+        renderContent={this.props.renderDescendants}
+      />
     );
   }
 
   render() {
-    return (
-      [
-        this.renderRow(),
-        this.renderDescendants()
-      ]
-    );
+    return [this.renderRow(), this.renderDescendants()];
   }
-
 }
 
 export default Row;

@@ -6,12 +6,11 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class CreateUserInvitationModal extends React.Component {
-
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     refreshFilterTable: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -21,7 +20,8 @@ class CreateUserInvitationModal extends React.Component {
     this.renderInput = this.renderInput.bind(this);
 
     this.inputRef = React.createRef();
-    this.i18nPrefix = 'components.admin_user_invitation_list.create_user_invitation_modal';
+    this.i18nPrefix =
+      'components.admin_user_invitation_list.create_user_invitation_modal';
 
     this.state = {
       errorText: null
@@ -40,7 +40,7 @@ class CreateUserInvitationModal extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -49,12 +49,13 @@ class CreateUserInvitationModal extends React.Component {
       errorText: null
     });
 
-    return axios.post(url, data, config).
-      then((_response) => {
+    return axios
+      .post(url, data, config)
+      .then((_response) => {
         self.props.refreshFilterTable();
         self.props.closeModal();
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         self.setState({
           errorText: error.response.data.error
         });
@@ -79,30 +80,29 @@ class CreateUserInvitationModal extends React.Component {
     return (
       <input
         ref={this.inputRef}
-        className="create-user-invitation-modal__email"
-        type="text"
-        name="user_invitation[email]"
-        autoComplete="off" />
+        className='create-user-invitation-modal__email'
+        type='text'
+        name='user_invitation[email]'
+        autoComplete='off'
+      />
     );
   }
 
   render() {
     return (
       <Modal
-        modalClassName="create-user-invitation-modal"
+        modalClassName='create-user-invitation-modal'
         heading={I18n.t(`${this.i18nPrefix}.heading`)}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.createUserInvitation}
         closeModal={this.props.closeModal}>
-
         {I18n.t(`${this.i18nPrefix}.body`)}
         {this.renderErrorText()}
         {this.renderInput()}
       </Modal>
     );
   }
-
 }
 
 export default CreateUserInvitationModal;

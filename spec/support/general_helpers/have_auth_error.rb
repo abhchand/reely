@@ -1,21 +1,19 @@
 module GeneralHelpers
   RSpec::Matchers.define :have_auth_error do |expected|
     match do |page|
-      @messages = page.all(".auth__form-errors li").map(&:text)
+      @messages = page.all('.auth__form-errors li').map(&:text)
       @messages.include?(expected)
     end
 
-    description do
-      "have auth error message #{expected}"
-    end
+    description { "have auth error message #{expected}" }
 
     failure_message do
       [
-        "Expected to find",
+        'Expected to find',
         "'#{expected}'",
-        "in",
+        'in',
         "'#{@messages.join(' ')}'"
-      ].join(" ")
+      ].join(' ')
     end
   end
 end

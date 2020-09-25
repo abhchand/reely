@@ -1,16 +1,16 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "uploading photos", :js, type: :feature do
+RSpec.feature 'uploading photos', :js, type: :feature do
   let(:user) { create(:user) }
   let(:upload_dir) { Rails.configuration.x.default_upload_dir }
 
   let(:exif_data) do
     {
-      "date_time_original" => "2019:03:14 13:00:00",
-      "gps_latitude" => 38.8721,
-      "gps_latitude_ref" => "North",
-      "gps_longitude" => -99.3302532,
-      "gps_longitude_ref" => "West"
+      'date_time_original' => '2019:03:14 13:00:00',
+      'gps_latitude' => 38.8721,
+      'gps_latitude_ref' => 'North',
+      'gps_longitude' => -99.3302532,
+      'gps_longitude_ref' => 'West'
     }
   end
 
@@ -18,9 +18,9 @@ RSpec.feature "uploading photos", :js, type: :feature do
     reset_dir!(upload_dir)
 
     @filepaths = [
-      create_upload_file(fixture: "images/chennai.jpg"),
-      create_upload_file(fixture: "images/atlanta.jpg"),
-      create_upload_file(fixture: "images/san-francisco.jpg")
+      create_upload_file(fixture: 'images/chennai.jpg'),
+      create_upload_file(fixture: 'images/atlanta.jpg'),
+      create_upload_file(fixture: 'images/san-francisco.jpg')
     ]
 
     @filepaths.each do |filepath|
@@ -30,7 +30,7 @@ RSpec.feature "uploading photos", :js, type: :feature do
     log_in(user)
   end
 
-  it "user can upload photos" do
+  it 'user can upload photos' do
     visit new_photo_path
 
     expect do
@@ -43,7 +43,7 @@ RSpec.feature "uploading photos", :js, type: :feature do
     expect(photo.owner).to eq(user)
     exif_data.each { |key, value| expect(photo.exif_data[key]).to eq(value) }
     expect(photo.source_file.attached?).to eq(true)
-    expect(photo.source_file_blob.filename).to eq("chennai.jpg")
+    expect(photo.source_file_blob.filename).to eq('chennai.jpg')
 
     expect_uploaded_photo(photo, file_index: 0)
 
@@ -63,27 +63,28 @@ RSpec.feature "uploading photos", :js, type: :feature do
     # Looks like the photos are getting created in reverse order in the DB,
     # because of async behavior probably
 
-    expect_uploaded_photo(photos.last, file_index: 0)  # Atlanta
+    expect_uploaded_photo(photos.last, file_index: 0) # Atlanta
     expect_uploaded_photo(photos.first, file_index: 1) # San Francisco
   end
 
-  it "user can view server side validations" do
-    stub_const("PhotosController::MAX_FILE_UPLOAD_COUNT", 2)
+  it 'user can view server side validations' do
+    stub_const('PhotosController::MAX_FILE_UPLOAD_COUNT', 2)
 
     visit new_photo_path
 
     expect do
       # Upload all 3 files, which exceeds the 2 file maximum
       upload_file(@filepaths)
-      wait_for { page.find(".file-uploader__file-error").text.present? }
+      wait_for { page.find('.file-uploader__file-error').text.present? }
     end.to_not(change { Photo.count })
 
-    expect(page.find(".file-uploader__file-error").text).
-      to eq(t("components.file_uploader.validator.count", count: 2))
-    expect(page).to_not have_selector(".file-uploader__upload-list")
+    expect(page.find('.file-uploader__file-error').text).to eq(
+      t('components.file_uploader.validator.count', count: 2)
+    )
+    expect(page).to_not have_selector('.file-uploader__upload-list')
   end
 
-  it "user can view server side validations" do
+  it 'user can view server side validations' do
     visit new_photo_path
 
     # Upload a file
@@ -99,8 +100,7 @@ RSpec.feature "uploading photos", :js, type: :feature do
     end.to_not(change { Photo.count })
 
     expect_uploaded_photo_with_error(
-      error: t("photos.import_service.duplicate_image"),
-      file_index: 0
+      error: t('photos.import_service.duplicate_image'), file_index: 0
     )
   end
 
@@ -113,14 +113,14 @@ RSpec.feature "uploading photos", :js, type: :feature do
   def wait_for_upload_completion(file_index:)
     wait_for do
       upload = page.find("li[data-id='#{file_index}']")
-      upload.all(".file-uploader__upload-progress--done").count.positive?
+      upload.all('.file-uploader__upload-progress--done').count.positive?
     end
   end
 
   def wait_for_upload_error(file_index:)
     wait_for do
       upload = page.find("li[data-id='#{file_index}']")
-      upload.all(".error").count.positive?
+      upload.all('.error').count.positive?
     end
   end
 
@@ -132,15 +132,17 @@ RSpec.feature "uploading photos", :js, type: :feature do
     url = tile_path_for(photo)
     upload = page.find("li[data-id='#{file_index}']")
 
-    expect(upload.find(".file-uploader__upload-preview")["style"]).
-      to eq("background-image: url(\"#{url}\");")
+    expect(upload.find('.file-uploader__upload-preview')['style']).to eq(
+      "background-image: url(\"#{url}\");"
+    )
 
-    expect(upload.find(".file-uploader__upload-progress")["style"]).
-      to eq("width: 100%;")
+    expect(upload.find('.file-uploader__upload-progress')['style']).to eq(
+      'width: 100%;'
+    )
   end
 
   def expect_uploaded_photo_with_error(error:, file_index:)
     upload = page.find("li[data-id='#{file_index}']")
-    expect(upload.find(".error").text).to eq(error)
+    expect(upload.find('.error').text).to eq(error)
   end
 end

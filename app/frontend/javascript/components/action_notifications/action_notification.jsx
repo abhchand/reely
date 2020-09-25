@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class ActionNotification extends React.Component {
-
   static propTypes = {
     notification: PropTypes.object.isRequired,
     duration: PropTypes.number,
@@ -22,7 +21,7 @@ class ActionNotification extends React.Component {
     error: 'notification--error',
     info: 'notification--info',
     success: 'notification--success'
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -60,7 +59,10 @@ class ActionNotification extends React.Component {
 
   notificationClass() {
     const type = this.props.notification.type;
-    return ActionNotification.notificationTypes[type] || ActionNotification.notificationTypes.success;
+    return (
+      ActionNotification.notificationTypes[type] ||
+      ActionNotification.notificationTypes.success
+    );
   }
 
   pauseTimer() {
@@ -82,8 +84,8 @@ class ActionNotification extends React.Component {
       return (
         <button
           data-testid={`notification-${this.props.notification.id}-close-btn`}
-          type="button"
-          className="close-btn"
+          type='button'
+          className='close-btn'
           title={label}
           onClick={this.onClose}>
           {label}
@@ -101,7 +103,6 @@ class ActionNotification extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   render() {
-
     /*
      * Note: The transition timeouts need to be specified both here and in the
      * CSS. From the React docs:
@@ -115,7 +116,11 @@ class ActionNotification extends React.Component {
      */
 
     return (
-      <CSSTransition classNames="action-notifications-group" in={this.state.inProp} unmountOnExit timeout={500}>
+      <CSSTransition
+        classNames='action-notifications-group'
+        in={this.state.inProp}
+        unmountOnExit
+        timeout={500}>
         <div
           data-testid={`notification-${this.props.notification.id}`}
           className={`notification ${this.notificationClass()}`}

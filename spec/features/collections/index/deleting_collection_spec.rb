@@ -1,11 +1,11 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "deleting collection", :js, type: :feature do
+RSpec.feature 'deleting collection', :js, type: :feature do
   let(:user) { create(:user) }
 
   before { log_in(user) }
 
-  it "user can delete a collection" do
+  it 'user can delete a collection' do
     collection1 = create_collection_with_photos(owner: user)
     collection2 = create_collection_with_photos(owner: user)
 
@@ -18,16 +18,16 @@ RSpec.feature "deleting collection", :js, type: :feature do
     click_modal_submit
     wait_for { Collection.count == old_count - 1 }
 
-    expect { collection1.reload }.
-      to raise_error(ActiveRecord::RecordNotFound)
+    expect { collection1.reload }.to raise_error(ActiveRecord::RecordNotFound)
     expect { collection2.reload }.to_not raise_error
 
-    expect { find_collection(collection1) }.
-      to raise_error(Capybara::ElementNotFound)
+    expect { find_collection(collection1) }.to raise_error(
+      Capybara::ElementNotFound
+    )
     expect { find_collection(collection2) }.to_not raise_error
   end
 
-  it "user can cancel the deletion" do
+  it 'user can cancel the deletion' do
     collection1 = create_collection_with_photos(owner: user)
     collection2 = create_collection_with_photos(owner: user)
 
@@ -50,11 +50,11 @@ RSpec.feature "deleting collection", :js, type: :feature do
 
   def open_menu(collection)
     collection_el = find_collection(collection)
-    collection_el.find(".collections-card__menu-btn").click
+    collection_el.find('.collections-card__menu-btn').click
   end
 
   def click_delete_menu_option(collection)
     collection_el = find_collection(collection)
-    collection_el.find(".collections-card__menu-item--delete").click
+    collection_el.find('.collections-card__menu-item--delete').click
   end
 end

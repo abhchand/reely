@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class CreateUserInvitation extends React.Component {
-
   static propTypes = {
     refreshFilterTable: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -15,7 +14,8 @@ class CreateUserInvitation extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.renderButton = this.renderButton.bind(this);
 
-    this.i18nPrefix = 'components.admin_user_invitation_list.create_user_invitation';
+    this.i18nPrefix =
+      'components.admin_user_invitation_list.create_user_invitation';
 
     this.state = {
       isModalOpen: false
@@ -37,11 +37,12 @@ class CreateUserInvitation extends React.Component {
   renderButton() {
     return (
       <input
-        key="create-user-invitation-button"
-        type="button"
-        className="admin-user-invitation-list__create-user-invitation-btn cta cta-green"
+        key='create-user-invitation-button'
+        type='button'
+        className='admin-user-invitation-list__create-user-invitation-btn cta cta-green'
         value={I18n.t(`${this.i18nPrefix}.button_label`)}
-        onClick={this.openModal} />
+        onClick={this.openModal}
+      />
     );
   }
 
@@ -49,9 +50,10 @@ class CreateUserInvitation extends React.Component {
     if (this.state.isModalOpen) {
       return (
         <CreateUserInvitationModal
-          key="create-user-invitation-modal"
+          key='create-user-invitation-modal'
           closeModal={this.closeModal}
-          refreshFilterTable={this.props.refreshFilterTable} />
+          refreshFilterTable={this.props.refreshFilterTable}
+        />
       );
     }
 
@@ -59,12 +61,8 @@ class CreateUserInvitation extends React.Component {
   }
 
   render() {
-    return [
-      this.renderButton(),
-      this.renderModal()
-    ];
+    return [this.renderButton(), this.renderModal()];
   }
-
 }
 
 export default CreateUserInvitation;

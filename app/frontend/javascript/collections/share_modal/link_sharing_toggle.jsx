@@ -5,12 +5,11 @@ import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 import Switch from 'react-toggle-switch';
 
 class LinkSharingToggle extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     setCollection: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -37,17 +36,18 @@ class LinkSharingToggle extends React.Component {
     });
 
     const url = `/collections/${this.props.collection.id}/sharing_config.json`;
-    const data = { 'link_sharing_enabled': newState };
+    const data = { link_sharing_enabled: newState };
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.patch(url, data, config).
-      then((response) => {
+    axios
+      .patch(url, data, config)
+      .then((response) => {
         // Update sharing config on collection
         const newCollection = self.props.collection;
         newCollection.sharing_config = response.data;
@@ -56,10 +56,9 @@ class LinkSharingToggle extends React.Component {
         self.setState({
           isUpdating: false
         });
-      }).
-      catch(() => {
-        const id = `id${Math.random().toString(16).
-          slice(2)}`;
+      })
+      .catch(() => {
+        const id = `id${Math.random().toString(16).slice(2)}`;
         const content = I18n.t(`${self.i18nPrefix}.failure`);
         const notification = { id: id, content: content, type: 'error' };
 
@@ -86,19 +85,23 @@ class LinkSharingToggle extends React.Component {
 
   render() {
     // eslint-disable-next-line react/no-danger
-    const labelContent = <span dangerouslySetInnerHTML={{ __html: this.label() }} />;
+    const labelContent = (
+      <span dangerouslySetInnerHTML={{ __html: this.label() }} />
+    );
 
     return (
-      <div data-testid="link-sharing-toggle" className="share-collection__link-sharing-toggle">
+      <div
+        data-testid='link-sharing-toggle'
+        className='share-collection__link-sharing-toggle'>
         <Switch
           onClick={this.onClick}
           on={this.isEnabled()}
-          enabled={!this.state.isUpdating} />
+          enabled={!this.state.isUpdating}
+        />
         {labelContent}
       </div>
     );
   }
-
 }
 
 export default LinkSharingToggle;

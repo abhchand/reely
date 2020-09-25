@@ -1,13 +1,13 @@
 module FeatureHelpers
-  DEFAULT_PASSWORD = "default!Password123".freeze
+  DEFAULT_PASSWORD = 'default!Password123'.freeze
 
   def log_in(user, opts = {})
     visit root_path
 
-    within(".auth__form") do
-      fill_in("user[email]", with: opts[:email] || user.email)
-      fill_in("user[password]", with: parse_password(opts))
-      click_button(t("users.sessions.new.form.submit"))
+    within('.auth__form') do
+      fill_in('user[email]', with: opts[:email] || user.email)
+      fill_in('user[password]', with: parse_password(opts))
+      click_button(t('users.sessions.new.form.submit'))
     end
 
     wait_for_ajax
@@ -28,14 +28,14 @@ module FeatureHelpers
   def register(opts = {})
     visit new_user_registration_path
 
-    within(".auth__form") do
-      fill_in("user[first_name]", with: opts[:first_name])
-      fill_in("user[last_name]", with: opts[:last_name])
-      fill_in("user[email]", with: opts[:email])
-      fill_in("user[password]", with: parse_password(opts))
-      fill_in("user[password_confirmation]", with: parse_confirmation(opts))
+    within('.auth__form') do
+      fill_in('user[first_name]', with: opts[:first_name])
+      fill_in('user[last_name]', with: opts[:last_name])
+      fill_in('user[email]', with: opts[:email])
+      fill_in('user[password]', with: parse_password(opts))
+      fill_in('user[password_confirmation]', with: parse_confirmation(opts))
 
-      click_button(t("users.registrations.new.form.submit"))
+      click_button(t('users.registrations.new.form.submit'))
     end
 
     wait_for_ajax
@@ -44,10 +44,10 @@ module FeatureHelpers
   def resend_confirmation(user, opts = {})
     visit new_user_confirmation_path
 
-    within(".auth__form") do
-      fill_in("user[email]", with: opts[:email] || user.email)
+    within('.auth__form') do
+      fill_in('user[email]', with: opts[:email] || user.email)
 
-      click_button(t("users.confirmations.new.form.submit"))
+      click_button(t('users.confirmations.new.form.submit'))
       wait_for_ajax
     end
   end
@@ -60,19 +60,19 @@ module FeatureHelpers
   def request_password_reset(user, opts = {})
     visit new_user_password_path
 
-    within(".auth__form") do
-      fill_in("user[email]", with: opts[:email] || user.email)
-      click_button(t("users.passwords.new.form.submit"))
+    within('.auth__form') do
+      fill_in('user[email]', with: opts[:email] || user.email)
+      click_button(t('users.passwords.new.form.submit'))
     end
   end
 
   def submit_password_reset(opts = {})
     visit edit_user_password_path(reset_password_token: opts.fetch(:token))
 
-    within(".auth__form") do
-      fill_in("user[password]", with: parse_password(opts))
-      fill_in("user[password_confirmation]", with: parse_confirmation(opts))
-      click_button(t("users.passwords.edit.form.submit"))
+    within('.auth__form') do
+      fill_in('user[password]', with: parse_password(opts))
+      fill_in('user[password_confirmation]', with: parse_confirmation(opts))
+      click_button(t('users.passwords.edit.form.submit'))
     end
   end
 

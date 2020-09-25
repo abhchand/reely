@@ -6,6 +6,8 @@ class UserInvitationSerializer < ApplicationSerializer
   end
 
   link :self do |user_invitation, _params|
-    Rails.application.routes.url_helpers.api_v1_user_invitations_url(user_invitation)
+    Rails.application.routes.url_helpers.api_v1_user_invitations_url(
+      user_invitation
+    )
   end
 end

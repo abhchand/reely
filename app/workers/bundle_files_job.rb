@@ -33,15 +33,13 @@ class BundleFilesJob < ApplicationWorker
   end
 
   def bundle_files
-    cmd = ["zip", "--quiet", bundle_name, "*"].join(" ")
+    cmd = ['zip', '--quiet', bundle_name, '*'].join(' ')
 
-    Dir.chdir(@download_dir) do
-      raise unless system(cmd)
-    end
+    Dir.chdir(@download_dir) { raise unless system(cmd) }
   end
 
   def bundle_name
-    [@collection.name.gsub(" ", "-"), "zip"].join(".").shellescape
+    [@collection.name.gsub(' ', '-'), 'zip'].join('.').shellescape
   end
 
   def schedule_deletion_job

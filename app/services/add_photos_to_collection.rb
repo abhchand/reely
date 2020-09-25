@@ -43,26 +43,22 @@ class AddPhotosToCollection
   def each_photo(&block)
     PhotoCollection.transaction do
       photo_synthetic_ids.each_slice(50) do |synthetic_ids|
-        find_unadded_photos(synthetic_ids).each do |photo|
-          yield(photo)
-        end
+        find_unadded_photos(synthetic_ids).each { |photo| yield(photo) }
       end
     end
   end
   # rubocop:enable Lint/UnusedMethodArgument
 
   def find_unadded_photos(synthetic_ids)
-    Photo.
-      select(:id, :owner_id).
-      joins(
-        <<-SQL
+    Photo.select(:id, :owner_id).joins(<<-SQL)
         LEFT JOIN photo_collections
           ON photo_collections.photo_id = photos.id
-          AND photo_collections.collection_id = #{collection.id}
-        SQL
-      ).
-      where(synthetic_id: synthetic_ids).
-      where(photo_collections: { id: nil })
+          AND photo_collections.collection_id = #{
+      collection.id
+    }
+        SQL.where(synthetic_id: synthetic_ids).where(
+      photo_collections: { id: nil }
+    )
   end
 
   def build_photo_collection(photo)
@@ -78,7 +74,8 @@ class AddPhotosToCollection
       # and `Collection` is the `owner_id` field. For `Collection` the entire
       # model is alreayd loaded. For each `Photo`, we ensure that `:owner_id`
       # is selected/fetched in the query above.
-      photo_assoc = pc.association(:photo)
+      photo_assoc =
+        pc.association(:photo)
       photo_assoc.target = photo
 
       collection_assoc = pc.association(:collection)

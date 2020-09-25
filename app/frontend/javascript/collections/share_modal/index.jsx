@@ -8,11 +8,10 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class ShareCollectionModal extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -37,13 +36,14 @@ class ShareCollectionModal extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.get(url, data, config).
-      then((response) => {
+    axios
+      .get(url, data, config)
+      .then((response) => {
         // Update sharing config on collection
         const newCollection = self.state.collection;
         // eslint-disable-next-line camelcase
@@ -53,8 +53,8 @@ class ShareCollectionModal extends React.Component {
         self.setState({
           isLoading: false
         });
-      }).
-      catch(() => {
+      })
+      .catch(() => {
         self.setState({
           fetchFailed: true,
           isLoading: false
@@ -72,7 +72,8 @@ class ShareCollectionModal extends React.Component {
     return (
       <LinkSharing
         collection={this.state.collection}
-        setCollection={this.setCollection} />
+        setCollection={this.setCollection}
+      />
     );
   }
 
@@ -80,24 +81,25 @@ class ShareCollectionModal extends React.Component {
     let content;
 
     if (this.state.isLoading) {
-      content = <LoadingIconEllipsis className="share-collection__loading-icon" />;
-    }
-    else if (this.state.fetchFailed) {
+      content = (
+        <LoadingIconEllipsis className='share-collection__loading-icon' />
+      );
+    } else if (this.state.fetchFailed) {
       content = <ModalError />;
-    }
-    else {
+    } else {
       content = this.renderLinkSharing();
     }
 
     return (
       <Modal
-        heading={I18n.t(`${this.i18nPrefix}.heading`, { name: this.props.collection.name })}
+        heading={I18n.t(`${this.i18nPrefix}.heading`, {
+          name: this.props.collection.name
+        })}
         onClose={this.props.onClose}>
         {content}
       </Modal>
     );
   }
-
 }
 
 export default ShareCollectionModal;

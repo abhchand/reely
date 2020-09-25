@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class Photo extends React.Component {
-
   static propTypes = {
     photo: PropTypes.object.isRequired,
     photoIndex: PropTypes.number.isRequired,
@@ -12,7 +11,7 @@ class Photo extends React.Component {
     isSelected: PropTypes.bool.isRequired,
     handleClickWhenSelectionModeEnabled: PropTypes.func.isRequired,
     handleClickWhenSelectionModeDisabled: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -23,8 +22,12 @@ class Photo extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
-    this.renderOverlayWhenSelectionModeEnabled = this.renderOverlayWhenSelectionModeEnabled.bind(this);
-    this.renderOverlayWhenSelectionModeDisabled = this.renderOverlayWhenSelectionModeDisabled.bind(this);
+    this.renderOverlayWhenSelectionModeEnabled = this.renderOverlayWhenSelectionModeEnabled.bind(
+      this
+    );
+    this.renderOverlayWhenSelectionModeDisabled = this.renderOverlayWhenSelectionModeDisabled.bind(
+      this
+    );
   }
 
   photoUrl() {
@@ -43,7 +46,6 @@ class Photo extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   applyAntiRotation(style) {
-
     /*
      * Child elements get rotated along with the parent and can't be
      * reversed using `transform: none`. Apply an anti-rotation to
@@ -73,8 +75,7 @@ class Photo extends React.Component {
   handleClick(e) {
     if (this.props.selectionModeEnabled) {
       this.props.handleClickWhenSelectionModeEnabled(this.props.photoIndex, e);
-    }
-    else {
+    } else {
       this.props.handleClickWhenSelectionModeDisabled(this.props.photoIndex);
     }
   }
@@ -92,8 +93,8 @@ class Photo extends React.Component {
 
     if (this.props.isSelected) {
       return (
-        <div className="photo-grid-photo__selected-overlay" style={divStyle}>
-          <IconCheckMark fillColor="#FFFFFF" />
+        <div className='photo-grid-photo__selected-overlay' style={divStyle}>
+          <IconCheckMark fillColor='#FFFFFF' />
         </div>
       );
     }
@@ -104,8 +105,8 @@ class Photo extends React.Component {
     this.applyAntiRotation(divStyle);
 
     return (
-      <div className="photo-grid-photo__overlay" style={divStyle}>
-        <span className="photo-grid-photo__taken-at-label">
+      <div className='photo-grid-photo__overlay' style={divStyle}>
+        <span className='photo-grid-photo__taken-at-label'>
           {this.props.photo.takenAtLabel}
         </span>
       </div>
@@ -122,18 +123,16 @@ class Photo extends React.Component {
       <div
         data-id={this.props.photo.id}
         className={`photo-grid-photo__container${selectedClass}`}
-        tabIndex="0"
-        role="button"
+        tabIndex='0'
+        role='button'
         onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}>
-
-        <div className="photo-grid-photo covered-background" style={divStyle}>
+        <div className='photo-grid-photo covered-background' style={divStyle}>
           {this.renderOverlay()}
         </div>
       </div>
     );
   }
-
 }
 
 export default Photo;

@@ -5,10 +5,7 @@ class Collections::SharingConfigService
 
   def as_json
     {
-      via_link: {
-        enabled: @collection.sharing_enabled?,
-        url: link_sharing_url
-      }
+      via_link: { enabled: @collection.sharing_enabled?, url: link_sharing_url }
     }
   end
 

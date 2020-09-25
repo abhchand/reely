@@ -6,14 +6,13 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class UpdateUserRoleModal extends React.Component {
-
   static propTypes = {
     user: PropTypes.object.isRequired,
     roles: PropTypes.array.isRequired,
     closeModal: PropTypes.func.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     refreshFilterTable: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -48,11 +47,12 @@ class UpdateUserRoleModal extends React.Component {
     if (e.currentTarget.checked) {
       // Box was checked, add it to the list
       selectedRoles.push(role);
-    }
-    else {
+    } else {
       // Box was unchecked, remove it from the list
       const index = selectedRoles.indexOf(role);
-      if (index > -1) { selectedRoles.splice(index, 1); }
+      if (index > -1) {
+        selectedRoles.splice(index, 1);
+      }
     }
 
     this.setState((_prevState) => ({ selectedRoles: selectedRoles }));
@@ -68,7 +68,7 @@ class UpdateUserRoleModal extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -77,12 +77,13 @@ class UpdateUserRoleModal extends React.Component {
       errorText: null
     });
 
-    return axios.patch(url, data, config).
-      then((_response) => {
+    return axios
+      .patch(url, data, config)
+      .then((_response) => {
         self.props.refreshFilterTable();
         self.props.closeModal();
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         self.setState({
           errorText: error.response.data.error
         });
@@ -105,27 +106,31 @@ class UpdateUserRoleModal extends React.Component {
 
   renderCheckboxes() {
     return (
-      <form className="update-user-role-modal__roles-form" action="http://www.example.com" method="post">
-        <input name="_method" type="hidden" value="patch" />
-        {
-          this.props.roles.map((role, _i) => {
-            return (
-              <div key={`user-role-label-${role}`} className="update-user-role-modal__role">
-                <label htmlFor={`user_role_${role}`} className="checkbox-label">
-                  <input
-                    id={`user_role_${role}`}
-                    data-id={role}
-                    name="user[role]"
-                    type="checkbox"
-                    checked={this.state.selectedRoles.indexOf(role) > -1}
-                    onChange={this.toggleCheckbox} />
-                  <span>{this.labelFor(role)}</span>
-                </label>
-                <p>{this.descriptionFor(role)}</p>
-              </div>
-            );
-          })
-        }
+      <form
+        className='update-user-role-modal__roles-form'
+        action='http://www.example.com'
+        method='post'>
+        <input name='_method' type='hidden' value='patch' />
+        {this.props.roles.map((role, _i) => {
+          return (
+            <div
+              key={`user-role-label-${role}`}
+              className='update-user-role-modal__role'>
+              <label htmlFor={`user_role_${role}`} className='checkbox-label'>
+                <input
+                  id={`user_role_${role}`}
+                  data-id={role}
+                  name='user[role]'
+                  type='checkbox'
+                  checked={this.state.selectedRoles.indexOf(role) > -1}
+                  onChange={this.toggleCheckbox}
+                />
+                <span>{this.labelFor(role)}</span>
+              </label>
+              <p>{this.descriptionFor(role)}</p>
+            </div>
+          );
+        })}
       </form>
     );
   }
@@ -133,20 +138,20 @@ class UpdateUserRoleModal extends React.Component {
   render() {
     return (
       <Modal
-        modalClassName="update-user-role-modal"
-        heading={I18n.t(`${this.i18nPrefix}.heading`, { first_name: this.props.user.firstName })}
+        modalClassName='update-user-role-modal'
+        heading={I18n.t(`${this.i18nPrefix}.heading`, {
+          first_name: this.props.user.firstName
+        })}
         submitButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.submit`)}
         closeButtonLabel={I18n.t(`${this.i18nPrefix}.buttons.close`)}
         onSubmit={this.updateUserRole}
         closeModal={this.props.closeModal}>
-
         {I18n.t(`${this.i18nPrefix}.body`)}
         {this.renderErrorText()}
         {this.renderCheckboxes()}
       </Modal>
     );
   }
-
 }
 
 export default UpdateUserRoleModal;

@@ -29,13 +29,13 @@ class Api::Response::PaginationLinksService
   private
 
   def base_url
-    @base_url ||= @request_url.split("?", 2).first
+    @base_url ||= @request_url.split('?', 2).first
   end
 
   def build_with_params(new_params)
     new_params[:per_page] = safe_per_page if new_params.key?(:per_page)
 
-    [base_url, new_params.to_query].join("?")
+    [base_url, new_params.to_query].join('?')
   end
 
   def safe_per_page

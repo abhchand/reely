@@ -2,12 +2,12 @@ const waitUntil = (condition) => {
   return new Promise((resolve, _reject) => {
     // eslint-disable-next-line
     (function waitForCondition(condition) {
-      if (condition()) { return resolve(); }
+      if (condition()) {
+        return resolve();
+      }
       setTimeout(waitForCondition, 100, condition);
-    }(condition));
+    })(condition);
   });
 };
 
-export {
-  waitUntil
-};
+export { waitUntil };

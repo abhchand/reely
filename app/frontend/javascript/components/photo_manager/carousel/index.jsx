@@ -1,15 +1,18 @@
-import { IconArrowThickLeft, IconArrowThickRight, IconX } from 'components/icons';
+import {
+  IconArrowThickLeft,
+  IconArrowThickRight,
+  IconX
+} from 'components/icons';
 import { keyCodes, parseKeyCode } from 'utils/keys';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 class PhotoCarousel extends React.Component {
-
   static propTypes = {
     photos: PropTypes.array.isRequired,
     clickedPhotoIndex: PropTypes.number.isRequired,
     close: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -98,28 +101,35 @@ class PhotoCarousel extends React.Component {
     this.setPhotoUrl(imgStyle);
 
     return (
-      <div className="photo-carousel">
-        <div className="photo-carousel__current-photo" data-id={this.currentPhoto().id} style={imgStyle} />
+      <div className='photo-carousel'>
+        <div
+          className='photo-carousel__current-photo'
+          data-id={this.currentPhoto().id}
+          style={imgStyle}
+        />
 
-        <div className="photo-carousel__close" onClick={this.props.close}>
-          <IconX size="16" />
+        <div className='photo-carousel__close' onClick={this.props.close}>
+          <IconX size='16' />
         </div>
 
-        <div className="photo-carousel__navigation-container prev" onClick={this.navigatePrev}>
-          <div className="photo-carousel__navigation">
-            <IconArrowThickLeft size="24" />
+        <div
+          className='photo-carousel__navigation-container prev'
+          onClick={this.navigatePrev}>
+          <div className='photo-carousel__navigation'>
+            <IconArrowThickLeft size='24' />
           </div>
         </div>
 
-        <div className="photo-carousel__navigation-container next" onClick={this.navigateNext}>
-          <div className="photo-carousel__navigation">
-            <IconArrowThickRight size="24" />
+        <div
+          className='photo-carousel__navigation-container next'
+          onClick={this.navigateNext}>
+          <div className='photo-carousel__navigation'>
+            <IconArrowThickRight size='24' />
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 export default PhotoCarousel;

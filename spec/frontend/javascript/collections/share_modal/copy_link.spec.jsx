@@ -7,10 +7,18 @@ const i18nPrefix = 'collections.share_modal.copy_link';
 
 beforeEach(() => {
   // Mock document.* calls
-  const queryFunc = jest.fn(() => { return { focus: jest.fn(), select: jest.fn() }; });
+  const queryFunc = jest.fn(() => {
+    return { focus: jest.fn(), select: jest.fn() };
+  });
   const execFunc = jest.fn();
-  Object.defineProperty(document, 'querySelector', { value: queryFunc, configurable: true });
-  Object.defineProperty(document, 'execCommand', { value: execFunc, configurable: true });
+  Object.defineProperty(document, 'querySelector', {
+    value: queryFunc,
+    configurable: true
+  });
+  Object.defineProperty(document, 'execCommand', {
+    value: execFunc,
+    configurable: true
+  });
 });
 
 afterEach(cleanup);
@@ -42,12 +50,18 @@ describe('<CopyLink />', () => {
 
     describe('on success', () => {
       it('displays the action notification', () => {
-        const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
+        const actionNotifications = render(
+          <ActionNotifications notifications={[]} />
+        ).container;
 
         fireEvent.click(button);
 
-        expect(actionNotifications.querySelector('.notification--success')).not.toBeNull();
-        expect(actionNotifications).toHaveTextContent(I18n.t(`${i18nPrefix}.success`));
+        expect(
+          actionNotifications.querySelector('.notification--success')
+        ).not.toBeNull();
+        expect(actionNotifications).toHaveTextContent(
+          I18n.t(`${i18nPrefix}.success`)
+        );
       });
     });
 
@@ -55,17 +69,23 @@ describe('<CopyLink />', () => {
       beforeEach(() => {
         delete document.execCommand;
         Object.defineProperty(document, 'execCommand', {
-          value: jest.fn().mockImplementation(() => { throw new Error(); }),
+          value: jest.fn().mockImplementation(() => {
+            throw new Error();
+          }),
           configurable: true
         });
       });
 
       it('displays the action notification', () => {
-        const actionNotifications = render(<ActionNotifications notifications={[]} />).container;
+        const actionNotifications = render(
+          <ActionNotifications notifications={[]} />
+        ).container;
 
         fireEvent.click(button);
 
-        expect(actionNotifications.querySelector('.notification--success')).toBeNull();
+        expect(
+          actionNotifications.querySelector('.notification--success')
+        ).toBeNull();
       });
     });
   });

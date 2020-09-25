@@ -5,7 +5,6 @@ import { IconRefresh } from 'components/icons';
 import React from 'react';
 
 class AdminDeactivatedUserList extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -32,7 +31,6 @@ class AdminDeactivatedUserList extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   openActivateUserModal(e) {
-
     /*
      * Store data in the `data-*` fields to avoid having to
      * make a separate request for this info.
@@ -41,7 +39,6 @@ class AdminDeactivatedUserList extends React.Component {
     const userName = e.currentTarget.dataset.name;
 
     this.setState({
-
       /*
        * NOTE: This format does not match the typical `user`
        * model format. It's constructed specifically for the
@@ -60,57 +57,53 @@ class AdminDeactivatedUserList extends React.Component {
   renderHeader(_users) {
     return (
       <tr>
-        <td className="avatar" />
-        <td className="name">
-          {I18n.t(`${this._i18nPrefix}.header.name`)}
-        </td>
-        <td className="email">
-          {I18n.t(`${this._i18nPrefix}.header.email`)}
-        </td>
-        <td className="last-signed-in">
+        <td className='avatar' />
+        <td className='name'>{I18n.t(`${this._i18nPrefix}.header.name`)}</td>
+        <td className='email'>{I18n.t(`${this._i18nPrefix}.header.email`)}</td>
+        <td className='last-signed-in'>
           {I18n.t(`${this._i18nPrefix}.header.last_signed_in`)}
         </td>
-        <td className="activate-user" />
+        <td className='activate-user' />
       </tr>
     );
   }
 
   renderBody(users) {
     /* eslint-disable react/jsx-max-depth */
-    return (
-      users.map((user) => {
-        return (
-          <tr key={user.id} className="admin-deactivated-user-list__row" data-id={user.id}>
-            <td className="avatar">
-              <div className="avatar-container">
-                <img alt={user.name()} src={user.avatarPath('thumb')} />
-              </div>
-            </td>
-            <td className="name">
-              {user.name()}
-            </td>
-            <td className="email">
-              {user.email}
-            </td>
-            <td className="last-signed-in">
-              {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
-            </td>
-            <td className="activate-user">
-              <button
-                type="button"
-                data-id={user.id}
-                data-name={user.name()}
-                onClick={this.openActivateUserModal}>
-                <IconRefresh
-                  size="18"
-                  fillColor="#000000"
-                  title={I18n.t(`${this._i18nPrefix}.header.activate_user.icon_title`)} />
-              </button>
-            </td>
-          </tr>
-        );
-      })
-    );
+    return users.map((user) => {
+      return (
+        <tr
+          key={user.id}
+          className='admin-deactivated-user-list__row'
+          data-id={user.id}>
+          <td className='avatar'>
+            <div className='avatar-container'>
+              <img alt={user.name()} src={user.avatarPath('thumb')} />
+            </div>
+          </td>
+          <td className='name'>{user.name()}</td>
+          <td className='email'>{user.email}</td>
+          <td className='last-signed-in'>
+            {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
+          </td>
+          <td className='activate-user'>
+            <button
+              type='button'
+              data-id={user.id}
+              data-name={user.name()}
+              onClick={this.openActivateUserModal}>
+              <IconRefresh
+                size='18'
+                fillColor='#000000'
+                title={I18n.t(
+                  `${this._i18nPrefix}.header.activate_user.icon_title`
+                )}
+              />
+            </button>
+          </td>
+        </tr>
+      );
+    });
     /* eslint-enable react/jsx-max-depth */
   }
 
@@ -121,7 +114,8 @@ class AdminDeactivatedUserList extends React.Component {
           key={`deactivate-user-modal-${this.state.activateUser.id}`}
           user={this.state.activateUser}
           closeModal={this.closeActivateUserModal}
-          refreshFilterTable={this.refreshFilterTable} />
+          refreshFilterTable={this.refreshFilterTable}
+        />
       );
     }
 
@@ -131,16 +125,16 @@ class AdminDeactivatedUserList extends React.Component {
   render() {
     return [
       <FilterTable
-        key="filter-table"
+        key='filter-table'
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/api/v1/users?active=false"
-        containerClass="admin-deactivated-users-list" />,
+        fetchUrl='/api/v1/users?active=false'
+        containerClass='admin-deactivated-users-list'
+      />,
       this.renderActivateUserModal()
     ];
   }
-
 }
 
 export default AdminDeactivatedUserList;

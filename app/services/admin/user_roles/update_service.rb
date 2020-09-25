@@ -5,7 +5,7 @@ class Admin::UserRoles::UpdateService
     @current_user = context.current_user
     @user = context.user
     @roles = (context.roles || []).uniq
-    @i18n_prefix = "admin.user_roles.update_service"
+    @i18n_prefix = 'admin.user_roles.update_service'
 
     handle_invalid_roles unless roles_valid?
     update_roles!

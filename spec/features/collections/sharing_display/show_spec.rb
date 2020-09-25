@@ -1,32 +1,32 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "share collections show page", type: :feature do
+RSpec.feature 'share collections show page', type: :feature do
   let(:user) { create(:user) }
   let!(:collection) { create_collection_with_photos(owner: user) }
 
-  it "user can visit a shared collection show page" do
+  it 'user can visit a shared collection show page' do
     log_in(user)
 
     visit collections_sharing_display_path(id: collection.share_id)
     expect_show_page_for(collection)
   end
 
-  context "user is not logged in" do
-    it "user can still access the shared collection show page" do
+  context 'user is not logged in' do
+    it 'user can still access the shared collection show page' do
       visit collections_sharing_display_path(id: collection.share_id)
       expect_show_page_for(collection)
     end
 
-    it "user can see and can dissmiss the auth prompt", :js do
+    it 'user can see and can dissmiss the auth prompt', :js do
       visit collections_sharing_display_path(id: collection.share_id)
-      expect(page).to have_selector(".auth-prompt")
+      expect(page).to have_selector('.auth-prompt')
 
-      page.find(".auth-prompt .close").click
-      expect(page).to_not have_selector(".auth-prompt")
+      page.find('.auth-prompt .close').click
+      expect(page).to_not have_selector('.auth-prompt')
     end
   end
 
-  it "user can not add to a collection", :js do
+  it 'user can not add to a collection', :js do
     visit collections_sharing_display_path(id: collection.share_id)
 
     enable_selection_mode
@@ -40,11 +40,10 @@ RSpec.feature "share collections show page", type: :feature do
     expected_path = collections_sharing_display_path(id: collection.share_id)
     expect(page).to have_current_path(expected_path)
 
-    expect(page).to_not have_selector(".responsive-navigation-view-container")
-    expect(page).
-      to have_selector(
-        ".collections-sharing-display-show__photo-manager-container"
-      )
-    expect(page).to have_react_component("photo-manager")
+    expect(page).to_not have_selector('.responsive-navigation-view-container')
+    expect(page).to have_selector(
+      '.collections-sharing-display-show__photo-manager-container'
+    )
+    expect(page).to have_react_component('photo-manager')
   end
 end

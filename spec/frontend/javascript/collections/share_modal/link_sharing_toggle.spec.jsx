@@ -30,7 +30,9 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-afterEach(() => { jest.clearAllMocks(); });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('<LinkSharingToggle />', () => {
   it('renders the component when link sharing is enabled', () => {
@@ -43,7 +45,9 @@ describe('<LinkSharingToggle />', () => {
     const content = toggleContainer.querySelector('span');
 
     expect(toggleSwitch).toHaveClass('on');
-    expect(content).toHaveTextContent(stripHtmlTags(I18n.t(`${i18nPrefix}.enabled`)));
+    expect(content).toHaveTextContent(
+      stripHtmlTags(I18n.t(`${i18nPrefix}.enabled`))
+    );
   });
 
   it('renders the component when link sharing is disabled', () => {
@@ -56,7 +60,9 @@ describe('<LinkSharingToggle />', () => {
     const content = toggleContainer.querySelector('span');
 
     expect(toggleSwitch).not.toHaveClass('on');
-    expect(content).toHaveTextContent(stripHtmlTags(I18n.t(`${i18nPrefix}.disabled`)));
+    expect(content).toHaveTextContent(
+      stripHtmlTags(I18n.t(`${i18nPrefix}.disabled`))
+    );
   });
 
   describe('button onClick event', () => {
@@ -77,14 +83,15 @@ describe('<LinkSharingToggle />', () => {
     });
 
     it('does not update toggle while fetching', () => {
-
       /*
        * Use the long form of mocking implementation so we can
        * assert the loading state is enabled
        */
-      axios.patch.mockImplementation(async() => {
+      axios.patch.mockImplementation(async () => {
         await expect(toggleSwitch).not.toHaveClass('on');
-        expect(toggleContainer.querySelector('span')).toHaveTextContent(stripHtmlTags(I18n.t(`${i18nPrefix}.disabled`)));
+        expect(toggleContainer.querySelector('span')).toHaveTextContent(
+          stripHtmlTags(I18n.t(`${i18nPrefix}.disabled`))
+        );
 
         Promise.resolve({ data: data });
       });
@@ -97,13 +104,13 @@ describe('<LinkSharingToggle />', () => {
         axios.patch.mockResolvedValue({ data: data });
       });
 
-      it('no longer displays the loading state', async() => {
+      it('no longer displays the loading state', async () => {
         fireEvent.click(toggleSwitch);
 
         await expect(toggleSwitch).not.toHaveAttribute('disabled', 'disabled');
       });
 
-      it('calls the setCollection() handler with the updated collection', async() => {
+      it('calls the setCollection() handler with the updated collection', async () => {
         fireEvent.click(toggleSwitch);
 
         await expect(axios.patch).toHaveBeenCalledTimes(1);
@@ -121,20 +128,20 @@ describe('<LinkSharingToggle />', () => {
         axios.patch.mockRejectedValue('Some error');
       });
 
-      it('no longer displays the loading state', async() => {
+      it('no longer displays the loading state', async () => {
         fireEvent.click(toggleSwitch);
 
         await expect(toggleSwitch).not.toHaveAttribute('disabled', 'disabled');
       });
 
-      it('does not call the setCollection() handler', async() => {
+      it('does not call the setCollection() handler', async () => {
         fireEvent.click(toggleSwitch);
 
         await expect(axios.patch).toHaveBeenCalledTimes(1);
         await expect(setCollection).not.toHaveBeenCalled();
       });
 
-      it('displays the action notification', async() => {
+      it('displays the action notification', async () => {
         fireEvent.click(toggleSwitch);
 
         /*
@@ -147,8 +154,12 @@ describe('<LinkSharingToggle />', () => {
         await expect(setCollection).not.toHaveBeenCalled();
         // </hack>
 
-        await expect(actionNotifications.container.querySelector('.notification--error')).not.toBeNull();
-        expect(actionNotifications.container).toHaveTextContent(I18n.t(`${i18nPrefix}.failure`));
+        await expect(
+          actionNotifications.container.querySelector('.notification--error')
+        ).not.toBeNull();
+        expect(actionNotifications.container).toHaveTextContent(
+          I18n.t(`${i18nPrefix}.failure`)
+        );
       });
     });
   });

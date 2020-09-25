@@ -4,7 +4,6 @@ import BaseModel from './framework/base-model';
  * Models a single `User` record
  */
 class User extends BaseModel {
-
   constructor(id) {
     super('user', id);
 
@@ -59,7 +58,9 @@ class User extends BaseModel {
 
   hasAbility(ability) {
     const allAbilities = this.currentUserAbilities;
-    if (!allAbilities) { return null; }
+    if (!allAbilities) {
+      return null;
+    }
 
     return allAbilities[ability];
   }
@@ -67,7 +68,6 @@ class User extends BaseModel {
   name() {
     return `${this.firstName} ${this.lastName}`;
   }
-
 }
 
 export default User;

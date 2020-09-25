@@ -15,12 +15,12 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_json_request
-    return if (defined? request) && request.format.to_sym == :json
+    return if (defined?(request)) && request.format.to_sym == :json
     redirect_to(root_path)
   end
 
   def append_view_paths
-    append_view_path "app/views/application"
+    append_view_path 'app/views/application'
   end
 
   def initialize_packs_list
@@ -32,9 +32,10 @@ class ApplicationController < ActionController::Base
   end
 
   def verifier
-    @verifier ||= ActiveSupport::MessageVerifier.new(
-      Rails.application.secrets[:secret_key_base]
-    )
+    @verifier ||=
+      ActiveSupport::MessageVerifier.new(
+        Rails.application.secrets[:secret_key_base]
+      )
   end
 
   protected
@@ -43,7 +44,7 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in? && current_user.deactivated?
 
     respond_to do |format|
-      format.json { render json: { error: "User is deactivated" }, status: 403 }
+      format.json { render json: { error: 'User is deactivated' }, status: 403 }
       format.html { redirect_to(deactivated_users_path) }
     end
   end

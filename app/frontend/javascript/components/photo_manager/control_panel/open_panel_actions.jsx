@@ -10,7 +10,9 @@ function hasSelectedAtLeastOnePhoto(props) {
 }
 
 function actionAddToCollection(props) {
-  if (!(props.ability.canAddToCollection() && hasSelectedAtLeastOnePhoto(props))) {
+  if (
+    !(props.ability.canAddToCollection() && hasSelectedAtLeastOnePhoto(props))
+  ) {
     return null;
   }
 
@@ -19,7 +21,8 @@ function actionAddToCollection(props) {
       collections={props.collections}
       updateCollections={props.updateCollections}
       selectedPhotoIds={props.selectedPhotoIds}
-      onComplete={props.afterAdditionToCollection} />
+      onComplete={props.afterAdditionToCollection}
+    />
   );
 }
 
@@ -28,9 +31,13 @@ function actionClosePanel(props) {
 }
 
 function actionRemoveFromCollection(props) {
-  if (!(props.ability.canRemoveFromCollection() &&
-    hasSelectedAtLeastOnePhoto(props) &&
-    Boolean(props.currentCollection))) {
+  if (
+    !(
+      props.ability.canRemoveFromCollection() &&
+      hasSelectedAtLeastOnePhoto(props) &&
+      Boolean(props.currentCollection)
+    )
+  ) {
     return null;
   }
 
@@ -38,14 +45,11 @@ function actionRemoveFromCollection(props) {
     <RemoveFromCollection
       photoIdsToRemove={props.selectedPhotoIds}
       currentCollection={props.currentCollection}
-      onComplete={props.afterRemovalFromCollection} />
+      onComplete={props.afterRemovalFromCollection}
+    />
   );
 }
 
 /* eslint-enable react/prop-types */
 
-export {
-  actionAddToCollection,
-  actionClosePanel,
-  actionRemoveFromCollection
-};
+export { actionAddToCollection, actionClosePanel, actionRemoveFromCollection };

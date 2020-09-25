@@ -1,7 +1,7 @@
 module GeneralHelpers
   def clear_storage!
     unless Rails.env.test?
-      raise "`clear_storage!` can only be called on test environment"
+      raise '`clear_storage!` can only be called on test environment'
     end
 
     storage_dir = ActiveStorage::Blob.service.root

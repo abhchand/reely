@@ -1,4 +1,4 @@
-require "open-uri"
+require 'open-uri'
 
 module UserManagement
   module Omniauth
@@ -24,7 +24,7 @@ module UserManagement
 
       def user
         @user ||=
-          User.find_or_initialize_by(provider: "google_oauth2", uid: uid)
+          User.find_or_initialize_by(provider: 'google_oauth2', uid: uid)
       end
 
       def uid
@@ -49,9 +49,7 @@ module UserManagement
 
       def create_user
         user.attributes = {
-          first_name: first_name,
-          last_name: last_name,
-          email: email
+          first_name: first_name, last_name: last_name, email: email
         }
 
         user.save
@@ -72,15 +70,13 @@ module UserManagement
 
       def handle_blank_uid
         context.fail!(
-          log: "#{log_tags} Missing uid",
-          error: I18n.t("generic_error")
+          log: "#{log_tags} Missing uid", error: I18n.t('generic_error')
         )
       end
 
       def handle_blank_auth
         context.fail!(
-          log: "#{log_tags} Missing auth",
-          error: I18n.t("generic_error")
+          log: "#{log_tags} Missing auth", error: I18n.t('generic_error')
         )
       end
 
@@ -88,11 +84,11 @@ module UserManagement
         error =
           if invalid_domain
             I18n.t(
-              "activerecord.errors.models.user.attributes.email.invalid_domain",
+              'activerecord.errors.models.user.attributes.email.invalid_domain',
               domain: invalid_domain
             )
           else
-            I18n.t("generic_error")
+            I18n.t('generic_error')
           end
 
         context.fail!(
@@ -114,11 +110,9 @@ module UserManagement
         # This is a bit hacky but it retreives the actual domain name that
         # failed validation.
         @invalid_domain ||=
-          user.
-          errors.
-          details[:email].
-          detect { |h| h[:error] == :invalid_domain }.
-          try(:[], :domain)
+          user.errors.details[:email].detect do |h|
+            h[:error] == :invalid_domain
+          end.try(:[], :domain)
       end
 
       def log_tags

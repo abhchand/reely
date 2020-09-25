@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "photo manager remove from collection", type: :feature do
+RSpec.feature 'photo manager remove from collection', type: :feature do
   let(:user) { create(:user) }
 
   let!(:collection) do
@@ -14,10 +14,10 @@ RSpec.feature "photo manager remove from collection", type: :feature do
   let(:photos) { collection.photos }
 
   before do
-    @t_prefix = "components.photo_manager.control_panel.remove_from_collection"
+    @t_prefix = 'components.photo_manager.control_panel.remove_from_collection'
   end
 
-  it "user can only remove from collection after selecting a photo", :js do
+  it 'user can only remove from collection after selecting a photo', :js do
     log_in(user)
     visit collection_path(collection)
 
@@ -30,7 +30,7 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     expect_remove_from_collection_icon_to_not_be_visible
   end
 
-  it "user can remove a single photo", :js do
+  it 'user can remove a single photo', :js do
     log_in(user)
 
     visit collection_path(collection)
@@ -45,9 +45,9 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     wait_for { collection.reload.photos.count == 2 }
 
     # Check for action notification immediately since it times out
-    expect(page).
-      to have_action_notification(t("#{@t_prefix}.success", count: 1)).
-      of_type(:success)
+    expect(page).to have_action_notification(
+      t("#{@t_prefix}.success", count: 1)
+    ).of_type(:success)
 
     # Photo Count and Date Range Label (AFTER)
     expect_photo_count_display_to_be(2)
@@ -56,7 +56,7 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     validate_photo_display(collection.photos)
   end
 
-  it "user can remove multiple photos", :js do
+  it 'user can remove multiple photos', :js do
     log_in(user)
 
     visit collection_path(collection)
@@ -72,9 +72,9 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     wait_for { collection.reload.photos.count == 1 }
 
     # Check for action notification immediately since it times out
-    expect(page).
-      to have_action_notification(t("#{@t_prefix}.success", count: 2)).
-      of_type(:success)
+    expect(page).to have_action_notification(
+      t("#{@t_prefix}.success", count: 2)
+    ).of_type(:success)
 
     # Photo Count and Date Range Label (AFTER)
     expect_photo_count_display_to_be(1)
@@ -83,7 +83,7 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     validate_photo_display(collection.photos)
   end
 
-  it "user can remove all photos in a collection", :js do
+  it 'user can remove all photos in a collection', :js do
     log_in(user)
 
     visit collection_path(collection)
@@ -100,9 +100,9 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     wait_for { collection.reload.photos.count.zero? }
 
     # Check for action notification immediately since it times out
-    expect(page).
-      to have_action_notification(t("#{@t_prefix}.success", count: 3)).
-      of_type(:success)
+    expect(page).to have_action_notification(
+      t("#{@t_prefix}.success", count: 3)
+    ).of_type(:success)
 
     # Photo Count and Date Range Label (AFTER)
     expect_photo_count_display_to_be(0)
@@ -111,15 +111,15 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     validate_photo_display(collection.photos)
   end
 
-  context "removing a photo is unsuccesful" do
-    let(:service) { double("RemovePhotosFromCollection") }
+  context 'removing a photo is unsuccesful' do
+    let(:service) { double('RemovePhotosFromCollection') }
 
     before do
       expect(RemovePhotosFromCollection).to receive(:call) { service }
       allow(service).to receive(:success?) { false }
     end
 
-    it "displays an action notification", :js do
+    it 'displays an action notification', :js do
       log_in(user)
 
       visit collection_path(collection)
@@ -134,9 +134,9 @@ RSpec.feature "photo manager remove from collection", type: :feature do
       wait_for { collection.reload.photos.count == 3 }
 
       # Check for action notification immediately since it times out
-      expect(page).
-        to have_action_notification(t("#{@t_prefix}.error")).
-        of_type(:error)
+      expect(page).to have_action_notification(t("#{@t_prefix}.error")).of_type(
+        :error
+      )
 
       # Photo Count and Date Range Label (AFTER)
       expect_photo_count_display_to_be(3)
@@ -146,9 +146,9 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     end
   end
 
-  describe "on other pages besides Collections#show" do
-    context "on Photos#index" do
-      it "user can not remove from collection", :js do
+  describe 'on other pages besides Collections#show' do
+    context 'on Photos#index' do
+      it 'user can not remove from collection', :js do
         log_in(user)
 
         visit photos_path
@@ -160,8 +160,8 @@ RSpec.feature "photo manager remove from collection", type: :feature do
       end
     end
 
-    context "on Collections::SharingConfigController#show" do
-      it "user can not remove from collection", :js do
+    context 'on Collections::SharingConfigController#show' do
+      it 'user can not remove from collection', :js do
         log_in(user)
 
         visit collections_sharing_display_path(id: collection.share_id)
@@ -175,15 +175,15 @@ RSpec.feature "photo manager remove from collection", type: :feature do
   end
 
   def expect_date_range_label_for(photos)
-    actual = page.find(".collections-show__date-range", visible: :all).text
-    expected = DateRangeLabelService.call(photos) || ""
+    actual = page.find('.collections-show__date-range', visible: :all).text
+    expected = DateRangeLabelService.call(photos) || ''
 
     expect(actual).to eq(expected)
   end
 
   def expect_photo_count_display_to_be(count)
-    expected = strip_tags(I18n.t("shared.photo_count.label", count: count))
-    actual = page.find(".photo-count").text
+    expected = strip_tags(I18n.t('shared.photo_count.label', count: count))
+    actual = page.find('.photo-count').text
 
     expect(actual).to eq(expected)
   end
@@ -192,7 +192,7 @@ RSpec.feature "photo manager remove from collection", type: :feature do
     if photos.count.positive?
       expect(displayed_photo_ids).to match_array(photos.map(&:synthetic_id))
     else
-      expect(page).to have_selector(".photo-manager--emtpy")
+      expect(page).to have_selector('.photo-manager--emtpy')
     end
   end
 end

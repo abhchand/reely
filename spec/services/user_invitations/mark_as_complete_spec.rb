@@ -1,18 +1,16 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe UserInvitations::MarkAsComplete do
   let(:user) { create(:user) }
   let(:invitation) { create(:user_invitation, email: user.email) }
 
-  it "updates the invitee on the UserInvitation record" do
+  it 'updates the invitee on the UserInvitation record' do
     invitation
 
-    expect do
-      call
-    end.to change { invitation.reload.invitee }.from(nil).to(user)
+    expect { call }.to change { invitation.reload.invitee }.from(nil).to(user)
   end
 
-  it "audits the change" do
+  it 'audits the change' do
     invitation
 
     expect { call }.to(change { Audited::Audit.count }.by(1))
@@ -21,30 +19,28 @@ RSpec.describe UserInvitations::MarkAsComplete do
 
     expect(audit.auditable).to eq(invitation)
     expect(audit.user).to eq(user)
-    expect(audit.action).to eq("update")
-    expect(audit.audited_changes).to eq("invitee_id" => [nil, user.id])
+    expect(audit.action).to eq('update')
+    expect(audit.audited_changes).to eq('invitee_id' => [nil, user.id])
     expect(audit.version).to eq(2)
     expect(audit.request_uuid).to_not be_nil
     expect(audit.remote_address).to be_nil
   end
 
-  it "calls UserInvitations::NotifyInviterOfCompletion" do
+  it 'calls UserInvitations::NotifyInviterOfCompletion' do
     invitation
 
     expect(UserInvitations::NotifyInviterOfCompletion).to receive(:call)
     call
   end
 
-  context "no invitation exists" do
-    it "does nothing" do
+  context 'no invitation exists' do
+    it 'does nothing' do
       user
 
-      expect do
-        call
-      end.to_not(change { Audited::Audit.count })
+      expect { call }.to_not(change { Audited::Audit.count })
     end
 
-    it "does not call UserInvitations::NotifyInviterOfCompletion" do
+    it 'does not call UserInvitations::NotifyInviterOfCompletion' do
       expect(UserInvitations::NotifyInviterOfCompletion).to_not receive(:call)
       call
     end

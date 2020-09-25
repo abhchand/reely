@@ -7,7 +7,7 @@ module GeneralHelpers
 
       @valid_props =
         if @mount_node && @props
-          @actual_props = JSON.parse(@mount_node["data-react-props"])
+          @actual_props = JSON.parse(@mount_node['data-react-props'])
           @props.all? { |k, v| @actual_props[k.to_s] == v }
         else
           true
@@ -18,9 +18,7 @@ module GeneralHelpers
 
     chain(:including_props) { |props| @props = props.deep_stringify_keys }
 
-    description do
-      "have react mount node #{@id}"
-    end
+    description { "have react mount node #{@id}" }
 
     failure_message do
       str = "Expected to find react mount node #{@id}"

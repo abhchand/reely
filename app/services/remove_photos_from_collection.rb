@@ -19,10 +19,10 @@ class RemovePhotosFromCollection
 
   def call
     each_photo_batch do |photo_ids|
-      # rubocop:disable Style/RedundantBegin
       begin
-        PhotoCollection.
-          where(collection: collection, photo_id: photo_ids).destroy_all
+        # rubocop:disable Style/RedundantBegin
+        PhotoCollection.where(collection: collection, photo_id: photo_ids)
+          .destroy_all
       rescue StandardError
         @failure = true
         raise ActiveRecord::Rollback

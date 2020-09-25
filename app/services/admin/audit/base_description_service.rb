@@ -10,13 +10,14 @@ module Admin
         begin
           service.description
         rescue StandardError
-          msg = I18n.t(
-            "admin.audit.shared.error_constructing_description",
-            id: audit.id,
-            action: audit.action,
-            auditable_type: audit.auditable_type,
-            auditable_id: audit.auditable_id
-          )
+          msg =
+            I18n.t(
+              'admin.audit.shared.error_constructing_description',
+              id: audit.id,
+              action: audit.action,
+              auditable_type: audit.auditable_type,
+              auditable_id: audit.auditable_id
+            )
 
           raise DescriptionError, msg
         end
@@ -37,30 +38,31 @@ module Admin
       end
 
       def t(path, opts = {})
-        path = ".#{path}" unless path.start_with?(".")
+        path = ".#{path}" unless path.start_with?('.')
         I18n.t([i18n_key, path].join, opts)
       end
 
       def create_action?
-        audit.action == "create"
+        audit.action == 'create'
       end
 
       def update_action?
-        audit.action == "update"
+        audit.action == 'update'
       end
 
       def destroy_action?
-        audit.action == "destroy"
+        audit.action == 'destroy'
       end
 
       def subject
-        @subject ||= begin
-          audit.auditable ||
-            fetch_or_reconstruct_associated_record(
-              audit.auditable_id,
-              audit.auditable_type.constantize
-            )
-        end
+        @subject ||=
+          begin
+            audit.auditable ||
+              fetch_or_reconstruct_associated_record(
+                audit.auditable_id,
+                audit.auditable_type.constantize
+              )
+          end
       end
 
       def modified?(attribute)
@@ -69,17 +71,23 @@ module Admin
 
       def old_value_for(attribute)
         case audit.action
-        when "create"   then nil
-        when "update"   then audit.audited_changes[attribute.to_s][0]
-        when "destroy"  then audit.audited_changes[attribute.to_s]
+        when 'create'
+          nil
+        when 'update'
+          audit.audited_changes[attribute.to_s][0]
+        when 'destroy'
+          audit.audited_changes[attribute.to_s]
         end
       end
 
       def new_value_for(attribute)
         case audit.action
-        when "create"   then audit.audited_changes[attribute.to_s]
-        when "update"   then audit.audited_changes[attribute.to_s][1]
-        when "destroy"  then nil
+        when 'create'
+          audit.audited_changes[attribute.to_s]
+        when 'update'
+          audit.audited_changes[attribute.to_s][1]
+        when 'destroy'
+          nil
         end
       end
 
@@ -88,13 +96,13 @@ module Admin
 
         raise(
           IncorrectAuditableType,
-          "Expected `#{self.class::AUDITABLE_TYPE}` auditable type, "\
+          "Expected `#{self.class::AUDITABLE_TYPE}` auditable type, " \
             "got #{audit.auditable_type}"
         )
       end
 
       def unknown_audit_type
-        I18n.t("admin.audit.shared.unknown")
+        I18n.t('admin.audit.shared.unknown')
       end
 
       def fetch_or_reconstruct_associated_record(id, klass)
@@ -105,10 +113,9 @@ module Admin
         # If it does not exist, it was deleted at some point. Find the
         # audit record from its deletion.
         last_audit =
-          Audited::Audit.
-          auditable_finder(id, klass.name).
-          where(action: "destroy").
-          last
+          Audited::Audit.auditable_finder(id, klass.name).where(
+            action: 'destroy'
+          ).last
 
         return unless last_audit
 

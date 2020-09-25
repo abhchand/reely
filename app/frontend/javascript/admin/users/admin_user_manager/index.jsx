@@ -11,19 +11,27 @@ import Tabnav from 'javascript/components/tabnav';
  * /admin/users
  */
 class AdminUserManager extends React.Component {
-
   static propTypes = {
     roles: PropTypes.array.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this._i18nPrefix = 'components.admin_user_manager';
     this._tabs = [
-      { label: I18n.t(`${this._i18nPrefix}.tabs.users`), component: <AdminUserList roles={this.props.roles} /> },
-      { label: I18n.t(`${this._i18nPrefix}.tabs.user_invitations`), component: <AdminUserInvitationList /> },
-      { label: I18n.t(`${this._i18nPrefix}.tabs.deactivated_users`), component: <AdminDeactivatedUserList /> }
+      {
+        label: I18n.t(`${this._i18nPrefix}.tabs.users`),
+        component: <AdminUserList roles={this.props.roles} />
+      },
+      {
+        label: I18n.t(`${this._i18nPrefix}.tabs.user_invitations`),
+        component: <AdminUserInvitationList />
+      },
+      {
+        label: I18n.t(`${this._i18nPrefix}.tabs.deactivated_users`),
+        component: <AdminDeactivatedUserList />
+      }
     ];
 
     /*
@@ -45,7 +53,7 @@ class AdminUserManager extends React.Component {
 
   renderContent() {
     return (
-      <div className="admin-user-manager__content">
+      <div className='admin-user-manager__content'>
         {this._tabs[this.state.currentTabIndex].component}
       </div>
     );
@@ -53,16 +61,16 @@ class AdminUserManager extends React.Component {
 
   render() {
     return (
-      <div className="admin-user-manager">
+      <div className='admin-user-manager'>
         <Tabnav
           tabLabels={this._tabs.map((t) => t.label)}
           currentTabIndex={this.state.currentTabIndex}
-          onClick={this.handleClick} />
+          onClick={this.handleClick}
+        />
         {this.renderContent()}
       </div>
     );
   }
-
 }
 
 export default AdminUserManager;

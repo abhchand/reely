@@ -3,7 +3,7 @@ class ExampleMailer < BaseSendgridMailer
     user = User.find(user_id)
 
     @recipient = user.email
-    @subject = t(".subject")
+    @subject = t('.subject')
 
     @name = user.name
 

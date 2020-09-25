@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "photo selection", type: :feature do
+RSpec.feature 'photo selection', type: :feature do
   let(:user) { create(:user) }
   let(:photo_count) { 3 }
 
@@ -10,7 +10,7 @@ RSpec.feature "photo selection", type: :feature do
     end
   end
 
-  it "user can select and unselect photos", :js do
+  it 'user can select and unselect photos', :js do
     log_in(user)
     visit photos_path
 
@@ -32,7 +32,7 @@ RSpec.feature "photo selection", type: :feature do
     expect_photo_to_be_selected(photos[2])
   end
 
-  it "clears any selected photos when selection mode is disabled", :js do
+  it 'clears any selected photos when selection mode is disabled', :js do
     log_in(user)
     visit photos_path
 
@@ -51,10 +51,10 @@ RSpec.feature "photo selection", type: :feature do
     expect_photo_to_be_unselected(photos[2])
   end
 
-  describe "bulk selection with shift + click", :js do
+  describe 'bulk selection with shift + click', :js do
     let(:photo_count) { 4 }
 
-    it "user can bulk select forwards and backwards" do
+    it 'user can bulk select forwards and backwards' do
       log_in(user)
       visit photos_path
 
@@ -76,7 +76,7 @@ RSpec.feature "photo selection", type: :feature do
       expect_photo_to_be_unselected(photos[3])
     end
 
-    context "no photos are selected already" do
+    context 'no photos are selected already' do
       it "bulk select has no effect, it's the same as selecting a one photo" do
         log_in(user)
         visit photos_path
@@ -91,10 +91,10 @@ RSpec.feature "photo selection", type: :feature do
       end
     end
 
-    context "a range of photos are selected already" do
+    context 'a range of photos are selected already' do
       let(:photo_count) { 5 }
 
-      it "user can bulk select forwards, backwards, and within the range" do
+      it 'user can bulk select forwards, backwards, and within the range' do
         log_in(user)
         visit photos_path
 

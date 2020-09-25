@@ -1,7 +1,8 @@
 namespace :reely do
   namespace :admin do
-    desc "Create a new Reely admin"
-    task :create, %i[fname lname email password] => [:environment] do |_t, args|
+    desc 'Create a new Reely admin'
+    task :create,
+         %i[fname lname email password] => %i[environment] do |_t, args|
       attrs = {
         first_name: args[:fname],
         last_name: args[:lname],

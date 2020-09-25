@@ -1,7 +1,7 @@
 class Collections::DownloadsController < ApplicationController
   include CollectionHelper
 
-  ZIP_FILE_MIME_TYPE = "application/octet-stream".freeze
+  ZIP_FILE_MIME_TYPE = 'application/octet-stream'.freeze
 
   skip_before_action :authenticate_user!
 
@@ -13,7 +13,7 @@ class Collections::DownloadsController < ApplicationController
     if download_path.present?
       send_file(download_path, type: ZIP_FILE_MIME_TYPE)
     else
-      flash[:error] = t(".not_found")
+      flash[:error] = t('.not_found')
       redirect_to root_path
     end
   end
@@ -30,7 +30,7 @@ class Collections::DownloadsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.json { render json: { error: "Empty collection" }, status: 403 }
+        format.json { render json: { error: 'Empty collection' }, status: 403 }
       end
     end
   end
@@ -43,9 +43,7 @@ class Collections::DownloadsController < ApplicationController
       }
     }
 
-    respond_to do |format|
-      format.json { render json: json, status: 200 }
-    end
+    respond_to { |format| format.json { render json: json, status: 200 } }
   end
 
   private
@@ -53,24 +51,23 @@ class Collections::DownloadsController < ApplicationController
   def download_path
     return if decrypted_id.blank?
 
-    @download_path ||= begin
-      path = Rails.configuration.x.default_download_dir.join(decrypted_id)
-      bundle_path = Dir["#{path}/*.zip"].first
+    @download_path ||=
+      begin
+        path = Rails.configuration.x.default_download_dir.join(decrypted_id)
+        bundle_path = Dir["#{path}/*.zip"].first
 
-      Pathname.new(bundle_path) if bundle_path
-    end
+        Pathname.new(bundle_path) if bundle_path
+      end
   end
 
   def download_url
     collection_download_url(
-      collection_id: collection.share_id,
-      id: encrypted_id
+      collection_id: collection.share_id, id: encrypted_id
     )
   end
 
   def decrypted_id
-    @decrypted_id ||=
-      verifier.verified(params[:id] || params[:download_id])
+    @decrypted_id ||= verifier.verified(params[:id] || params[:download_id])
   end
 
   def encrypted_id

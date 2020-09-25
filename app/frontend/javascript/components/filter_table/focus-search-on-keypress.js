@@ -8,7 +8,9 @@ document.addEventListener('keydown', (event) => {
   if (event.metaKey && parseKeyCode(event) === keyCodes.LETTER_B) {
     event.preventDefault();
 
-    const element = document.getElementsByClassName('filter-table__search-input')[0];
+    const element = document.getElementsByClassName(
+      'filter-table__search-input'
+    )[0];
     if (element) element.focus();
   }
 });

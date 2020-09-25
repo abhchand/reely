@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class PhotoManager extends React.Component {
-
   static propTypes = {
     photos: PropTypes.array.isRequired,
     collections: PropTypes.array,
@@ -18,7 +17,7 @@ class PhotoManager extends React.Component {
 
   static defaultProps = {
     collections: []
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -48,7 +47,9 @@ class PhotoManager extends React.Component {
   removeSelectedPhotos() {
     this.setState((prevState) => {
       const idsToRemove = prevState.selectedPhotoIds;
-      const newPhotoData = prevState.photos.filter((photo) => idsToRemove.indexOf(photo.id) < 0);
+      const newPhotoData = prevState.photos.filter(
+        (photo) => idsToRemove.indexOf(photo.id) < 0
+      );
 
       return { photos: newPhotoData };
     });
@@ -105,7 +106,8 @@ class PhotoManager extends React.Component {
         ability={this.ability}
         onOpen={this.enableSelectionMode}
         onClose={this.disableSelectionMode}
-        onRemovingFromCollection={this.removeSelectedPhotos} />
+        onRemovingFromCollection={this.removeSelectedPhotos}
+      />
     );
   }
 
@@ -116,7 +118,8 @@ class PhotoManager extends React.Component {
         onClick={this.enableCarousel}
         selectionModeEnabled={this.state.selectionModeEnabled}
         selectedPhotoIds={this.state.selectedPhotoIds}
-        updateSelectedPhotoIds={this.updateSelectedPhotoIds} />
+        updateSelectedPhotoIds={this.updateSelectedPhotoIds}
+      />
     );
   }
 
@@ -126,7 +129,8 @@ class PhotoManager extends React.Component {
         <PhotoCarousel
           photos={this.state.photos}
           clickedPhotoIndex={this.state.clickedPhotoIndex}
-          close={this.disableCarousel} />
+          close={this.disableCarousel}
+        />
       );
     }
 
@@ -134,21 +138,25 @@ class PhotoManager extends React.Component {
   }
 
   render() {
-    const enabledClass = this.state.selectionModeEnabled ? ' photo-grid--selection-mode-enabled' : '';
+    const enabledClass = this.state.selectionModeEnabled
+      ? ' photo-grid--selection-mode-enabled'
+      : '';
 
     if (this.state.photos.length === 0) {
       return <Empty />;
     }
 
     return (
-      <div className={`photo-manager${enabledClass}`} tabIndex="-1" role="presentation">
+      <div
+        className={`photo-manager${enabledClass}`}
+        tabIndex='-1'
+        role='presentation'>
         {this.renderControlPanel()}
         {this.renderPhotoGrid()}
         {this.renderCarousel()}
       </div>
     );
   }
-
 }
 
 export default PhotoManager;

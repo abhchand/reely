@@ -7,7 +7,6 @@ import { IconTrash } from 'components/icons';
 import React from 'react';
 
 class AdminUserInvitationList extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -15,12 +14,20 @@ class AdminUserInvitationList extends React.Component {
 
     // Function Bindings
     this.refreshFilterTable = this.refreshFilterTable.bind(this);
-    this.openDeleteUserInvitationModal = this.openDeleteUserInvitationModal.bind(this);
-    this.closeDeleteUserInvitationModal = this.closeDeleteUserInvitationModal.bind(this);
+    this.openDeleteUserInvitationModal = this.openDeleteUserInvitationModal.bind(
+      this
+    );
+    this.closeDeleteUserInvitationModal = this.closeDeleteUserInvitationModal.bind(
+      this
+    );
     this.renderHeader = this.renderHeader.bind(this);
     this.renderBody = this.renderBody.bind(this);
-    this.renderCreateUserInvitation = this.renderCreateUserInvitation.bind(this);
-    this.renderDeleteUserInvitationModal = this.renderDeleteUserInvitationModal.bind(this);
+    this.renderCreateUserInvitation = this.renderCreateUserInvitation.bind(
+      this
+    );
+    this.renderDeleteUserInvitationModal = this.renderDeleteUserInvitationModal.bind(
+      this
+    );
 
     this.state = {
       deleteUserInvitation: null,
@@ -36,7 +43,6 @@ class AdminUserInvitationList extends React.Component {
 
   // eslint-disable-next-line padded-blocks
   openDeleteUserInvitationModal(e) {
-
     /*
      * Store data in the `data-*` fields to avoid having to
      * make a separate request for this info.
@@ -45,7 +51,6 @@ class AdminUserInvitationList extends React.Component {
     const userInvitationEmail = e.currentTarget.dataset.email;
 
     this.setState({
-
       /*
        * NOTE: This format does not match the typical `userInvitation`
        * model format. It's constructed specifically for the
@@ -64,53 +69,54 @@ class AdminUserInvitationList extends React.Component {
   renderHeader(_userInvitations) {
     return (
       <tr>
-        <td className="email">
-          {I18n.t(`${this._i18nPrefix}.header.email`)}
-        </td>
-        <td className="invited-at">
+        <td className='email'>{I18n.t(`${this._i18nPrefix}.header.email`)}</td>
+        <td className='invited-at'>
           {I18n.t(`${this._i18nPrefix}.header.invited_at`)}
         </td>
-        <td className="delete-user-invitation" />
+        <td className='delete-user-invitation' />
       </tr>
     );
   }
 
   renderBody(userInvitations) {
     /* eslint-disable react/jsx-max-depth */
-    return (
-      userInvitations.map((userInvitation) => {
-        return (
-          <tr key={userInvitation.id} className="admin-user-invitation-list__row" data-id={userInvitation.id}>
-            <td className="email">
-              {userInvitation.email}
-            </td>
-            <td className="invited-at">
-              {dateToYMD(new Date(userInvitation.invitedAt))}
-            </td>
-            <td className="delete-user-invitation">
-              <button
-                type="button"
-                data-id={userInvitation.id}
-                data-email={userInvitation.email}
-                onClick={this.openDeleteUserInvitationModal}>
-                <IconTrash
-                  size="18"
-                  fillColor="#DC0073"
-                  title={I18n.t(`${this._i18nPrefix}.header.delete_user_invitation.icon_title`)} />
-              </button>
-            </td>
-          </tr>
-        );
-      })
-    );
+    return userInvitations.map((userInvitation) => {
+      return (
+        <tr
+          key={userInvitation.id}
+          className='admin-user-invitation-list__row'
+          data-id={userInvitation.id}>
+          <td className='email'>{userInvitation.email}</td>
+          <td className='invited-at'>
+            {dateToYMD(new Date(userInvitation.invitedAt))}
+          </td>
+          <td className='delete-user-invitation'>
+            <button
+              type='button'
+              data-id={userInvitation.id}
+              data-email={userInvitation.email}
+              onClick={this.openDeleteUserInvitationModal}>
+              <IconTrash
+                size='18'
+                fillColor='#DC0073'
+                title={I18n.t(
+                  `${this._i18nPrefix}.header.delete_user_invitation.icon_title`
+                )}
+              />
+            </button>
+          </td>
+        </tr>
+      );
+    });
     /* eslint-enable react/jsx-max-depth */
   }
 
   renderCreateUserInvitation() {
     return (
       <CreateUserInvitation
-        key="create-user-invitation"
-        refreshFilterTable={this.refreshFilterTable} />
+        key='create-user-invitation'
+        refreshFilterTable={this.refreshFilterTable}
+      />
     );
   }
 
@@ -121,7 +127,8 @@ class AdminUserInvitationList extends React.Component {
           key={`delete-user-invitation-modal-${this.state.deleteUserInvitation.id}`}
           userInvitation={this.state.deleteUserInvitation}
           closeModal={this.closeDeleteUserInvitationModal}
-          refreshFilterTable={this.refreshFilterTable} />
+          refreshFilterTable={this.refreshFilterTable}
+        />
       );
     }
 
@@ -132,16 +139,16 @@ class AdminUserInvitationList extends React.Component {
     return [
       this.renderCreateUserInvitation(),
       <FilterTable
-        key="filter-table"
+        key='filter-table'
         renderHeader={this.renderHeader}
         renderBody={this.renderBody}
         refreshAt={this.state.filterTableLastRefreshedAt}
-        fetchUrl="/api/v1/user_invitations"
-        containerClass="admin-user_invitation-list" />,
+        fetchUrl='/api/v1/user_invitations'
+        containerClass='admin-user_invitation-list'
+      />,
       this.renderDeleteUserInvitationModal()
     ];
   }
-
 }
 
 export default AdminUserInvitationList;

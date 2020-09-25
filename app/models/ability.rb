@@ -55,15 +55,12 @@ class Ability
   def user_abilities_for(subject)
     user = subject.is_a?(UserPresenter) ? subject.model : subject
 
-    {
-      read: can?(:read, user),
-      write: can?(:write, user)
-    }
+    { read: can?(:read, user), write: can?(:write, user) }
   end
 
   private
 
   def admin?
-    @user.has_role?("admin")
+    @user.has_role?('admin')
   end
 end

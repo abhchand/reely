@@ -1,4 +1,4 @@
-require Rails.root.join("config/smtp")
+require Rails.root.join('config/smtp')
 
 # rubocop:disable Metrics/BlockLength
 
@@ -25,7 +25,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
 
   # ActionMailer
@@ -34,14 +34,14 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method =
-    ENV["PREVIEW_EMAIL_IN_BROWSER"].present? ? :letter_opener : :smtp
+    ENV['PREVIEW_EMAIL_IN_BROWSER'].present? ? :letter_opener : :smtp
   config.action_mailer.smtp_settings = SMTP_SETTINGS
-  config.action_mailer.preview_path = "spec/mailers/previews"
-  config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
+  config.action_mailer.preview_path = 'spec/mailers/previews'
+  config.action_mailer.default_options = { from: ENV.fetch('EMAIL_FROM') }
   config.action_mailer.default_url_options = config.x.default_url_options
 
   Mail.register_interceptor(
-    RecipientInterceptor.new(ENV.fetch("EMAIL_INTERCEPT"))
+    RecipientInterceptor.new(ENV.fetch('EMAIL_INTERCEPT'))
   )
 
   # Print deprecation notices to the Rails logger.
@@ -55,12 +55,12 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp", "caching-dev.txt").exist?
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -71,7 +71,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for
   # options)
   config.active_storage.service =
-    ENV.fetch("ACTIVE_STORAGE_SERVICE", :local)&.to_sym
+    ENV.fetch('ACTIVE_STORAGE_SERVICE', :local)&.to_sym
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true

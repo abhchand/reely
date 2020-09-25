@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class ClosedPanel extends React.Component {
-
   static propTypes = {
     /* eslint-disable react/no-unused-prop-types */
     openPanel: PropTypes.func.isRequired,
@@ -19,7 +18,7 @@ class ClosedPanel extends React.Component {
 
   render() {
     return (
-      <ul className="icon-tray photo-grid-control-panel__icon-tray--closed">
+      <ul className='icon-tray photo-grid-control-panel__icon-tray--closed'>
         {actionOpenPanel(this.props)}
         {actionShareCollection(this.props)}
         {actionDownloadCollection(this.props)}
@@ -27,7 +26,6 @@ class ClosedPanel extends React.Component {
       </ul>
     );
   }
-
 }
 
 export default ClosedPanel;

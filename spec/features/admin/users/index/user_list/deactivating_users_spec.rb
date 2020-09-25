@@ -1,19 +1,19 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Deactivating Users", type: :feature, js: true do
+RSpec.feature 'Deactivating Users', type: :feature, js: true do
   let(:admin) { create(:user, :admin) }
 
   let!(:users) do
     [
-      create(:user, name: "User Twelve", email: "12@test.com"),
-      create(:user, name: "User Thirteen", email: "13@test.com"),
-      create(:user, name: "User Fourteen", email: "14@test.com")
+      create(:user, name: 'User Twelve', email: '12@test.com'),
+      create(:user, name: 'User Thirteen', email: '13@test.com'),
+      create(:user, name: 'User Fourteen', email: '14@test.com')
     ]
   end
 
   before { log_in(admin) }
 
-  it "admin can deactivate a user" do
+  it 'admin can deactivate a user' do
     # Also test that any roles get removed
     users[2].add_role(:director)
 
@@ -41,17 +41,17 @@ RSpec.feature "Deactivating Users", type: :feature, js: true do
     expect(users[2].roles).to eq([])
   end
 
-  describe "Pagination" do
+  describe 'Pagination' do
     before do
       # Add another user as users[3]. This makes the new ordered list as
       #   -> admin, users[3], users[2], users[1], users[0]
-      users << create(:user, name: "User Fifteen", email: "15@test.com")
+      users << create(:user, name: 'User Fifteen', email: '15@test.com')
 
       # Paginate 5 users across 3 pages
-      stub_const("Api::Response::PaginationLinksService::PAGE_SIZE", 2)
+      stub_const('Api::Response::PaginationLinksService::PAGE_SIZE', 2)
     end
 
-    it "handles deactivating a user from a paginated set" do
+    it 'handles deactivating a user from a paginated set' do
       visit admin_users_path
 
       # Navigate to page 3 of 3
@@ -84,13 +84,13 @@ RSpec.feature "Deactivating Users", type: :feature, js: true do
       expect(users[2].reload.deactivated?).to eq(true)
     end
 
-    context "Searching" do
-      it "handles deactivating a user from a paginated search result set" do
+    context 'Searching' do
+      it 'handles deactivating a user from a paginated search result set' do
         visit admin_users_path
 
         # Search for "teen". This makes the new filtered ordered list as
         #   -> users[3], users[2], users[1]
-        search_filter_table_for("teen")
+        search_filter_table_for('teen')
 
         # Navigate to page 2 of 2
         click_filter_table_pagination_next

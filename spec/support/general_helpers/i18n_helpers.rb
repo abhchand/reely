@@ -3,13 +3,14 @@ module GeneralHelpers
     opts[:klass] ||= User
     klass = opts.delete(:klass)
 
-    path = [
-      "activerecord.errors.models",
-      klass.name.underscore,
-      "attributes",
-      attribute,
-      key
-    ].join(".")
+    path =
+      [
+        'activerecord.errors.models',
+        klass.name.underscore,
+        'attributes',
+        attribute,
+        key
+      ].join('.')
 
     I18n.t(path, opts)
   end

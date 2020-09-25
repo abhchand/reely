@@ -1,33 +1,30 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Filter and Paginate", type: :feature, js: true do
+RSpec.feature 'Filter and Paginate', type: :feature, js: true do
   let(:admin) { create(:user, :admin) }
-  let(:email) { "asha@singers.com" }
+  let(:email) { 'asha@singers.com' }
 
-  before { @t_prefix = "admin.audit" }
+  before { @t_prefix = 'admin.audit' }
 
-  it "inviting a user is audited" do
+  it 'inviting a user is audited' do
     log_in(admin)
 
     # Invite another user
     visit admin_users_path
     click_user_invitations_tab
     click_create_user_invitation_button
-    fill_in("user_invitation[email]", with: email)
+    fill_in('user_invitation[email]', with: email)
     click_modal_submit
     expect_modal_is_closed(async: true)
 
     # Check if audited
     visit admin_audits_path
     expect(audit_table_displayed_descriptions[0]).to eq(
-      t(
-        "#{@t_prefix}.user_invitation_description.created",
-        email: email
-      )
+      t("#{@t_prefix}.user_invitation_description.created", email: email)
     )
   end
 
-  it "uninviting a user is audited" do
+  it 'uninviting a user is audited' do
     log_in(admin)
 
     # Create existing invitation
@@ -43,27 +40,24 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     # Check if audited
     visit admin_audits_path
     expect(audit_table_displayed_descriptions[0]).to eq(
-      t(
-        "#{@t_prefix}.user_invitation_description.destroyed",
-        email: email
-      )
+      t("#{@t_prefix}.user_invitation_description.destroyed", email: email)
     )
   end
 
-  it "completing an invitation is audited" do
-    create(:user_invitation, email: "asha@singers.com")
+  it 'completing an invitation is audited' do
+    create(:user_invitation, email: 'asha@singers.com')
 
     register(
-      first_name: "Asha",
-      last_name: "Bhosle",
-      email: "asha@singers.com",
-      password: "Best!s0ngz"
+      first_name: 'Asha',
+      last_name: 'Bhosle',
+      email: 'asha@singers.com',
+      password: 'Best!s0ngz'
     )
 
     admin = User.last
 
     confirm(admin)
-    log_in(admin, password: "Best!s0ngz")
+    log_in(admin, password: 'Best!s0ngz')
 
     admin.add_role(:admin)
 
@@ -77,18 +71,18 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     )
   end
 
-  it "creating an account with native auth is audited" do
+  it 'creating an account with native auth is audited' do
     register(
-      first_name: "Asha",
-      last_name: "Bhosle",
-      email: "asha@singers.com",
-      password: "Best!s0ngz"
+      first_name: 'Asha',
+      last_name: 'Bhosle',
+      email: 'asha@singers.com',
+      password: 'Best!s0ngz'
     )
 
     admin = User.last
 
     confirm(admin)
-    log_in(admin, password: "Best!s0ngz")
+    log_in(admin, password: 'Best!s0ngz')
 
     admin.add_role(:admin)
 
@@ -101,17 +95,17 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     )
   end
 
-  it "creating an account with OmniAuth auth is audited" do
+  it 'creating an account with OmniAuth auth is audited' do
     mock_google_oauth2_auth_response(
-      uid: "some-fake-uid",
+      uid: 'some-fake-uid',
       info: {
-        first_name: "Srinivasa",
-        last_name: "Ramanujan",
-        email: "srini@math.com",
-        image: fixture_path_for("images/chennai.jpg")
+        first_name: 'Srinivasa',
+        last_name: 'Ramanujan',
+        email: 'srini@math.com',
+        image: fixture_path_for('images/chennai.jpg')
       }
     )
-    log_in_with_omniauth("google_oauth2")
+    log_in_with_omniauth('google_oauth2')
 
     admin = User.last
     admin.add_role(:admin)
@@ -123,12 +117,12 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     expect(audit_table_displayed_descriptions[1]).to eq(
       t(
         "#{@t_prefix}.user_description.created_as_omniauth",
-        provider: "google_oauth2"
+        provider: 'google_oauth2'
       )
     )
   end
 
-  it "deactivating an account is audited" do
+  it 'deactivating an account is audited' do
     other_user = create(:user)
 
     log_in(admin)
@@ -149,7 +143,7 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     )
   end
 
-  it "editing roles is audited" do
+  it 'editing roles is audited' do
     other_user = create(:user)
 
     log_in(admin)
@@ -157,14 +151,14 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     # Add director role to other user
     visit admin_users_path
     click_filter_table_edit_user_roles_for(other_user)
-    page.find("#user_role_director").click # Check box for `director`
+    page.find('#user_role_director').click
     click_modal_submit
     expect_modal_is_closed(async: true)
 
     # Remove director role from other user
     visit admin_users_path
     click_filter_table_edit_user_roles_for(other_user)
-    page.find("#user_role_director").click # Uncheck box for `director`
+    page.find('#user_role_director').click
     click_modal_submit
     expect_modal_is_closed(async: true)
 
@@ -173,16 +167,14 @@ RSpec.feature "Filter and Paginate", type: :feature, js: true do
     expect(audit_table_displayed_descriptions[0]).to eq(
       t(
         "#{@t_prefix}.user_description.updated_to_remove_role",
-        name: other_user.name,
-        role: "director"
+        name: other_user.name, role: 'director'
       )
     )
     expect(audit_table_displayed_descriptions[1]).to eq(
       t(
         "#{@t_prefix}.user_description.updated_to_add_role",
-        name: other_user.name,
-        role: "director"
+        name: other_user.name, role: 'director'
       )
-    )
+    ) # Uncheck box for `director`
   end
 end

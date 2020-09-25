@@ -1,5 +1,4 @@
 class Ability {
-
   constructor(permissions) {
     this.permissions = permissions;
 
@@ -70,7 +69,6 @@ class Ability {
 
     return this.canEdit() && allowSharingCollection;
   }
-
 }
 
 export default Ability;

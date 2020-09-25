@@ -9,7 +9,11 @@ beforeEach(() => {
   jest.useFakeTimers();
 
   notifications = [
-    { id: 'abcde', content: <div className="content">content</div>, type: 'error' },
+    {
+      id: 'abcde',
+      content: <div className='content'>content</div>,
+      type: 'error'
+    },
     { id: 'fghij', content: 'other content', type: 'success' }
   ];
 });
@@ -41,26 +45,42 @@ describe('<ActionNotifications />', () => {
     it('adds a notification to the group', () => {
       const rendered = renderComponent();
 
-      let actionNotifications = rendered.container.querySelectorAll('.notification');
+      let actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(2);
 
-      const newNotification = { id: 'klmno', content: 'new content', type: 'success' };
+      const newNotification = {
+        id: 'klmno',
+        content: 'new content',
+        type: 'success'
+      };
       window.action_notifications.add(newNotification);
 
-      actionNotifications = rendered.container.querySelectorAll('.notification');
+      actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(3);
     });
 
     it('handles notifications added at different times', () => {
       const rendered = renderComponent();
 
-      let actionNotifications = rendered.container.querySelectorAll('.notification');
+      let actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(2);
 
-      const newNotification = { id: 'klmno', content: 'new content', type: 'success' };
+      const newNotification = {
+        id: 'klmno',
+        content: 'new content',
+        type: 'success'
+      };
       window.action_notifications.add(newNotification);
 
-      actionNotifications = rendered.container.querySelectorAll('.notification');
+      actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(3);
     });
   });
@@ -79,7 +99,9 @@ describe('<ActionNotifications />', () => {
       const rendered = renderComponent({ duration: 1500 });
 
       // 0.0 secs
-      let actionNotifications = rendered.container.querySelectorAll('.notification');
+      let actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(2);
 
       /*
@@ -89,30 +111,36 @@ describe('<ActionNotifications />', () => {
 
       // 1.5 secs
       jest.advanceTimersByTime(1500);
-      actionNotifications = rendered.container.querySelectorAll('.notification');
+      actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(2);
 
       // 2.0 secs
       jest.advanceTimersByTime(500);
-      actionNotifications = rendered.container.querySelectorAll('.notification');
+      actionNotifications = rendered.container.querySelectorAll(
+        '.notification'
+      );
       expect(actionNotifications).toHaveLength(0);
     });
   });
 
   describe('isDismissable prop', () => {
     it('sets the isDismissable on the children when present', () => {
-
       /*
        * This test is written with the assumption that isDismissable is
        * TRUE by default. This is so that we can set `{isDismissable: false }`
        * on the parent and verify that the props are being set on the children.`
        */
-      const defaultIsDismissable = ActionNotification.defaultProps.isDismissable;
+      const defaultIsDismissable =
+        ActionNotification.defaultProps.isDismissable;
       expect(defaultIsDismissable).toBeTruthy();
 
       const rendered = renderComponent({ isDismissable: false });
 
-      const closeButton = rendered.container.querySelector('[data-testid="notification-abcde-close-btn"]');
+      const closeButton = rendered.container.querySelector(
+        '[data-testid="notification-abcde-close-btn"]'
+      );
       expect(rendered.container).not.toContainElement(closeButton);
     });
   });

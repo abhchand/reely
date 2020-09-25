@@ -7,7 +7,6 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class ModalPrompt extends React.Component {
-
   static propTypes = {
     // Modal Props
     heading: PropTypes.string.isRequired,
@@ -63,7 +62,7 @@ class ModalPrompt extends React.Component {
       data: null,
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -72,13 +71,13 @@ class ModalPrompt extends React.Component {
       errorText: null
     });
 
-    return axios(config).
-      then((response) => {
+    return axios(config)
+      .then((response) => {
         if (self.props.afterSubmit) {
           self.props.afterSubmit(response);
         }
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         self.setState({
           errorText: parseJsonApiError(error)
         });
@@ -111,15 +110,11 @@ class ModalPrompt extends React.Component {
         closeButtonLabel={this.props.closeButtonLabel}
         submitButtonEnabled
         modalClassName={this.props.modalClassName}>
-
         {this.renderErrorText()}
-        <div className="modal-content__body">
-          {this.props.children}
-        </div>
+        <div className='modal-content__body'>{this.props.children}</div>
       </Modal>
     );
   }
-
 }
 
 export default ModalPrompt;

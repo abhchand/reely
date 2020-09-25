@@ -5,13 +5,13 @@ module GeneralHelpers
 
       begin
         wait_for do
-          notifications = page.all(".action-notifications .notification")
+          notifications = page.all('.action-notifications .notification')
 
           notifications.any? do |notification|
-            classes =  (notification["class"] || "").split(" ")
+            classes = (notification['class'] || '').split(' ')
             class_name = "notification--#{@type}"
 
-            notification.find("span").text == @text &&
+            notification.find('span').text == @text &&
               (@type.nil? || classes.include?(class_name))
           end
         end
@@ -24,9 +24,7 @@ module GeneralHelpers
 
     chain(:of_type) { |type| @type = type.to_sym }
 
-    description do
-      "have action notification"
-    end
+    description { 'have action notification' }
 
     failure_message do
       str = "expected notification with text '#{@text}'"

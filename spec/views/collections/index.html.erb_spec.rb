@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "collections/index.html.erb", type: :view do
+RSpec.describe 'collections/index.html.erb', type: :view do
   let(:user) { create(:user) }
 
   before do
@@ -10,26 +10,27 @@ RSpec.describe "collections/index.html.erb", type: :view do
     assign(:collections, [@collection1, @collection2])
 
     # rubocop:disable Metrics/LineLength
-    stub_template "layouts/_action_notifications.html.erb" => "_stubbed_action_notifications"
-    stub_template("collections/_card.html.erb" => "_stubbed_collections_card")
+    stub_template 'layouts/_action_notifications.html.erb' =>
+                    '_stubbed_action_notifications'
+    stub_template('collections/_card.html.erb' => '_stubbed_collections_card')
     # rubocop:enable Metrics/LineLength
   end
 
-  it "renders the view" do
+  it 'renders the view' do
     render
 
-    expect(rendered).to have_content("_stubbed_action_notifications")
+    expect(rendered).to have_content('_stubbed_action_notifications')
   end
 
-  it "renders the create link" do
+  it 'renders the create link' do
     render
 
-    form = page.find(".collections-index-create")
-    expect(form["method"]).to eq("post")
-    expect(form["action"]).to eq(collections_path)
+    form = page.find('.collections-index-create')
+    expect(form['method']).to eq('post')
+    expect(form['action']).to eq(collections_path)
   end
 
-  it "renders each collection card" do
+  it 'renders each collection card' do
     render
 
     expect(page.text).to match(

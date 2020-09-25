@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Signing Up", type: :feature do
+RSpec.feature 'Signing Up', type: :feature do
   # rubocop:disable Metrics/LineLength
   #
   # Explanation of registration (sign ups) routes behavior
@@ -25,23 +25,20 @@ RSpec.feature "Signing Up", type: :feature do
 
   let(:user_attrs) do
     {
-      first_name: "Asha",
-      last_name: "Bhosle",
-      email: "asha@singers.com",
-      password: "b3sts0ngz#"
+      first_name: 'Asha',
+      last_name: 'Bhosle',
+      email: 'asha@singers.com',
+      password: 'b3sts0ngz#'
     }
   end
 
-  it "user can sign up and receive a confirmation email" do
-    expect do
-      register(user_attrs)
-    end.to(change { User.count }.by(1))
+  it 'user can sign up and receive a confirmation email' do
+    expect { register(user_attrs) }.to(change { User.count }.by(1))
 
     expect(page).to have_current_path(new_user_session_path)
-    expect(page).
-      to have_flash_message(
-        t("devise.registrations.signed_up_but_unconfirmed")
-      ).of_type(:notice)
+    expect(page).to have_flash_message(
+      t('devise.registrations.signed_up_but_unconfirmed')
+    ).of_type(:notice)
 
     user = User.last
     expect(user.confirmed?).to eq(false)
@@ -60,9 +57,9 @@ RSpec.feature "Signing Up", type: :feature do
     expect(email[:args][:opts]).to eq({})
   end
 
-  describe "form validation" do
-    it "displays an auth error when a field is blank" do
-      user_attrs[:email] = ""
+  describe 'form validation' do
+    it 'displays an auth error when a field is blank' do
+      user_attrs[:email] = ''
 
       expect { register(user_attrs) }.to_not(change { User.count })
 
@@ -71,7 +68,7 @@ RSpec.feature "Signing Up", type: :feature do
     end
 
     it "displays an auth error when passwords don't match" do
-      user_attrs[:password_confirmation] = "foo"
+      user_attrs[:password_confirmation] = 'foo'
 
       expect { register(user_attrs) }.to_not(change { User.count })
 
@@ -79,8 +76,8 @@ RSpec.feature "Signing Up", type: :feature do
       expect(mailer_queue.count).to eq(0)
     end
 
-    it "validates the password complexity" do
-      user_attrs[:password] = "sup"
+    it 'validates the password complexity' do
+      user_attrs[:password] = 'sup'
 
       expect { register(user_attrs) }.to_not(change { User.count })
 
@@ -89,17 +86,15 @@ RSpec.feature "Signing Up", type: :feature do
     end
   end
 
-  context "registration email domain whitelisting is enabled" do
+  context 'registration email domain whitelisting is enabled' do
     before do
-      stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+      stub_env('REGISTRATION_EMAIL_DOMAIN_WHITELIST' => 'example.com,x.yz')
     end
 
-    it "allows registration when the domain is in the whitelist" do
-      user_attrs[:email] = "foo@x.yz"
+    it 'allows registration when the domain is in the whitelist' do
+      user_attrs[:email] = 'foo@x.yz'
 
-      expect do
-        register(user_attrs)
-      end.to(change { User.count }.by(1))
+      expect { register(user_attrs) }.to(change { User.count }.by(1))
 
       expect(page).to have_current_path(new_user_session_path)
 
@@ -107,22 +102,22 @@ RSpec.feature "Signing Up", type: :feature do
       expect(user.email).to eq(user_attrs[:email])
     end
 
-    it "disallows registration when the domain is not in the whitelist" do
-      user_attrs[:email] = "fake@bad-domain.gov"
+    it 'disallows registration when the domain is not in the whitelist' do
+      user_attrs[:email] = 'fake@bad-domain.gov'
 
       expect { register(user_attrs) }.to_not(change { User.count })
 
-      expect_auth_error_for(:email, :invalid_domain, domain: "bad-domain.gov")
+      expect_auth_error_for(:email, :invalid_domain, domain: 'bad-domain.gov')
     end
   end
 
-  context "an account with that email already exists" do
+  context 'an account with that email already exists' do
     let(:user) { create(:user) }
 
     before { user_attrs[:email] = user.email }
 
-    shared_examples "displays an auth error" do
-      it "displays an auth error" do
+    shared_examples 'displays an auth error' do
+      it 'displays an auth error' do
         user_attrs[:email] = user.email
 
         before_attrs = user.attributes
@@ -137,9 +132,9 @@ RSpec.feature "Signing Up", type: :feature do
       end
     end
 
-    it_behaves_like "displays an auth error"
+    it_behaves_like 'displays an auth error'
 
-    it "is case and space insensitive" do
+    it 'is case and space insensitive' do
       user_attrs[:email] = " #{user.email.upcase} "
       expect { register(user_attrs) }.to_not(change { User.count })
 
@@ -147,23 +142,23 @@ RSpec.feature "Signing Up", type: :feature do
       expect(mailer_queue.count).to eq(0)
     end
 
-    context "account is unconfirmed" do
+    context 'account is unconfirmed' do
       let(:user) { create(:user, :unconfirmed) }
 
-      it_behaves_like "displays an auth error"
+      it_behaves_like 'displays an auth error'
     end
 
-    context "account has pending email change" do
+    context 'account has pending email change' do
       let(:user) { create(:user, :pending_reconfirmation) }
 
-      it_behaves_like "displays an auth error"
+      it_behaves_like 'displays an auth error'
     end
   end
 
-  context "a user invitation exists" do
+  context 'a user invitation exists' do
     let!(:invitation) { create(:user_invitation, email: user_attrs[:email]) }
 
-    it "marks the user invitation as complete and notifies the inviter" do
+    it 'marks the user invitation as complete and notifies the inviter' do
       expect(invitation.invitee).to be_nil
 
       register(user_attrs)
@@ -177,36 +172,36 @@ RSpec.feature "Signing Up", type: :feature do
     end
   end
 
-  describe "accessing the edit registrations page" do
+  describe 'accessing the edit registrations page' do
     let(:user) { create(:user) }
 
-    it "renders the 404 page" do
-      visit "/users/registrations/edit"
+    it 'renders the 404 page' do
+      visit '/users/registrations/edit'
     end
   end
 
   # "Signing up" with OmniAuth is a bit different because a successful sign
   # up / user creation automatically logs you in immediately after. Therefore
   # the specs below also test some aspects of logging in initially
-  describe "omniauth account" do
+  describe 'omniauth account' do
     let(:auth_hash) do
       {
-        uid: "some-fake-uid",
+        uid: 'some-fake-uid',
         info: {
-          first_name: "Srinivasa",
-          last_name: "Ramanujan",
-          email: "srini@math.com",
-          image: fixture_path_for("images/chennai.jpg")
+          first_name: 'Srinivasa',
+          last_name: 'Ramanujan',
+          email: 'srini@math.com',
+          image: fixture_path_for('images/chennai.jpg')
         }
       }
     end
 
-    it "user can log in and create an account" do
+    it 'user can log in and create an account' do
       mock_google_oauth2_auth_response(auth_hash)
 
-      expect do
-        log_in_with_omniauth("google_oauth2")
-      end.to(change { User.count }.by(1))
+      expect { log_in_with_omniauth('google_oauth2') }.to(
+        change { User.count }.by(1)
+      )
 
       expect(page).to have_current_path(photos_path)
 
@@ -215,7 +210,7 @@ RSpec.feature "Signing Up", type: :feature do
       expect(user.last_name).to eq(auth_hash[:info][:last_name])
       expect(user.email).to eq(auth_hash[:info][:email])
       expect(user.uid).to eq(auth_hash[:uid])
-      expect(user.provider).to eq("google_oauth2")
+      expect(user.provider).to eq('google_oauth2')
       expect(user.avatar.attached?).to eq(true)
     end
 
@@ -227,28 +222,30 @@ RSpec.feature "Signing Up", type: :feature do
       # Failed Login Attempt
       mock_google_oauth2_auth_error(:invalid_credentials)
 
-      expect { log_in_with_omniauth("google_oauth2") }.
-        to_not(change { User.count })
+      expect { log_in_with_omniauth('google_oauth2') }.to_not(
+        change { User.count }
+      )
       expect(page).to have_current_path(new_user_session_path)
 
       # Successful Login Attempt
 
       mock_google_oauth2_auth_response(auth_hash)
-      expect { log_in_with_omniauth("google_oauth2") }.
-        to(change { User.count }.by(1))
+      expect { log_in_with_omniauth('google_oauth2') }.to(
+        change { User.count }.by(1)
+      )
       expect(page).to have_current_path(account_profile_index_path)
     end
 
-    context "a user invitation exists" do
+    context 'a user invitation exists' do
       let!(:invitation) do
         create(:user_invitation, email: auth_hash[:info][:email])
       end
 
-      it "marks the user invitation as complete and notifies the inviter" do
+      it 'marks the user invitation as complete and notifies the inviter' do
         expect(invitation.invitee).to be_nil
 
         mock_google_oauth2_auth_response(auth_hash)
-        log_in_with_omniauth("google_oauth2")
+        log_in_with_omniauth('google_oauth2')
 
         expect(invitation.reload.invitee.email).to eq(auth_hash[:info][:email])
 
@@ -259,33 +256,33 @@ RSpec.feature "Signing Up", type: :feature do
       end
     end
 
-    context "omniauth results in a failure" do
+    context 'omniauth results in a failure' do
       before { mock_google_oauth2_auth_error(:invalid_credentials) }
 
-      it "redirects to the failure path" do
-        expect do
-          log_in_with_omniauth("google_oauth2")
-        end.to_not(change { User.count })
+      it 'redirects to the failure path' do
+        expect { log_in_with_omniauth('google_oauth2') }.to_not(
+          change { User.count }
+        )
 
         expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_flash_message(
-          t("devise.omniauth_callbacks.failure", reason: "Invalid credentials")
+          t('devise.omniauth_callbacks.failure', reason: 'Invalid credentials')
         )
       end
     end
 
-    context "registration email domain whitelisting is enabled" do
+    context 'registration email domain whitelisting is enabled' do
       before do
-        stub_env("REGISTRATION_EMAIL_DOMAIN_WHITELIST" => "example.com,x.yz")
+        stub_env('REGISTRATION_EMAIL_DOMAIN_WHITELIST' => 'example.com,x.yz')
       end
 
-      it "allows registration when the domain is in the whitelist" do
-        auth_hash[:info][:email] = "foo@x.yz"
+      it 'allows registration when the domain is in the whitelist' do
+        auth_hash[:info][:email] = 'foo@x.yz'
         mock_google_oauth2_auth_response(auth_hash)
 
-        expect do
-          log_in_with_omniauth("google_oauth2")
-        end.to(change { User.count }.by(1))
+        expect { log_in_with_omniauth('google_oauth2') }.to(
+          change { User.count }.by(1)
+        )
 
         expect(page).to have_current_path(photos_path)
 
@@ -293,49 +290,49 @@ RSpec.feature "Signing Up", type: :feature do
         expect(user.email).to eq(auth_hash[:info][:email])
       end
 
-      it "disallows registration when the domain is not in the whitelist" do
-        auth_hash[:info][:email] = "fake@bad-domain.gov"
+      it 'disallows registration when the domain is not in the whitelist' do
+        auth_hash[:info][:email] = 'fake@bad-domain.gov'
         mock_google_oauth2_auth_response(auth_hash)
 
-        expect do
-          log_in_with_omniauth("google_oauth2")
-        end.to_not(change { User.count })
+        expect { log_in_with_omniauth('google_oauth2') }.to_not(
+          change { User.count }
+        )
 
         expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_flash_message(
           validation_error_for(
             :email,
             :invalid_domain,
-            domain: "bad-domain.gov"
+            domain: 'bad-domain.gov'
           )
         )
       end
     end
 
-    context "native auth is disabled" do
-      before { stub_env("NATIVE_AUTH_ENABLED" => "false") }
+    context 'native auth is disabled' do
+      before { stub_env('NATIVE_AUTH_ENABLED' => 'false') }
 
-      it "user can still log in and create an account" do
+      it 'user can still log in and create an account' do
         mock_google_oauth2_auth_response(auth_hash)
 
-        expect do
-          log_in_with_omniauth("google_oauth2")
-        end.to(change { User.count }.by(1))
+        expect { log_in_with_omniauth('google_oauth2') }.to(
+          change { User.count }.by(1)
+        )
 
         expect(page).to have_current_path(photos_path)
       end
     end
 
-    describe "tracking log ins" do
+    describe 'tracking log ins' do
       let(:now) { Time.zone.now }
 
-      it "updates tracking infomation" do
+      it 'updates tracking infomation' do
         mock_google_oauth2_auth_response(auth_hash)
 
         travel_to(now) do
-          expect do
-            log_in_with_omniauth("google_oauth2")
-          end.to(change { User.count }.by(1))
+          expect { log_in_with_omniauth('google_oauth2') }.to(
+            change { User.count }.by(1)
+          )
         end
 
         user = User.last
@@ -345,10 +342,10 @@ RSpec.feature "Signing Up", type: :feature do
         # 2. "Last sign in" is updated to match "current sign in" info if blank
 
         expect(user.current_sign_in_at).to eq(now.change(usec: 0))
-        expect(user.current_sign_in_ip.to_s).to eq("127.0.0.1")
+        expect(user.current_sign_in_ip.to_s).to eq('127.0.0.1')
 
         expect(user.last_sign_in_at).to eq(now.change(usec: 0))
-        expect(user.last_sign_in_ip).to eq("127.0.0.1")
+        expect(user.last_sign_in_ip).to eq('127.0.0.1')
       end
     end
   end

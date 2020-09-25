@@ -15,18 +15,17 @@ import User from '../user';
  * https://github.com/beauby/jsonapi-datastore/blob/master/src/jsonapi-datastore.js
  */
 class JsonApiDataStore {
-
   static MODEL_TYPES = {
-    'comment': Comment,
-    'discipline': Discipline,
-    'habit': Habit,
-    'level': Level,
-    'milestone': Milestone,
-    'skill': Skill,
-    'track': Track,
-    'userInvitation': UserInvitation,
-    'user': User
-  }
+    comment: Comment,
+    discipline: Discipline,
+    habit: Habit,
+    level: Level,
+    milestone: Milestone,
+    skill: Skill,
+    track: Track,
+    userInvitation: UserInvitation,
+    user: User
+  };
 
   /**
    * @method constructor
@@ -65,7 +64,9 @@ class JsonApiDataStore {
    * @return {object} The corresponding model if present, and null otherwise.
    */
   find(type, id) {
-    if (!this.graph[type] || !this.graph[type][id]) { return null; }
+    if (!this.graph[type] || !this.graph[type][id]) {
+      return null;
+    }
     return this.graph[type][id];
   }
 
@@ -78,8 +79,12 @@ class JsonApiDataStore {
   findAll(type) {
     const self = this;
 
-    if (!this.graph[type]) { return []; }
-    return Object.keys(self.graph[type]).map((v) => { return self.graph[type][v]; });
+    if (!this.graph[type]) {
+      return [];
+    }
+    return Object.keys(self.graph[type]).map((v) => {
+      return self.graph[type][v];
+    });
   }
 
   /**
@@ -99,10 +104,17 @@ class JsonApiDataStore {
   syncWithMeta(payload) {
     const primary = payload.data,
       syncRecord = this._syncRecord;
-    if (!primary) { return []; }
-    if (payload.included) { payload.included.map(syncRecord); }
+    if (!primary) {
+      return [];
+    }
+    if (payload.included) {
+      payload.included.map(syncRecord);
+    }
     return {
-      data: primary.constructor === Array ? primary.map(syncRecord) : syncRecord(primary),
+      data:
+        primary.constructor === Array
+          ? primary.map(syncRecord)
+          : syncRecord(primary),
       meta: 'meta' in payload ? payload.meta : null
     };
   }
@@ -172,22 +184,27 @@ class JsonApiDataStore {
   _syncRecordRelationships(model, jsonRecord) {
     let relName;
 
-    if (!jsonRecord.relationships) { return; }
+    if (!jsonRecord.relationships) {
+      return;
+    }
 
     for (relName in jsonRecord.relationships) {
       const rel = jsonRecord.relationships[relName];
 
-      if (rel.data === undefined || rel.data === null) { continue; }
+      if (rel.data === undefined || rel.data === null) {
+        continue;
+      }
 
       if (Array.isArray(rel.data)) {
-        model.setRelationship(relName, rel.data.map(this._findOrInitPlaceholder));
-      }
-      else {
+        model.setRelationship(
+          relName,
+          rel.data.map(this._findOrInitPlaceholder)
+        );
+      } else {
         model.setRelationship(relName, this._findOrInitPlaceholder(rel.data));
       }
     }
   }
-
 }
 
 export default JsonApiDataStore;

@@ -4,18 +4,16 @@ module FeatureHelpers
   end
 
   def audit_table_displayed_descriptions
-    page.all("tbody tr .description").map(&:text)
+    page.all('tbody tr .description').map(&:text)
   end
 
   def clear_audit_table_modifier_filter
-    page.find(".admin__filter-warning .clear a").click
+    page.find('.admin__filter-warning .clear a').click
   end
 
   def expect_audit_table_records_to_be(records)
     actual =
-      page.all(".admin-audits__audits-table tbody tr").map do |r|
-        r["data-id"]
-      end
+      page.all('.admin-audits__audits-table tbody tr').map { |r| r['data-id'] }
 
     expect(actual).to eq(records.map(&:id).map(&:to_s))
   end

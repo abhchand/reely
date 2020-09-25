@@ -1,4 +1,11 @@
-import { cleanup, fireEvent, render, wait, waitForElement, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  wait,
+  waitForElement,
+  waitForElementToBeRemoved
+} from '@testing-library/react';
 import ActionNotifications from 'javascript/components/action_notifications';
 import axios from 'axios';
 import React from 'react';
@@ -28,18 +35,21 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-afterEach(() => { jest.clearAllMocks(); });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('<ShareCollectionModal />', () => {
   describe('before initial data fetch', () => {
     it('renders the component with loading state', () => {
-
       /*
        * Use the long form of mocking implementation so we can
        * assert the loading state is enabled
        */
-      axios.get.mockImplementation(async() => {
-        await expect(rendered.container.querySelector('.share-collection__loading-icon')).not.toBeNull();
+      axios.get.mockImplementation(async () => {
+        await expect(
+          rendered.container.querySelector('.share-collection__loading-icon')
+        ).not.toBeNull();
         Promise.resolve({ data: data });
       });
 
@@ -52,7 +62,7 @@ describe('<ShareCollectionModal />', () => {
       axios.get.mockResolvedValue({ data: data });
     });
 
-    it('renders the component when link sharing is enabled', async() => {
+    it('renders the component when link sharing is enabled', async () => {
       data.via_link.enabled = true;
 
       const rendered = renderComponent();
@@ -64,7 +74,9 @@ describe('<ShareCollectionModal />', () => {
 
       const toggleSwitch = toggleContainer.querySelector('.switch');
       const linkSharingContent = rendered.queryByTestId('link-sharing-content');
-      const loadingIcon = rendered.container.querySelector('.share-collection__loading-icon');
+      const loadingIcon = rendered.container.querySelector(
+        '.share-collection__loading-icon'
+      );
 
       expect(toggleSwitch).toHaveClass('on');
       expect(linkSharingContent).not.toBeNull();
@@ -73,7 +85,7 @@ describe('<ShareCollectionModal />', () => {
       expect(loadingIcon).toBeNull();
     });
 
-    it('renders the component when link sharing is disabled', async() => {
+    it('renders the component when link sharing is disabled', async () => {
       data.via_link.enabled = false;
 
       const rendered = renderComponent();
@@ -85,7 +97,9 @@ describe('<ShareCollectionModal />', () => {
 
       const toggleSwitch = toggleContainer.querySelector('.switch');
       const linkSharingContent = rendered.queryByTestId('link-sharing-content');
-      const loadingIcon = rendered.container.querySelector('.share-collection__loading-icon');
+      const loadingIcon = rendered.container.querySelector(
+        '.share-collection__loading-icon'
+      );
 
       expect(toggleSwitch).not.toHaveClass('on');
       expect(linkSharingContent).toBeNull();
@@ -100,7 +114,7 @@ describe('<ShareCollectionModal />', () => {
       axios.get.mockRejectedValue({ error: 'some error' });
     });
 
-    it('displays the <ModalError /> component', async() => {
+    it('displays the <ModalError /> component', async () => {
       const rendered = renderComponent();
 
       const modalError = await waitForElement(
@@ -112,8 +126,7 @@ describe('<ShareCollectionModal />', () => {
     });
   });
 
-
-  it('user can toggle link sharing', async() => {
+  it('user can toggle link sharing', async () => {
     // Initial fetch - start off with link sharing DISABLED
     data.via_link.enabled = false;
     axios.get.mockResolvedValue({ data: data });
@@ -178,22 +191,29 @@ describe('<ShareCollectionModal />', () => {
   describe('copying link', () => {
     let rendered;
 
-    beforeEach(async() => {
+    beforeEach(async () => {
       // Mock document.* calls
-      const queryFunc = jest.fn(() => { return { focus: jest.fn(), select: jest.fn() }; });
+      const queryFunc = jest.fn(() => {
+        return { focus: jest.fn(), select: jest.fn() };
+      });
       const execFunc = jest.fn();
-      Object.defineProperty(document, 'querySelector', { value: queryFunc, configurable: true });
-      Object.defineProperty(document, 'execCommand', { value: execFunc, configurable: true });
+      Object.defineProperty(document, 'querySelector', {
+        value: queryFunc,
+        configurable: true
+      });
+      Object.defineProperty(document, 'execCommand', {
+        value: execFunc,
+        configurable: true
+      });
 
       data.via_link.enabled = true;
       axios.get.mockResolvedValue({ data: data });
 
       rendered = renderComponent();
 
-      await waitForElement(
-        () => rendered.getByTestId('link-sharing-toggle'),
-        { container: rendered.container }
-      );
+      await waitForElement(() => rendered.getByTestId('link-sharing-toggle'), {
+        container: rendered.container
+      });
     });
 
     afterEach(() => {
@@ -206,27 +226,30 @@ describe('<ShareCollectionModal />', () => {
 
       fireEvent.click(button);
 
-      expect(actionNotifications.container.querySelector('.notification--success')).not.toBeNull();
-      expect(actionNotifications.container).toHaveTextContent(I18n.t(`${i18nPrefix}.copy_link.success`));
+      expect(
+        actionNotifications.container.querySelector('.notification--success')
+      ).not.toBeNull();
+      expect(actionNotifications.container).toHaveTextContent(
+        I18n.t(`${i18nPrefix}.copy_link.success`)
+      );
     });
   });
 
   describe('user can renew link', () => {
     let rendered;
 
-    beforeEach(async() => {
+    beforeEach(async () => {
       data.via_link.enabled = true;
       axios.get.mockResolvedValue({ data: data });
 
       rendered = renderComponent();
 
-      await waitForElement(
-        () => rendered.getByTestId('link-sharing-toggle'),
-        { container: rendered.container }
-      );
+      await waitForElement(() => rendered.getByTestId('link-sharing-toggle'), {
+        container: rendered.container
+      });
     });
 
-    it('user can renew link', async() => {
+    it('user can renew link', async () => {
       let input = rendered.getByTestId('url-input');
       expect(input).toHaveAttribute('value', data.via_link.url);
 
@@ -237,7 +260,9 @@ describe('<ShareCollectionModal />', () => {
       fireEvent.click(button);
 
       input = rendered.getByTestId('url-input');
-      await wait(() => expect(input).toHaveAttribute('value', data.via_link.url));
+      await wait(() =>
+        expect(input).toHaveAttribute('value', data.via_link.url)
+      );
     });
   });
 });

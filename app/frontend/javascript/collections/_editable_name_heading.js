@@ -2,13 +2,21 @@ $(document).ready(() => {
   let origCollectionName;
   let newCollectionName;
 
-  $('.collections-editable-name-heading').on('focus', '.collections-editable-name-heading__textarea', (e) => {
-    origCollectionName = e.target.value;
-  });
+  $('.collections-editable-name-heading').on(
+    'focus',
+    '.collections-editable-name-heading__textarea',
+    (e) => {
+      origCollectionName = e.target.value;
+    }
+  );
 
-  $('.collections-editable-name-heading').on('blur', '.collections-editable-name-heading__textarea', (e) => {
-    updateCollectionName();
-  });
+  $('.collections-editable-name-heading').on(
+    'blur',
+    '.collections-editable-name-heading__textarea',
+    (e) => {
+      updateCollectionName();
+    }
+  );
 
   $('.collections-editable-name-heading__textarea').keydown((e) => {
     // Enter Key
@@ -30,7 +38,7 @@ $(document).ready(() => {
     newCollectionName = textArea.val();
 
     // Blank string
-    if (!newCollectionName || (/^\s*$/).test(newCollectionName)) {
+    if (!newCollectionName || /^\s*$/.test(newCollectionName)) {
       textArea.val(origCollectionName);
       return;
     }
@@ -60,12 +68,12 @@ $(document).ready(() => {
       data: JSON.stringify({ collection: { name: newCollectionName } }),
       dataType: 'json',
       contentType: 'application/json'
-    }).
-      fail(() => {
+    })
+      .fail(() => {
         // Reset textarea to original value
         textArea.val(origCollectionName);
-      }).
-      done(() => {
+      })
+      .done(() => {
         // Update tracked name
         origCollectionName = newCollectionName;
 

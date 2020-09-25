@@ -5,6 +5,4 @@ const duplicateArray = (arr) => {
   return newArr;
 };
 
-export {
-  duplicateArray
-};
+export { duplicateArray };

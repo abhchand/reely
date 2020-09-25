@@ -7,7 +7,6 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class ModalForm extends React.Component {
-
   static propTypes = {
     // Modal Props
     heading: PropTypes.string.isRequired,
@@ -52,7 +51,9 @@ class ModalForm extends React.Component {
   onSubmit() {
     const self = this;
 
-    const form = document.querySelector('.modal-with-form__form-container form');
+    const form = document.querySelector(
+      '.modal-with-form__form-container form'
+    );
 
     const config = {
       method: this.props.httpMethod,
@@ -60,7 +61,7 @@ class ModalForm extends React.Component {
       data: new FormData(form),
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
@@ -69,13 +70,13 @@ class ModalForm extends React.Component {
       errorText: null
     });
 
-    return axios(config).
-      then((response) => {
+    return axios(config)
+      .then((response) => {
         if (self.props.afterSubmit) {
           self.props.afterSubmit(response);
         }
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         self.setState({
           errorText: parseJsonApiError(error)
         });
@@ -108,15 +109,13 @@ class ModalForm extends React.Component {
         closeButtonLabel={this.props.closeButtonLabel}
         submitButtonEnabled={this.props.submitButtonEnabled}
         modalClassName={this.props.modalClassName}>
-
         {this.renderErrorText()}
-        <div className="modal-with-form__form-container">
+        <div className='modal-with-form__form-container'>
           {this.props.children}
         </div>
       </Modal>
     );
   }
-
 }
 
 export default ModalForm;

@@ -47,7 +47,7 @@ class RawPhotosController < ActiveStorage::DiskController
 
   def serving_files_from_disk?
     ActiveStorage::Blob.service.class.name ==
-      "ActiveStorage::Service::DiskService"
+      'ActiveStorage::Service::DiskService'
   end
 
   def ensure_blob_and_file_present
@@ -55,10 +55,11 @@ class RawPhotosController < ActiveStorage::DiskController
   end
 
   def blob_or_variant
-    @blob_or_variant ||= begin
-      direct_access_key = ActiveRecord::Base.connection.quote(params[:id])
-      blob_or_variant = ActiveStorage::Blob.find_by_sql(
-        <<-SQL
+    @blob_or_variant ||=
+      begin
+        direct_access_key = ActiveRecord::Base.connection.quote(params[:id])
+        blob_or_variant =
+          ActiveStorage::Blob.find_by_sql(<<-SQL)
         SELECT
           asb.key,
           asb.filename,
@@ -68,16 +69,17 @@ class RawPhotosController < ActiveStorage::DiskController
           ON asa.blob_id = asb.id
         JOIN photos p
           ON asa.record_type = 'Photo' and asa.record_id = p.id
-        WHERE p.direct_access_key = #{direct_access_key}
+        WHERE p.direct_access_key = #{
+            direct_access_key
+          }
         LIMIT 1
-        SQL
-      ).first
+        SQL.first
 
-      return if blob_or_variant.nil?
-      return blob_or_variant if params[:size].blank? || !transformations
+        return if blob_or_variant.nil?
+        return blob_or_variant if params[:size].blank? || !transformations
 
-      blob_or_variant.variant(transformations)
-    end
+        blob_or_variant.variant(transformations)
+      end
   end
 
   def transformations
@@ -103,7 +105,7 @@ class RawPhotosController < ActiveStorage::DiskController
 
   def disposition
     extension = blob_or_variant.send(:filename).extension_without_delimiter
-    filename = [params[:id], extension].join(".")
+    filename = [params[:id], extension].join('.')
 
     "inline; filename=\"#{filename}\"; filename*=UTF-8''#{filename}"
   end

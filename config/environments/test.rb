@@ -19,11 +19,11 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
@@ -42,7 +42,7 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = config.x.default_url_options
-  config.action_mailer.default_options = { from: ENV.fetch("EMAIL_FROM") }
+  config.action_mailer.default_options = { from: ENV.fetch('EMAIL_FROM') }
   config.action_mailer.perform_caching = false
 
   # Randomize the order test cases are executed.
@@ -55,7 +55,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Custom Configs
-  config.x.default_import_dir = Pathname.new("/tmp/reely/test/import")
-  config.x.default_upload_dir = Pathname.new("/tmp/reely/test/upload")
-  config.x.default_download_dir = Pathname.new("/tmp/reely/test/download")
+  config.x.default_import_dir = Pathname.new('/tmp/reely/test/import')
+  config.x.default_upload_dir = Pathname.new('/tmp/reely/test/upload')
+  config.x.default_download_dir = Pathname.new('/tmp/reely/test/download')
 end

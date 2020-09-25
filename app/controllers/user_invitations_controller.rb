@@ -21,31 +21,25 @@ class UserInvitationsController < ApplicationController
 
     create_service.log.tap { |msg| Rails.logger.debug(msg) if msg }
 
-    respond_to do |format|
-      format.json { render json: json, status: status }
-    end
+    respond_to { |format| format.json { render json: json, status: status } }
   end
 
   def destroy
     user_invitation.destroy!
 
-    respond_to do |format|
-      format.json { render json: {}, status: 200 }
-    end
+    respond_to { |format| format.json { render json: {}, status: 200 } }
   end
 
   private
 
   def create_params
-    params.require(:user_invitation).permit(
-      :email
-    )
+    params.require(:user_invitation).permit(:email)
   end
 
   def create_service
-    @create_service ||= UserInvitations::CreateService.call(
-      params: create_params,
-      current_user: current_user
-    )
+    @create_service ||=
+      UserInvitations::CreateService.call(
+        params: create_params, current_user: current_user
+      )
   end
 end

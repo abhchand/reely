@@ -8,7 +8,6 @@ import UploadList from './upload_list';
 import Validator from './validator.js';
 
 class FileUploader extends React.Component {
-
   static propTypes = {
     url: PropTypes.string.isRequired,
     modelName: PropTypes.string.isRequired,
@@ -41,7 +40,10 @@ class FileUploader extends React.Component {
 
     this.i18nPrefix = 'components.file_uploader';
     this.allowMultipleFiles = props.maxFileCount > 1;
-    this.validator = new Validator(this.props.maxFileCount, this.props.maxFileSize);
+    this.validator = new Validator(
+      this.props.maxFileCount,
+      this.props.maxFileSize
+    );
     this.uploadConcurrency = 5;
 
     this.state = {
@@ -73,8 +75,7 @@ class FileUploader extends React.Component {
 
     if (error) {
       this.setState({ error: error });
-    }
-    else {
+    } else {
       this.setState({ files: files, isUploading: true, error: null });
       files.slice(0, this.uploadConcurrency).forEach(this.uploadFile);
     }
@@ -87,9 +88,10 @@ class FileUploader extends React.Component {
     // eslint-disable-next-line no-magic-numbers
     this.updateProgress(file, 10);
 
-    file.upload(url).
-      then((response) => self.onUploadCompletion(file, response)).
-      catch((error) => self.onUploadFailure(file, error));
+    file
+      .upload(url)
+      .then((response) => self.onUploadCompletion(file, response))
+      .catch((error) => self.onUploadFailure(file, error));
   }
 
   uploadNextQueuedFile() {
@@ -154,7 +156,9 @@ class FileUploader extends React.Component {
   }
 
   renderFileInput() {
-    const name = `${this.props.modelName}[${this.props.attrName}]${this.allowMultipleFiles ? '[]' : ''}`;
+    const name = `${this.props.modelName}[${this.props.attrName}]${
+      this.allowMultipleFiles ? '[]' : ''
+    }`;
     const id = `${this.props.modelName}_${this.props.attrName}`;
     let classModifier;
 
@@ -163,16 +167,19 @@ class FileUploader extends React.Component {
     }
 
     return (
-      <label htmlFor={id} className={`file-uploader__select-files-input-label ${classModifier} cta cta-white`}>
+      <label
+        htmlFor={id}
+        className={`file-uploader__select-files-input-label ${classModifier} cta cta-white`}>
         <input
           id={id}
-          type="file"
+          type='file'
           disabled={this.state.isUploading}
-          className="file-uploader__select-files-input"
+          className='file-uploader__select-files-input'
           name={name}
           multiple={this.allowMultipleFiles}
-          accept="image/*"
-          onChange={this.uploadFiles} />
+          accept='image/*'
+          onChange={this.uploadFiles}
+        />
         {this.props.uploadButtonLabel}
       </label>
     );
@@ -180,14 +187,13 @@ class FileUploader extends React.Component {
 
   render() {
     return (
-      <div className="file-uploader">
+      <div className='file-uploader'>
         <form
-          className="file-uploader__form"
-          encType="multipart/form-data"
+          className='file-uploader__form'
+          encType='multipart/form-data'
           action={this.props.url}
-          acceptCharset="UTF-8"
-          method="POST">
-
+          acceptCharset='UTF-8'
+          method='POST'>
           {this.renderFileInput()}
           <FileError error={this.state.error} />
         </form>
@@ -197,7 +203,6 @@ class FileUploader extends React.Component {
       </div>
     );
   }
-
 }
 
 export default FileUploader;

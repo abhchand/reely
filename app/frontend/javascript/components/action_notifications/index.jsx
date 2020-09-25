@@ -37,7 +37,6 @@ import React from 'react';
  */
 
 class ActionNotifications extends React.Component {
-
   static propTypes = {
     notifications: PropTypes.array.isRequired,
     duration: PropTypes.number,
@@ -65,7 +64,7 @@ class ActionNotifications extends React.Component {
   }
 
   remove(notification) {
-    this.setState(function(prevState) {
+    this.setState(function (prevState) {
       const notifications = prevState.notifications;
 
       const index = this.state.notifications.indexOf(notification);
@@ -86,12 +85,13 @@ class ActionNotifications extends React.Component {
           duration={self.props.duration}
           isDismissable={self.props.isDismissable}
           closeButtonLabel={self.props.closeButtonLabel}
-          onClose={() => self.remove(notification)} />
+          onClose={() => self.remove(notification)}
+        />
       );
     });
 
     return (
-      <TransitionGroup className="action-notifications" appear={false}>
+      <TransitionGroup className='action-notifications' appear={false}>
         {notifications}
       </TransitionGroup>
     );

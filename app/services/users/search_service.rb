@@ -16,13 +16,14 @@ class Users::SearchService
     return users if @search.blank?
 
     search_tokens.each do |token|
-      users = users.where(
-        <<-SQL
+      users =
+        users.where(<<-SQL)
         lower(first_name) LIKE '%#{token}%'
-        OR lower(last_name) LIKE '%#{token}%'
+        OR lower(last_name) LIKE '%#{
+          token
+        }%'
         OR lower(email) LIKE '%#{token}%'
         SQL
-      )
     end
 
     users
@@ -32,10 +33,8 @@ class Users::SearchService
 
   def search_tokens
     @search_tokens ||=
-      @search.
-      split(" ").
-      compact.
-      map(&:downcase).
-      map { |t| User.sanitize_sql_like(t) }
+      @search.split(' ').compact.map(&:downcase).map do |t|
+        User.sanitize_sql_like(t)
+      end
   end
 end

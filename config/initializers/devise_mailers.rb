@@ -28,7 +28,11 @@ module Devise
 
       def template_paths
         template_path = _prefixes.dup
-        template_path.unshift "mailers/devise_mailer/#{@devise_mapping.scoped_path}" if self.class.scoped_views?
+        if self.class.scoped_views?
+          template_path.unshift "mailers/devise_mailer/#{
+                                  @devise_mapping.scoped_path
+                                }"
+        end
         template_path
       end
 

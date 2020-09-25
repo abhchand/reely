@@ -29,8 +29,6 @@ class UsersController < ApplicationController
     # Soft deletion
     user.update!(deactivated_at: Time.zone.now) unless user.deactivated?
 
-    respond_to do |format|
-      format.json { render json: {}, status: 200 }
-    end
+    respond_to { |format| format.json { render json: {}, status: 200 } }
   end
 end

@@ -1,6 +1,6 @@
 module GeneralHelpers
   def stub_env(envs)
-    stub_const("ENV", ENV.to_hash.merge(envs))
+    stub_const('ENV', ENV.to_hash.merge(envs))
   end
 
   def reset_dir!(dir)

@@ -2,13 +2,13 @@ FactoryBot.define do
   factory :user do
     transient do
       with_avatar { false }
-      avatar_name { "avatar.png" }
+      avatar_name { 'avatar.png' }
       add_admin_role { false }
     end
 
     sequence(:email) { |n| "alonzo-#{n}@lapd.gov" }
-    first_name { "Alonzo" }
-    last_name { "Harris" }
+    first_name { 'Alonzo' }
+    last_name { 'Harris' }
     password { FeatureHelpers::DEFAULT_PASSWORD }
     confirmed_at { Time.zone.now }
     confirmation_token { Devise.friendly_token }
@@ -24,7 +24,7 @@ FactoryBot.define do
       confirmed_at { nil }
       confirmation_token { nil }
       provider { User::OMNIAUTH_PROVIDERS.first }
-      sequence(:uid) { |n| n.to_s.rjust(8, "0") }
+      sequence(:uid) { |n| n.to_s.rjust(8, '0') }
     end
 
     trait(:unconfirmed) do
@@ -34,16 +34,12 @@ FactoryBot.define do
     end
 
     trait(:pending_reconfirmation) do
-      unconfirmed_email { "unconfirmed@xyz.com" }
+      unconfirmed_email { 'unconfirmed@xyz.com' }
     end
 
-    trait(:deactivated) do
-      deactivated_at { Time.zone.now }
-    end
+    trait(:deactivated) { deactivated_at { Time.zone.now } }
 
-    trait(:admin) do
-      add_admin_role { true }
-    end
+    trait(:admin) { add_admin_role { true } }
 
     after(:create) do |user, e|
       if e.with_avatar
@@ -51,9 +47,7 @@ FactoryBot.define do
         user.avatar.attach(io: file, filename: e.avatar_name)
       end
 
-      if e.add_admin_role
-        user.add_role(:admin, modifier: user)
-      end
+      user.add_role(:admin, modifier: user) if e.add_admin_role
     end
   end
 end

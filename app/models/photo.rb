@@ -3,11 +3,10 @@ class Photo < ApplicationRecord
   include HasDirectAccessKey
 
   SOURCE_FILE_SIZES = {
-    tile: { resize: "250x250" },
-    screen: { resize: "1200x1200" }
+    tile: { resize: '250x250' }, screen: { resize: '1200x1200' }
   }.freeze
 
-  belongs_to :owner, class_name: "User", inverse_of: :photos, validate: false
+  belongs_to :owner, class_name: 'User', inverse_of: :photos, validate: false
 
   has_many :photo_collections, inverse_of: :photo, dependent: :destroy
   has_many :collections, through: :photo_collections
@@ -38,15 +37,15 @@ class Photo < ApplicationRecord
     # it does not get transformed in any way. When working with this date we
     # will just ignore the time zone.
 
-    val = val.strftime("%Y-%m-%d %H:%M:%S") if val.respond_to?(:strftime)
-    val = (val || "").match(/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/).try(:[], 0)
+    val = val.strftime('%Y-%m-%d %H:%M:%S') if val.respond_to?(:strftime)
+    val = (val || '').match(/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/).try(:[], 0)
 
     if val.blank?
       self[:taken_at] = nil
       return
     end
 
-    self[:taken_at] = Time.find_zone("UTC").parse(val)
+    self[:taken_at] = Time.find_zone('UTC').parse(val)
   end
 
   private
@@ -55,7 +54,7 @@ class Photo < ApplicationRecord
     return if latitude.present? && longitude.present?
     return if latitude.blank? && longitude.blank?
 
-    errors.add(:base, "latitude and longitude must both be present or blank")
+    errors.add(:base, 'latitude and longitude must both be present or blank')
   end
 
   def default_taken_at
@@ -70,16 +69,15 @@ class Photo < ApplicationRecord
     # exiftool gem returns a `Time` object. If not, a `String` object.
     #
     date =
-      exif_data["date_time_original"] ||
-      exif_data["create_date"] ||
-      exif_data["gps_date_time"] ||
-      ActiveSupport::TimeZone["UTC"].now.strftime("%Y:%m:%d %H:%M:%S")
+      exif_data['date_time_original'] || exif_data['create_date'] ||
+        exif_data['gps_date_time'] ||
+        ActiveSupport::TimeZone['UTC'].now.strftime('%Y:%m:%d %H:%M:%S')
 
     if date.is_a?(String)
       # Convert `YYYY:MM:DD HH:MM:SS` -> `YYYY-MM-DD HH:MM:SS`
-      date = date.split(" ")
-      date.first.tr!(":", "-")
-      date = date.join(" ")
+      date = date.split(' ')
+      date.first.tr!(':', '-')
+      date = date.join(' ')
     end
 
     self.taken_at = date
@@ -94,8 +92,8 @@ class Photo < ApplicationRecord
     # Assume whatever it returns is correct. EXIF writers may not do much
     # validation when writing the data (e.g. you could have -99.00 N latitude).
     #
-    lat = exif_data["gps_latitude"]
-    long = exif_data["gps_longitude"]
+    lat = exif_data['gps_latitude']
+    long = exif_data['gps_longitude']
 
     return if lat.blank? || long.blank?
 

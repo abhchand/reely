@@ -1,19 +1,18 @@
-require "securerandom"
-require "open-uri"
-require "fileutils"
+require 'securerandom'
+require 'open-uri'
+require 'fileutils'
 
-SEEDS_DIR = Rails.root.join("tmp", "seeds")
+SEEDS_DIR = Rails.root.join('tmp', 'seeds')
 FileUtils.mkdir_p(SEEDS_DIR)
 
-SEED_DATA = YAML.safe_load(
-  File.read(Rails.root.join("db", "seeds", "data.yml"))
-)
+SEED_DATA =
+  YAML.safe_load(File.read(Rails.root.join('db', 'seeds', 'data.yml')))
 
 #
 # Human Users
 #
 
-SEED_DATA["users"].each do |user_attrs|
+SEED_DATA['users'].each do |user_attrs|
   puts "Creating human user: #{user_attrs}"
   user = FactoryBot.create(:user, user_attrs)
   user.add_role(:admin)
@@ -24,7 +23,7 @@ end
 #
 
 (1..10).each do |i|
-  puts ""
+  puts ''
   log_tag = "[User##{i}]"
 
   mname = i.even? ? :female_first_name : :male_first_name
@@ -34,9 +33,9 @@ end
   attrs = {
     first_name: fname,
     last_name: lname,
-    email: Faker::Internet.email(name: [fname, lname].join(" ")),
+    email: Faker::Internet.email(name: [fname, lname].join(' ')),
     # Faker's password generator doesn't always meet our password rules :/
-    password: "EoC9ShWd1hW!q4vBgFw"
+    password: 'EoC9ShWd1hW!q4vBgFw'
   }
 
   puts "#{log_tag} Creating robot user: #{attrs}"
@@ -47,8 +46,8 @@ end
   #
 
   slug = SecureRandom.hex
-  url = Faker::Avatar.image(slug: slug, size: "75x75", format: "png")
-  filename = [slug, "png"].join(".")
+  url = Faker::Avatar.image(slug: slug, size: '75x75', format: 'png')
+  filename = [slug, 'png'].join('.')
   local_filename = SEEDS_DIR.join(filename)
 
   begin
@@ -57,7 +56,7 @@ end
     puts "#{log_tag} Downloading avatar #{url} -> #{local_filename}"
     # rubocop:disable Security/Open
     open(url) do |image|
-      File.open(local_filename, "wb") { |file| file.write(image.read) }
+      File.open(local_filename, 'wb') { |file| file.write(image.read) }
     end
     # rubocop:enable Security/Open
   rescue OpenURI::HTTPError
@@ -75,16 +74,14 @@ end
 
 # Import each photo under the test path
 user = User.first
-photos = Dir[Rails.root.join("public/images/test/**.jpg")]
+photos = Dir[Rails.root.join('public/images/test/**.jpg')]
 
 photos.each_with_index do |photo, i|
   puts "Creating photo #{i + 1} of #{photos.count}"
 
   FactoryBot.create(
     :photo,
-    owner: user,
-    source: File.new(photo),
-    taken_at: (10 * i).days.from_now
+    owner: user, source: File.new(photo), taken_at: (10 * i).days.from_now
   )
 end
 

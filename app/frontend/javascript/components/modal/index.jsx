@@ -1,12 +1,14 @@
 /* eslint-disable react/no-danger */
-import { registerAsyncProcess, unregisterAsyncProcess } from 'utils/async-registration';
+import {
+  registerAsyncProcess,
+  unregisterAsyncProcess
+} from 'utils/async-registration';
 
 import { closeModal } from './close';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 class Modal extends React.Component {
-
   static propTypes = {
     heading: PropTypes.string.isRequired,
     subheading: PropTypes.string,
@@ -25,7 +27,7 @@ class Modal extends React.Component {
     closeButtonLabel: I18n.t('components.modal.buttons.close'),
     submitButtonEnabled: true,
     submitButtonLabel: I18n.t('components.modal.buttons.submit')
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -45,27 +47,28 @@ class Modal extends React.Component {
 
     return (
       <input
-        type="button"
-        className="modal-content__button modal-content__button--submit cta cta-purple"
+        type='button'
+        className='modal-content__button modal-content__button--submit cta cta-purple'
         value={this.props.submitButtonLabel}
         disabled={!this.props.submitButtonEnabled}
-        onClick={this.submit} />
+        onClick={this.submit}
+      />
     );
   }
 
   closeButton() {
     return (
       <input
-        type="button"
-        className="modal-content__button modal-content__button--close cta cta-white"
+        type='button'
+        className='modal-content__button modal-content__button--close cta cta-white'
         value={this.props.closeButtonLabel}
-        onClick={this.close} />
+        onClick={this.close}
+      />
     );
   }
 
   // eslint-disable-next-line padded-blocks
   submit() {
-
     registerAsyncProcess('modal-submit');
 
     /*
@@ -89,16 +92,20 @@ class Modal extends React.Component {
      *              return Promise.reject(error);
      *            });
      */
-    const result = this.props.onSubmit ? this.props.onSubmit() : Promise.resolve();
+    const result = this.props.onSubmit
+      ? this.props.onSubmit()
+      : Promise.resolve();
 
     const self = this;
 
     // Automatically close the modal and unregister the async process
     // after running `onSubmit` (regardless of success or error)
-    result.
-      then(() => { self.close(); }).
-      then(() => unregisterAsyncProcess('modal-submit')).
-      catch(() => unregisterAsyncProcess('modal-submit'));
+    result
+      .then(() => {
+        self.close();
+      })
+      .then(() => unregisterAsyncProcess('modal-submit'))
+      .catch(() => unregisterAsyncProcess('modal-submit'));
   }
 
   close() {
@@ -126,15 +133,16 @@ class Modal extends React.Component {
   render() {
     return (
       <div className={`modal ${this.props.modalClassName}`}>
-        <div className="modal-content">
-          <h1 className="modal-content__heading" dangerouslySetInnerHTML={{ __html: this.props.heading }} />
-          <h3 className="modal-content__subheading">{this.props.subheading}</h3>
+        <div className='modal-content'>
+          <h1
+            className='modal-content__heading'
+            dangerouslySetInnerHTML={{ __html: this.props.heading }}
+          />
+          <h3 className='modal-content__subheading'>{this.props.subheading}</h3>
 
-          <div className="modal-content__body">
-            {this.props.children}
-          </div>
+          <div className='modal-content__body'>{this.props.children}</div>
 
-          <div className="modal-content__button-container">
+          <div className='modal-content__button-container'>
             {this.submitButton()}
             {this.closeButton()}
           </div>
@@ -142,7 +150,6 @@ class Modal extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Modal;

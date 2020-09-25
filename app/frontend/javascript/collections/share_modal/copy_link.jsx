@@ -2,7 +2,6 @@ import { IconCopy } from 'components/icons';
 import React from 'react';
 
 class CopyLink extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -19,8 +18,7 @@ class CopyLink extends React.Component {
     try {
       document.execCommand('copy');
 
-      const id = `id${Math.random().toString(16).
-        slice(2)}`;
+      const id = `id${Math.random().toString(16).slice(2)}`;
       const content = I18n.t(`${this.i18nPrefix}.success`);
       const notification = { id: id, content: content, type: 'success' };
 
@@ -29,8 +27,7 @@ class CopyLink extends React.Component {
        * component separately
        */
       window.action_notifications.add(notification);
-    }
-    catch (err) {
+    } catch (err) {
       // eslint-disable-next-line no-empty
     }
   }
@@ -38,15 +35,18 @@ class CopyLink extends React.Component {
   render() {
     return (
       <button
-        data-testid="copy-link"
-        type="button"
-        className="share-collection__link-sharing-copy"
+        data-testid='copy-link'
+        type='button'
+        className='share-collection__link-sharing-copy'
         onClick={this.onClick}>
-        <IconCopy size="22px" fillColor="#000000" title={I18n.t(`${this.i18nPrefix}.alt`)} />
+        <IconCopy
+          size='22px'
+          fillColor='#000000'
+          title={I18n.t(`${this.i18nPrefix}.alt`)}
+        />
       </button>
     );
   }
-
 }
 
 export default CopyLink;

@@ -1,6 +1,6 @@
-require File.expand_path("boot", __dir__)
+require File.expand_path('boot', __dir__)
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -33,14 +33,15 @@ module Reely
 
     # Tell the Zeitwerk autoloader to ignore the entire app/frontend folder.
     # Ain't no ruby files there
-    Rails.autoloaders.main.ignore(Rails.root.join("app/frontend"))
+    Rails.autoloaders.main.ignore(Rails.root.join('app/frontend'))
 
     # Each controller/view pair should only include it's own helpers
     config.include_all_helpers = false
 
     config.generators do |g|
       # Don't generate certain files during `rails generate` calls
-      g.javascripts = false
+      g.javascripts =
+        false
       g.stylesheets = false
       g.helper = false
       g.factory_bot = false
@@ -51,19 +52,19 @@ module Reely
     # Custom Configs
     config.x.email_format = /\A.*@.+\..+\z/
     config.x.allowed_photo_types = %w[image/bmp image/jpeg image/png image/tiff]
-    config.x.default_import_dir = Rails.root.join("import")
-    config.x.default_download_dir = Rails.root.join("tmp", "downloads")
+    config.x.default_import_dir = Rails.root.join('import')
+    config.x.default_download_dir = Rails.root.join('tmp', 'downloads')
     config.x.default_url_options =
       case
       when Rails.env.test?
-        { host: "localhost", port: "3000" }
+        { host: 'localhost', port: '3000' }
       when Rails.env.development?
         {
-          host: ENV.fetch("APP_HOST", "localhost"),
-          port: ENV.fetch("APP_PORT", "3000")
+          host: ENV.fetch('APP_HOST', 'localhost'),
+          port: ENV.fetch('APP_PORT', '3000')
         }
       when Rails.env.production?
-        { host: ENV.fetch("APP_HOST") }
+        { host: ENV.fetch('APP_HOST') }
       end
 
     Rails.application.routes.default_url_options.merge!(

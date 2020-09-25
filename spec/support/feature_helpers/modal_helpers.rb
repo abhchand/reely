@@ -1,33 +1,29 @@
 module FeatureHelpers
   def modal_error
-    within(".modal") { page.find(".modal--error").text }
+    within('.modal') { page.find('.modal--error').text }
   end
 
   def expect_modal_is_open(async: false)
     if async
-      wait_for(4) { !page.all(".modal").count.zero? }
+      wait_for(4) { !page.all('.modal').count.zero? }
     else
-      expect(page).to have_selector(".modal")
+      expect(page).to have_selector('.modal')
     end
   end
 
   def expect_modal_is_closed(async: false)
     if async
-      wait_for(4) { page.all(".modal").count.zero? }
+      wait_for(4) { page.all('.modal').count.zero? }
     else
-      expect(page).to_not have_selector(".modal")
+      expect(page).to_not have_selector('.modal')
     end
   end
 
   def click_modal_submit
-    within(".modal") do
-      page.find(".modal-content__button--submit").click
-    end
+    within('.modal') { page.find('.modal-content__button--submit').click }
   end
 
   def click_modal_close
-    within(".modal") do
-      page.find(".modal-content__button--close").click
-    end
+    within('.modal') { page.find('.modal-content__button--close').click }
   end
 end

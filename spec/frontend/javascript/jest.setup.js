@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom/extend-expect";
+import '@testing-library/jest-dom/extend-expect';
 
 //
 // I18n
@@ -13,16 +13,24 @@ import "@testing-library/jest-dom/extend-expect";
 // defined manually. We do this by reading the `config/locales/en.yml`
 // file and building the `I18n.translations` object.
 
-global.I18n = require("i18n-js");
+global.I18n = require('i18n-js');
 const yaml = require('js-yaml');
 
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
 
-const configPath = path.join(__dirname, "..", "..", "..", "config", "locales", "en.yml");
+const configPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  'config',
+  'locales',
+  'en.yml'
+);
 
 try {
-  const translations = yaml.safeLoad(fs.readFileSync(configPath, "utf8"));
+  const translations = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
   global.I18n.translations = {};
   global.I18n.translations.en = translations.en;
 } catch (e) {

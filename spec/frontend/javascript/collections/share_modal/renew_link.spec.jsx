@@ -28,7 +28,9 @@ beforeEach(() => {
 });
 
 afterEach(cleanup);
-afterEach(() => { jest.clearAllMocks(); });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('<RenewLink />', () => {
   it('renders the component', () => {
@@ -58,12 +60,11 @@ describe('<RenewLink />', () => {
     });
 
     it('displays the loading state while fetching', () => {
-
       /*
        * Use the long form of mocking implementation so we can
        * assert the loading state is enabled
        */
-      axios.post.mockImplementation(async() => {
+      axios.post.mockImplementation(async () => {
         await expect(link.querySelector('loading')).not.toBeNull();
         expect(link).toHaveTextContent(I18n.t(`${i18nPrefix}.loading`));
 
@@ -77,12 +78,11 @@ describe('<RenewLink />', () => {
     });
 
     it('disables the link during the loading state', () => {
-
       /*
        * Use the long form of mocking implementation so we can
        * assert the loading state is enabled
        */
-      axios.post.mockImplementation(async() => {
+      axios.post.mockImplementation(async () => {
         await expect(link.querySelector('loading')).not.toBeNull();
 
         // Click again while loading state is active
@@ -109,13 +109,13 @@ describe('<RenewLink />', () => {
         link = rendered.getByTestId('renew-link');
       });
 
-      it('no longer displays the loading state', async() => {
+      it('no longer displays the loading state', async () => {
         fireEvent.click(link);
 
         await expect(link.querySelector('loading')).toBeNull();
       });
 
-      it('calls the setCollection() handler', async() => {
+      it('calls the setCollection() handler', async () => {
         fireEvent.click(link);
 
         await expect(axios.post).toHaveBeenCalledTimes(1);
@@ -134,20 +134,20 @@ describe('<RenewLink />', () => {
         link = rendered.getByTestId('renew-link');
       });
 
-      it('no longer displays the loading state', async() => {
+      it('no longer displays the loading state', async () => {
         fireEvent.click(link);
 
         await expect(link.querySelector('loading')).toBeNull();
       });
 
-      it('does not call the setCollection() handler', async() => {
+      it('does not call the setCollection() handler', async () => {
         fireEvent.click(link);
 
         await expect(axios.post).toHaveBeenCalledTimes(1);
         await expect(setCollection).not.toHaveBeenCalled();
       });
 
-      it('displays the action notification', async() => {
+      it('displays the action notification', async () => {
         fireEvent.click(link);
 
         /*
@@ -160,8 +160,12 @@ describe('<RenewLink />', () => {
         await expect(setCollection).not.toHaveBeenCalled();
         // </hack>
 
-        await expect(actionNotifications.container.querySelector('.notification--error')).not.toBeNull();
-        expect(actionNotifications.container).toHaveTextContent(I18n.t(`${i18nPrefix}.failure`));
+        await expect(
+          actionNotifications.container.querySelector('.notification--error')
+        ).not.toBeNull();
+        expect(actionNotifications.container).toHaveTextContent(
+          I18n.t(`${i18nPrefix}.failure`)
+        );
       });
     });
   });

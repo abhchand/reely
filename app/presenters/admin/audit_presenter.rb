@@ -8,25 +8,19 @@ class Admin::AuditPresenter < ApplicationPresenter
   end
 
   def created_at
-    audit.created_at.strftime(I18n.t("time.formats.month_day_and_year"))
+    audit.created_at.strftime(I18n.t('time.formats.month_day_and_year'))
   end
 
   def created_at_alt_text
-    audit.created_at.strftime(I18n.t("time.formats.timestamp_with_zone"))
+    audit.created_at.strftime(I18n.t('time.formats.timestamp_with_zone'))
   end
 
   private
 
   def fetch_description
-    {
-      error: false,
-      text: description_service_class.call(audit).html_safe
-    }
+    { error: false, text: description_service_class.call(audit).html_safe }
   rescue Admin::Audit::BaseDescriptionService::DescriptionError => e
-    {
-      error: true,
-      text: e.message
-    }
+    { error: true, text: e.message }
   end
 
   def audit

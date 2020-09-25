@@ -49,7 +49,7 @@ class ContentImportQueueingJob < ApplicationWorker
 
   def import_dir
     @import_dir ||=
-      ENV["REELY_IMPORT_DIR"] || Rails.configuration.x.default_import_dir
+      ENV['REELY_IMPORT_DIR'] || Rails.configuration.x.default_import_dir
   end
 
   def within_import_dir(&block)
@@ -57,9 +57,7 @@ class ContentImportQueueingJob < ApplicationWorker
   end
 
   def each_owner(&block)
-    User.where(synthetic_id: directories).find_each do |owner|
-      yield(owner)
-    end
+    User.where(synthetic_id: directories).find_each { |owner| yield(owner) }
   end
 
   def each_file_for(owner, &block)
@@ -70,7 +68,7 @@ class ContentImportQueueingJob < ApplicationWorker
   end
 
   def directories
-    Dir.glob("*").select { |f| Pathname.new(f).directory? }
+    Dir.glob('*').select { |f| Pathname.new(f).directory? }
   end
 
   def to_absolute(filepath)
@@ -78,7 +76,7 @@ class ContentImportQueueingJob < ApplicationWorker
   end
 
   def image?(filepath)
-    mime_type(filepath).start_with?("image")
+    mime_type(filepath).start_with?('image')
   end
 
   def mime_type(filepath)

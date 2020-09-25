@@ -3,7 +3,7 @@ import React from 'react';
 
 const Loading = (_props) => {
   return (
-    <div className="filter-table__loading-icon-container">
+    <div className='filter-table__loading-icon-container'>
       <LoadingIconEllipsis />
     </div>
   );

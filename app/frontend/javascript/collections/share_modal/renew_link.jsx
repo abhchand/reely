@@ -4,12 +4,11 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 
 class RenewLink extends React.Component {
-
   static propTypes = {
     collection: PropTypes.object.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     setCollection: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -41,13 +40,14 @@ class RenewLink extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.post(url, data, config).
-      then((response) => {
+    axios
+      .post(url, data, config)
+      .then((response) => {
         // Update sharing config on collection
         const newCollection = self.props.collection;
         newCollection.sharing_config = response.data;
@@ -56,10 +56,9 @@ class RenewLink extends React.Component {
         self.setState({
           isRenewingLink: false
         });
-      }).
-      catch(() => {
-        const id = `id${Math.random().toString(16).
-          slice(2)}`;
+      })
+      .catch(() => {
+        const id = `id${Math.random().toString(16).slice(2)}`;
         const content = I18n.t(`${self.i18nPrefix}.failure`);
         const notification = { id: id, content: content, type: 'error' };
 
@@ -76,21 +75,26 @@ class RenewLink extends React.Component {
   }
 
   renderLink() {
-    return <a data-testid="renew-link" onClick={this.onClick}>{I18n.t(`${this.i18nPrefix}.label`)}</a>;
+    return (
+      <a data-testid='renew-link' onClick={this.onClick}>
+        {I18n.t(`${this.i18nPrefix}.label`)}
+      </a>
+    );
   }
 
   renderLoading() {
-    return <span className="loading">{I18n.t(`${this.i18nPrefix}.loading`)}</span>;
+    return (
+      <span className='loading'>{I18n.t(`${this.i18nPrefix}.loading`)}</span>
+    );
   }
 
   render() {
     return (
-      <div className="share-collection__link-sharing-renew">
+      <div className='share-collection__link-sharing-renew'>
         {this.state.isRenewingLink ? this.renderLoading() : this.renderLink()}
       </div>
     );
   }
-
 }
 
 export default RenewLink;

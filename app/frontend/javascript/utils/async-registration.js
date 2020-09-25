@@ -1,5 +1,8 @@
 function initializeAsyncRegistration() {
-  if (typeof window.asyncRegistration === 'object' && Array.isArray(window.asyncRegistration)) {
+  if (
+    typeof window.asyncRegistration === 'object' &&
+    Array.isArray(window.asyncRegistration)
+  ) {
     return;
   }
 
@@ -23,7 +26,4 @@ function unregisterAsyncProcess(name) {
   }
 }
 
-export {
-  registerAsyncProcess,
-  unregisterAsyncProcess
-};
+export { registerAsyncProcess, unregisterAsyncProcess };

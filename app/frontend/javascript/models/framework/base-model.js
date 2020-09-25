@@ -6,8 +6,6 @@
  * (Original class name: `JsonApiDataStoreModel`)
  */
 class BaseModel {
-
-
   /**
    * @method constructor
    * @param {string} type The type of the model.
@@ -42,9 +40,15 @@ class BaseModel {
     opts.attributes = opts.attributes || this._attributes;
     opts.relationships = opts.relationships || this._relationships;
 
-    if (this.id !== undefined) { res.data.id = this.id; }
-    if (opts.attributes.length !== 0) { res.data.attributes = {}; }
-    if (opts.relationships.length !== 0) { res.data.relationships = {}; }
+    if (this.id !== undefined) {
+      res.data.id = this.id;
+    }
+    if (opts.attributes.length !== 0) {
+      res.data.attributes = {};
+    }
+    if (opts.relationships.length !== 0) {
+      res.data.relationships = {};
+    }
 
     opts.attributes.forEach((key) => {
       res.data.attributes[key] = self[key];
@@ -56,13 +60,11 @@ class BaseModel {
       }
       if (!self[key]) {
         res.data.relationships[key] = { data: null };
-      }
-      else if (self[key].constructor === Array) {
+      } else if (self[key].constructor === Array) {
         res.data.relationships[key] = {
           data: self[key].map(relationshipIdentifier)
         };
-      }
-      else {
+      } else {
         res.data.relationships[key] = {
           data: relationshipIdentifier(self[key])
         };
@@ -79,7 +81,9 @@ class BaseModel {
    * @param {object} value The value of the attribute.
    */
   setAttribute(attrName, value) {
-    if (this._attributes.indexOf(attrName) === -1) { this._attributes.push(attrName); }
+    if (this._attributes.indexOf(attrName) === -1) {
+      this._attributes.push(attrName);
+    }
     this[attrName] = value;
   }
 
@@ -90,7 +94,9 @@ class BaseModel {
    * @param {object} modelOrCollection The linked model(s).
    */
   setRelationship(relName, modelOrCollection) {
-    if (this._relationships.indexOf(relName) === -1) { this._relationships.push(relName); }
+    if (this._relationships.indexOf(relName) === -1) {
+      this._relationships.push(relName);
+    }
     this[relName] = modelOrCollection;
   }
 
@@ -104,10 +110,14 @@ class BaseModel {
     const curModels = this[relName] || [];
 
     // Only operate on collections, not single relationships
-    if (!Array.isArray(curModels)) { return; }
+    if (!Array.isArray(curModels)) {
+      return;
+    }
 
     const idx = curModels.indexOf(model);
-    if (idx > -1) { return; }
+    if (idx > -1) {
+      return;
+    }
 
     this.setRelationship(relName, curModels.concat([model]));
   }
@@ -122,15 +132,18 @@ class BaseModel {
     const curModels = this[relName] || [];
 
     // Only operate on collections, not single relationships
-    if (!Array.isArray(curModels)) { return; }
+    if (!Array.isArray(curModels)) {
+      return;
+    }
 
     const idx = curModels.indexOf(model);
-    if (idx === -1) { return; }
+    if (idx === -1) {
+      return;
+    }
 
     curModels.splice(idx, 1);
     this.setRelationship(relName, curModels);
   }
-
 }
 
 export default BaseModel;

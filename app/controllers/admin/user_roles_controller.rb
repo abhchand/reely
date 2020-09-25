@@ -6,11 +6,10 @@ class Admin::UserRolesController < AdminController
   before_action :only_editable_users, only: %i[update]
 
   def update
-    update_service = Admin::UserRoles::UpdateService.call(
-      current_user: current_user,
-      user: user,
-      roles: update_params[:roles]
-    )
+    update_service =
+      Admin::UserRoles::UpdateService.call(
+        current_user: current_user, user: user, roles: update_params[:roles]
+      )
 
     status, json =
       if update_service.success?
@@ -21,16 +20,12 @@ class Admin::UserRolesController < AdminController
 
     update_service.log.tap { |msg| Rails.logger.debug(msg) if msg }
 
-    respond_to do |format|
-      format.json { render json: json, status: status }
-    end
+    respond_to { |format| format.json { render json: json, status: status } }
   end
 
   private
 
   def update_params
-    params.permit(
-      roles: []
-    )
+    params.permit(roles: [])
   end
 end

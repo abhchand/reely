@@ -1,21 +1,11 @@
 RSpec.configure do |config|
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:deletion)
-  end
+  config.before(:suite) { DatabaseCleaner.clean_with(:deletion) }
 
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
+  config.before(:each) { DatabaseCleaner.strategy = :transaction }
 
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :deletion
-  end
+  config.before(:each, js: true) { DatabaseCleaner.strategy = :deletion }
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
+  config.before(:each) { DatabaseCleaner.start }
 
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
+  config.after(:each) { DatabaseCleaner.clean }
 end

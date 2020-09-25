@@ -5,7 +5,7 @@ class CreatePhotos < ActiveRecord::Migration[4.2]
       t.string :synthetic_id, index: { unique: true }, null: false
       t.string :direct_access_key, index: { unique: true }, null: false
       t.references :owner, references: :users, index: true, null: false
-      t.jsonb :exif_data, null: false, default: "{}"
+      t.jsonb :exif_data, null: false, default: '{}'
       t.datetime :taken_at, null: false
       t.decimal :latitude
       t.decimal :longitude

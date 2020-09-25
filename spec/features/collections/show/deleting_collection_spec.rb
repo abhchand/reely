@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "deleting collection", :js, type: :feature do
+RSpec.feature 'deleting collection', :js, type: :feature do
   let(:user) { create(:user) }
   let(:collection) { create_collection_with_photos(owner: user) }
 
@@ -9,7 +9,7 @@ RSpec.feature "deleting collection", :js, type: :feature do
     visit collection_path(collection)
   end
 
-  it "user can delete a collection" do
+  it 'user can delete a collection' do
     click_delete_icon
     expect_modal_is_open
 
@@ -22,44 +22,40 @@ RSpec.feature "deleting collection", :js, type: :feature do
     expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it "user can cancel the deletion" do
+  it 'user can cancel the deletion' do
     click_delete_icon
     expect_modal_is_open
 
-    expect do
-      click_modal_close
-    end.to change { Collection.count }.by(0)
+    expect { click_modal_close }.to change { Collection.count }.by(0)
 
     expect(page).to have_current_path(collection_path(collection))
     expect_modal_is_closed
   end
 
-  context "collection name was updated" do
-    let(:textarea) do
-      page.find(".collections-editable-name-heading__textarea")
-    end
+  context 'collection name was updated' do
+    let(:textarea) { page.find('.collections-editable-name-heading__textarea') }
 
     before do
       @old_name = collection.name
-      @new_name = @old_name + "_new"
+      @new_name = @old_name + '_new'
 
-      textarea.send_keys("_new")
+      textarea.send_keys('_new')
 
       click_outside_textarea
       wait_for_ajax
     end
 
-    xit "delete modal heading reflects the updated collection name" do
+    xit 'delete modal heading reflects the updated collection name' do
       # Verify name was changed
       expect(textarea.value).to eq(@new_name)
       expect(collection.reload.name).to eq(@new_name)
 
       click_delete_icon
 
-      heading = page.find(".modal-content__heading")
+      heading = page.find('.modal-content__heading')
       expect(heading).to have_content(
         strip_tags(
-          t("collections.delete_modal.heading", collection_name: @new_name)
+          t('collections.delete_modal.heading', collection_name: @new_name)
         )
       )
 
@@ -69,18 +65,16 @@ RSpec.feature "deleting collection", :js, type: :feature do
       wait_for { Collection.count == old_count - 1 }
 
       expect(page).to have_current_path(collections_path)
-      expect do
-        collection.reload
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      expect { collection.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   def click_outside_textarea
     # Pick an arbitrary element somewhere else on the page
-    page.find(".collections-show__date-range").click
+    page.find('.collections-show__date-range').click
   end
 
   def click_delete_icon
-    page.find(".icon-tray__item--delete-collection button").click
+    page.find('.icon-tray__item--delete-collection button').click
   end
 end

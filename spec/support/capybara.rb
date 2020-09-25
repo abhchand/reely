@@ -1,7 +1,7 @@
-require "capybara/rails"
-require "capybara/rspec"
-require "selenium/webdriver"
-require "capybara-screenshot/rspec"
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'selenium/webdriver'
+require 'capybara-screenshot/rspec'
 
 Capybara.configure do |config|
   config.ignore_hidden_elements = true

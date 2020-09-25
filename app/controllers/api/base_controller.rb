@@ -6,10 +6,7 @@ class Api::BaseController < ApplicationController
 
   rescue_from Exception do |_exception|
     # NOTE: Errors not visible to end users are not translated
-    error = {
-      title: "An unknown error occurred",
-      status: "500"
-    }
+    error = { title: 'An unknown error occurred', status: '500' }
 
     render json: { errors: [error] }, status: 500
   end
@@ -17,9 +14,7 @@ class Api::BaseController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |exception|
     # NOTE: Errors not visible to end users are not translated
     error = {
-      title: "Record Not Found",
-      description: exception.message,
-      status: "404"
+      title: 'Record Not Found', description: exception.message, status: '404'
     }
 
     render json: { errors: [error] }, status: 404
@@ -27,10 +22,7 @@ class Api::BaseController < ApplicationController
 
   rescue_from CanCan::AccessDenied do |_exception|
     # NOTE: Errors not visible to end users are not translated
-    error = {
-      title: "Insufficient Permissions",
-      status: "403"
-    }
+    error = { title: 'Insufficient Permissions', status: '403' }
 
     render json: { errors: [error] }, status: 403
   end
@@ -50,42 +42,42 @@ class Api::BaseController < ApplicationController
   end
 
   def user
-    @user ||= begin
-      # Order matters here. For nested resources there may be another
-      # resource identified by `:id`
-      #
-      # e.g. /users/:user_id/foo/:id
-      #
-      # This method won't work in general if User is a nested child resource
-      id = params[:user_id] || params[:id]
+    @user ||=
+      begin
+        # Order matters here. For nested resources there may be another
+        # resource identified by `:id`
+        #
+        # e.g. /users/:user_id/foo/:id
+        #
+        # This method won't work in general if User is a nested child resource
+        id = params[:user_id] || params[:id]
 
-      User.find_by_synthetic_id(id).tap do |user|
-        if user.nil?
-          raise(
-            ActiveRecord::RecordNotFound,
-            "Couldn't find User with 'id'=#{id}"
-          )
+        User.find_by_synthetic_id(id).tap do |user|
+          if user.nil?
+            raise(
+              ActiveRecord::RecordNotFound,
+              "Couldn't find User with 'id'=#{id}"
+            )
+          end
         end
       end
-    end
   end
 
   def paginate(collection)
     default = Api::Response::PaginationLinksService::PAGE_SIZE
 
-    collection.
-      paginate(
-        page: params[:page],
-        per_page: params[:per_page] || default
-      )
+    collection.paginate(
+      page: params[:page], per_page: params[:per_page] || default
+    )
   end
 
   def pagination_links(collection)
-    service = Api::Response::PaginationLinksService.new(
-      collection,
-      request.url,
-      request.query_parameters
-    )
+    service =
+      Api::Response::PaginationLinksService.new(
+        collection,
+        request.url,
+        request.query_parameters
+      )
 
     { self: request.url, next: service.next_url, last: service.last_url }
   end

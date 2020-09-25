@@ -48,7 +48,7 @@ class JsonApiSerializer
     when data.is_a?(Array)
       @dataset = data
       serializer = "#{data.first.class}Serializer"
-      raise "Unknown model class, specify `:serializer_name`" if data.empty?
+      raise 'Unknown model class, specify `:serializer_name`' if data.empty?
     when data.is_a?(ActiveRecord::Relation)
       @dataset = data
       serializer = "#{data.model}Serializer"
@@ -61,9 +61,6 @@ class JsonApiSerializer
   end
 
   def serialize
-    @serializer.new(
-      @dataset,
-      @opts[:serializer_opts] || {}
-    ).serializable_hash
+    @serializer.new(@dataset, @opts[:serializer_opts] || {}).serializable_hash
   end
 end

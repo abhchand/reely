@@ -8,7 +8,7 @@ const FileError = (props) => {
     return null;
   }
 
-  return <div className="file-uploader__file-error">{error}</div>;
+  return <div className='file-uploader__file-error'>{error}</div>;
 };
 
 FileError.propTypes = {

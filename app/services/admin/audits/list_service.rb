@@ -11,11 +11,12 @@ class Admin::Audits::ListService
   end
 
   def audits
-    @audits ||= begin
-      audits = fetch_audits
-      audits = filter_by_modifier!(audits) if modifier
-      audits
-    end
+    @audits ||=
+      begin
+        audits = fetch_audits
+        audits = filter_by_modifier!(audits) if modifier
+        audits
+      end
   end
 
   def modifier
@@ -27,17 +28,18 @@ class Admin::Audits::ListService
   attr_reader :params
 
   def fetch_audits
-    Audited::Audit.
-      paginate(page: params[:page], per_page: per_page).
-      order(created_at: :desc)
+    Audited::Audit.paginate(page: params[:page], per_page: per_page).order(
+      created_at: :desc
+    )
   end
 
   def filter_by_modifier!(audits)
-    audits.where(
-      <<-SQL
+    audits.where(<<-SQL)
       (
         -- Filter where the modifier is the `audits.user`
-        (user_type = 'User' AND user_id = #{modifier.id})
+        (user_type = 'User' AND user_id = #{
+      modifier.id
+    })
         OR
         (
           -- Also filter for the specific case where the `User` record
@@ -46,19 +48,23 @@ class Admin::Audits::ListService
           user_type IS NULL
           AND user_id IS NULL
           AND auditable_type = 'User'
-          AND auditable_id = #{modifier.id}
+          AND auditable_id = #{
+      modifier.id
+    }
           AND action = 'create'
         )
       )
       SQL
-    )
   end
 
   def per_page
     case
-    when params[:per_page].blank?   then PAGE_SIZE
-    when params[:per_page].to_i < 1 then PAGE_SIZE
-    when params[:per_page].to_i > MAX_PAGE_SIZE then MAX_PAGE_SIZE
+    when params[:per_page].blank?
+      PAGE_SIZE
+    when params[:per_page].to_i < 1
+      PAGE_SIZE
+    when params[:per_page].to_i > MAX_PAGE_SIZE
+      MAX_PAGE_SIZE
     else
       params[:per_page]
     end

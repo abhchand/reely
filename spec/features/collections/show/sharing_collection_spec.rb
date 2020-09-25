@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "sharing collection", :js, type: :feature do
+RSpec.feature 'sharing collection', :js, type: :feature do
   include FeatureHelpers::ShareCollectionModalHelpers
 
   let(:user) { create(:user) }
@@ -8,9 +8,9 @@ RSpec.feature "sharing collection", :js, type: :feature do
 
   before { log_in(user) }
 
-  describe "link sharing" do
-    describe "toggling link sharing" do
-      it "user can toggle link sharing" do
+  describe 'link sharing' do
+    describe 'toggling link sharing' do
+      it 'user can toggle link sharing' do
         visit collection_path(collection)
 
         click_share_menu
@@ -26,7 +26,7 @@ RSpec.feature "sharing collection", :js, type: :feature do
     end
   end
 
-  it "user can open and close the share modal" do
+  it 'user can open and close the share modal' do
     visit collection_path(collection)
 
     click_share_menu
@@ -37,8 +37,8 @@ RSpec.feature "sharing collection", :js, type: :feature do
   end
 
   def click_share_menu
-    page.find(".icon-tray__item--share-collection button").click
+    page.find('.icon-tray__item--share-collection button').click
     wait_for_ajax
-    expect(page).to have_selector(".modal-content__heading")
+    expect(page).to have_selector('.modal-content__heading')
   end
 end

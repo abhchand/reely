@@ -8,16 +8,12 @@ class ProductFeedbacksController < ApplicationController
     json = {}
     json[:error] = @feedback.errors.messages[:body].first if status == 400
 
-    respond_to do |format|
-      format.json { render json: json, status: status }
-    end
+    respond_to { |format| format.json { render json: json, status: status } }
   end
 
   private
 
   def create_params
-    params.require(:product_feedback).permit(
-      :body
-    )
+    params.require(:product_feedback).permit(:body)
   end
 end

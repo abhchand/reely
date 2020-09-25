@@ -1,7 +1,6 @@
 import { formatFilesize } from 'javascript/utils/filesize_helpers';
 
 class Validator {
-
   constructor(maxFileCount, maxFileSize) {
     this.maxFileCount = maxFileCount;
     this.maxFileSize = maxFileSize;
@@ -30,7 +29,9 @@ class Validator {
     let largeFileCount = 0;
 
     files.forEach((file) => {
-      if (file.size > this.maxFileSize) { largeFileCount += 1; }
+      if (file.size > this.maxFileSize) {
+        largeFileCount += 1;
+      }
     });
 
     return largeFileCount === 0;
@@ -46,7 +47,6 @@ class Validator {
     // eslint-disable-next-line camelcase
     return I18n.t(`${this.i18n_prefix}.size`, { max_size: maxFileSize });
   }
-
 }
 
 export default Validator;

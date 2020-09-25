@@ -1,6 +1,5 @@
 // eslint-disable-next-line padded-blocks
 $(document).ready(() => {
-
   /*
    *
    * Close flash message
@@ -18,7 +17,6 @@ $(document).ready(() => {
 
 // eslint-disable-next-line padded-blocks
 function setFlash(type, text) {
-
   /*
    * Mimic the _flash.html.erb structure for active flashes
    *
@@ -44,7 +42,9 @@ function setFlash(type, text) {
 
   // Replace existing flash with new flash
   const curFlash = document.querySelector('.flash');
-  if (!curFlash) { return; }
+  if (!curFlash) {
+    return;
+  }
 
   curFlash.replaceWith(flash);
 }

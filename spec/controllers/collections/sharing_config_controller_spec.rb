@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Collections::SharingConfigController, type: :controller do
   let(:user) { create(:user) }
@@ -7,35 +7,36 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
 
   before { sign_in(user) }
 
-  describe "GET #show" do
-    let(:params) { { format: "json", collection_id: collection.synthetic_id } }
+  describe 'GET #show' do
+    let(:params) { { format: 'json', collection_id: collection.synthetic_id } }
 
-    context "user is not logged in" do
+    context 'user is not logged in' do
       before { sign_out(user) }
 
-      it "returns a 401 JSON response" do
+      it 'returns a 401 JSON response' do
         get :show, params: params
 
         expect(response.status).to eq(401)
-        expect(parsed_response).
-          to eq("error" => t("devise.failure.unauthenticated"))
+        expect(parsed_response).to eq(
+          'error' => t('devise.failure.unauthenticated')
+        )
       end
     end
 
-    context "request is not json format" do
-      before { params[:format] = "html" }
+    context 'request is not json format' do
+      before { params[:format] = 'html' }
 
-      it "redirects to the root_path" do
+      it 'redirects to the root_path' do
         get :show, params: params
 
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context "collection is not found" do
-      before { params[:collection_id] = "abcde" }
+    context 'collection is not found' do
+      before { params[:collection_id] = 'abcde' }
 
-      it "returns a 404 JSON response" do
+      it 'returns a 404 JSON response' do
         get :show, params: params
 
         expect(response.status).to eq(404)
@@ -43,10 +44,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "collection does not belong to the logged in user" do
+    context 'collection does not belong to the logged in user' do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 403 JSON response" do
+      it 'returns a 403 JSON response' do
         get :show, params: params
 
         expect(response.status).to eq(403)
@@ -54,7 +55,7 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    it "returns the sharing config for the collection" do
+    it 'returns the sharing config for the collection' do
       get :show, params: params
 
       expect(response.status).to eq(200)
@@ -62,10 +63,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
     end
   end
 
-  describe "POST #update" do
+  describe 'POST #update' do
     let(:params) do
       {
-        format: "json",
+        format: 'json',
         collection_id: collection.synthetic_id,
         link_sharing_enabled: true
       }
@@ -73,32 +74,33 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
 
     before { collection }
 
-    context "user is not logged in" do
+    context 'user is not logged in' do
       before { sign_out(user) }
 
-      it "returns a 401 JSON response" do
+      it 'returns a 401 JSON response' do
         post :update, params: params
 
         expect(response.status).to eq(401)
-        expect(parsed_response).
-          to eq("error" => t("devise.failure.unauthenticated"))
+        expect(parsed_response).to eq(
+          'error' => t('devise.failure.unauthenticated')
+        )
       end
     end
 
-    context "request is not json format" do
-      before { params[:format] = "html" }
+    context 'request is not json format' do
+      before { params[:format] = 'html' }
 
-      it "redirects to the root_path" do
+      it 'redirects to the root_path' do
         post :update, params: params
 
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context "collection is not found" do
-      before { params[:collection_id] = "abcde" }
+    context 'collection is not found' do
+      before { params[:collection_id] = 'abcde' }
 
-      it "returns a 404 JSON response" do
+      it 'returns a 404 JSON response' do
         post :update, params: params
 
         expect(response.status).to eq(404)
@@ -106,10 +108,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "collection does not belong to the logged in user" do
+    context 'collection does not belong to the logged in user' do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 403 JSON response" do
+      it 'returns a 403 JSON response' do
         post :update, params: params
 
         expect(response.status).to eq(403)
@@ -117,10 +119,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "params have an unpermitted key" do
-      before { params[:foo] = "bar" }
+    context 'params have an unpermitted key' do
+      before { params[:foo] = 'bar' }
 
-      it "ignores the unpermitted keys" do
+      it 'ignores the unpermitted keys' do
         post :update, params: params
 
         collection.reload
@@ -128,11 +130,11 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
         expect(response.status).to eq(200)
         expect(parsed_response).to eq(sharing_config_json)
 
-        expect(collection.sharing_config["foo"]).to be_nil
+        expect(collection.sharing_config['foo']).to be_nil
       end
     end
 
-    it "updates the sharing_config" do
+    it 'updates the sharing_config' do
       post :update, params: params
 
       collection.reload
@@ -140,46 +142,42 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       expect(response.status).to eq(200)
       expect(parsed_response).to eq(sharing_config_json)
 
-      expect(collection.sharing_config["link_sharing_enabled"]).to eq(true)
+      expect(collection.sharing_config['link_sharing_enabled']).to eq(true)
     end
   end
 
-  describe "POST #renew_link" do
-    let(:params) do
-      {
-        format: "json",
-        collection_id: collection.synthetic_id
-      }
-    end
+  describe 'POST #renew_link' do
+    let(:params) { { format: 'json', collection_id: collection.synthetic_id } }
 
     before { collection }
 
-    context "user is not logged in" do
+    context 'user is not logged in' do
       before { sign_out(user) }
 
-      it "returns a 401 JSON response" do
+      it 'returns a 401 JSON response' do
         post :renew_link, params: params
 
         expect(response.status).to eq(401)
-        expect(parsed_response).
-          to eq("error" => t("devise.failure.unauthenticated"))
+        expect(parsed_response).to eq(
+          'error' => t('devise.failure.unauthenticated')
+        )
       end
     end
 
-    context "request is not json format" do
-      before { params[:format] = "html" }
+    context 'request is not json format' do
+      before { params[:format] = 'html' }
 
-      it "redirects to the root_path" do
+      it 'redirects to the root_path' do
         post :renew_link, params: params
 
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context "collection is not found" do
-      before { params[:collection_id] = "abcde" }
+    context 'collection is not found' do
+      before { params[:collection_id] = 'abcde' }
 
-      it "returns a 404 JSON response" do
+      it 'returns a 404 JSON response' do
         post :renew_link, params: params
 
         expect(response.status).to eq(404)
@@ -187,10 +185,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    context "collection does not belong to the logged in user" do
+    context 'collection does not belong to the logged in user' do
       before { collection.update!(owner: create(:user)) }
 
-      it "returns a 403 JSON response" do
+      it 'returns a 403 JSON response' do
         post :renew_link, params: params
 
         expect(response.status).to eq(403)
@@ -198,10 +196,10 @@ RSpec.describe Collections::SharingConfigController, type: :controller do
       end
     end
 
-    it "renews the collection share_id" do
-      expect do
-        post :renew_link, params: params
-      end.to(change { collection.reload.share_id })
+    it 'renews the collection share_id' do
+      expect { post :renew_link, params: params }.to(
+        change { collection.reload.share_id }
+      )
 
       expect(response.status).to eq(200)
       expect(parsed_response).to eq(sharing_config_json)

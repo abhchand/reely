@@ -4,13 +4,17 @@ class UserInvitations::CreateService
   after { context.user_invitation = user_invitation }
 
   def call
-    @i18n_prefix = "activerecord.errors.models.user_invitation.attributes.email"
+    @i18n_prefix = 'activerecord.errors.models.user_invitation.attributes.email'
 
     case
-    when invited?                 then handle_already_invited
-    when registered?              then handle_already_registered
-    when !valid_domain?           then handle_invalid_domain
-    when !create_user_invitation  then handle_failed_creation
+    when invited?
+      handle_already_invited
+    when registered?
+      handle_already_registered
+    when !valid_domain?
+      handle_invalid_domain
+    when !create_user_invitation
+      handle_failed_creation
     end
   end
 
@@ -35,7 +39,7 @@ class UserInvitations::CreateService
   def valid_domain?
     return true unless registration_email_domain_whitelist_enabled?
 
-    domain = (email || "").split("@").last
+    domain = (email || '').split('@').last
     return true if domain.blank?
 
     registration_email_whitelisted_domains.any? { |d| domain =~ /#{d}/i }
@@ -66,7 +70,7 @@ class UserInvitations::CreateService
   end
 
   def handle_invalid_domain
-    domains = registration_email_whitelisted_domains.join(", ")
+    domains = registration_email_whitelisted_domains.join(', ')
 
     context.fail!(
       log: "#{log_tags} Email domain is invalid",
@@ -77,9 +81,10 @@ class UserInvitations::CreateService
 
   def handle_failed_creation
     context.fail!(
-      log: "#{log_tags} UserInvitation validation errors: "\
-        "#{user_invitation.errors.messages}",
-      error: I18n.t("generic_error"),
+      log:
+        "#{log_tags} UserInvitation validation errors: " \
+          "#{user_invitation.errors.messages}",
+      error: I18n.t('generic_error'),
       status: 500
     )
   end

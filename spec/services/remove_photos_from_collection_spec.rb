@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe RemovePhotosFromCollection, type: :service do
-  describe "#call" do
+  describe '#call' do
     let(:user) { create(:user) }
 
     let(:photos) { collection.photos }
@@ -9,21 +9,17 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
       create_collection_with_photos(owner: user, photo_count: 3)
     end
 
-    let(:params) do
-      {
-        photo_ids: photos.map(&:synthetic_id)
-      }
-    end
+    let(:params) { { photo_ids: photos.map(&:synthetic_id) } }
 
     before { expect(collection.reload.photos).to match_array(photos) }
 
-    it "removes the photos from the specified collection" do
+    it 'removes the photos from the specified collection' do
       response = call
       expect(response.success?).to eq(true)
       expect(collection.reload.photos).to eq([])
     end
 
-    it "sets the meta info" do
+    it 'sets the meta info' do
       response = call
       expect(response.success?).to eq(true)
 
@@ -61,7 +57,7 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
       expect(other_collection.photos).to eq([photos[1]])
     end
 
-    it "handles duplicate photo ids" do
+    it 'handles duplicate photo ids' do
       photo_ids = photos.map(&:synthetic_id) + [photos[0].synthetic_id]
       params[:photo_ids] = photo_ids
 
@@ -73,8 +69,8 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
       end.to change { PhotoCollection.count }.by(-3)
     end
 
-    it "handles invalid photo ids" do
-      params[:photo_ids] << "abcde"
+    it 'handles invalid photo ids' do
+      params[:photo_ids] << 'abcde'
 
       expect do
         response = call
@@ -85,8 +81,8 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
     end
 
     it "handles photos that aren't in the collection" do
-      PhotoCollection.
-        where(collection: collection, photo: photos[1]).destroy_all
+      PhotoCollection.where(collection: collection, photo: photos[1])
+        .destroy_all
 
       expect do
         response = call
@@ -96,9 +92,9 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
       end.to change { PhotoCollection.count }.by(-2)
     end
 
-    context "photo creation fails" do
+    context 'photo creation fails' do
       before do
-        stub_const("RemovePhotosFromCollection::BATCH_SIZE", 2)
+        stub_const('RemovePhotosFromCollection::BATCH_SIZE', 2)
 
         # Return `nil` on the second batch to be deleted, which will raise
         # an error when `destroy_all` is called on it
@@ -107,7 +103,7 @@ RSpec.describe RemovePhotosFromCollection, type: :service do
         end
       end
 
-      it "rolls back all deleted PhotoCollection records" do
+      it 'rolls back all deleted PhotoCollection records' do
         expect do
           response = call
 

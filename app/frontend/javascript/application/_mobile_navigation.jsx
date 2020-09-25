@@ -4,7 +4,6 @@ import React from 'react';
 
 // eslint-disable-next-line padded-blocks
 $(document).ready(() => {
-
   function toggleMobileMenu() {
     const mobileDropdownEl = $('.mobile-navigation');
     const overlayEl = $('.mobile-navigation__overlay');
@@ -15,8 +14,7 @@ $(document).ready(() => {
       $(mobileDropdownEl).addClass('inactive');
       $(overlayEl).removeClass('active');
       $(overlayEl).addClass('inactive');
-    }
-    else {
+    } else {
       // Enable menu
       $(mobileDropdownEl).removeClass('inactive');
       $(mobileDropdownEl).addClass('active');
@@ -60,12 +58,16 @@ $(document).ready(() => {
    * Product Feedback Link
    *
    */
-  $('.mobile-navigation__link-element--product-feedback').on('click', 'a', (e) => {
-    e.preventDefault();
+  $('.mobile-navigation__link-element--product-feedback').on(
+    'click',
+    'a',
+    (e) => {
+      e.preventDefault();
 
-    // Close the mobile menu to move it out of the way
-    toggleMobileMenu();
+      // Close the mobile menu to move it out of the way
+      toggleMobileMenu();
 
-    openModal(<ProductFeedbackForm />);
-  });
+      openModal(<ProductFeedbackForm />);
+    }
+  );
 });

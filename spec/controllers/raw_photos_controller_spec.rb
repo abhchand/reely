@@ -1,19 +1,19 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe RawPhotosController, type: :controller do
   let(:photo) { create(:photo) }
 
   before { photo }
 
-  describe "GET show" do
-    context "photo record not found" do
-      it "redirects to the root path" do
-        get :show, params: { id: "abcde" }
+  describe 'GET show' do
+    context 'photo record not found' do
+      it 'redirects to the root path' do
+        get :show, params: { id: 'abcde' }
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context "source_file is not processed" do
+    context 'source_file is not processed' do
       before do
         transformations = Photo::SOURCE_FILE_SIZES[:tile]
         variant = photo.source_file.variant(transformations)
@@ -22,57 +22,57 @@ RSpec.describe RawPhotosController, type: :controller do
         expect(variant.send(:processed?)).to be_falsey
       end
 
-      it "redirects to the root path" do
-        get :show, params: { id: photo.direct_access_key, size: "tile" }
+      it 'redirects to the root path' do
+        get :show, params: { id: photo.direct_access_key, size: 'tile' }
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context "serving files from disk" do
-      it "returns the photo source file inline" do
+    context 'serving files from disk' do
+      it 'returns the photo source file inline' do
         expect_file_served_for(photo)
         get :show, params: { id: photo.direct_access_key }
       end
 
-      it "also works with authentication" do
+      it 'also works with authentication' do
         session[:user_id] = photo.owner.id
 
         expect_file_served_for(photo)
         get :show, params: { id: photo.direct_access_key }
       end
 
-      context ":size param is specified" do
-        it "returns the photo source file inline" do
+      context ':size param is specified' do
+        it 'returns the photo source file inline' do
           expect_file_served_for(photo, :tile)
-          get :show, params: { id: photo.direct_access_key, size: "tile" }
+          get :show, params: { id: photo.direct_access_key, size: 'tile' }
         end
 
-        it ":size param is case insensitive" do
+        it ':size param is case insensitive' do
           expect_file_served_for(photo, :tile)
-          get :show, params: { id: photo.direct_access_key, size: "tile" }
+          get :show, params: { id: photo.direct_access_key, size: 'tile' }
         end
 
-        context ":size param is invalid" do
-          it "redirects to the root_path" do
-            get :show, params: { id: "abcde" }
+        context ':size param is invalid' do
+          it 'redirects to the root_path' do
+            get :show, params: { id: 'abcde' }
             expect(response).to redirect_to(root_path)
           end
         end
       end
     end
 
-    context "serving files from a remote storage" do
+    context 'serving files from a remote storage' do
       before do
         allow(controller).to receive(:serving_files_from_disk?) { false }
       end
 
-      it "redirects to the service url" do
+      it 'redirects to the service url' do
         stub_service_url
         get :show, params: { id: photo.direct_access_key }
         expect_to_redirect_to_service_url
       end
 
-      it "also works with authentication" do
+      it 'also works with authentication' do
         session[:user_id] = photo.owner.id
 
         stub_service_url
@@ -80,10 +80,10 @@ RSpec.describe RawPhotosController, type: :controller do
         expect_to_redirect_to_service_url
       end
 
-      context ":size param is specified" do
-        it "returns the photo source file inline" do
-          stub_service_url(size: "tile")
-          get :show, params: { id: photo.direct_access_key, size: "tile" }
+      context ':size param is specified' do
+        it 'returns the photo source file inline' do
+          stub_service_url(size: 'tile')
+          get :show, params: { id: photo.direct_access_key, size: 'tile' }
           expect_to_redirect_to_service_url(size: :tile)
         end
       end
@@ -104,18 +104,20 @@ RSpec.describe RawPhotosController, type: :controller do
     filename = "#{photo.direct_access_key}.jpg"
 
     blob_or_variant = photo.source_file_blob
-    blob_or_variant = blob_or_variant.variant(transformations) if transformations
+    if transformations
+      blob_or_variant = blob_or_variant.variant(transformations)
+    end
 
     path = ActiveStorage::Blob.service.path_for(blob_or_variant.key)
     content_type = blob_or_variant.send(:content_type)
-    disposition = "inline; filename=\"#{filename}\"; filename*=UTF-8''#{filename}"
+    disposition =
+      "inline; filename=\"#{filename}\"; filename*=UTF-8''#{filename}"
 
     opts = { content_type: content_type, disposition: disposition }
     # rubocop:enable Metrics/LineLength
 
-    expect(controller).to receive(:serve_file).
-      with(path, opts).
-      and_call_original
+    expect(controller).to receive(:serve_file).with(path, opts)
+      .and_call_original
   end
 
   def expect_to_redirect_to_service_url(size: nil)

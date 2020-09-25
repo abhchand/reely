@@ -1,19 +1,15 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe AddPhotosToCollection, type: :service do
-  describe "#call" do
+  describe '#call' do
     let(:user) { create(:user) }
 
     let(:photos) { create_list(:photo, 2, owner: user) }
     let(:collection) { create(:collection, owner: user) }
 
-    let(:params) do
-      {
-        photo_ids: photos.map(&:synthetic_id)
-      }
-    end
+    let(:params) { { photo_ids: photos.map(&:synthetic_id) } }
 
-    it "adds the photos to the specified collection" do
+    it 'adds the photos to the specified collection' do
       response = call
       expect(response.success?).to eq(true)
       expect(collection.reload.photos).to match_array(photos)
@@ -27,7 +23,7 @@ RSpec.describe AddPhotosToCollection, type: :service do
       expect(other_collection.photos).to eq([])
     end
 
-    it "handles duplicate photo ids" do
+    it 'handles duplicate photo ids' do
       photo_ids = photos.map(&:synthetic_id) + [photos[0].synthetic_id]
       params[:photo_ids] = photo_ids
 
@@ -39,8 +35,8 @@ RSpec.describe AddPhotosToCollection, type: :service do
       end.to change { PhotoCollection.count }.by(2)
     end
 
-    it "handles invalid photo ids" do
-      params[:photo_ids] << "abcde"
+    it 'handles invalid photo ids' do
+      params[:photo_ids] << 'abcde'
 
       expect do
         response = call
@@ -50,7 +46,7 @@ RSpec.describe AddPhotosToCollection, type: :service do
       end.to change { PhotoCollection.count }.by(2)
     end
 
-    it "handles photos that already exist in the collection" do
+    it 'handles photos that already exist in the collection' do
       PhotoCollection.create!(photo: photos[0], collection: collection)
 
       expect do
@@ -61,20 +57,21 @@ RSpec.describe AddPhotosToCollection, type: :service do
       end.to change { PhotoCollection.count }.by(1)
     end
 
-    context "photo creation fails" do
+    context 'photo creation fails' do
       before do
         # Ensure records are created before stubbing `:save` below
         params
 
         # Return `false` on the second record to be saved
         # rubocop:disable Metrics/LineLength
-        allow_any_instance_of(PhotoCollection).to receive(:save).and_wrap_original do |method|
+        allow_any_instance_of(PhotoCollection).to receive(:save)
+          .and_wrap_original do |method|
           PhotoCollection.count.zero? ? method.call : false
         end
         # rubocop:enable Metrics/LineLength
       end
 
-      it "rolls back all created PhotoCollection records" do
+      it 'rolls back all created PhotoCollection records' do
         expect do
           response = call
 

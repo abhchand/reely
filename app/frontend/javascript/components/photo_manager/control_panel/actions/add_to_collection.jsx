@@ -6,7 +6,6 @@ import ReactOnRails from 'react-on-rails/node_package/lib/Authenticity';
 import ReactSelectOrCreate from 'react-select-or-create';
 
 class AddToCollection extends React.Component {
-
   static propTypes = {
     collections: PropTypes.array.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
@@ -14,12 +13,13 @@ class AddToCollection extends React.Component {
     selectedPhotoIds: PropTypes.array.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     onComplete: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    this.i18nPrefix = 'components.photo_manager.control_panel.add_to_collection';
+    this.i18nPrefix =
+      'components.photo_manager.control_panel.add_to_collection';
 
     this.addToExistingCollection = this.addToExistingCollection.bind(this);
     this.addToNewCollection = this.addToNewCollection.bind(this);
@@ -43,23 +43,27 @@ class AddToCollection extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    axios.put(url, data, config).
-      then((_response) => {
+    axios
+      .put(url, data, config)
+      .then((_response) => {
         const count = self.props.selectedPhotoIds.length;
-        const msg = I18n.t(`${self.i18nPrefix}.existing.success`, { count: count, href: '/collections' });
+        const msg = I18n.t(`${self.i18nPrefix}.existing.success`, {
+          count: count,
+          href: '/collections'
+        });
         // eslint-disable-next-line react/no-danger
         const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
         const notification = { id: id, content: content, type: 'success' };
 
         self.addNotification(notification);
         self.props.onComplete();
-      }).
-      catch((_err) => {
+      })
+      .catch((_err) => {
         const content = I18n.t(`${self.i18nPrefix}.existing.error`);
         const notification = { id: id, content: content, type: 'error' };
 
@@ -82,17 +86,21 @@ class AddToCollection extends React.Component {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'X-CSRF-Token': ReactOnRails.authenticityToken()
       }
     };
 
-    return axios.post(url, data, config).
-      then((response) => {
+    return axios
+      .post(url, data, config)
+      .then((response) => {
         const collection = response.data;
 
         const collectionId = collection.id;
-        const msg = I18n.t(`${self.i18nPrefix}.new.success`, { href: `/collections/${collectionId}`, name: collection.name });
+        const msg = I18n.t(`${self.i18nPrefix}.new.success`, {
+          href: `/collections/${collectionId}`,
+          name: collection.name
+        });
         // eslint-disable-next-line react/no-danger
         const content = <span dangerouslySetInnerHTML={{ __html: msg }} />;
         const notification = { id: id, content: content, type: 'success' };
@@ -104,8 +112,8 @@ class AddToCollection extends React.Component {
 
         self.props.updateCollections(prevCollections);
         return prevCollections;
-      }).
-      catch((_err) => {
+      })
+      .catch((_err) => {
         const content = I18n.t(`${self.i18nPrefix}.new.error`);
         const notification = { id: id, content: content, type: 'error' };
 
@@ -121,17 +129,21 @@ class AddToCollection extends React.Component {
 
   render() {
     const textForCloseMenuButton = I18n.t(`${this.i18nPrefix}.btn_label`);
-    const textForOpenMenuButton = () => <IconPlus size="20" title={I18n.t(`${this.i18nPrefix}.tooltip`)} />;
+    const textForOpenMenuButton = () => (
+      <IconPlus size='20' title={I18n.t(`${this.i18nPrefix}.tooltip`)} />
+    );
     const textForEmptyState = I18n.t(`${this.i18nPrefix}.empty_state`);
     const textForNoSearchResults = I18n.t(`${this.i18nPrefix}.no_results`);
-    const textForSearchInputPlaceholder = I18n.t(`${this.i18nPrefix}.search_placeholder`);
+    const textForSearchInputPlaceholder = I18n.t(
+      `${this.i18nPrefix}.search_placeholder`
+    );
     const textForCreateItem = (searchValue) => {
       const key = searchValue === '' ? 'blank' : 'present';
       return I18n.t(`${this.i18nPrefix}.create.${key}`, { name: searchValue });
     };
 
     return (
-      <li className="icon-tray__item icon-tray__item--add-to-collection">
+      <li className='icon-tray__item icon-tray__item--add-to-collection'>
         <ReactSelectOrCreate
           items={this.props.collections}
           onCreate={this.addToNewCollection}
@@ -141,11 +153,11 @@ class AddToCollection extends React.Component {
           textForEmptyState={textForEmptyState}
           textForNoSearchResults={textForNoSearchResults}
           textForSearchInputPlaceholder={textForSearchInputPlaceholder}
-          textForCreateItem={textForCreateItem} />
+          textForCreateItem={textForCreateItem}
+        />
       </li>
     );
   }
-
 }
 
 export default AddToCollection;

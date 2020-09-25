@@ -10,13 +10,13 @@ const UploadList = (props) => {
   }
 
   return (
-    <ul className="file-uploader__upload-list">
-      {
-        files.map((file, index) => {
-          // eslint-disable-next-line react/no-array-index-key
-          return <Upload key={`file-dialog-${index}`} dataId={index} file={file} />;
-        })
-      }
+    <ul className='file-uploader__upload-list'>
+      {files.map((file, index) => {
+        // eslint-disable-next-line react/no-array-index-key
+        return (
+          <Upload key={`file-dialog-${index}`} dataId={index} file={file} />
+        );
+      })}
     </ul>
   );
 };

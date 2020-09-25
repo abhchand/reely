@@ -1,5 +1,1 @@
-RSpec.configure do |config|
-  config.before(:each) do
-    $redis.flushall
-  end
-end
+RSpec.configure { |config| config.before(:each) { $redis.flushall } }

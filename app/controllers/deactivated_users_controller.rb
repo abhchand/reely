@@ -21,8 +21,6 @@ class DeactivatedUsersController < ApplicationController
   def destroy
     user.update!(deactivated_at: nil) if user.deactivated?
 
-    respond_to do |format|
-      format.json { render json: {}, status: 200 }
-    end
+    respond_to { |format| format.json { render json: {}, status: 200 } }
   end
 end

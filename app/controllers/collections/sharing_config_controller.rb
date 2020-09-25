@@ -18,8 +18,7 @@ class Collections::SharingConfigController < ApplicationController
     success = sharing_config.update(update_params)
 
     render(
-      json: success ? sharing_config.as_json : nil,
-      status: success ? 200 : 500
+      json: success ? sharing_config.as_json : nil, status: success ? 200 : 500
     )
   end
 

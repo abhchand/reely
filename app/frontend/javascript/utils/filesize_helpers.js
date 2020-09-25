@@ -6,17 +6,7 @@ function formatFilesize(bytes, decimalPoint) {
   const base = 1024;
   // eslint-disable-next-line no-magic-numbers
   const dm = decimalPoint || 2;
-  const sizes = [
-    'Bytes',
-    'KB',
-    'MB',
-    'GB',
-    'TB',
-    'PB',
-    'EB',
-    'ZB',
-    'YB'
-  ];
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
   // Log(base)(bytes) => log(e)(bytes) / log(e)(base)
   const magnitude = Math.floor(Math.log(bytes) / Math.log(base));

@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe BundleFilesJob, type: :worker do
   let(:user) { create(:user) }
@@ -8,10 +8,10 @@ RSpec.describe BundleFilesJob, type: :worker do
     # want to (a) specify a custom collection name and (b) specify custom
     # (unique) fixture files for each photo
 
-    create(:collection, owner: user, name: "lima").tap do |collection|
+    create(:collection, owner: user, name: 'lima').tap do |collection|
       photos = [
-        create(:photo, owner: user, source_file_name: "atlanta.jpg"),
-        create(:photo, owner: user, source_file_name: "chennai.jpg")
+        create(:photo, owner: user, source_file_name: 'atlanta.jpg'),
+        create(:photo, owner: user, source_file_name: 'chennai.jpg')
       ]
 
       photos.each do |photo|
@@ -22,76 +22,74 @@ RSpec.describe BundleFilesJob, type: :worker do
 
   let(:uuid) { SecureRandom.hex }
 
-  let(:download_dir) do
-    Rails.configuration.x.default_download_dir.join(uuid)
-  end
+  let(:download_dir) { Rails.configuration.x.default_download_dir.join(uuid) }
 
   before { reset_dir!(download_dir) }
 
-  context "collection has no photos" do
+  context 'collection has no photos' do
     before { collection.photos.destroy_all }
 
-    it "does not create any files" do
+    it 'does not create any files' do
       # NOTE: The `download_dir` directory does get created because it's
       # called via `reset_dir!` in the `before{}` hook
 
       BundleFilesJob.new.perform(collection.id, uuid)
-      expect(Dir[download_dir.join("*")]).to be_empty
+      expect(Dir[download_dir.join('*')]).to be_empty
     end
   end
 
-  it "bundles all photos using the collection name" do
-    expect do
-      BundleFilesJob.new.perform(collection.id, uuid)
-    end.to change { Dir[download_dir.join("*.zip")].count }.from(0).to(1)
+  it 'bundles all photos using the collection name' do
+    expect { BundleFilesJob.new.perform(collection.id, uuid) }.to change {
+      Dir[download_dir.join('*.zip')].count
+    }.from(0).to(1)
 
-    bundle_filepath = Pathname.new(Dir[download_dir.join("*.zip")][0])
+    bundle_filepath = Pathname.new(Dir[download_dir.join('*.zip')][0])
 
     # Validate bundle name
-    expect(bundle_filepath.basename.to_s).to eq("lima.zip")
+    expect(bundle_filepath.basename.to_s).to eq('lima.zip')
 
     # Remove existing photos
-    Dir[download_dir.join("*.jpg")].each { |file| FileUtils.rm(file) }
+    Dir[download_dir.join('*.jpg')].each { |file| FileUtils.rm(file) }
 
     # Unzip the file
-    cmd = ["unzip", "-q", "lima.zip"].join(" ")
+    cmd = %w[unzip -q lima.zip].join(' ')
     Dir.chdir(download_dir) { raise unless system(cmd) }
 
     # Validate its contents
     files =
-      Dir[download_dir.join("*.jpg")].map do |file|
+      Dir[download_dir.join('*.jpg')].map do |file|
         Pathname.new(file).basename.to_s
       end
-    expect(files).to match_array(["atlanta.jpg", "chennai.jpg"])
+    expect(files).to match_array(%w[atlanta.jpg chennai.jpg])
   end
 
-  it "schedules the deletion job" do
+  it 'schedules the deletion job' do
     freeze_time do
-      expect do
-        BundleFilesJob.new.perform(collection.id, uuid)
-      end.to(change { DeleteFileBundleJob.jobs.size }.by(1))
+      expect { BundleFilesJob.new.perform(collection.id, uuid) }.to(
+        change { DeleteFileBundleJob.jobs.size }.by(1)
+      )
 
       job = DeleteFileBundleJob.jobs.last
-      expect(job["at"]).to eq(BundleFilesJob::TTL.from_now.to_i)
+      expect(job['at']).to eq(BundleFilesJob::TTL.from_now.to_i)
     end
   end
 
-  describe "bundle name" do
-    it "replaces the collection name with spaces" do
-      collection.update!(name: "Name with Spaces")
+  describe 'bundle name' do
+    it 'replaces the collection name with spaces' do
+      collection.update!(name: 'Name with Spaces')
 
       BundleFilesJob.new.perform(collection.id, uuid)
 
-      bundle_filepath = Pathname.new(Dir[download_dir.join("*.zip")][0])
-      expect(bundle_filepath.basename.to_s).to eq("Name-with-Spaces.zip")
+      bundle_filepath = Pathname.new(Dir[download_dir.join('*.zip')][0])
+      expect(bundle_filepath.basename.to_s).to eq('Name-with-Spaces.zip')
     end
 
-    it "escapes characters to work with shell naming" do
+    it 'escapes characters to work with shell naming' do
       collection.update!(name: "Name'that;`ls`;esc#aped")
 
       BundleFilesJob.new.perform(collection.id, uuid)
 
-      bundle_filepath = Pathname.new(Dir[download_dir.join("*.zip")][0])
+      bundle_filepath = Pathname.new(Dir[download_dir.join('*.zip')][0])
       expect(bundle_filepath.basename.to_s).to eq("Name'that;`ls`;esc#aped.zip")
     end
   end

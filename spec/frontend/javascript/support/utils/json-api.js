@@ -14,6 +14,4 @@ function initFromJsonApiData(jsonApiData) {
   return dataStore.sync(jsonApiData);
 }
 
-export {
-  initFromJsonApiData
-};
+export { initFromJsonApiData };

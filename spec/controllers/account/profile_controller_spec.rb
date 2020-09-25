@@ -1,12 +1,12 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Account::ProfileController, type: :controller do
   let(:user) { create(:user) }
 
   before { sign_in(user) }
 
-  describe "GET index" do
-    it "sets the @name" do
+  describe 'GET index' do
+    it 'sets the @name' do
       get :index
 
       expect(assigns(:user)).to eq(user)

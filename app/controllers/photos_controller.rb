@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  layout "with_responsive_navigation"
+  layout 'with_responsive_navigation'
 
   MAX_FILE_UPLOAD_COUNT = 25
 
@@ -14,21 +14,16 @@ class PhotosController < ApplicationController
     @collections = current_user.collections.order(created_at: :desc)
   end
 
-  def new
-  end
+  def new; end
 
   def create
     import.log.tap { |msg| Rails.logger.debug(msg) if msg }
 
     respond_to do |format|
       if import.success?
-        format.json do
-          render json: { paths: { tile: tile_path } }, status: 200
-        end
+        format.json { render json: { paths: { tile: tile_path } }, status: 200 }
       else
-        format.json do
-          render json: { error: import.error }, status: 403
-        end
+        format.json { render json: { error: import.error }, status: 403 }
       end
     end
   end
@@ -36,21 +31,20 @@ class PhotosController < ApplicationController
   private
 
   def include_pack_file_upload
-    @use_packs << "file-upload"
+    @use_packs << 'file-upload'
   end
 
   def create_params
-    params.require(:photo).permit(
-      :source_file
-    )
+    params.require(:photo).permit(:source_file)
   end
 
   def import
-    @import ||= Photos::ImportService.call(
-      owner: current_user,
-      filepath: create_params[:source_file].tempfile.path,
-      filename: create_params["source_file"].original_filename
-    )
+    @import ||=
+      Photos::ImportService.call(
+        owner: current_user,
+        filepath: create_params[:source_file].tempfile.path,
+        filename: create_params['source_file'].original_filename
+      )
   end
 
   def tile_path

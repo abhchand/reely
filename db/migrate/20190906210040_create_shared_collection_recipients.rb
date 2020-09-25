@@ -13,7 +13,14 @@ class CreateSharedCollectionRecipients < ActiveRecord::Migration[5.2]
     # - Override name since default name is greater than 63 character
     # - Add unique constraint on one of the two indexes
     # psql limit
-    add_index :shared_collection_recipients, [:collection_id, :recipient_id], name: "index_shared_collection_recipients_on_collection_and_recipient", unique: true
-    add_index :shared_collection_recipients, [:recipient_id, :collection_id], name: "index_shared_collection_recipients_on_recipient_and_collection"
+    add_index :shared_collection_recipients,
+              %i[collection_id recipient_id],
+              name:
+                'index_shared_collection_recipients_on_collection_and_recipient',
+              unique: true
+    add_index :shared_collection_recipients,
+              %i[recipient_id collection_id],
+              name:
+                'index_shared_collection_recipients_on_recipient_and_collection'
   end
 end

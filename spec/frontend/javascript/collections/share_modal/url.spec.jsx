@@ -26,7 +26,10 @@ describe('<Url />', () => {
     const input = rendered.getByTestId('url-input');
 
     expect(input).not.toBeNull();
-    expect(input).toHaveAttribute('value', collection.sharing_config.via_link.url);
+    expect(input).toHaveAttribute(
+      'value',
+      collection.sharing_config.via_link.url
+    );
     expect(input).toHaveAttribute('readOnly', '');
   });
 });

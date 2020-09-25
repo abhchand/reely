@@ -2,11 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Header = (props) => {
-  return (
-    <div className="accordion-table-header">
-      {props.renderContent()}
-    </div>
-  );
+  return <div className='accordion-table-header'>{props.renderContent()}</div>;
 };
 
 Header.propTypes = {

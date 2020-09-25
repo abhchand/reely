@@ -12,6 +12,6 @@ module FeatureHelpers
   end
 
   def click_create_user_invitation_button
-    page.find(".admin-user-invitation-list__create-user-invitation-btn").click
+    page.find('.admin-user-invitation-list__create-user-invitation-btn').click
   end
 end
