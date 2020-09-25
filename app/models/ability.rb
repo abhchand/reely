@@ -36,7 +36,7 @@ class Ability
     end
 
     can :read, User do |u|
-      admin? || observer?
+      admin?
     end
 
     can :write, User do |_user|
@@ -44,7 +44,7 @@ class Ability
     end
 
     can :read, :user_invitations do
-      admin? || observer?
+      admin?
     end
 
     can :write, UserInvitation do |_user_invitation|

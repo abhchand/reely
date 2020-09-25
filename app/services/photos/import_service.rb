@@ -56,20 +56,23 @@ class Photos::ImportService
 
     safe_checksum = ActiveRecord::Base.connection.quote(checksum)
 
-    ActiveRecord::Base.connection.execute(<<-SQL)
-      SELECT
-        asb.id
-      FROM active_storage_blobs asb
-      JOIN active_storage_attachments asa
-        ON asa.blob_id = asb.id
-      JOIN photos p
-        ON asa.record_type = 'Photo' and asa.record_id = p.id
-      WHERE p.owner_id = #{
-      owner.id
-    }
-        AND asb.checksum = #{safe_checksum}
-      LIMIT 1
-      SQL.to_a.any?
+    response =
+      ActiveRecord::Base.connection.execute(<<-SQL)
+        SELECT
+          asb.id
+        FROM active_storage_blobs asb
+        JOIN active_storage_attachments asa
+          ON asa.blob_id = asb.id
+        JOIN photos p
+          ON asa.record_type = 'Photo' and asa.record_id = p.id
+        WHERE p.owner_id = #{
+        owner.id
+      }
+          AND asb.checksum = #{safe_checksum}
+        LIMIT 1
+      SQL
+
+    response.to_a.any?
   end
 
   def create_photo

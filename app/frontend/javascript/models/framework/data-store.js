@@ -1,12 +1,5 @@
-import Comment from '../comment';
-import Discipline from '../discipline';
-import Habit from '../habit';
-import Level from '../level';
-import Milestone from '../milestone';
-import Skill from '../skill';
-import Track from '../track';
-import UserInvitation from '../user-invitation';
 import User from '../user';
+import UserInvitation from '../user-invitation';
 
 /**
  * @class JsonApiDataStore
@@ -16,13 +9,6 @@ import User from '../user';
  */
 class JsonApiDataStore {
   static MODEL_TYPES = {
-    comment: Comment,
-    discipline: Discipline,
-    habit: Habit,
-    level: Level,
-    milestone: Milestone,
-    skill: Skill,
-    track: Track,
     userInvitation: UserInvitation,
     user: User
   };

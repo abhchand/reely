@@ -50,13 +50,16 @@ class AddPhotosToCollection
   # rubocop:enable Lint/UnusedMethodArgument
 
   def find_unadded_photos(synthetic_ids)
-    Photo.select(:id, :owner_id).joins(<<-SQL)
+    response =
+      Photo.select(:id, :owner_id).joins(<<-SQL)
         LEFT JOIN photo_collections
           ON photo_collections.photo_id = photos.id
           AND photo_collections.collection_id = #{
-      collection.id
-    }
-        SQL.where(synthetic_id: synthetic_ids).where(
+        collection.id
+      }
+      SQL
+
+    response.where(synthetic_id: synthetic_ids).where(
       photo_collections: { id: nil }
     )
   end

@@ -30,7 +30,7 @@ class FilterTable extends React.Component {
 
   static defaultProps = {
     containerClass: '',
-    mapResponseDataToItems: (data, _dataStore) => dataStore.sync(data)
+    mapResponseDataToItems: (data, dataStore) => dataStore.sync(data)
   };
 
   // eslint-disable-next-line padded-blocks

@@ -87,11 +87,11 @@ class AdminUserList extends React.Component {
         <tr key={user.id} className='admin-user-list__row' data-id={user.id}>
           <td className='avatar'>
             <div className='avatar-container'>
-              <img alt={name} src={user.attributes.avatarPath} />
+              <img alt={name} src={user.avatarPath('thumb')} />
             </div>
           </td>
           <td className='name'>{user.name()}</td>
-          <td className='email'>{user.attributes.email}</td>
+          <td className='email'>{user.email}</td>
           <td className='roles'>
             {user.roles.map((role, _i) => {
               return (
@@ -112,9 +112,7 @@ class AdminUserList extends React.Component {
             />
           </td>
           <td className='last-signed-in'>
-            {user.attributes.last_sign_in_at
-              ? dateToYMD(new Date(user.attributes.last_sign_in_at))
-              : '-'}
+            {user.lastSignInAt ? dateToYMD(new Date(user.lastSignInAt)) : '-'}
           </td>
           <td className='deactivate-user'>
             <button

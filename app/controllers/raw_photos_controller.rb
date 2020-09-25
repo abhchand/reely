@@ -59,21 +59,23 @@ class RawPhotosController < ActiveStorage::DiskController
       begin
         direct_access_key = ActiveRecord::Base.connection.quote(params[:id])
         blob_or_variant =
-          ActiveStorage::Blob.find_by_sql(<<-SQL)
-        SELECT
-          asb.key,
-          asb.filename,
-          asb.content_type
-        FROM active_storage_blobs asb
-        JOIN active_storage_attachments asa
-          ON asa.blob_id = asb.id
-        JOIN photos p
-          ON asa.record_type = 'Photo' and asa.record_id = p.id
-        WHERE p.direct_access_key = #{
-            direct_access_key
-          }
-        LIMIT 1
-        SQL.first
+          (
+            ActiveStorage::Blob.find_by_sql(<<-SQL)
+            SELECT
+              asb.key,
+              asb.filename,
+              asb.content_type
+            FROM active_storage_blobs asb
+            JOIN active_storage_attachments asa
+              ON asa.blob_id = asb.id
+            JOIN photos p
+              ON asa.record_type = 'Photo' and asa.record_id = p.id
+            WHERE p.direct_access_key = #{
+              direct_access_key
+            }
+            LIMIT 1
+          SQL
+          ).first
 
         return if blob_or_variant.nil?
         return blob_or_variant if params[:size].blank? || !transformations

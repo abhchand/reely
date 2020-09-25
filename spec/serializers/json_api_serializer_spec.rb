@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe JsonApiSerializer do
   let!(:models) do
-    # Pick arbitrary model to test with (e.g. `Skill`)
-    create_list(:skill, 2)
+    # Pick arbitrary model to test with (e.g. `UserInvitation`)
+    create_list(:user_invitation, 2)
   end
 
   describe '.serialize' do
     context 'input data is a model class' do
       it 'serializes all records ordered by :id, by default' do
-        result = serialize(Skill)
+        result = serialize(UserInvitation)
 
         expect_results_to_be(result, [models[0], models[1]])
       end
@@ -43,7 +43,7 @@ RSpec.describe JsonApiSerializer do
 
     context 'input data is an ActiveRecord collection of records' do
       it 'serializes the models' do
-        result = serialize(Skill.order(id: :desc))
+        result = serialize(UserInvitation.order(id: :desc))
 
         expect_results_to_be(result, [models[1], models[0]])
       end
@@ -53,7 +53,7 @@ RSpec.describe JsonApiSerializer do
           result = nil
 
           expect do
-            result = serialize(Skill.where(name: 'xyz'))
+            result = serialize(User.where(email: 'xyz@foo.com'))
           end.to_not raise_error
 
           expect_results_to_be(result, [])
