@@ -67,6 +67,6 @@ class Api::V1::UsersController < Api::BaseController
   end
 
   def serialize(user, opts = {})
-    UserSerializer.new(user, { params: {} }.deep_merge(opts)).serializable_hash
+    UserSerializer.new(user, opts).serializable_hash
   end
 end

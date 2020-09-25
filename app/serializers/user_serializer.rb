@@ -13,10 +13,8 @@ class UserSerializer < ApplicationSerializer
     end
   end
 
-  attribute :current_user_abilities do |user, params|
-    ability = params[:current_ability]
-    next unless ability
-
+  attribute :current_user_abilities do |user, _params|
+    ability = Ability.new(user)
     ability.user_abilities_for(user)
   end
 
