@@ -31,6 +31,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
     expect(user.uid).to_not eq(auth[:info][:uid])
     expect(user.avatar.attached?).to eq(true)
 
+    expect(result.was_user_created).to eq(true)
     expect(result.error).to be_nil
     expect(result.log).to be_nil
   end
@@ -52,6 +53,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
     expect(result.success?).to eq(false)
     expect(result.user).to be_nil
 
+    expect(result.was_user_created).to eq(false)
     expect(result.error).to eq(I18n.t('generic_error'))
     expect(result.log).to match(/Missing auth/)
   end
@@ -65,6 +67,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
     expect(result.success?).to eq(false)
     expect(result.user).to be_nil
 
+    expect(result.was_user_created).to eq(false)
     expect(result.error).to eq(I18n.t('generic_error'))
     expect(result.log).to match(/Missing uid/)
   end
@@ -79,6 +82,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
       expect(result.success?).to eq(false)
       expect(result.user).to be_nil
 
+      expect(result.was_user_created).to eq(false)
       expect(result.error).to eq(I18n.t('generic_error'))
       expect(result.log).to match(/User validation errors/)
     end
@@ -97,6 +101,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
         expect(result.success?).to eq(false)
         expect(result.user).to be_nil
 
+        expect(result.was_user_created).to eq(false)
         expect(result.error).to eq(
           validation_error_for(:email, :invalid_domain, domain: 'foo.gov')
         )
@@ -116,6 +121,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
       user = result.user
       expect(user.avatar.attached?).to eq(false)
 
+      expect(result.was_user_created).to eq(true)
       expect(result.error).to be_nil
       expect(result.log).to be_nil
     end
@@ -130,6 +136,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
       user = result.user
       expect(user.avatar.attached?).to eq(false)
 
+      expect(result.was_user_created).to eq(true)
       expect(result.error).to be_nil
       expect(result.log).to match(/Failed avatar attachment/)
     end
@@ -149,6 +156,7 @@ RSpec.describe UserManagement::Omniauth::GoogleOauth2Service,
       user = result.user
       expect(user).to eq(existing)
 
+      expect(result.was_user_created).to eq(false)
       expect(result.error).to be_nil
       expect(result.log).to be_nil
     end

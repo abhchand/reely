@@ -10,7 +10,7 @@ class Devise::Custom::OmniauthCallbacksController < Devise::OmniauthCallbacksCon
 
     if service.success?
       user = service.user
-      after_registration(user)
+      after_registration(user) if service.was_user_created
       sign_in_and_redirect(user)
     else
       flash[:error] = service.error

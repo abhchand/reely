@@ -8,6 +8,8 @@ module UserManagement
       after { context.user = user }
 
       def call
+        context.was_user_created = false
+
         @job_id = SecureRandom.hex
         @auth = context.auth
 
@@ -52,7 +54,7 @@ module UserManagement
           first_name: first_name, last_name: last_name, email: email
         }
 
-        user.save
+        user.save.tap { |res| context.was_user_created = true if res }
       end
 
       def attach_avatar

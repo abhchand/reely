@@ -22,7 +22,7 @@ RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
       request.env['devise.mapping'] = Devise.mappings[:user]
     end
 
-    it 'signs in and redirects the user' do
+    it 'creates, signs in, and redirects the user' do
       expect { get :google_oauth2 }.to(change { User.count }.by(1))
 
       user = User.last
@@ -32,7 +32,7 @@ RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
       expect(flash[:error]).to be_nil
     end
 
-    it 'audits the creation of the record' do
+    it 'audits the creation of the User' do
       get :google_oauth2
 
       user = User.last
@@ -82,6 +82,45 @@ RSpec.describe Devise::Custom::OmniauthCallbacksController, type: :controller do
           expect { get :google_oauth2 }.to_not(change { User.count })
 
           expect(invitation.reload.invitee).to be_nil
+        end
+      end
+    end
+
+    context 'User already exists' do
+      let!(:user) do
+        create(
+          :user,
+          :omniauth,
+          uid: auth[:uid],
+          first_name: auth[:info][:first_name],
+          last_name: auth[:info][:last_name],
+          email: auth[:info][:email]
+        )
+      end
+
+      it 'signs in and redirects the user' do
+        expect { get :google_oauth2 }.to_not(change { User.count })
+
+        user = User.last
+
+        expect(controller.current_user).to eq(user)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:error]).to be_nil
+      end
+
+      context 'a UserInvitation record exists for this user\'s email' do
+        let(:invitation) do
+          create(:user_invitation, invitee: user, email: auth[:info][:email])
+        end
+
+        it 'does not update the invitation' do
+          expect { get :google_oauth2 }.to_not(
+            change { invitation.reload.updated_at }
+          )
+        end
+
+        it 'does not deliver any mailer notifications' do
+          expect { get :google_oauth2 }.to_not(change { mailer_queue.count })
         end
       end
     end
