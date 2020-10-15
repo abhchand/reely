@@ -4,28 +4,28 @@ module Admin
       class IncorrectAuditableType < StandardError; end
       class DescriptionError < StandardError; end
 
-      def self.call(audit)
-        service = new(audit)
-
-        begin
-          service.description
-        rescue StandardError
-          msg =
-            I18n.t(
-              'admin.audit.shared.error_constructing_description',
-              id: audit.id,
-              action: audit.action,
-              auditable_type: audit.auditable_type,
-              auditable_id: audit.auditable_id
-            )
-
-          raise DescriptionError, msg
-        end
-      end
-
       def initialize(audit)
         @audit = audit
         validate_auditable_type!
+      end
+
+      def safe_description
+        description
+      rescue StandardError
+        msg =
+          I18n.t(
+            'admin.audit.shared.error_constructing_description',
+            id: audit.id,
+            action: audit.action,
+            auditable_type: audit.auditable_type,
+            auditable_id: audit.auditable_id
+          )
+
+        raise DescriptionError, msg
+      end
+
+      def modified_user
+        nil
       end
 
       private

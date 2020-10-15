@@ -14,6 +14,10 @@ module Admin
         end
       end
 
+      def modified_user
+        user_invitation.invitee
+      end
+
       private
 
       def user_invitation

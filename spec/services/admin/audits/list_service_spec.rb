@@ -91,7 +91,7 @@ RSpec.describe Admin::Audits::ListService, type: :interactor do
     context '`modifier` is specified' do
       before { params[:modifier] = users[0].synthetic_id }
 
-      it 'returns only audits modified by the modifier' do
+      it 'returns only audits where the user is the modifier' do
         # This tests that we fetch both types of records:
         #   - Audits where the modifier is the `audits.user`
         #   - Audits capturing the creation of the modifier's own User record
@@ -108,6 +108,35 @@ RSpec.describe Admin::Audits::ListService, type: :interactor do
 
       context '`modifier` is invalid' do
         before { params[:modifier] = 'abcde' }
+
+        it 'ignores the param' do
+          expect(service.audits).to eq(
+            [@audits[3], @audits[2], @audits[1], @audits[0]]
+          )
+        end
+      end
+    end
+
+    context '`modified` is specified' do
+      before { params[:modified] = users[0].synthetic_id }
+
+      it 'returns only audits where the user is modified' do
+        # This tests that we fetch both types of records:
+        #   - Audits where the user is modified
+        #   - Audits capturing the creation of the modified's own User record
+        expect(service.audits).to eq([@audits[3], @audits[0]])
+      end
+
+      describe 'pagination' do
+        before { stub_const('Admin::Audits::ListService::PAGE_SIZE', 1) }
+
+        it 'paginates results' do
+          expect(service.audits).to eq([@audits[3]])
+        end
+      end
+
+      context '`modifier` is invalid' do
+        before { params[:modified] = 'abcde' }
 
         it 'ignores the param' do
           expect(service.audits).to eq(

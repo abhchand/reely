@@ -169,8 +169,12 @@ en:
     audits:
       index:
         heading: Audits
+        filter_warning:
+          modifier: You are viewing only changes made by <b>%{name}</b>
+          modified: You are viewing only changes made to <b>%{name}</b>
         header:
           modifier: Modifier
+          modified: Modified
           description: Action
           created_at: Modified At
     audit:
@@ -182,8 +186,8 @@ en:
         created_as_omniauth: Created account via OmniAuth (%{provider})
         updated_to_deactivated: Deactivated account %{email}
         updated_to_activated: Activated account %{email}
-        updated_to_add_role: "Added role to %{name}: '%{role}'"
-        updated_to_remove_role: "Removed role from %{name}: '%{role}'"
+        updated_to_add_role: "Added role '%{role}'"
+        updated_to_remove_role: "Removed role '%{role}'"
       user_invitation_description:
         created: Invited %{email}
         destroyed: Uninvited %{email}

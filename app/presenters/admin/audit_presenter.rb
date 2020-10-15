@@ -3,6 +3,10 @@ class Admin::AuditPresenter < ApplicationPresenter
     audit.user
   end
 
+  def modified
+    @modified ||= description_service.modified_user
+  end
+
   def description
     @description ||= fetch_description
   end
@@ -18,13 +22,17 @@ class Admin::AuditPresenter < ApplicationPresenter
   private
 
   def fetch_description
-    { error: false, text: description_service_class.call(audit).html_safe }
+    { error: false, text: description_service.safe_description.html_safe }
   rescue Admin::Audit::BaseDescriptionService::DescriptionError => e
     { error: true, text: e.message }
   end
 
   def audit
     model
+  end
+
+  def description_service
+    @description_service ||= description_service_class.new(audit)
   end
 
   def description_service_class

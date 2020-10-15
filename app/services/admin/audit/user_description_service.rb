@@ -22,6 +22,10 @@ module Admin
         end
       end
 
+      def modified_user
+        user
+      end
+
       private
 
       def user
@@ -83,17 +87,11 @@ module Admin
       end
 
       def describe_updated_to_add_role
-        t(
-          '.updated_to_add_role',
-          name: user.name, role: new_value_for('audited_roles')
-        )
+        t('.updated_to_add_role', role: new_value_for('audited_roles'))
       end
 
       def describe_updated_to_remove_role
-        t(
-          '.updated_to_remove_role',
-          name: user.name, role: old_value_for('audited_roles')
-        )
+        t('.updated_to_remove_role', role: old_value_for('audited_roles'))
       end
     end
   end

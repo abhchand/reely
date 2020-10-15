@@ -4,5 +4,6 @@ class Admin::AuditsController < AdminController
 
     @audits = service.audits
     @modifier = service.modifier
+    @modified = service.modified
   end
 end

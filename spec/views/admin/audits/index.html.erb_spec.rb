@@ -67,6 +67,16 @@ RSpec.describe 'admin/audits/index.html.erb', type: :view do
         expect(page).to have_content('_stubbed_filter_warning')
       end
     end
+
+    context 'filtering by a modified' do
+      before { assign(:modified, admin) }
+
+      it 'renders a filter warning' do
+        render
+
+        expect(page).to have_content('_stubbed_filter_warning')
+      end
+    end
   end
 
   describe 'audits table' do
@@ -76,6 +86,7 @@ RSpec.describe 'admin/audits/index.html.erb', type: :view do
       expect(page.all('thead td').map(&:text)).to eq(
         [
           t("#{@t_prefix}.header.modifier"),
+          t("#{@t_prefix}.header.modified"),
           t("#{@t_prefix}.header.description"),
           t("#{@t_prefix}.header.created_at")
         ]
@@ -95,6 +106,10 @@ RSpec.describe 'admin/audits/index.html.erb', type: :view do
       expect(last_row.find('.modifier')).to have_link(
         admin.name,
         href: admin_audits_path(modifier: admin.synthetic_id)
+      )
+      expect(last_row.find('.modified')).to have_link(
+        other.name,
+        href: admin_audits_path(modified: other.synthetic_id)
       )
       expect(last_row.find('.description').text.strip).to eq(
         t(
@@ -136,10 +151,10 @@ RSpec.describe 'admin/audits/index.html.erb', type: :view do
       end
     end
 
-    context 'a modifier exists for a particular audit record' do
+    context 'a modifier doesn\'t for a particular audit record' do
       before { @audits[2].update!(user: nil) }
 
-      it 'renders the modifier name as a link' do
+      it 'renders the modifier name as blank' do
         render
 
         rows = page.all('tbody tr')
@@ -148,6 +163,25 @@ RSpec.describe 'admin/audits/index.html.erb', type: :view do
         last_row = rows.last
 
         expect(last_row.find('.modifier')).to_not have_link(admin.name)
+      end
+    end
+
+    context 'a modified user doesn\'t for a particular audit record' do
+      before do
+        allow_any_instance_of(Admin::AuditPresenter).to receive(:modified) {
+          nil
+        }
+      end
+
+      it 'renders the modifier name as blank' do
+        render
+
+        rows = page.all('tbody tr')
+
+        # Corresponds to `@audits[2]` - admin updating other's role
+        last_row = rows.last
+
+        expect(last_row.find('.modified')).to_not have_link(admin.name)
       end
     end
   end

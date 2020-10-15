@@ -15,12 +15,17 @@ class Admin::Audits::ListService
       begin
         audits = fetch_audits
         audits = filter_by_modifier!(audits) if modifier
+        audits = filter_by_modified!(audits) if modified
         audits
       end
   end
 
   def modifier
     @modifier ||= User.find_by_synthetic_id(params[:modifier])
+  end
+
+  def modified
+    @modified ||= User.find_by_synthetic_id(params[:modified])
   end
 
   private
@@ -55,6 +60,39 @@ class Admin::Audits::ListService
         )
       )
       SQL
+  end
+
+  def filter_by_modified!(audits)
+    # The following are events that can occur to a modified user "M":
+    #   - Any audited change to a User object M
+    #   - Any audited change to a Comment where M is the owner
+    #   - Any audited change to a UserInvitation where M is the invitee
+    #   - Any audited change to a UserLevel where M is the user
+    audits.where(<<-SQL)
+      (
+        auditable_type = 'User' AND auditable_id = '#{
+      modified.id
+    }'
+      )
+      OR
+      (
+        auditable_type = 'Comment' AND audited_changes->>'owner_id' = '#{
+      modified.id
+    }'
+      )
+      OR
+      (
+        auditable_type = 'UserInvitation' AND audited_changes->>'invitee_id' = '#{
+      modified.id
+    }'
+      )
+      OR
+      (
+        auditable_type = 'UserLevel' AND audited_changes->>'user_id' = '#{
+      modified.id
+    }'
+      )
+    SQL
   end
 
   def per_page

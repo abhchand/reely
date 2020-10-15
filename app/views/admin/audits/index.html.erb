@@ -9,7 +9,10 @@
 %>
 
 <% if @modifier %>
-<%= render("admin/filter_warning", path: admin_audits_path, name: @modifier.name, opts: {}) %>
+<%= render("admin/filter_warning", path: admin_audits_path, opts: { warning_msg: t('.filter_warning.modifier', name: @modifier.name) }) %>
+<% end %>
+<% if @modified %>
+<%= render("admin/filter_warning", path: admin_audits_path, opts: { warning_msg: t('.filter_warning.modified', name: @modified.name) }) %>
 <% end %>
 
 <div class="admin-audits__audits-table-container">
@@ -17,6 +20,7 @@
     <thead>
       <tr>
         <td class="modifier"><%= t(".header.modifier") %></td>
+        <td class="modified"><%= t(".header.modified") %></td>
         <td class="description"><%= t(".header.description") %></td>
         <td class="created_at"><%= t(".header.created_at") %></td>
       </tr>
@@ -29,6 +33,13 @@
           <%=
             if audit.modifier
               link_to(audit.modifier.name, admin_audits_path(modifier: audit.modifier.synthetic_id))
+            end
+          %>
+        </td>
+        <td class="modified">
+          <%=
+            if audit.modified
+              link_to(audit.modified.name, admin_audits_path(modified: audit.modified.synthetic_id))
             end
           %>
         </td>
