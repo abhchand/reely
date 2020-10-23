@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require "highline/import"
-
 #
 # Git hooks are located in .git/hooks, which is outside of version control
 #
@@ -17,7 +15,9 @@ githooks_dir = File.expand_path("../../.git/hooks", __FILE__)
 precommit_file = githooks_dir + "/pre-commit"
 
 if File.exist?(precommit_file)
-  exit unless HighLine.agree("File #{precommit_file} exists.\nOverride? (Y/N)")
+  printf "\033[33mFile #{precommit_file} exists.\nOverride? (Y/N) "
+  prompt = STDIN.gets.chomp
+  exit unless prompt.downcase == 'y'
 end
 
 File.open(precommit_file, "w") do |file|
