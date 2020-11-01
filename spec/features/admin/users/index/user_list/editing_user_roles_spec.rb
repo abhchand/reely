@@ -27,8 +27,8 @@ RSpec.feature 'Editing User Roles', type: :feature, js: true do
     toggle_role(:director)
     click_modal_submit
     expect_modal_is_closed(async: true)
-    expect(displayed_roles_for(user)).to eq(%w[admin director])
-    expect(user.reload.roles.pluck(:name)).to eq(%w[admin director])
+    expect(displayed_roles_for(user)).to match_array(%w[admin director])
+    expect(user.reload.roles.pluck(:name)).to match_array(%w[admin director])
 
     click_filter_table_edit_user_roles_for(user)
 
