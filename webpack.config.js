@@ -1,6 +1,10 @@
 /* eslint-disable prefer-named-capture-group */
 /* eslint-disable no-process-env */
 
+const devMode = process.env.NODE_ENV === 'development';
+const testMode = process.env.NODE_ENV === 'test';
+const prodMode = process.env.NODE_ENV === 'production';
+
 const path = require('path');
 
 const ASSETS_DIR = path.resolve(__dirname, 'app/frontend');
@@ -8,17 +12,14 @@ const ASSETS_DIR = path.resolve(__dirname, 'app/frontend');
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 const PACKS_DIR = path.resolve(
   __dirname,
-  process.env.NODE_ENV === 'test' ? 'public/packs-test' : 'public/packs'
+  testMode ? 'public/packs-test' : 'public/packs'
 );
 const IMAGES_DIR = path.resolve(
   __dirname,
-  process.env.NODE_ENV === 'test'
-    ? 'public/assets/images-test'
-    : 'public/assets/images'
+  testMode ? 'public/assets/images-test' : 'public/assets/images'
 );
 
-const PUBLIC_PATH =
-  process.env.NODE_ENV === 'test' ? '/packs-test/' : '/packs/';
+const PUBLIC_PATH = testMode ? '/packs-test/' : '/packs/';
 
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -27,7 +28,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 const webpack = require('webpack');
 
 const config = {
-  mode: process.env.NODE_ENV === 'test' ? 'none' : process.env.NODE_ENV,
+  mode: testMode ? 'none' : process.env.NODE_ENV,
   output: {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].chunk.js',
