@@ -114,7 +114,15 @@ class BaseModel {
       return;
     }
 
-    const idx = curModels.indexOf(model);
+    /*
+     * Don't add the model if it's already present
+     *
+     * Search by `id` since any instance of a model could
+     * be specified. This doesn't protect against
+     * models of a different `type`, but we expect whatever
+     * calls this method to ensure that's correct
+     */
+    const idx = curModels.findIndex(i => i.id === model.id);
     if (idx > -1) {
       return;
     }
@@ -136,7 +144,16 @@ class BaseModel {
       return;
     }
 
-    const idx = curModels.indexOf(model);
+    /*
+     * Validate that the model exists before we remove it
+     * from the relationship
+     *
+     * Search by `id` since any instance of a model could
+     * be specified. This doesn't protect against
+     * models of a different `type`, but we expect whatever
+     * calls this method to ensure that's correct
+     */
+    const idx = curModels.findIndex(i => i.id === model.id);
     if (idx === -1) {
       return;
     }
