@@ -35,7 +35,10 @@ const config = {
     chunkFilename: '[name]-[chunkhash].chunk.js',
     path: PACKS_DIR,
     publicPath: PUBLIC_PATH,
-    pathinfo: true
+    pathinfo: true,
+    // https://github.com/webpack/webpack/issues/6693#issuecomment-745688108
+    hotUpdateChunkFilename: '[id].[fullhash].hot-update.js',
+    hotUpdateMainFilename: '[fullhash].hot-update.json'
   },
   resolve: {
     extensions: [
