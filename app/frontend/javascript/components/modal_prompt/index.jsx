@@ -71,7 +71,7 @@ class ModalPrompt extends React.Component {
       errorText: null
     });
 
-    return axios(config)
+    return axios.request(config)
       .then((response) => {
         if (self.props.afterSubmit) {
           self.props.afterSubmit(response);
