@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.0.0"
+gem "rails", "6.0.3.6"
 ruby "2.5.5"
 
 #
@@ -21,7 +21,7 @@ gem "exiftool", "~> 1.0"
 gem "fast_jsonapi", "~> 1.6.0", git: "https://github.com/fast-jsonapi/fast_jsonapi"
 gem "image_processing", "~> 1.2"
 gem "interactor", "~> 3.0"
-gem "marcel", "~> 0.3.3"
+gem "marcel", "~> 1.0", ">= 1.0.1"
 gem "omniauth", "~> 1.9"
 gem "omniauth-google-oauth2", "~> 0.8.0"
 gem "pg", "~> 0.18.4"
