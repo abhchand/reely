@@ -32,6 +32,16 @@ gem "sidekiq", "~> 5.2", ">= 5.2.5"
 gem "smtpapi", "~> 0.1.0"
 gem "will_paginate", "~> 3.2", ">= 3.2.1"
 
+# Rails 6+ pulls in Sprockets >= 4.0, which in turn require manifest files.
+# These don't exist since we don't use Sprockets (and use exclusive Webpack).
+# See: https://github.com/rails/sprockets/blob/master/UPGRADING.md
+#
+# A future alternative is to prevent Rails from pulling in Sprockets by
+# requiring Rails dependencies manually in application.rb
+# See: https://andre.arko.net/2020/07/09/rails-6-with-webpack-in-appassets-and-no-sprockets/
+
+gem "sprockets", "~> 3.0"
+
 #
 # Vulnerabilities
 #
